@@ -1,1 +1,32 @@
 /* below the fold CSS goes here */
+    /* || Begin Gellix Font imports from netcentric domain */
+@font-face{
+    font-family: Gellix;
+    font-style: normal;
+    font-weight: 400;
+    src: url("../fonts/gellix-regular_r.woff2") format("woff2"), url("../fonts/gellix-regular_r.woff") format("woff");
+    font-display: swap;
+}
+@font-face{
+    font-family: Gellix;
+    font-style: italic;
+    font-weight: 400;
+    src: url("../fonts/gellix-regularitalic_r.woff2") format("woff2"), url("../fonts/gellix-regularitalic_r.woff") format("woff");
+    font-display: swap;
+}
+@font-face{
+    font-family: Gellix;
+    font-style: normal;
+    font-weight: 700;
+    src: url("../fonts/gellix-semibold_r.woff2") format("woff2"),  url("../fonts/gellix-semibold_r.woff") format("woff");
+    font-display: swap;
+}
+
+@font-face{
+    font-family: Gellix;
+    font-style: italic;
+    font-weight: 700;
+    src: url("../fonts/gellix-semibolditalic_r.woff2") format("woff2"), url("../fonts/gellix-semibolditalic_r.woff") format("woff");
+    font-display: swap;
+}
+/* || End Gellix Font imports from netcentric domain */

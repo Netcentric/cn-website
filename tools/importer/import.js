@@ -20,9 +20,8 @@ function transformRelatedBlogPosts(document) {
       const cells = [['Related Blogs']];
 
       const blogLinks = [];
-      for (let i = 0; i < relatedBlogPosts.childElementCount; i++) {
-        const href =
-          relatedBlogPosts.children[i].querySelector('.teaser__link').href;
+      for (let i = 0; i < relatedBlogPosts.childElementCount; i += 1) {
+        const { href } = relatedBlogPosts.children[i].querySelector('.teaser__link');
         const a = document.createElement('a');
         a.href = href;
         a.innerHTML = href;
@@ -38,7 +37,7 @@ function transformRelatedBlogPosts(document) {
 // convert embed objects
 function transformEmbed(document) {
   document.querySelectorAll('div.embed, div.video').forEach((embed) => {
-    const cells = [[`Embed`]];
+    const cells = [['Embed']];
 
     // detect embed iframe
     const iframeContent = embed.querySelector('iframe');
@@ -102,10 +101,7 @@ export default {
    */
   transformDOM: ({
     // eslint-disable-next-line no-unused-vars
-    document,
-    url,
-    html,
-    params,
+    document, url, html, params,
   }) => {
     const meta = {};
 
@@ -178,7 +174,8 @@ export default {
    * @param {object} params Object containing some parameters given by the import process.
    * @return {string} The path
    */
-  // eslint-disable-next-line no-unused-vars
-  generateDocumentPath: ({ document, url, html, params }) =>
-    new URL(url).pathname.replace(/\.html$/, '').replace(/\/$/, ''),
+  generateDocumentPath: ({
+    // eslint-disable-next-line no-unused-vars
+    document, url, html, params,
+  }) => new URL(url).pathname.replace(/\.html$/, '').replace(/\/$/, ''),
 };

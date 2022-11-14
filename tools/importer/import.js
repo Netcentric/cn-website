@@ -19,18 +19,16 @@ function transformRelatedBlogPosts(document) {
     .forEach((relatedBlogPosts) => {
       const cells = [['Related Blogs']];
 
-      const list = document.createElement('ul');
+      const blogLinks = [];
       for (let i = 0; i < relatedBlogPosts.childElementCount; i++) {
         const href =
           relatedBlogPosts.children[i].querySelector('.teaser__link').href;
-        const li = document.createElement('li');
         const a = document.createElement('a');
         a.href = href;
         a.innerHTML = href;
-        li.appendChild(a);
-        list.appendChild(li);
+        blogLinks.push(a);
       }
-      cells.push([list]);
+      cells.push([blogLinks]);
 
       const table = WebImporter.DOMUtils.createTable(cells, document);
       relatedBlogPosts.replaceWith(table);
@@ -39,10 +37,10 @@ function transformRelatedBlogPosts(document) {
 
 // convert embed objects
 function transformEmbed(document) {
-  document.querySelectorAll('.embed').forEach((embed) => {
+  document.querySelectorAll('div.embed, div.video').forEach((embed) => {
     const cells = [[`Embed`]];
 
-    // detect embed spotify player
+    // detect embed iframe
     const iframeContent = embed.querySelector('iframe');
     if (iframeContent) {
       cells.push([iframeContent.src]);
@@ -180,11 +178,7 @@ export default {
    * @param {object} params Object containing some parameters given by the import process.
    * @return {string} The path
    */
-  generateDocumentPath: ({
-    // eslint-disable-next-line no-unused-vars
-    document,
-    url,
-    html,
-    params,
-  }) => new URL(url).pathname.replace(/\.html$/, '').replace(/\/$/, ''),
+  // eslint-disable-next-line no-unused-vars
+  generateDocumentPath: ({ document, url, html, params }) =>
+    new URL(url).pathname.replace(/\.html$/, '').replace(/\/$/, ''),
 };

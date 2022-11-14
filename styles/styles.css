@@ -9,7 +9,8 @@
  * OF ANY KIND, either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
 */
-    /* fallback font for Gellix (normal - 400) */
+  
+/* fallback font for Gellix (normal - 400) */
   @font-face {
       font-family: "gellix-normal-400-fallback";
       size-adjust: 100.871%;
@@ -33,8 +34,8 @@
   --text-color: #000;
 
   /* fonts */
-  --body-font-family: Gellix, "gellix-normal-400-fallback", "Century Gothic", CenturyGothic, AppleGothic, sans-serif;
-  --heading-font-family: Gellix, "gellix-normal-700-fallback", "Century Gothic", CenturyGothic, AppleGothic, sans-serif;
+  --body-font-family: 'Gellix', 'gellix-normal-400-fallback', 'Century Gothic', 'CenturyGothic', 'AppleGothic', sans-serif;
+  --heading-font-family: 'Gellix', 'gellix-normal-700-fallback', 'Century Gothic', 'CenturyGothic', 'AppleGothic', sans-serif;
   --fixed-font-family: 'Roboto Mono', menlo, consolas, 'Liberation Mono', monospace;
 
   /* body sizes */

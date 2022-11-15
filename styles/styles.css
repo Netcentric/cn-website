@@ -19,9 +19,9 @@
 
   /* fallback font for Gellix (normal - 700) */
   @font-face {
-  font-family: "gellix-normal-700-fallback";
-  size-adjust: 100.931%;
-  src: local("Arial");
+    font-family: "gellix-normal-700-fallback";
+    size-adjust: 100.931%;
+    src: local("Arial");
   }
 
  :root {
@@ -40,9 +40,6 @@
   --purple-color: #7373d8;
   --dark-red-color: #b81f2d;
   
-
-
-
   /* fonts */
   --body-font-family: 'Gellix', 'gellix-normal-400-fallback', 'Century Gothic', 'CenturyGothic', 'AppleGothic', sans-serif;
   --heading-font-family: 'Gellix', 'gellix-normal-700-fallback', 'Century Gothic', 'CenturyGothic', 'AppleGothic', sans-serif;
@@ -63,7 +60,6 @@
 
   /* nav height */
   --nav-height: 130px;
-
 }
 
 body {
@@ -173,7 +169,6 @@ a.button.secondary, button.secondary {
   color: var(--text-color)
 } 
 
-
 main input {
   font-size: 1.25rem;
   width: 100%;
@@ -249,7 +244,7 @@ main img {
     --heading-font-size-s: 20px;
     --heading-font-size-xs: 18px;
   }
-
+  
   .section > div {
     max-width: 1200px;
     margin: auto;

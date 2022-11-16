@@ -11,56 +11,56 @@
 */
   
 /* fallback font for Gellix (normal - 400) */
-  @font-face {
-      font-family: "gellix-normal-400-fallback";
-      size-adjust: 100.871%;
-      src: local("Arial");
-  }
+@font-face {
+  font-family: "gellix-normal-400-fallback";
+  size-adjust: 100.871%;
+  src: local("Arial");
+}
 
-  /* fallback font for Gellix (normal - 700) */
-  @font-face {
-    font-family: "gellix-normal-700-fallback";
-    size-adjust: 100.931%;
-    src: local("Arial");
-  }
+/* fallback font for Gellix (normal - 700) */
+@font-face {
+  font-family: "gellix-normal-700-fallback";
+  size-adjust: 100.931%;
+  src: local("Arial");
+}
 
- :root {
-  /* colors */
-  --link-color: #000;
-  --link-hover-color: #000;
-  --background-color: #fff;
-  --overlay-background-color: #eee;
-  --highlight-background-color: #ccc;
-  --text-color: #000;
-  --dark-blue-color: #2E308E;
-  --blue-color: #2f78c4;
-  --light-blue-color: #92bbe6;
-  --teal-color: #97f5f7;
-  --light-plum-color:#85a0f9;
-  --purple-color: #7373d8;
-  --dark-red-color: #b81f2d;
-  
-  /* fonts */
-  --body-font-family: 'Gellix', 'gellix-normal-400-fallback', 'Century Gothic', 'CenturyGothic', 'AppleGothic', sans-serif;
-  --heading-font-family: 'Gellix', 'gellix-normal-700-fallback', 'Century Gothic', 'CenturyGothic', 'AppleGothic', sans-serif;
-  --fixed-font-family: 'Roboto Mono', menlo, consolas, 'Liberation Mono', monospace;
+:root {
+/* colors */
+--link-color: #000;
+--link-hover-color: #000;
+--background-color: #fff;
+--overlay-background-color: #eee;
+--highlight-background-color: #ccc;
+--text-color: #000;
+--dark-blue-color: #2E308E;
+--blue-color: #2f78c4;
+--light-blue-color: #92bbe6;
+--teal-color: #97f5f7;
+--light-plum-color:#85a0f9;
+--purple-color: #7373d8;
+--dark-red-color: #b81f2d;
 
-  /* body sizes */
-  --body-font-size-m: 16px;
-  --body-font-size-s: 12px;
-  --body-font-size-xs: 10px;
+/* fonts */
+--body-font-family: 'Gellix', 'gellix-normal-400-fallback', 'Century Gothic', 'CenturyGothic', 'AppleGothic', sans-serif;
+--heading-font-family: 'Gellix', 'gellix-normal-700-fallback', 'Century Gothic', 'CenturyGothic', 'AppleGothic', sans-serif;
+--fixed-font-family: 'Roboto Mono', menlo, consolas, 'Liberation Mono', monospace;
 
-  /* heading sizes */
-  --heading-font-size-xxl: 60px;
-  --heading-font-size-xl: 36px;
-  --heading-font-size-l: 30px;
-  --heading-font-size-m: 24px;
-  --heading-font-size-s: 20px;
-  --heading-font-size-xs: 18px;
+/* body sizes */
+--body-font-size-m: 16px;
+--body-font-size-s: 12px;
+--body-font-size-xs: 10px;
 
-  /* nav height */
-  --nav-height: 130px;
-  --mobile-nav-height: 72px;
+/* heading sizes */
+--heading-font-size-xxl: 60px;
+--heading-font-size-xl: 36px;
+--heading-font-size-l: 30px;
+--heading-font-size-m: 24px;
+--heading-font-size-s: 20px;
+--heading-font-size-xs: 18px;
+
+/* nav height */
+--nav-height: 130px;
+--mobile-nav-height: 72px;
 }
 
 body {
@@ -231,25 +231,25 @@ main img {
 }
 
 @media (min-width: 600px) {
-  main .section {
-    padding: 64px 32px;
-  }  
+main .section {
+  padding: 64px 32px;
+}  
 }
 
 @media (min-width: 900px) {
-  :root {
-    --heading-font-size-xxl: 60px;
-    --heading-font-size-xl: 36px;
-    --heading-font-size-l: 30px;
-    --heading-font-size-m: 24px;
-    --heading-font-size-s: 20px;
-    --heading-font-size-xs: 18px;
-  }
-  
-  .section > div {
-    max-width: 1200px;
-    margin: auto;
-  }
+:root {
+--heading-font-size-xxl: 60px;
+--heading-font-size-xl: 36px;
+--heading-font-size-l: 30px;
+--heading-font-size-m: 24px;
+--heading-font-size-s: 20px;
+--heading-font-size-xs: 18px;
+}
+
+.section > div {
+  max-width: 1200px;
+  margin: auto;
+}
 }
 
 /* progressive section appearance */

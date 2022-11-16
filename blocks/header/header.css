@@ -23,13 +23,14 @@ header nav[aria-expanded='true'] {
   grid-template: 'hamburger brand' 'sections sections' 'tools tools';
   grid-template-columns:  56px 1fr;
   overflow-y: scroll;
-  min-height: 100vh;
+
+  /* min-height: 100vh; */
 }
 
 /* brand */
 header .nav-brand {
   grid-area: brand;
-  font-size: 22px;
+  font-size: var(--body-font-size-m);
   font-weight: 700;
   line-height: 1em;
 }
@@ -39,15 +40,14 @@ header nav .nav-brand p {
 }
 
 header nav .nav-brand img {
-  width: 128px;
-  height: auto;
+  width: 152px;
+  height: 40px;
 }
 
 /* hamburger */
 header nav .nav-hamburger {
   grid-area: hamburger;
-  height: 22px;
-  padding-top: 3px;
+  height: 16px;
   cursor: pointer;
 }
 
@@ -58,31 +58,31 @@ header nav[aria-expanded='false'] .nav-hamburger-icon::before {
   position: relative;
   display: block;
   top: 8px;
-  width: 20px;
+  width: 24px;
   height: 2px;
-  border-radius: 3px;
-  background: currentcolor;
+  border-radius: 0;
+  background: #2e308e;
 }
 
 header nav[aria-expanded='false'] .nav-hamburger-icon::after,
 header nav[aria-expanded='false'] .nav-hamburger-icon::before {
   content: '';
   position: absolute;
-  top: -6px;
+  top: -7px;
 }
 
 header nav[aria-expanded='false'] .nav-hamburger-icon::after {
-  top: 6px;
+  top: 7px;
 }
 
 header nav[aria-expanded='true'] .nav-hamburger-icon {
   box-sizing: border-box;
   position: relative;
   display: block;
-  width: 22px;
-  height: 22px;
+  width: 24px;
+  height: 16px;
   border: 2px solid transparent;
-  border-radius: 5px;
+  border-radius: 0;
   transform: translate(-3px, -2px);
 }
 
@@ -92,13 +92,13 @@ header nav[aria-expanded='true'] .nav-hamburger-icon::before {
   display: block;
   box-sizing: border-box;
   position: absolute;
-  width: 22px;
+  width: 24px;
   height: 2px;
-  background: currentcolor;
+  background: #2e308e; 
   transform: rotate(45deg);
-  border-radius: 5px;
+  border-radius: 0;
   top: 8px;
-  left: 1px
+  left: 1px;
 }
 
 header nav[aria-expanded='true'] .nav-hamburger-icon::after {
@@ -116,9 +116,8 @@ header nav .nav-sections {
 
 header nav .nav-sections ul  {
   font-size: 16px;
-  font-weight: 500;
+  font-weight: 400;
   list-style: none;
-  padding-left: 0;
 } 
 
 header nav .nav-sections li {
@@ -128,7 +127,6 @@ header nav .nav-sections li {
 
 header nav[aria-expanded='true'] .nav-sections {
   display: block;
-  align-self: flex-start;
 }
 
 /* tools */
@@ -155,11 +153,88 @@ header nav[aria-expanded='true'] .nav-tools li {
   padding: 0;
 }
 
+/* this must be removed once why the logo is repeating */
+header nav .nav-brand a > .icon-netcentric-logo>img:last-of-type{
+display: none;
+}
+
+/* mobile nav styles */
+@media (max-width: 991px) { 
+  header {
+    height: var(--mobile-nav-height);
+  }
+
+   header nav {
+    display: flex;
+    justify-content: space-between;
+    height: 60px;
+    position: fixed;
+  }
+
+  header nav[area-expanded='true']
+  {
+    align-items:flex-start;
+  }
+
+  header nav .nav-tools{
+    display: none;
+  }
+  
+  header nav .nav-hamburger {
+    order: 2;
+  }
+
+  header nav[aria-expanded='true'] .nav-sections {
+    display: flex;
+    position: fixed;
+    width: 100vw;
+    height: 100%;
+    top: calc(var(--mobile-nav-height) + 1px);
+    background-color: #2e308e;
+    left: 0;
+  }
+
+  header nav[aria-expanded='true'] .nav-sections ul  {
+    /* padding-top: 1.5em;
+    padding-left: 1.5em; */
+    margin: 0; 
+    display: flex;
+    flex-direction: column;
+    padding: 1.5em 0 3em 1.5em; 
+    height: 100vh;
+    gap: 1em;
+  } 
+
+  header nav[aria-expanded='true'] .nav-sections li {
+    font-size: 16px;
+    font-weight: 400;
+    height: 1.5em;
+  }
+
+  header nav .nav-sections li:not(.nav-drop) {
+    display: none;
+  }
+
+  header nav .nav-sections li a {
+    color: #fff;
+    padding: 5px 0;
+    margin: 0 8px;
+    -webkit-font-smoothing :antialiased;
+    border-bottom: 3px solid transparent;
+  }
+
+  header nav .nav-sections li a:hover {
+    border-bottom: 3px solid #fff;
+    text-decoration: none;
+  }
+}
+
 /* desktop nav styles */
-@media (min-width: 1000px) {
+@media (min-width: 992px) {
   header nav {
     display: flex;
     justify-content: space-between;
+    width: 100vw;
     height: var(--nav-height);
     padding: 16px 2rem;
   }
@@ -241,7 +316,6 @@ header nav[aria-expanded='true'] .nav-tools li {
     top: -15px;
     left: 20px;
   }
-
 
   header nav .nav-sections > ul > li > ul > li {
     font-size: 18px;

@@ -60,6 +60,7 @@
 
   /* nav height */
   --nav-height: 130px;
+  --mobile-nav-height: 72px;
 }
 
 body {

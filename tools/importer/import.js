@@ -121,22 +121,46 @@ export default {
     }
 
     // find the <meta property="keywords"> element
-    const categories = document.querySelector('meta[name="keywords"]');
-    if (categories) {
-      meta.Categories = categories.content;
+    const keywords = document.querySelector('meta[name="keywords"]');
+    if (keywords) {
+      meta.Tags = keywords.content;
     }
 
-    // find doc authors
+    const img = document.querySelector('[property="og:image"]');
+    if (img) {
+      const el = document.createElement('img');
+      el.src = img.content;
+
+      const alt = document.querySelector(
+        '[property="og:image:alt"], [property="twitter:image:alt"]',
+      );
+      if (alt) {
+        el.alt = alt.content;
+      }
+      meta.Image = el;
+    }
+
+    // find blog post authors
     const authors = [];
     document
       .querySelectorAll(
-        '.authorprofile.authorprofile--medium.sidebar__authorprofile',
+        'body.articlepage .sidebar .authorprofile.authorprofile--medium.sidebar__authorprofile',
       )
       .forEach((author) => {
         authors.push(author.querySelector('.authorprofile__name').textContent);
       });
     if (authors.length > 0) {
       meta.Authors = authors.join();
+    }
+
+    // find blog publish date
+    const publishDateDiv = document.querySelector('body.articlepage .sidebar .date');
+    if (publishDateDiv) {
+      const publishDateStr = publishDateDiv.firstElementChild.textContent
+        .replace(/\r?\n|\r/g, '')
+        .trim();
+      const publishDate = new Date(publishDateStr);
+      meta.PublishDate = publishDate.toISOString();
     }
 
     // use helper method to remove header, footer, etc.

@@ -39,8 +39,8 @@ indices:
         select: head > meta[property="article:tag"]
         values: attribute(el, "content")
       publication-date:
-        select: head > meta[name="publication-date"]
+        select: head > meta[name="publishdate"]
         value: attribute(el, "content")
-      template:
-        select: head > meta[name="template"]
+      authors:
+        select: head > meta[name="authors"]
         value: attribute(el, "content")

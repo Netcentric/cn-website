@@ -12,41 +12,44 @@
 /* global WebImporter */
 /* eslint-disable no-console, class-methods-use-this */
 
+// convert related blog posts based on tags
 function transformRelatedBlogPosts(document) {
-  // This is a teaser component, but easier to edit as dedicated block
-  document
-    .querySelectorAll('.topicrelatedblog__list')
-    .forEach((relatedBlogPosts) => {
-      const cells = [['Related Blogs']];
+  // related blogs are based on tags we extract from the heading
+  const titleTag = document.querySelector(
+    'div.topicrelatedblog h4.topicrelatedblog__title',
+  );
+  if (titleTag) {
+    let title = titleTag.textContent;
+    if (title) {
+      // eslint-disable-next-line prefer-destructuring
+      title = title.split('More ')[1];
+    }
+    const cells = [['Related Blogs'], ['tag', title]];
 
-      const blogLinks = [];
-      for (let i = 0; i < relatedBlogPosts.childElementCount; i += 1) {
-        const { href } = relatedBlogPosts.children[i].querySelector('.teaser__link');
-        const a = document.createElement('a');
-        a.href = href;
-        a.innerHTML = href;
-        blogLinks.push(a);
-      }
-      cells.push([blogLinks]);
+    // replace table
+    const table = WebImporter.DOMUtils.createTable(cells, document);
+    titleTag.replaceWith(table);
+  }
+}
 
-      const table = WebImporter.DOMUtils.createTable(cells, document);
-      relatedBlogPosts.replaceWith(table);
-    });
+// insert section & meta data for blog footer
+function insertRelatedBlogsSection(document) {
+  document.querySelectorAll('div.topicrelatedblog.container').forEach((e) => {
+    e.before(document.createElement('hr'));
+    const cells = [['Section Metadata'], ['style', 'dark']];
+    const table = WebImporter.DOMUtils.createTable(cells, document);
+    e.before(table);
+  });
 }
 
 // convert embed objects
 function transformEmbed(document) {
   document.querySelectorAll('div.embed, div.video').forEach((embed) => {
-    const cells = [['Embed']];
-
     // detect embed iframe
     const iframeContent = embed.querySelector('iframe');
     if (iframeContent) {
-      cells.push([iframeContent.src]);
+      embed.replaceWith(iframeContent.src);
     }
-
-    const table = WebImporter.DOMUtils.createTable(cells, document);
-    embed.replaceWith(table);
   });
 }
 
@@ -163,6 +166,11 @@ export default {
       meta.PublishDate = publishDate.toISOString();
     }
 
+    // add blog template
+    if (document.querySelector('div.blogfooter')) {
+      meta.Template = 'blogpost';
+    }
+
     // use helper method to remove header, footer, etc.
     WebImporter.DOMUtils.remove(document.body, [
       'div.header', // entire header XF
@@ -172,6 +180,7 @@ export default {
       'hr.line__base line__base--', // styling HR above the title
       'div.scroll-indicator__container',
       'div.topicrelatedblog__btn-row',
+      'div.topicrelatedblog ul.topicrelatedblog__list', // related blog list
       'div.sidebar', // sidebar with social share buttons and author
       'div.blogfooter', // blog footer with author, categories, social share buttons
     ]);
@@ -180,6 +189,7 @@ export default {
 
     // Convert all blocks
     [
+      insertRelatedBlogsSection,
       transformRelatedBlogPosts,
       transformEmbed,
       makeProxySrcs,

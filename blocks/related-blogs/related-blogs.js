@@ -1,3 +1,4 @@
+/* eslint-disable */
 import { readBlockConfig, decorateIcons } from '../../scripts/lib-franklin.js';
 
 export default async function decorate(block) {
@@ -5,7 +6,7 @@ export default async function decorate(block) {
     const tagConf = getConfiguredTag(readBlockConfig(block));
 
     console.debug(tagConf);
-    
+
     block.innerHTML = '';
     const response = await fetch('/insights/query-index.json');
     const json = await response.json();

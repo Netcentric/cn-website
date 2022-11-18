@@ -264,3 +264,7 @@ main .section.highlight {
   width: 100%;
   height: 100%;
 }
+
+.spotify__player {
+  border: none;
+}

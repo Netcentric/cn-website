@@ -183,6 +183,7 @@ export default {
       'div.topicrelatedblog ul.topicrelatedblog__list', // related blog list
       'div.sidebar', // sidebar with social share buttons and author
       'div.blogfooter', // blog footer with author, categories, social share buttons
+      'a.btn > i.icons.icon__wrapper', // remove > icon on buttons
     ]);
 
     document.body.append(WebImporter.Blocks.getMetadataBlock(document, meta));

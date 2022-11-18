@@ -27,6 +27,29 @@ function buildHeroBlock(main) {
   }
 }
 
+function decorateYoutube(main) {
+  const anchors = main.getElementsByTagName('a');
+  const youTubeAnchors = Array.from(anchors).filter((a) => a.href.includes('youtu'));
+
+  youTubeAnchors.forEach((a) => {
+    const div = document.createElement('div');
+    const embed = a.pathname;
+    const id = embed.split('/').pop();
+
+    div.classList.add('youtube__base');
+    a.style.display = 'none';
+    a.insertAdjacentElement('afterend', div);
+    a.remove();
+    div.innerHTML = `<iframe src="https://www.youtube.com/embed/${id}" 
+        class="youtube__player" 
+        allowfullscreen  
+        allow="encrypted-media; accelerometer; gyroscope; picture-in-picture" 
+        title="Content from Youtube" 
+        loading="lazy">
+    </iframe>`;
+  });
+}
+
 /**
  * Builds all synthetic blocks in a container element.
  * @param {Element} main The container element
@@ -52,6 +75,7 @@ export function decorateMain(main) {
   buildAutoBlocks(main);
   decorateSections(main);
   decorateBlocks(main);
+  decorateYoutube(main);
 }
 
 /**

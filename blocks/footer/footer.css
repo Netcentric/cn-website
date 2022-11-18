@@ -1,5 +1,4 @@
 footer {
-  padding: 2rem;
   background-color: #3e40a0;
   font-size: var(--body-font-size-s);
   color: white;
@@ -7,8 +6,9 @@ footer {
 
 .footer {
   max-width: 1200px;
-  margin: auto;
+  margin: auto auto;
 }
+
 
 .footer ul {
   list-style-type: none;
@@ -24,6 +24,7 @@ footer > div > div {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
+  margin: 16px 16px;
 }
 
 /* each footer subsection */

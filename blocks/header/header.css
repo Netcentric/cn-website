@@ -1,4 +1,10 @@
 /* header and nav layout */
+header {
+  zoom: 1;
+   max-width: 100vw;
+  box-sizing: border-box;
+}
+
 header nav {
   display: grid;
   grid-template:
@@ -9,8 +15,7 @@ header nav {
   position: fixed;
   z-index: 1;
   background-color: var(--background-color);
-  width: 100vw;
-  height: var(--nav-height);
+  width: 100vw; 
   box-sizing: border-box;
   font-family: var(--body-font-family);
 }
@@ -31,7 +36,7 @@ header nav[aria-expanded='true'] {
 header .nav-brand {
   grid-area: brand;
   font-size: var(--body-font-size-m);
-  font-weight: 700;
+  font-weight: normal;
   line-height: 1em;
 }
 
@@ -40,7 +45,7 @@ header nav .nav-brand p {
 }
 
 header nav .nav-brand img {
-  width: 152px;
+  width: 150px;
   height: 40px;
 }
 
@@ -116,7 +121,7 @@ header nav .nav-sections {
 
 header nav .nav-sections ul  {
   font-size: 16px;
-  font-weight: 400;
+  font-weight: normal;
   list-style: none;
 } 
 
@@ -161,6 +166,7 @@ display: none;
 /* mobile nav styles */
 @media (max-width: 991px) { 
   header {
+    /* margin: 0 calc((100vw - 960) / 2); */
     height: var(--mobile-nav-height);
   }
 
@@ -169,6 +175,7 @@ display: none;
     justify-content: space-between;
     height: 60px;
     position: fixed;
+     /* width : 960px; */
   }
 
   header nav[area-expanded='true']
@@ -229,20 +236,62 @@ display: none;
   }
 }
 
+
+
 /* desktop nav styles */
-@media (min-width: 992px) {
+
+@media (min-width: 1200px) {
+header {
+  margin:  0 calc((100vw - 1176px) / 2) !important; 
+ } 
+ 
+ header nav {
+   width: 1176px !important;   
+ }
+}
+
+@media (min-width: 992px)  {
+   header {
+    margin:  0 calc((100vw - 960px) / 2); 
+  } 
+
   header nav {
     display: flex;
-    justify-content: space-between;
-    width: 100vw;
-    height: var(--nav-height);
-    padding: 16px 2rem;
+    flex-wrap: nowrap;
+    margin-top: 16px;
+    width: 960px;   
+    position: relative;
+    padding-top: 40px;
+    padding-left:16px;
+    padding-right: 0;
   }
 
   header nav .nav-sections > ul > li.nav-drop {
-    position: relative;
-    padding-right: 32px;
+   padding-block-end: 1.1em;
+   padding: 0;
   }
+
+  header nav .nav-sections li a:hover {
+    border-bottom: 3px solid #fff;
+    text-decoration: none;
+  }
+
+  header nav .nav-sections > ul > li.nav-drop > a{
+    border-color: var(--dark-blue-color);
+    padding: 12px 0;
+    margin: 0 8px;
+    color: var(--dark-blue-color);
+    font-size: 12px;
+    font-weight: 700;
+    text-align: left;
+    line-height: 1em;
+    text-transform: uppercase;
+   }
+
+   header nav .nav-sections > ul > li.nav-drop > a:hover {
+    border-bottom: 3px solid var(--dark-blue-color);
+    text-decoration: none;
+   }
 
   header nav .nav-drop::after {
     content: ' ';
@@ -263,18 +312,21 @@ display: none;
 
   header nav .nav-sections {
     display: unset;
+    flex: none ;
+    margin: 0 auto;
   }
 
   header nav .nav-brand {
     flex: 0 0 150px;
   }
 
-  header nav .nav-sections ul {
+  header nav .nav-sections ul,
+  header nav .nav-tools ul {
     display: flex;
-    flex-direction: row;
-    background-color: unset;
-    width: unset;
     margin: 0;
+    padding: 0;
+    color: var(--dark-blue-color);
+    list-style: none;
   }
   
   header nav[aria-expanded='true'] .nav-sections ol {
@@ -282,7 +334,7 @@ display: none;
     min-height: unset;
   }
 
-  header nav .nav-sections > ul > li {
+  header nav .nav-sections > ul > li{
     padding: 0 16px;
     position: relative;
     font-size: 16px;
@@ -290,6 +342,43 @@ display: none;
     cursor: pointer;
     padding-top: 0;
   }
+
+  header nav .nav-tools > ul > li > a{
+    border-color: var(--dark-blue-color);
+    padding: 12px 0;
+    margin: 0 8px;
+    color: var(--dark-blue-color);
+    font-size: 12px;
+    font-weight: 700;
+    text-align: left;
+    line-height: 1em;
+    text-transform: uppercase;
+  }
+
+  header nav .nav-tools > ul > li > a:hover{
+    text-decoration: none;
+   }
+
+    /* button styles */
+   header nav .nav-tools > ul > li:last-of-type > a{
+    background-color:var(--dark-blue-color);
+    color: var(--teal-color);
+    border-width: thin;
+    border-style: solid;
+    border-color:var(--dark-blue-color);
+    border-image: initial;
+    border-radius: 36px;
+    font-size: 12px;
+    text-align: center;
+    font-weight: 700;
+    position: relative;
+    display: inline-block;
+    max-width: 100%;
+    height: 3em;
+    line-height: 36px;
+    text-transform: uppercase;
+    padding: 0 24px;
+   }
 
   header nav .nav-sections > ul > li > p {
     margin: 0;
@@ -331,4 +420,5 @@ display: none;
     padding: 16px;
     box-shadow: 0 0 5px var(text-color);
   }
+ 
 }

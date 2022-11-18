@@ -46,6 +46,13 @@ export default async function decorate(block) {
           collapseAllNavSections(navSections);
           navSection.setAttribute('aria-expanded', expanded ? 'false' : 'true');
         });
+        // add classes for the lower level descriptions
+        navSection.querySelectorAll(':scope > ul > li').forEach((levelTwo) => {
+          levelTwo.classList.add('level-two');
+        });
+        navSection.querySelectorAll(':scope > ul > li > ul > li').forEach((levelThree) => {
+          levelThree.classList.add('level-three');
+        });
       });
     }
 

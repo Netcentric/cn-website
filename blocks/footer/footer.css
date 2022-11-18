@@ -6,7 +6,7 @@ footer {
 
 .footer {
   max-width: 1200px;
-  margin: auto auto;
+  margin: auto;
 }
 
 
@@ -22,9 +22,8 @@ footer {
 /* main footer section that contains the different subsections */
 footer > div > div {
   display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  margin: 16px 16px;
+  flex-flow: row wrap;
+  margin: 16px;
 }
 
 /* each footer subsection */
@@ -41,7 +40,7 @@ footer > div > div > div:first-child {
 
 /* each link group */
 footer > div > div > div:first-child > ul {
-  padding-inline-start: 0px;
+  padding-inline-start: 0;
   padding-inline-end: 50px;
 }
 
@@ -72,7 +71,7 @@ footer > div > div > div:nth-child(2) > p > a > picture > img {
 footer > div > div > div:nth-child(3) > ul {
   display: inline-flex;
   float: right;
-  padding-inline-start: 0px;
+  padding-inline-start: 0;
   font-size: large;
 }
 
@@ -80,7 +79,7 @@ footer > div > div > div:nth-child(3) > ul {
   font-size: 46px;
   height: 1em;
   width: 1em;
-  fill: currentColor;
+  fill: currentcolor;
   display: inline-block;
 }
 

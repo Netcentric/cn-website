@@ -1,23 +1,12 @@
-import { readBlockConfig, decorateIcons } from '../../scripts/lib-franklin.js';
-
-export default async function decorate(block) {
-    //get the tag to be fetched
-    const tagConf = getConfiguredTag(readBlockConfig(block));
-
-    console.debug(tagConf);
-    
-    block.innerHTML = '';
-    const response = await fetch('/insights/query-index.json');
-    const json = await response.json();
-    //console.debug(json);
-}
-
-function getRelatedArticles() {
-
-}
+import { readBlockConfig } from '../../scripts/lib-franklin.js';
 
 function getConfiguredTag(config) {
-    //should we have a default if no tag configured?
-    return config.tags;
+  // should we have a default if no tag configured?
+  return config.tags;
 }
-//http://localhost:3000/insights/2022/09/take-your-cx-strategy
+export default async function decorate(block) {
+  const tagConf = getConfiguredTag(readBlockConfig(block));
+  block.innerHTML = tagConf.tag;
+  // const response = await fetch('/insights/query-index.json');
+  // const json = await response.json();
+}

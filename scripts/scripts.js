@@ -27,6 +27,49 @@ function buildHeroBlock(main) {
   }
 }
 
+function decorateEmbed(main) {
+  const anchors = main.getElementsByTagName('a');
+  const youTubeAnchors = Array.from(anchors).filter((a) => a.href.includes('youtu'));
+  const spotifyAnchors = Array.from(anchors).filter((a) => a.href.includes('spotify'));
+
+  youTubeAnchors.forEach((a) => {
+    createIframe(a, 'youtube');
+  });
+  spotifyAnchors.forEach((a) => {
+    createIframe(a, 'spotify');
+  });
+}
+
+function createIframe(a, vendor) {
+  const div = document.createElement('div');
+  const embed = a.pathname;
+  const id = embed.split('/').pop();
+
+  a.style.display = 'none';
+  a.insertAdjacentElement('afterend', div);
+  a.remove();
+
+  if (vendor === 'youtube') {
+    div.classList.add('youtube__base');
+    div.innerHTML = `<iframe src="https://www.youtube.com/embed/${id}" 
+        class="youtube__player" 
+        allowfullscreen  
+        allow="encrypted-media; accelerometer; gyroscope; picture-in-picture" 
+        title="Content from Youtube" 
+        loading="lazy">
+    </iframe>`;
+  } else if (vendor === 'spotify') {
+    div.innerHTML = `<iframe src="https://open.spotify.com/embed/episode/${id}" 
+        class="spotify__player"
+        width="100%"
+        height="232"
+        allowfullscreen  
+        allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+        loading="lazy">
+    </iframe>`;
+  }
+}
+
 /**
  * Builds all synthetic blocks in a container element.
  * @param {Element} main The container element
@@ -52,6 +95,7 @@ export function decorateMain(main) {
   buildAutoBlocks(main);
   decorateSections(main);
   decorateBlocks(main);
+  decorateEmbed(main);
 }
 
 /**

@@ -1,9 +1,6 @@
-* {
-    box-sizing: border-box;
-}
 .related-blogs-container {
     padding: 40px 0;
-    background-color: #2e308e;  
+    background-color: #2e308e;
 }
 
 .related-blogs-container h4 {
@@ -14,9 +11,9 @@
     margin-bottom: 25px;
 }
 
-.related-list_item {
-    background-color: #ffffff;
-    width: 32%;
+.related-list-item {
+    background-color: #fff;
+    width: 30%;
     padding: 10px 20px;
     margin-right: 2%;
     border: 0;
@@ -24,18 +21,27 @@
 
 ul.related-list {
     list-style: none;
+    padding-left: 0;
 }
 
 .related-list {
     display: flex;
     flex-flow: row wrap;
-    justify-content: center;
+    justify-content: left;
     margin-bottom: 25px;
 }
 
-.related-list_item .teaser {
-    display: flex;
-    flex-direction: column;
+.related-list-item:last-child {
+    margin-right: 0;
+}
+
+.teaser-link {
+    margin-bottom: 75px;
+    border: magenta 1px solid;
+}
+
+a.teaser-link {
+    text-decoration: none;
 }
 
 div.teaser {
@@ -44,39 +50,40 @@ div.teaser {
     flex-direction: column;
 }
 
-h2.teaser__description {
+h2.teaser-description {
     font-size: 22px;
     color: #2e308e;
     font-weight: 400;
     line-height: 1.25em;
+    border: orangered 1px solid;
 }
 
-.teaser__authorprofile {
-    margin-bottom: 16px;
-    margin-top: 28px;
-    bottom: 16px;
-    width: 99.9%;
+.authorprofile-container {
+    padding-bottom: 35px;
 }
 
-.authorprofile__info {
-    display: inline-block;
-    vertical-align: middle;
-    line-height: 1.4;
+.authorprofile-info {
+    display: inline-flex;
+    line-height: 1.4em;
+    flex-flow: column wrap;
+    vertical-align: top;
 }
-.authorprofile__name {
+
+.authorprofile-name {
     font-size: 14px;
     font-weight: 700;
     letter-spacing: -0.5px;
+    line-height: 1.4em;
 }
 
-.authorprofile__position {
+.authorprofile-position {
     font-size: 14px;
     font-weight: 400;
     letter-spacing: -0.5px;
     line-height: 1.4em;
 }
 
-.authorprofile__image {
+.authorprofile-image {
     width: 35px;
     height: 35px;
     margin-right: 8px;
@@ -84,24 +91,16 @@ h2.teaser__description {
     vertical-align: middle;
 }
 
-.related-list_item:last-child {
-    margin-right: 0;
-}
-
 img.nc-image {
     border-radius: 50%;
     overflow: hidden;
 }
 
-div.nc-image__container {
+div.nc-image-container {
     max-width: 100%;
     display: flex;
     align-items: center;
     position: relative;
-}
-
-a.teaser__link {
-    text-decoration: none;
 }
 
 div.related-button-row {
@@ -109,25 +108,23 @@ div.related-button-row {
     color: #2e308e;
 }
 
-i.icon__wrapper {
+i.icon-wrapper {
     height: 1em;
     width: 1em;
     display: inline-block;
-    fill: currentColor;
 }
 
-.icon__wrapper svg {
+.icon-wrapper svg {
     pointer-events: none;
     height: 100%;
     width: 100%;
     will-change: transform;
-    transition: transform .33333s cubic-bezier(0.66,-0.1,0.74,0.73);
+    transition: transform .3333s cubic-bezier(0.66,-0.1,0.74,0.73);
 }
 
 .btn {
     font-size: 12px;
     text-align: center;
-    line-height: 24px;
     font-weight: 700;
     position: relative;
     display: inline-block;

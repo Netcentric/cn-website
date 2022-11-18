@@ -42,6 +42,47 @@ function insertRelatedBlogsSection(document) {
   });
 }
 
+// convert accordion components
+function transformAccordion(document) {
+  document.querySelectorAll('div.accordion').forEach((e) => {
+    let name = 'Accordion';
+    const style = e.classList
+      .item(1)
+      .substring(e.classList.item(1).indexOf('accordion--title-') + 17);
+    if (style) {
+      name = `Accordion (${style})`;
+    }
+    const cells = [[name]];
+
+    const row = document.createElement('div');
+    row.append(e.querySelector('dt .accordion__title'));
+    row.append(e.querySelector('dd .accordion__text'));
+    cells.push([row]);
+
+    const table = WebImporter.DOMUtils.createTable(cells, document);
+    e.replaceWith(table);
+  });
+}
+
+// convert responsive grid to sections and add styles
+function transformSections(document) {
+  document.querySelectorAll('.backgroundfull.background').forEach((div) => {
+    div.before(document.createElement('hr'));
+
+    const cells = [['Section Metadata']];
+    const styles = div.classList;
+    styles.forEach((s) => {
+      if (s.indexOf('nc-background--') > -1) {
+        cells.push(['style', s.substring(s.indexOf('nc-background--') + 15)]);
+      }
+    });
+
+    const table = WebImporter.DOMUtils.createTable(cells, document);
+    div.append(table);
+    div.append(document.createElement('hr'));
+  });
+}
+
 // convert embed objects
 function transformEmbed(document) {
   document.querySelectorAll('div.embed, div.video').forEach((embed) => {
@@ -183,7 +224,7 @@ export default {
       'div.topicrelatedblog ul.topicrelatedblog__list', // related blog list
       'div.sidebar', // sidebar with social share buttons and author
       'div.blogfooter', // blog footer with author, categories, social share buttons
-      'a.btn > i.icons.icon__wrapper', // remove > icon on buttons
+      'a i.icons.icon__wrapper', // remove > icon on buttons, teaser links etc.
     ]);
 
     document.body.append(WebImporter.Blocks.getMetadataBlock(document, meta));
@@ -192,6 +233,8 @@ export default {
     [
       insertRelatedBlogsSection,
       transformRelatedBlogPosts,
+      transformAccordion,
+      transformSections,
       transformEmbed,
       makeProxySrcs,
       makeAbsoluteLinks,

@@ -74,21 +74,21 @@ function transformLeaderProfile(document) {
     const leaderProfiles = document.querySelectorAll('.leaderprofile');
     if (leaderProfiles) {
       const cells = [['Leader Profiles']];
-      leaderProfiles.forEach((profile) => {
+      leaderProfiles.forEach((card) => {
         // capture profile image
         const imageContainer = document.createElement('div');
-        const profileImgTag = profile.querySelector('article img');
+        const profileImgTag = card.querySelector('article img');
         if (profileImgTag) {
           imageContainer.append(profileImgTag);
         }
 
         // capture profile name & role
         const name = document.createElement('h4');
-        name.textContent = profile.querySelector(
+        name.textContent = card.querySelector(
           '.leaderprofile__name',
         ).textContent;
         const title = document.createElement('p');
-        title.textContent = profile.querySelector(
+        title.textContent = card.querySelector(
           '.leaderprofile__jobtitle',
         ).textContent;
         const profileContainer = document.createElement('div');
@@ -97,16 +97,16 @@ function transformLeaderProfile(document) {
 
         // capture profile details & social links
         const detailsContainer = document.createElement('div');
-        const descriptionTag = profile.querySelector(
+        const descriptionTag = card.querySelector(
           '.leaderprofile__lightbox__description',
         );
         if (descriptionTag) {
           detailsContainer.append(
-            profile.querySelector('.leaderprofile__lightbox__description')
+            card.querySelector('.leaderprofile__lightbox__description')
               .textContent,
           );
         }
-        const socialContainerTag = profile.querySelector(
+        const socialContainerTag = card.querySelector(
           '.leaderprofile__socialcontainer',
         );
         if (socialContainerTag) {
@@ -124,7 +124,7 @@ function transformLeaderProfile(document) {
           detailsContainer.append(socialContainerTag);
         }
         cells.push([imageContainer, profileContainer, detailsContainer]);
-        profile.remove();
+        card.remove();
       });
 
       const table = WebImporter.DOMUtils.createTable(cells, document);

@@ -244,6 +244,16 @@ function transformEmbed(document) {
     if (iframeContent) {
       embed.replaceWith(iframeContent.src);
     }
+
+    // detect wistia player
+    const wistiaPlayer = document.querySelector('.video__wistia');
+    if (wistiaPlayer) {
+      const wistiaVideoId = JSON.parse(
+        wistiaPlayer.getAttribute('data-nc-params-videowistia'),
+      ).id;
+      embed.replaceWith(`https://netcentric.wistia.com/medias/${wistiaVideoId}`);
+    }
+
   });
 }
 

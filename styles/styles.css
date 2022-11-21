@@ -9,7 +9,7 @@
  * OF ANY KIND, either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
 */
-  
+
 /* fallback font for Gellix (normal - 400) */
 
 @font-face {
@@ -67,8 +67,8 @@
 --heading-font-size-xs: 18px;
 
 /* nav height */
---nav-height: 130px;
---mobile-nav-height: 72px;
+--desktop-nav-height: 130px;
+--nav-height: 72px;
 }
 
 body {
@@ -147,7 +147,7 @@ a.button:any-link, button {
   border: 1px solid transparent;
   padding: 0 24px;
   text-align: center;
-  font-style: normal; 
+  font-style: normal;
   font-weight: 700;
   font-size: var(--body-font-size-s);
   line-height: 2.25rem;
@@ -176,7 +176,7 @@ a.button.secondary, button.secondary {
   background-color: unset;
   border: 2px solid currentcolor;
   color: var(--text-color)
-} 
+}
 
 main input {
   font-size: 1.25rem;
@@ -184,7 +184,7 @@ main input {
   max-width: 50rem;
   display: block;
   margin-bottom: 1rem;
-  padding: 0.75rem 0.6rem;    
+  padding: 0.75rem 0.6rem;
   border-radius: 0.25rem;
   box-sizing: border-box;
   border: 1px solid var(--text-color);
@@ -241,7 +241,7 @@ main img {
 @media (min-width: 600px) {
 main .section {
   padding: 64px 32px;
-}  
+}
 }
 
 @media (min-width: 900px) {

@@ -2,12 +2,18 @@
 
 /* nav element */
 header nav {
-  display:flex;
+  display: grid;
+  grid-template:
+    'brand . hamburger' var(--nav-height)
+    'sections sections sections' 1fr / 50px 1fr 50px;
   align-items: center;
-  padding: 0 2rem;
-  position: fixed;
-  width: 100vw; 
+  padding: 0;
+  position: absolute;
+  z-index: 1;
+  width: 100vw;
   box-sizing: border-box;
+  height: var(--nav-height);
+  justify-content: space-between;
 }
 
 header nav a:any-link {
@@ -15,14 +21,16 @@ header nav a:any-link {
 }
 
 header nav[aria-expanded='true'] {
-  grid-template: 'hamburger brand' 'sections sections' 'tools tools';
-  grid-template-columns:  56px 1fr;
+  grid-template: 'brand hamburger' var(--nav-height) 'sections sections' 'tools tools';
+  grid-template-columns: 1fr 56px;
   overflow-y: scroll;
+  min-height: 100vh;
 }
 
 /* nav-brand element */
 header .nav-brand {
   grid-area: brand;
+  padding: 2rem;
 }
 
 header nav .nav-brand p {
@@ -84,7 +92,7 @@ header nav[aria-expanded='true'] .nav-hamburger-icon::before {
   position: absolute;
   width: 24px;
   height: 2px;
-  background: #2e308e; 
+  background: #2e308e;
   transform: rotate(45deg);
   border-radius: 0;
   top: 8px;
@@ -104,19 +112,28 @@ header nav .nav-sections {
   flex: 1 1 auto;
 }
 
-header nav .nav-sections ul  {
+header nav[aria-expanded='true'] .nav-sections {
+  background-color: #2e308e;
+  display: block;
+
+}
+
+header nav[aria-expanded='true'] .nav-sections ul  {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  padding: 1.5em 0 3em 1.5em;
+  height: 100vh;
+  gap: 1em;
   font-size: 16px;
   font-weight: normal;
   list-style: none;
-} 
+}
 
-/* header nav .nav-sections li {
-  font-size: 20px;
-  font-weight: 500;
-} */
-
-header nav[aria-expanded='true'] .nav-sections {
-  display: block;
+header nav[aria-expanded='true'] .nav-sections li {
+  font-size: 16px;
+  font-weight: 400;
+  height: 1.5em;
 }
 
 /* tools */
@@ -124,14 +141,11 @@ header nav .nav-tools {
   grid-area: tools;
   flex: 0 0 auto;
   height: 22px;
+  display: none;
 }
 
 header nav .nav-tools p {
   margin: 0;
-}
-
-header nav .nav-tools ul {
-  list-style: none;
 }
 
 header nav[aria-expanded='true'] .nav-tools img {
@@ -147,116 +161,68 @@ header nav[aria-expanded='true'] .nav-tools li {
   padding: 0;
 }
 
-/* this must be removed once why the logo is repeating */
-header nav .nav-brand a > .icon-netcentric-logo>img:last-of-type{
-display: none;
+header nav .nav-sections li:not(.nav-drop) {
+  display: none;
 }
 
-/* mobile nav styles */
-@media (max-width: 991px) { 
-  /* header and nav */
-  header {
-    height: var(--mobile-nav-height);
-  }
+header nav .nav-sections li a {
+  color: #fff;
+  padding: 5px 0;
+  margin: 0 8px;
+  -webkit-font-smoothing :antialiased;
+  border-bottom: 3px solid transparent;
+}
 
+header nav .nav-sections li a:hover {
+  border-bottom: 3px solid #fff;
+  text-decoration: none;
+}
+
+/* desktop nav styles */
+@media (min-width: 922px)  {
   header nav {
-    justify-content: space-between;
-    height: 60px;
+    display: flex;
+    width: 90%;
+    position: relative;
+    padding: 0;
+    margin: auto;
   }
 
-  header nav[area-expanded='true']{
-    align-items:flex-start;
+  header nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
   }
 
   /* hamburger */
   header nav .nav-hamburger {
-    order: 2;
-  }
-
-  /* sections */
-  header nav[aria-expanded='true'] .nav-sections {
-    display: flex;
-    position: fixed;
-    width: 100vw;
-    height: 100%;
-    top: calc(var(--mobile-nav-height) + 1px);
-    background-color: #2e308e;
-    left: 0;  
-  }
-
-  header nav[aria-expanded='true'] .nav-sections ul  {
-    margin: 0; 
-    display: flex;
-    flex-direction: column;
-    padding: 1.5em 0 3em 1.5em; 
-    height: 100vh;
-    gap: 1em;
-  } 
-
-  header nav[aria-expanded='true'] .nav-sections li {
-    font-size: 16px;
-    font-weight: 400;
-    height: 1.5em;
-  }
-
-  header nav .nav-sections li:not(.nav-drop) {
     display: none;
   }
 
-  header nav .nav-sections li a {
-    color: #fff;
-    padding: 5px 0;
-    margin: 0 8px;
-    -webkit-font-smoothing :antialiased;
-    border-bottom: 3px solid transparent;
+  header nav .nav-brand {
+    padding: 0;
   }
 
-  header nav .nav-sections li a:hover {
-    border-bottom: 3px solid #fff;
-    text-decoration: none;
-  }
-
-  /* tools */
-  header nav .nav-tools{
-    display: none;
-  }
-}
-
-/* desktop nav styles */
-@media (min-width: 992px)  {
-  /* header and nav */
-  header {
-    margin:  0 calc((100vw - 960px) / 2); 
-  } 
-
-  header nav {
-    margin-top: 16px;
-    width: 960px;   
-    position: relative;
-    padding-top: 40px;
-    padding-left:16px;
-    padding-right: 0;
-  }
-
-/* hamburger */
-  header nav .nav-hamburger {
-    display: none;
-  }
-
-/* sections and tools */
+  /* sections and tools */
   header nav .nav-sections > ul > li.nav-drop {
    padding-block-end: 1.1em;
    padding: 0;
   }
 
+  header nav .nav-tools {
+    display: flex;
+    align-items: center;
+  }
+
   header nav .nav-tools ul {
     display: flex;
+    align-items: center;
     margin: 0;
     padding: 0;
     color: var(--dark-blue-color);
   }
 
-  header nav .nav-tools ul  li  a{
+  header nav .nav-tools ul  li  a {
     border-color: var(--dark-blue-color);
     padding: 12px 0;
     margin: 0 8px;
@@ -273,11 +239,22 @@ display: none;
     text-decoration: none;
   }
 
-  header nav .nav-tools  ul  li  a:hover{
+  header nav .nav-tools  ul  li  a:hover {
     text-decoration: none;
   }
 
-  header nav .nav-tools > ul > li:last-of-type > a{
+  header nav .nav-sections > ul > li.nav-drop > a {
+    padding: 12px 0;
+    margin: 0 8px;
+    color: var(--dark-blue-color);
+    font-size: 12px;
+    font-weight: 700;
+    text-align: left;
+    line-height: 1em;
+    text-transform: uppercase;
+   }
+
+  header nav .nav-tools > ul > li:last-of-type > a {
     background-color:var(--dark-blue-color);
     color: var(--teal-color);
     border-width: thin;
@@ -297,42 +274,20 @@ display: none;
     padding: 0 24px;
   }
 
-  header nav .nav-sections > ul > li.nav-drop > a{
-    border-color: var(--dark-blue-color);
-    padding: 12px 0;
-    margin: 0 8px;
+  header nav .nav-tools > ul > li:last-of-type > a:hover {
+    border: 1px solid var(--dark-blue-color);
+    background: none;
     color: var(--dark-blue-color);
-    font-size: 12px;
-    font-weight: 700;
-    text-align: left;
-    line-height: 1em;
-    text-transform: uppercase;
-   }
+  }
 
    header nav .nav-sections > ul > li.nav-drop > a:hover {
     border-bottom: 3px solid var(--dark-blue-color);
     text-decoration: none;
    }
 
-
-
-  /* header nav .nav-drop::after {
-    content: ' ';
-    border: 1px solid currentolor;
-    transform: rotate(135deg);
-    border-width: 2px 2px 0 0;
-    display: inline-block;
-    width: 6px;
-    height: 6px;
-    position: absolute;
-    top: 8px;
-    right: 14px;
-  } */
-
   header nav .nav-sections {
     display: unset;
     flex: none ;
-    margin: 0 auto;
   }
 
   header nav .nav-sections ul {
@@ -341,13 +296,8 @@ display: none;
     padding: 0;
     color: var(--dark-blue-color);
   }
-  
-  header nav[aria-expanded='true'] .nav-sections ol {
-    display: flex;
-    min-height: unset;
-  }
 
-  header nav .nav-sections > ul > li{
+  header nav .nav-sections > ul > li {
     padding: 0 16px;
     position: relative;
     font-size: 16px;
@@ -370,18 +320,6 @@ display: none;
     font-size: var(--body-font-size-m);
   }
 
-  /* header nav .nav-sections > ul > li > ul::before {
-    content: '';
-    width: 0;
-    height: 0;
-    position: absolute;
-    border-left: 15px solid transparent;
-    border-right: 15px solid transparent;    
-    border-bottom: 15px solid var(--highlight-background-color);
-    top: -15px;
-    left: 20px;
-  } */
-
   header nav .nav-sections > ul > li > ul > li {
     font-size: var(--body-font-size-m);
     font-weight: normal;
@@ -400,14 +338,10 @@ display: none;
     margin: 0 auto;
     z-index: 2;
   }
-
 }
+
 @media (min-width: 1200px) {
-  header {
-    margin:  0 calc((100vw - 1176px) / 2) !important; 
-   } 
-   
-   header nav {
-     width: 1176px !important;   
-   }
+  header nav {
+    width: 1200px;
+  }
 }

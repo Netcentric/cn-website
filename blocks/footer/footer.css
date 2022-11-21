@@ -23,7 +23,7 @@ footer {
 footer > div > div {
   display: flex;
   flex-flow: row wrap;
-  margin: 16px;
+  padding: 16px;
 }
 
 /* each footer subsection */

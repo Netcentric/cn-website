@@ -33,6 +33,71 @@
   --highlight-background-color: #ccc;
   --text-color: #000;
 
+  /* Netcentric colors */
+  --c-black:                   #000;
+  --c-dark-blue:               #2f78c4;
+  --c-dark-mid-plum:           #3e40a0; /* for background footer only */
+  --c-dark-plum:               #2e308e;
+  --c-dark-gray:               #53565a;
+  --c-dark-teal:               #06c7cc;
+  --c-light-teal:              #97f5f7;
+  --c-light-blue:              #92bbe6;
+  --c-light-plum:              #85a0f9;
+  --c-light-gray:              #d0d0ce;
+  --c-mid-blue:                #6aa2dc;
+  --c-mid-plum:                #7373d8;
+  --c-mid-gray:                #97999b;
+  --c-midnight-blue:           #000048; /* cognizant color */
+  --c-mid-teal:                #26efe9;
+  --c-red:                     #b81f2d;
+  --c-yellow:                  #e9c71d;
+  --c-white:                   #fff;
+
+  /* social colors */
+  --twitter:                  #1d9bf0;
+  --facebook:                 #3b5998;
+  --linkedIn:                 #007bb5;
+  --git:                      #24292e;
+  --rss:                      #f26522;
+  --youtube:                  #c4302b;
+  --instagram:                #8134af;
+
+  /* highlight */
+  --c-highlight-red:           val(--c-red);
+  --c-highlight-yellow:        val(--c-yellow);
+
+  /* validations */
+  --c-error:                   val(--c-highlight-red);
+
+  /* default */
+  --c-text-default:            val(--c-black);
+  --c-primary:                 val(--c-dark-plum);
+
+  /* theme colors */
+  /* background-colors-text */
+  --bg-text-dark-plum:              val(--c-light-teal);
+  --bg-text-mid-plum:               val(--c-white);
+  --bg-text-light-plum:             val(--c-white);
+  --bg-text-dark-blue:              val(--c-white);
+  --bg-text-mid-blue:               val(--c-white);
+  --bg-text-light-blue:             val(--c-dark-plum);
+  --bg-text-dark-grey:              val(--c-white);
+  --bg-text-light-grey:             val(--c-dark-plum);
+  --bg-text-dark-teal:              val(--c-dark-plum);
+  --bg-text-mid-teal:               val(--c-dark-plum);
+  --bg-text-light-teal:             val(--c-dark-plum);
+  --bg-text-yellow:                 val(--c-white);
+  --bg-text-red:                    val(--c-white);
+  --bg-text-white:                  val(--c-dark-plum);
+  --bg-text-black:                  val(--c-white);
+
+  /* colors with opacity */
+  --c-white-50:                rgba(255, 255, 255, 0.5);
+  --c-lightbox-bg:             rgba(0, 0, 0, 0.5);
+  --c-line-color:              rgba(0, 0, 0, 0.1); /* for borders and lines */
+  --c-shadow-color:            rgba(0, 0, 0, 0.15);
+  /* END Netcentric colors  */
+
   /* fonts */
   --body-font-family: 'Gellix', 'gellix-normal-400-fallback', 'Century Gothic', 'CenturyGothic', 'AppleGothic', sans-serif;
   --heading-font-family: 'Gellix', 'gellix-normal-700-fallback', 'Century Gothic', 'CenturyGothic', 'AppleGothic', sans-serif;

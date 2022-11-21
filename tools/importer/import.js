@@ -141,27 +141,27 @@ function transformIconTextCard(document) {
 
     const iconTextCards = document.querySelectorAll('.icontextcard');
     if (iconTextCards) {
-      const cells = [['Cards (Icon with Text)']];
+      const cells = [['Cards (two columns, icon with text)']];
       iconTextCards.forEach((card) => {
         // capture icon
         const imageContainer = document.createElement('div');
         const iconImgTag = card.querySelector('.cmp-teaser__image img');
         if (iconImgTag) {
-          iconImgTag.alt = "icon";
+          iconImgTag.alt = 'icon';
           imageContainer.append(iconImgTag);
         }
 
         // capture headline & text
         const header = card.querySelector(
           '.icontextcard__content h4',
-        )
+        );
         const text = card.querySelector(
           '.cmp-teaser__description',
         );
         const contentContainer = document.createElement('div');
         contentContainer.append(header);
         contentContainer.append(text);
-        
+
         cells.push([imageContainer, contentContainer]);
         card.remove();
       });
@@ -174,7 +174,7 @@ function transformIconTextCard(document) {
 
 // convert "Side By Side" teasers
 function transformSideBySideTeasers(document) {
-  let container = document.querySelectorAll('.sidebysideteaser').forEach((container) => {
+  document.querySelectorAll('.sidebysideteaser').forEach((container) => {
     const teaserEntries = container.querySelectorAll(
       '.sidebysideteaser__teaser > article',
     );

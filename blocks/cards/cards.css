@@ -53,4 +53,5 @@
 
 .section.light-plum .cards > ul > li {
     background-color: var(--bg-text-light-plum);
+    color: var(--c-dark-plum);
 }

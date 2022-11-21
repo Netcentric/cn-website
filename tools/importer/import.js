@@ -141,21 +141,21 @@ function transformIconTextCard(document) {
 
     const iconTextCards = document.querySelectorAll('.icontextcard');
     if (iconTextCards) {
-      const cells = [['Card (icon-text)']];
-      iconTextCards.forEach((profile) => {
+      const cells = [['Cards (Icon with Text)']];
+      iconTextCards.forEach((card) => {
         // capture icon
         const imageContainer = document.createElement('div');
-        const iconImgTag = profile.querySelector('.cmp-teaser__image img');
+        const iconImgTag = card.querySelector('.cmp-teaser__image img');
         if (iconImgTag) {
           iconImgTag.alt = "icon";
           imageContainer.append(iconImgTag);
         }
 
         // capture headline & text
-        const header = profile.querySelector(
+        const header = card.querySelector(
           '.icontextcard__content h4',
         )
-        const text = profile.querySelector(
+        const text = card.querySelector(
           '.cmp-teaser__description',
         );
         const contentContainer = document.createElement('div');
@@ -163,7 +163,7 @@ function transformIconTextCard(document) {
         contentContainer.append(text);
         
         cells.push([imageContainer, contentContainer]);
-        profile.remove();
+        card.remove();
       });
 
       const table = WebImporter.DOMUtils.createTable(cells, document);

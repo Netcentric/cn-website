@@ -1,62 +1,57 @@
 import { readBlockConfig } from '../../scripts/lib-franklin.js';
 
-export default async function decorate(block) {
-    //get the tag to be fetched
-    const tagConf = getConfiguredTag(readBlockConfig(block));
-
-    //console.debug(tagConf);
-
-    block.innerHTML = ''; //reset
-    const response = await fetch('/insights/query-index.json');
-    const json = await response.json();
-    //console.debug(json);
-
-    const outerDiv = document.createElement('div');
-    outerDiv.classList.add('related-container');
-
-    //headline
-    const head4 = document.createElement('h4');
-    const text4head = document.createTextNode('More ' + tagConf);
-    head4.appendChild(text4head);
-    outerDiv.appendChild(head4);
-
-    outerDiv.appendChild(getRelatedArticles(tagConf));
-    block.append(outerDiv);
-
-    const ovr = document.createElement('div');
-    ovr.classList.add('btn--light-teal');
-    ovr.classList.add('btn--solid');
-    ovr.classList.add('related-button-row');
-    const ovr_link = document.createElement('a');
-    ovr_link.classList.add('btn');
-    ovr_link.innerHTML=`BLOG OVERVIEW &nbsp; <i class="icons icon-wrapper ">
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 465 1024"><path d="M465.455 525.838L76.738 1020.226.001 966.133l319.528-455.391L.001 54.093 76.738 0l388.717 491.872z"></path></svg>
-    </i>`;
-    ovr.appendChild(ovr_link);
-    block.append(ovr);
+function getConfiguredTag(config) {
+  // should we have a default if no tag is configured?
+  return config.tag;
 }
 
-function getRelatedArticles(tag) {
+async function enrichProfiles(rArticles) {
+  const response = await fetch('/profile-blog.json');
+  const json = await response.json();
+  // console.debug(JSON.stringify(json.data));
 
-    const blogList = document.createElement('ul');
-    blogList.classList.add('related-list');
+  Object.entries(rArticles).forEach((entry) => {
+    const [key, value] = entry;
 
-    for (let i = 0; i < 3; i++) {
-        let blogListItem = document.createElement('li');
-        blogListItem.classList.add('related-list-item');
-        let ttr = document.createElement('div');
-        ttr.classList.add('teasertopicrelated');
-        blogListItem.append(ttr);
-        let article = document.createElement('article');
-        article.classList.add('teaser-base');
+    for (const pkey in json.data) {
+      if (json.data[pkey].Name === value.authors) {
+        value.profiles = json.data[pkey];
+      }
+    }
+  });
 
-        article.innerHTML = `<div class="teaser">
+  return rArticles;
+}
 
-    <a href="/insights/2022/08/agile-in-practice.html" target="_self" class="teaser-link">
+async function getRelatedArticles(tag) {
+  const blogList = document.createElement('ul');
+  blogList.classList.add('related-list');
+  const response = await fetch('/insights/query-index.json');
+  const json = await response.json();
+  const qresult = json.data.filter((obj) => obj.tags.indexOf(tag) >= 0);
+
+  const enrichedArticles = await enrichProfiles(qresult);
+
+  Object.entries(enrichedArticles).forEach((entry) => {
+    const [key, value] = entry;
+
+    // max of three items
+    if (key < 3) {
+      const blogListItem = document.createElement('li');
+      blogListItem.classList.add('related-list-item');
+      const ttr = document.createElement('div');
+      ttr.classList.add('teasertopicrelated');
+      blogListItem.append(ttr);
+      const article = document.createElement('article');
+      article.classList.add('teaser-base');
+
+      article.innerHTML = `<div class="teaser">
+
+    <a href="${value.path}" target="_self" class="teaser-link">
         <div class="teaser-container">
             <div>
                 <h2 class="teaser-description">
-                    Agile in practice: embracing autonomy and experimentation
+                    ${value.title}
                 </h2>
             </div>
             
@@ -67,28 +62,54 @@ function getRelatedArticles(tag) {
                 <div class="authorprofile-image">
                     <div class="nc-image-base">
                         <div class="nc-image-container " itemscope="" itemtype="http://schema.org/ImageObject">
-                            <img class="nc-image" src="https://main--netcentric--hlxsites.hlx.page/media_1f768e1c788626d4622c7d4b7e701f46f01be17ee.jpeg#width=512&height=512" itemprop="contentUrl" alt="" sizes="10vw">
+                            <img class="nc-image" src="${value.profiles.Image}" itemprop="contentUrl" alt="" sizes="10vw">
                         </div>
                     </div>
                 </div>
                 <div class="authorprofile-info">
-                    <div class="authorprofile-name">Stefan Franck</div>
-                    <div class="authorprofile-position">Senior Director</div>
+                    <div class="authorprofile-name">${value.profiles.Name}</div>
+                    <div class="authorprofile-position">${value.profiles.Title}</div>
                 </div>
             </div>
     </div>
-
 </div>`;
 
-        ttr.appendChild(article);
-        blogList.appendChild(blogListItem);
+      ttr.appendChild(article);
+      blogList.appendChild(blogListItem);
     }
+  });
 
-    return blogList;
+  return blogList;
 }
 
-function getConfiguredTag(config) {
-    //should we have a default if no tag is configured?
-    return config.tag;
+export default async function decorate(block) {
+  // get the tag to be fetched
+  const tagConf = getConfiguredTag(readBlockConfig(block));
+
+  block.innerHTML = ''; // reset
+
+  const outerDiv = document.createElement('div');
+  outerDiv.classList.add('related-container');
+
+  // headline
+  const head4 = document.createElement('h4');
+  const text4head = document.createTextNode(`More ${tagConf}`);
+  head4.appendChild(text4head);
+  outerDiv.appendChild(head4);
+
+  outerDiv.appendChild(await getRelatedArticles(tagConf));
+  block.append(outerDiv);
+
+  const ovr = document.createElement('div');
+  ovr.classList.add('btn--light-teal');
+  ovr.classList.add('btn--solid');
+  ovr.classList.add('related-button-row');
+  const ovrlink = document.createElement('a');
+  ovrlink.classList.add('btn');
+  ovrlink.innerHTML = `BLOG OVERVIEW &nbsp; <i class="icons icon-wrapper ">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 465 1024"><path d="M465.455 525.838L76.738 1020.226.001 966.133l319.528-455.391L.001 54.093 76.738 0l388.717 491.872z"></path></svg>
+    </i>`;
+  ovr.appendChild(ovrlink);
+  block.append(ovr);
 }
-//http://localhost:3000/insights/2022/09/take-your-cx-strategy
+// http://localhost:3000/insights/2022/09/take-your-cx-strategy

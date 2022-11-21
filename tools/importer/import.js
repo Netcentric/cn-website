@@ -172,6 +172,47 @@ function transformIconTextCard(document) {
   }
 }
 
+// convert "Side By Side" teasers
+function transformSideBySideTeasers(document) {
+  let container = document.querySelectorAll('.sidebysideteaser').forEach((container) => {
+    const teaserEntries = container.querySelectorAll(
+      '.sidebysideteaser__teaser > article',
+    );
+    if (teaserEntries) {
+      const cells = [['Cards (Side By Side)']];
+      teaserEntries.forEach((card) => {
+        // capture headline & text
+        const header = card.querySelector('.imagetextandlink__link h2');
+        const text = card.querySelector('.imagetextandlink__description');
+        const cta = card.querySelector('.imagetextandlink__action');
+        const link = card.querySelector('.imagetextandlink__link');
+        link.innerHTML = link.href;
+        const contentContainer = document.createElement('div');
+        contentContainer.append(link);
+        if (header) {
+          contentContainer.append(header);
+        }
+        contentContainer.append(text);
+        contentContainer.append(cta);
+
+        // capture image
+        const imageContainer = document.createElement('div');
+        const img = card.querySelector('.imagetextandlink__image img');
+        if (img) {
+          img.alt = cta;
+          imageContainer.append(img);
+        }
+
+        cells.push([imageContainer, contentContainer]);
+        card.remove();
+      });
+
+      const table = WebImporter.DOMUtils.createTable(cells, document);
+      container.replaceWith(table);
+    }
+  });
+}
+
 // convert responsive grid to sections and add styles
 function transformSections(document) {
   document.querySelectorAll('.backgroundfull.background').forEach((div) => {
@@ -345,6 +386,7 @@ export default {
       transformAccordion,
       transformLeaderProfile,
       transformIconTextCard,
+      transformSideBySideTeasers,
       transformSections,
       transformEmbed,
       makeProxySrcs,

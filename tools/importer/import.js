@@ -219,15 +219,19 @@ function transformSections(document) {
     div.before(document.createElement('hr'));
 
     const cells = [['Section Metadata']];
+    let style = 'white';
     const styles = div.classList;
     styles.forEach((s) => {
       if (s.indexOf('nc-background--') > -1) {
-        cells.push(['style', s.substring(s.indexOf('nc-background--') + 15)]);
+        style = s.substring(s.indexOf('nc-background--') + 15);
+        cells.push(['style', style]);
       }
     });
 
-    const table = WebImporter.DOMUtils.createTable(cells, document);
-    div.append(table);
+    if (style !== 'white') {
+      const table = WebImporter.DOMUtils.createTable(cells, document);
+      div.append(table);
+    }
     div.append(document.createElement('hr'));
   });
 }

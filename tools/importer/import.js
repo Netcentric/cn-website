@@ -133,6 +133,45 @@ function transformLeaderProfile(document) {
   }
 }
 
+// convert "icontextcard"s
+function transformIconTextCard(document) {
+  let container = document.querySelector('.icontextcard');
+  if (container) {
+    container = container.parentElement;
+
+    const iconTextCards = document.querySelectorAll('.icontextcard');
+    if (iconTextCards) {
+      const cells = [['Card (icon-text)']];
+      iconTextCards.forEach((profile) => {
+        // capture icon
+        const imageContainer = document.createElement('div');
+        const iconImgTag = profile.querySelector('.cmp-teaser__image img');
+        if (iconImgTag) {
+          iconImgTag.alt = "icon";
+          imageContainer.append(iconImgTag);
+        }
+
+        // capture headline & text
+        const header = profile.querySelector(
+          '.icontextcard__content h4',
+        )
+        const text = profile.querySelector(
+          '.cmp-teaser__description',
+        );
+        const contentContainer = document.createElement('div');
+        contentContainer.append(header);
+        contentContainer.append(text);
+        
+        cells.push([imageContainer, contentContainer]);
+        profile.remove();
+      });
+
+      const table = WebImporter.DOMUtils.createTable(cells, document);
+      container.replaceWith(table);
+    }
+  }
+}
+
 // convert responsive grid to sections and add styles
 function transformSections(document) {
   document.querySelectorAll('.backgroundfull.background').forEach((div) => {
@@ -305,6 +344,7 @@ export default {
       transformRelatedBlogPosts,
       transformAccordion,
       transformLeaderProfile,
+      transformIconTextCard,
       transformSections,
       transformEmbed,
       makeProxySrcs,

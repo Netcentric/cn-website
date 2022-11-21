@@ -11,8 +11,9 @@ async function enrichProfiles(rArticles) {
   // console.debug(JSON.stringify(json.data));
 
   Object.entries(rArticles).forEach((entry) => {
+    // eslint-disable-next-line no-unused-vars
     const [key, value] = entry;
-
+    // eslint-disable-next-line no-restricted-syntax
     for (const pkey in json.data) {
       if (json.data[pkey].Name === value.authors) {
         value.profiles = json.data[pkey];
@@ -105,6 +106,7 @@ export default async function decorate(block) {
   ovr.classList.add('btn--solid');
   ovr.classList.add('related-button-row');
   const ovrlink = document.createElement('a');
+  ovrlink.href = '/insights';
   ovrlink.classList.add('btn');
   ovrlink.innerHTML = `BLOG OVERVIEW &nbsp; <i class="icons icon-wrapper ">
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 465 1024"><path d="M465.455 525.838L76.738 1020.226.001 966.133l319.528-455.391L.001 54.093 76.738 0l388.717 491.872z"></path></svg>
@@ -112,4 +114,3 @@ export default async function decorate(block) {
   ovr.appendChild(ovrlink);
   block.append(ovr);
 }
-// http://localhost:3000/insights/2022/09/take-your-cx-strategy

@@ -360,7 +360,9 @@ export default {
     }
 
     // find blog publish date
-    const publishDateDiv = document.querySelector('body.articlepage .sidebar .date');
+    const publishDateDiv = document.querySelector(
+      'body.articlepage .sidebar .date',
+    );
     if (publishDateDiv) {
       const publishDateStr = publishDateDiv.firstElementChild.textContent
         .replace(/\r?\n|\r/g, '')
@@ -372,6 +374,17 @@ export default {
     // add blog template
     if (document.querySelector('div.blogfooter')) {
       meta.Template = 'blogpost';
+    }
+
+    // cleanup source code of older blog posts
+    // sample: https://www.netcentric.biz/insights/2015/08/adobe-experience-manager-6-with-a-mongodb-setup.html
+    if (document.querySelector('div.blogfooter')) {
+      document.querySelectorAll('table').forEach((table) => {
+        const code = table.querySelector('pre');
+        if (code) {
+          table.replaceWith(code);
+        }
+      });
     }
 
     // use helper method to remove header, footer, etc.

@@ -9,7 +9,7 @@
  * OF ANY KIND, either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
 */
-  
+
 /* fallback font for Gellix (normal - 400) */
   @font-face {
       font-family: "gellix-normal-400-fallback";
@@ -196,7 +196,7 @@ a.button:any-link, button {
   border: 2px solid transparent;
   padding: 5px 30px;
   text-align: center;
-  font-style: normal; 
+  font-style: normal;
   font-weight: 600;
   cursor: pointer;
   color: var(--background-color);
@@ -222,7 +222,7 @@ a.button.secondary, button.secondary {
   background-color: unset;
   border: 2px solid currentcolor;
   color: var(--text-color)
-} 
+}
 
 
 main input {
@@ -231,7 +231,7 @@ main input {
   max-width: 50rem;
   display: block;
   margin-bottom: 1rem;
-  padding: 0.75rem 0.6rem;    
+  padding: 0.75rem 0.6rem;
   border-radius: 0.25rem;
   box-sizing: border-box;
   border: 1px solid var(--text-color);
@@ -292,9 +292,9 @@ main img {
     --heading-font-size-l: 36px;
     --heading-font-size-m: 30px;
     --heading-font-size-s: 24px;
-    --heading-font-size-xs: 22px;  
+    --heading-font-size-xs: 22px;
   }
-  
+
   main .section > div {
     width: 960px;
     margin: 0 auto;
@@ -318,13 +318,13 @@ main .section.light-plum {
   background-color: var(--c-light-plum);
 }
 
-.youtube__base {
+.youtube-base {
   position: relative;
   padding-bottom: 56.25%;
   height: 0;
 }
 
-.youtube__player {
+.youtube-player {
   border: none;
   position: absolute;
   top: 0;
@@ -333,6 +333,6 @@ main .section.light-plum {
   height: 100%;
 }
 
-.spotify__player {
+.spotify-player {
   border: none;
 }

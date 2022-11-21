@@ -35,6 +35,7 @@
     font-size: 14px;
     font-weight: normal;
     line-height: 1.2em;
+    flex-grow: 1;
 }
 
 .cards.icon-with-text .cards-card-body * {

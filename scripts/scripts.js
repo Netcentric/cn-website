@@ -27,19 +27,6 @@ function buildHeroBlock(main) {
   }
 }
 
-function decorateEmbed(main) {
-  const anchors = main.getElementsByTagName('a');
-  const youTubeAnchors = Array.from(anchors).filter((a) => a.href.includes('youtu'));
-  const spotifyAnchors = Array.from(anchors).filter((a) => a.href.includes('spotify'));
-
-  youTubeAnchors.forEach((a) => {
-    createIframe(a, 'youtube');
-  });
-  spotifyAnchors.forEach((a) => {
-    createIframe(a, 'spotify');
-  });
-}
-
 function createIframe(a, vendor) {
   const div = document.createElement('div');
   const embed = a.pathname;
@@ -68,6 +55,19 @@ function createIframe(a, vendor) {
         loading="lazy">
     </iframe>`;
   }
+}
+
+function decorateEmbed(main) {
+  const anchors = main.getElementsByTagName('a');
+  const youTubeAnchors = Array.from(anchors).filter((a) => a.href.includes('youtu'));
+  const spotifyAnchors = Array.from(anchors).filter((a) => a.href.includes('spotify'));
+
+  youTubeAnchors.forEach((a) => {
+    createIframe(a, 'youtube');
+  });
+  spotifyAnchors.forEach((a) => {
+    createIframe(a, 'spotify');
+  });
 }
 
 /**

@@ -25,14 +25,6 @@
   }
 
  :root {
-  /* colors */
-  --link-color: #035fe6;
-  --link-hover-color: #136ff6;
-  --background-color: #fff;
-  --overlay-background-color: #eee;
-  --highlight-background-color: #ccc;
-  --text-color: #000;
-
   /* Netcentric colors */
   --c-black:                   #000;
   --c-dark-blue:               #2f78c4;
@@ -99,6 +91,14 @@
   --c-shadow-color:            rgb(0 0 0 / 15%);
 
   /* END Netcentric colors  */
+
+  /* colors */
+  --link-color: var(--c-dark-plum);
+  --link-hover-color: var(--c-mid-plum);
+  --background-color: var(--c-white);
+  --overlay-background-color: #eee;
+  --highlight-background-color: #ccc;
+  --text-color: var(--c-black);
 
   /* fonts */
   --body-font-family: 'Gellix', 'gellix-normal-400-fallback', 'Century Gothic', 'CenturyGothic', 'AppleGothic', sans-serif;

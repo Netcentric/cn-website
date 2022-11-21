@@ -244,7 +244,7 @@ main input:hover {
 }
 
 main .section {
-  padding: 64px 16px;
+  padding: 32px 0;
 }
 
 main pre {
@@ -285,13 +285,7 @@ main img {
   height: auto;
 }
 
-@media (min-width: 600px) {
-  main .section {
-    padding: 64px 32px;
-  }  
-}
-
-@media (min-width: 900px) {
+@media (min-width: 992px) {
   :root {
     --heading-font-size-xxl: 60px;
     --heading-font-size-xl: 48px;
@@ -301,9 +295,15 @@ main img {
     --heading-font-size-xs: 22px;  
   }
   
-  .section > div {
-    max-width: 1200px;
-    margin: auto;
+  main .section > div {
+    width: 960px;
+    margin: 0 auto;
+  }
+}
+
+@media (min-width: 1200px) {
+  main .section > div {
+    width: 1176px;
   }
 }
 
@@ -313,6 +313,7 @@ main .section[data-section-status='initialized'] {
   display: none;
 }
 
-main .section.highlight {
-  background-color: var(--highlight-background-color);
+/* section highlights */
+main .section.light-plum {
+  background-color: var(--c-light-plum);
 }

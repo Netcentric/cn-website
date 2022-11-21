@@ -253,7 +253,6 @@ function transformEmbed(document) {
       ).id;
       embed.replaceWith(`https://netcentric.wistia.com/medias/${wistiaVideoId}`);
     }
-
   });
 }
 

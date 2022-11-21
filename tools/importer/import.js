@@ -45,6 +45,7 @@ function insertRelatedBlogsSection(document) {
 // convert accordion components
 function transformAccordion(document) {
   document.querySelectorAll('div.accordion').forEach((e) => {
+    // TODO collect all in one block
     let name = 'Accordion';
     const style = e.classList
       .item(1)
@@ -62,6 +63,74 @@ function transformAccordion(document) {
     const table = WebImporter.DOMUtils.createTable(cells, document);
     e.replaceWith(table);
   });
+}
+
+// convert accordion components
+function transformLeaderProfile(document) {
+  let container = document.querySelector('.leaderprofile');
+  if (container) {
+    container = container.parentElement.parentElement;
+
+    const leaderProfiles = document.querySelectorAll('.leaderprofile');
+    if (leaderProfiles) {
+      const cells = [['Leader Profiles']];
+      leaderProfiles.forEach((profile) => {
+        // capture profile image
+        const imageContainer = document.createElement('div');
+        const profileImgTag = profile.querySelector('article img');
+        if (profileImgTag) {
+          imageContainer.append(profileImgTag);
+        }
+
+        // capture profile name & role
+        const name = document.createElement('h4');
+        name.textContent = profile.querySelector(
+          '.leaderprofile__name',
+        ).textContent;
+        const title = document.createElement('p');
+        title.textContent = profile.querySelector(
+          '.leaderprofile__jobtitle',
+        ).textContent;
+        const profileContainer = document.createElement('div');
+        profileContainer.append(name);
+        profileContainer.append(title);
+
+        // capture profile details & social links
+        const detailsContainer = document.createElement('div');
+        const descriptionTag = profile.querySelector(
+          '.leaderprofile__lightbox__description',
+        );
+        if (descriptionTag) {
+          detailsContainer.append(
+            profile.querySelector('.leaderprofile__lightbox__description')
+              .textContent,
+          );
+        }
+        const socialContainerTag = profile.querySelector(
+          '.leaderprofile__socialcontainer',
+        );
+        if (socialContainerTag) {
+          // eslint-disable-next-line no-restricted-syntax
+          for (const item of socialContainerTag.children) {
+            console.log(item.querySelector('a').href);
+            if (item.querySelector('a').href.includes('twitter')) {
+              item.querySelector('a').innerHTML = ':twitter:';
+            } else if (item.querySelector('a').href.includes('linkedin')) {
+              item.querySelector('a').innerHTML = ':linkedin:';
+            } else {
+              item.querySelector('a').innerHTML = ':social:';
+            }
+          }
+          detailsContainer.append(socialContainerTag);
+        }
+        cells.push([imageContainer, profileContainer, detailsContainer]);
+        profile.remove();
+      });
+
+      const table = WebImporter.DOMUtils.createTable(cells, document);
+      container.replaceWith(table);
+    }
+  }
 }
 
 // convert responsive grid to sections and add styles
@@ -225,6 +294,7 @@ export default {
       'div.sidebar', // sidebar with social share buttons and author
       'div.blogfooter', // blog footer with author, categories, social share buttons
       'a i.icons.icon__wrapper', // remove > icon on buttons, teaser links etc.
+      'p.leaderprofile__name i.icons.icon__wrapper', // remove > icon from leader profile
     ]);
 
     document.body.append(WebImporter.Blocks.getMetadataBlock(document, meta));
@@ -234,6 +304,7 @@ export default {
       insertRelatedBlogsSection,
       transformRelatedBlogPosts,
       transformAccordion,
+      transformLeaderProfile,
       transformSections,
       transformEmbed,
       makeProxySrcs,

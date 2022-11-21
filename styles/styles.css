@@ -56,7 +56,7 @@
   /* social colors */
   --twitter:                  #1d9bf0;
   --facebook:                 #3b5998;
-  --linkedIn:                 #007bb5;
+  --linked-in:                #007bb5;
   --git:                      #24292e;
   --rss:                      #f26522;
   --youtube:                  #c4302b;
@@ -74,6 +74,7 @@
   --c-primary:                 var(--c-dark-plum);
 
   /* theme colors */
+
   /* background-colors-text */
   --bg-text-dark-plum:              var(--c-light-teal);
   --bg-text-mid-plum:               var(--c-white);
@@ -92,10 +93,11 @@
   --bg-text-black:                  var(--c-white);
 
   /* colors with opacity */
-  --c-white-50:                rgba(255, 255, 255, 50%);
-  --c-lightbox-bg:             rgba(0, 0, 0, 50%);
-  --c-line-color:              rgba(0, 0, 0, 10%); /* for borders and lines */
-  --c-shadow-color:            rgba(0, 0, 0, 15%);
+  --c-white-50:                rgb(255 255 255 / 50%);
+  --c-lightbox-bg:             rgb(0 0 0 / 50%);
+  --c-line-color:              rgb(0 0 0 / 10%); /* for borders and lines */
+  --c-shadow-color:            rgb(0 0 0 / 15%);
+
   /* END Netcentric colors  */
 
   /* fonts */

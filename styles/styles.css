@@ -63,39 +63,39 @@
   --instagram:                #8134af;
 
   /* highlight */
-  --c-highlight-red:           val(--c-red);
-  --c-highlight-yellow:        val(--c-yellow);
+  --c-highlight-red:           var(--c-red);
+  --c-highlight-yellow:        var(--c-yellow);
 
   /* validations */
-  --c-error:                   val(--c-highlight-red);
+  --c-error:                   var(--c-highlight-red);
 
   /* default */
-  --c-text-default:            val(--c-black);
-  --c-primary:                 val(--c-dark-plum);
+  --c-text-default:            var(--c-black);
+  --c-primary:                 var(--c-dark-plum);
 
   /* theme colors */
   /* background-colors-text */
-  --bg-text-dark-plum:              val(--c-light-teal);
-  --bg-text-mid-plum:               val(--c-white);
-  --bg-text-light-plum:             val(--c-white);
-  --bg-text-dark-blue:              val(--c-white);
-  --bg-text-mid-blue:               val(--c-white);
-  --bg-text-light-blue:             val(--c-dark-plum);
-  --bg-text-dark-grey:              val(--c-white);
-  --bg-text-light-grey:             val(--c-dark-plum);
-  --bg-text-dark-teal:              val(--c-dark-plum);
-  --bg-text-mid-teal:               val(--c-dark-plum);
-  --bg-text-light-teal:             val(--c-dark-plum);
-  --bg-text-yellow:                 val(--c-white);
-  --bg-text-red:                    val(--c-white);
-  --bg-text-white:                  val(--c-dark-plum);
-  --bg-text-black:                  val(--c-white);
+  --bg-text-dark-plum:              var(--c-light-teal);
+  --bg-text-mid-plum:               var(--c-white);
+  --bg-text-light-plum:             var(--c-white);
+  --bg-text-dark-blue:              var(--c-white);
+  --bg-text-mid-blue:               var(--c-white);
+  --bg-text-light-blue:             var(--c-dark-plum);
+  --bg-text-dark-grey:              var(--c-white);
+  --bg-text-light-grey:             var(--c-dark-plum);
+  --bg-text-dark-teal:              var(--c-dark-plum);
+  --bg-text-mid-teal:               var(--c-dark-plum);
+  --bg-text-light-teal:             var(--c-dark-plum);
+  --bg-text-yellow:                 var(--c-white);
+  --bg-text-red:                    var(--c-white);
+  --bg-text-white:                  var(--c-dark-plum);
+  --bg-text-black:                  var(--c-white);
 
   /* colors with opacity */
-  --c-white-50:                rgba(255, 255, 255, 0.5);
-  --c-lightbox-bg:             rgba(0, 0, 0, 0.5);
-  --c-line-color:              rgba(0, 0, 0, 0.1); /* for borders and lines */
-  --c-shadow-color:            rgba(0, 0, 0, 0.15);
+  --c-white-50:                rgba(255, 255, 255, 50%);
+  --c-lightbox-bg:             rgba(0, 0, 0, 50%);
+  --c-line-color:              rgba(0, 0, 0, 10%); /* for borders and lines */
+  --c-shadow-color:            rgba(0, 0, 0, 15%);
   /* END Netcentric colors  */
 
   /* fonts */

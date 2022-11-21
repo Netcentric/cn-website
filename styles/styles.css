@@ -25,13 +25,80 @@
   }
 
  :root {
+  /* Netcentric colors */
+  --c-black:                   #000;
+  --c-dark-blue:               #2f78c4;
+  --c-dark-mid-plum:           #3e40a0; /* for background footer only */
+  --c-dark-plum:               #2e308e;
+  --c-dark-gray:               #53565a;
+  --c-dark-teal:               #06c7cc;
+  --c-light-teal:              #97f5f7;
+  --c-light-blue:              #92bbe6;
+  --c-light-plum:              #85a0f9;
+  --c-light-gray:              #d0d0ce;
+  --c-mid-blue:                #6aa2dc;
+  --c-mid-plum:                #7373d8;
+  --c-mid-gray:                #97999b;
+  --c-midnight-blue:           #000048; /* cognizant color */
+  --c-mid-teal:                #26efe9;
+  --c-red:                     #b81f2d;
+  --c-yellow:                  #e9c71d;
+  --c-white:                   #fff;
+
+  /* social colors */
+  --twitter:                  #1d9bf0;
+  --facebook:                 #3b5998;
+  --linked-in:                #007bb5;
+  --git:                      #24292e;
+  --rss:                      #f26522;
+  --youtube:                  #c4302b;
+  --instagram:                #8134af;
+
+  /* highlight */
+  --c-highlight-red:           var(--c-red);
+  --c-highlight-yellow:        var(--c-yellow);
+
+  /* validations */
+  --c-error:                   var(--c-highlight-red);
+
+  /* default */
+  --c-text-default:            var(--c-black);
+  --c-primary:                 var(--c-dark-plum);
+
+  /* theme colors */
+
+  /* background-colors-text */
+  --bg-text-dark-plum:              var(--c-light-teal);
+  --bg-text-mid-plum:               var(--c-white);
+  --bg-text-light-plum:             var(--c-white);
+  --bg-text-dark-blue:              var(--c-white);
+  --bg-text-mid-blue:               var(--c-white);
+  --bg-text-light-blue:             var(--c-dark-plum);
+  --bg-text-dark-grey:              var(--c-white);
+  --bg-text-light-grey:             var(--c-dark-plum);
+  --bg-text-dark-teal:              var(--c-dark-plum);
+  --bg-text-mid-teal:               var(--c-dark-plum);
+  --bg-text-light-teal:             var(--c-dark-plum);
+  --bg-text-yellow:                 var(--c-white);
+  --bg-text-red:                    var(--c-white);
+  --bg-text-white:                  var(--c-dark-plum);
+  --bg-text-black:                  var(--c-white);
+
+  /* colors with opacity */
+  --c-white-50:                rgb(255 255 255 / 50%);
+  --c-lightbox-bg:             rgb(0 0 0 / 50%);
+  --c-line-color:              rgb(0 0 0 / 10%); /* for borders and lines */
+  --c-shadow-color:            rgb(0 0 0 / 15%);
+
+  /* END Netcentric colors  */
+
   /* colors */
-  --link-color: #035fe6;
-  --link-hover-color: #136ff6;
-  --background-color: #fff;
+  --link-color: var(--c-dark-plum);
+  --link-hover-color: var(--c-mid-plum);
+  --background-color: var(--c-white);
   --overlay-background-color: #eee;
   --highlight-background-color: #ccc;
-  --text-color: #000;
+  --text-color: var(--c-black);
 
   /* fonts */
   --body-font-family: 'Gellix', 'gellix-normal-400-fallback', 'Century Gothic', 'CenturyGothic', 'AppleGothic', sans-serif;
@@ -177,7 +244,7 @@ main input:hover {
 }
 
 main .section {
-  padding: 64px 16px;
+  padding: 32px 0;
 }
 
 main pre {
@@ -218,13 +285,7 @@ main img {
   height: auto;
 }
 
-@media (min-width: 600px) {
-  main .section {
-    padding: 64px 32px;
-  }  
-}
-
-@media (min-width: 900px) {
+@media (min-width: 992px) {
   :root {
     --heading-font-size-xxl: 60px;
     --heading-font-size-xl: 48px;
@@ -234,9 +295,15 @@ main img {
     --heading-font-size-xs: 22px;  
   }
   
-  .section > div {
-    max-width: 1200px;
-    margin: auto;
+  main .section > div {
+    width: 960px;
+    margin: 0 auto;
+  }
+}
+
+@media (min-width: 1200px) {
+  main .section > div {
+    width: 1176px;
   }
 }
 
@@ -246,8 +313,9 @@ main .section[data-section-status='initialized'] {
   display: none;
 }
 
-main .section.highlight {
-  background-color: var(--highlight-background-color);
+/* section highlights */
+main .section.light-plum {
+  background-color: var(--c-light-plum);
 }
 
 .youtube__base {

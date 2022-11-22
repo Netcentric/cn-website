@@ -160,7 +160,7 @@ function transformIconTextCard(document) {
 
     const iconTextCards = document.querySelectorAll('.icontextcard');
     if (iconTextCards) {
-      const cells = [['Cards (two columns, icon with text)']];
+      const cells = [['Cards (icon with text)']];
       iconTextCards.forEach((card) => {
         // capture icon
         const imageContainer = document.createElement('div');

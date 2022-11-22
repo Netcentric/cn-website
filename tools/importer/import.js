@@ -12,6 +12,14 @@
 /* global WebImporter */
 /* eslint-disable no-console, class-methods-use-this */
 
+// helper to wrap links
+function wrapWithLink(document, tag, url) {
+  const link = document.createElement('a');
+  link.href = url;
+  link.appendChild(tag);
+  return link;
+}
+
 // convert related blog posts based on tags
 function transformBlogRelatedPosts(document) {
   // related blogs are based on tags we extract from the heading
@@ -26,9 +34,30 @@ function transformBlogRelatedPosts(document) {
     }
     const cells = [['Related Blogs'], ['tag', title]];
 
-    // replace table
     const table = WebImporter.DOMUtils.createTable(cells, document);
     titleTag.replaceWith(table);
+  }
+}
+
+// convert libraryteaserlist to related articles
+function transformLibraryRelatedPosts(document) {
+  // related blogs are based on tags we extract from the heading
+  const teaserContainer = document.querySelector('.libraryteaserlist__container');
+  if (teaserContainer) {
+    const links = document.createElement('div');
+    teaserContainer
+      .querySelectorAll('.libraryteaserlist__item')
+      .forEach((card) => {
+        const link = card.querySelector('.teaser__link');
+        link.textContent = link.href;
+        const br = document.createElement('br');
+        links.appendChild(link);
+        links.appendChild(br);
+      });
+
+    const cells = [['Related Articles'], [links]];
+    const table = WebImporter.DOMUtils.createTable(cells, document);
+    teaserContainer.replaceWith(table);
   }
 }
 
@@ -244,12 +273,12 @@ function transformSections(document) {
         cells.push(['style', style]);
       }
     });
-
+    // we only need a section meta data table for non white colour background
     if (style !== 'white') {
       const table = WebImporter.DOMUtils.createTable(cells, document);
       div.append(table);
+      div.append(document.createElement('hr'));
     }
-    div.append(document.createElement('hr'));
   });
 }
 
@@ -310,13 +339,6 @@ function makeAbsoluteLinks(main) {
       }
     }
   });
-}
-
-function wrapWithLink(document, tag, url) {
-  const link = document.createElement("a");
-  link.href = url;
-  link.appendChild(tag);
-  return link;
 }
 
 export default {
@@ -423,6 +445,7 @@ export default {
       insertRelatedBlogsSection,
       transformBlogRelatedPosts,
       transformBlogSourceCode,
+      transformLibraryRelatedPosts,
       transformAccordion,
       transformLeaderProfile,
       transformIconTextCard,

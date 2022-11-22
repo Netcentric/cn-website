@@ -92,6 +92,46 @@ function transformBlogSourceCode(document) {
   }
 }
 
+// map testimonial blocks
+function transformTestimonial(document) {
+  let container = document.querySelector('.testimonial');
+  if (container) {
+    container = container.parentElement;
+
+    const testimonialCards = document.querySelectorAll('.testimonial');
+    if (testimonialCards) {
+      const cells = [['Cards (testimonial)']];
+      testimonialCards.forEach((card) => {
+        // capture profile
+        const profileName = document.querySelector('.authorprofile__name');
+        const profileRole = document.querySelector('.authorprofile__position');
+
+        const imageContainer = document.createElement('div');
+        const imgTag = card.querySelector('.authorprofile__image img');
+        if (imgTag) {
+          imgTag.alt = profileName.textContent;
+          imageContainer.append(imgTag);
+        }
+
+        // capture text
+        const text = card.querySelector('h2.testimonial__title');
+        const contentContainer = document.createElement('div');
+        contentContainer.appendChild(text);
+        contentContainer.appendChild(profileName)
+        const roleContainer = document.createElement('em');
+        roleContainer.appendChild(profileRole);
+        contentContainer.appendChild(roleContainer)
+
+        cells.push([imageContainer, contentContainer]);
+        card.remove();
+      });
+
+      const table = WebImporter.DOMUtils.createTable(cells, document);
+      container.replaceWith(table);
+    }
+  }
+}
+
 // insert section & meta data for blog footer
 function insertRelatedBlogsSection(document) {
   document.querySelectorAll('div.topicrelatedblog.container').forEach((e) => {
@@ -462,6 +502,7 @@ export default {
       transformLeaderProfile,
       transformIconTextCard,
       transformSideBySideTeasers,
+      transformTestimonial,
       transformSections,
       transformEmbed,
       makeProxySrcs,

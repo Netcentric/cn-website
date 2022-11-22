@@ -145,6 +145,15 @@ export default async function decorate(block) {
     decorateIcons(nav);
     block.append(nav);
 
+    // mobile language selector
+    const langToggleButton = document.createElement('button');
+    langToggleButton.classList.add('lang-toggle');
+    nav.querySelector('.nav-tools').append(langToggleButton);
+    langToggleButton.addEventListener('click', () => {
+      const expanded = langToggleButton.closest('.nav-tools').getAttribute('aria-expanded') === 'true';
+      langToggleButton.closest('.nav-tools').setAttribute('aria-expanded', expanded ? 'false' : 'true');
+    });
+
     window.addEventListener('resize', () => {
       if (shouldResize()) {
         nav.setAttribute('aria-expanded', 'false');

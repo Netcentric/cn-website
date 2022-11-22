@@ -30,15 +30,23 @@ function buildHeroBlock(main) {
 function injectScript(src) {
   window.scriptsLoaded = window.scriptsLoaded || [];
 
-  if(window.scriptsLoaded.indexOf(src)) {
+  if (window.scriptsLoaded.indexOf(src)) {
     const head = document.querySelector('head');
-    const script  = document.createElement('script');
+    const script = document.createElement('script');
 
     script.src = src;
     script.setAttribute('async', 'true');
     head.append(script);
     window.scriptsLoaded.push(src);
   }
+}
+
+function createEmbedWrap(a, vendor) {
+  const div = document.createElement('div');
+  div.classList.add(`${vendor}__base`);
+
+  a.style.display = 'none';
+  a.insertAdjacentElement('afterend', div);
 }
 
 function preDecorateEmbed(main) {
@@ -48,9 +56,9 @@ function preDecorateEmbed(main) {
   const wistiaAnchors = Array.from(anchors).filter((a) => a.href.includes('wistia'));
 
   window.embedAnchors = {
-    youTubeAnchors: youTubeAnchors,
-    spotifyAnchors: spotifyAnchors,
-    wistiaAnchors: wistiaAnchors
+    youTubeAnchors,
+    spotifyAnchors,
+    wistiaAnchors
   };
 
   youTubeAnchors.forEach((a) => {
@@ -62,14 +70,6 @@ function preDecorateEmbed(main) {
   wistiaAnchors.forEach((a) => {
     createEmbedWrap(a, 'wistia');
   });
-}
-
-function createEmbedWrap(a, vendor) {
-  const div = document.createElement('div');
-  div.classList.add(`${vendor}__base`);
-
-  a.style.display = 'none';
-  a.insertAdjacentElement('afterend', div);
 }
 
 function createIframe(a, vendor) {

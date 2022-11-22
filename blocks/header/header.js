@@ -68,26 +68,23 @@ export default async function decorate(block) {
       }
     });
 
-    // const removeAllEventListeners = (element) => {
-    //   // TODO fix
-    //   element.parentNode.replaceChild(element.cloneNode(true), element);
-    // };
+    const removeAllEventListeners = (element) => {
+      element.replaceWith(element.cloneNode(true));
+    };
 
     const attachEventListenersDesktop = () => {
       // all nav open
-      block.querySelectorAll('.nav-sections ul > .nav-drop').forEach((navSection) => {
-        navSection.addEventListener('mouseenter', () => {
-          collapseAllNavSections(navSection.parentElement);
-          navSection.setAttribute('aria-expanded', 'true');
+      block.querySelectorAll('.nav-sections ul > .nav-drop > a').forEach((navAnchor) => {
+        navAnchor.addEventListener('mouseenter', () => {
+          collapseAllNavSections(navAnchor.closest('ul'));
+          navAnchor.parentElement.setAttribute('aria-expanded', 'true');
         });
       });
 
-      // sub-level nav close
-      // TODO: Once all the links in the nav are done properly, make it so only hovering a new
-      //  anchor will close the current section
-      block.querySelectorAll('.nav-sections ul > .nav-drop ul > .nav-drop').forEach((navSection) => {
-        navSection.addEventListener('mouseleave', () => {
-          collapseAllNavSections(navSection.parentElement);
+      // close sub-level navs if hover over a new anchor (even if no sub menu at that anchor)
+      block.querySelectorAll('.nav-sections ul > :not(.nav-drop) > a').forEach((navAnchor) => {
+        navAnchor.addEventListener('mouseenter', () => {
+          collapseAllNavSections(navAnchor.closest('ul'));
         });
       });
 
@@ -144,6 +141,7 @@ export default async function decorate(block) {
     window.addEventListener('resize', () => {
       if (shouldResize()) {
         nav.setAttribute('aria-expanded', 'false');
+        removeAllEventListeners(document.querySelector('nav .nav-sections'));
         collapseAllNavSections(block);
         reAttachEventListeners();
       }

@@ -350,7 +350,7 @@ header nav .nav-sections ul > li.nav-drop[aria-expanded='true'] > .nav-drop-ul-w
     margin: auto;
   }
 
-  header nav .nav-sections > ul > li > ul > li:any-link {
+  header nav .nav-sections > ul > li > .nav-drop-ul-wrapper > ul > li:any-link {
     font-size: var(--body-font-size-m);
   }
 
@@ -361,7 +361,7 @@ header nav .nav-sections ul > li.nav-drop[aria-expanded='true'] > .nav-drop-ul-w
     z-index: 2;
     background-color: var(--dark-blue-color);
     width: 100vw;
-    top: calc(var(--nav-height) - 5px);
+    top: calc(var(--nav-height) - 25px);
     margin: 0 auto;
   }
 
@@ -371,7 +371,7 @@ header nav .nav-sections ul > li.nav-drop[aria-expanded='true'] > .nav-drop-ul-w
     flex-direction: column;
     color: var(--background-color);
     top: calc(var(--nav-height) - 5px);
-    gap: 0.4em;
+    gap: 0.6em;
   }
 
   /* Second level nav expansion */

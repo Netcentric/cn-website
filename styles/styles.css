@@ -260,6 +260,12 @@ main .section {
 }
 }
 
+@media(min-width: 922px) {
+  :root {
+    --nav-height: var(--desktop-nav-height);
+  }
+}
+
 /* progressive section appearance */
 main .section[data-section-status='loading'],
 main .section[data-section-status='initialized'] {

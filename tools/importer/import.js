@@ -57,14 +57,14 @@ function transformLibraryRelatedPosts(document) {
 
     const cells = [['Related Articles'], [links]];
     const table = WebImporter.DOMUtils.createTable(cells, document);
-    
+
     // add extra section if the original teaser list is hidden
     if (teaserContainer.classList.contains('aem-GridColumn--default--hide')) {
       teaserContainer.parentElement.append(document.createElement('hr'));
       teaserContainer.parentElement.append(table);
-      
-      const cells = [['Section Metadata'], ['style', 'desktop-hidden']];
-      const metaTable = WebImporter.DOMUtils.createTable(cells, document);
+
+      const metaCells = [['Section Metadata'], ['style', 'desktop-hidden']];
+      const metaTable = WebImporter.DOMUtils.createTable(metaCells, document);
       teaserContainer.parentElement.append(metaTable);
       teaserContainer.parentElement.append(document.createElement('hr'));
     } else {
@@ -117,12 +117,41 @@ function transformTestimonial(document) {
         const text = card.querySelector('h2.testimonial__title');
         const contentContainer = document.createElement('div');
         contentContainer.appendChild(text);
-        contentContainer.appendChild(profileName)
+        contentContainer.appendChild(profileName);
         const roleContainer = document.createElement('em');
         roleContainer.appendChild(profileRole);
-        contentContainer.appendChild(roleContainer)
+        contentContainer.appendChild(roleContainer);
 
         cells.push([imageContainer, contentContainer]);
+        card.remove();
+      });
+
+      const table = WebImporter.DOMUtils.createTable(cells, document);
+      container.replaceWith(table);
+    }
+  }
+}
+
+// map office location blocks
+function transformOffice(document) {
+  let container = document.querySelector('.office');
+  if (container) {
+    container = container.parentElement;
+
+    const officeCards = document.querySelectorAll('.office');
+    if (officeCards) {
+      const cells = [['Cards (office)']];
+      officeCards.forEach((card) => {
+        // capture office details
+        const officeDetails = card.querySelector('article.office__container');
+        const imageContainer = document.createElement('div');
+        const imgTag = officeDetails.querySelector('img');
+        if (imgTag) {
+          imgTag.alt = officeDetails.querySelector('.office__city').textContent;
+          imageContainer.append(imgTag);
+        }
+
+        cells.push([imageContainer, officeDetails]);
         card.remove();
       });
 
@@ -488,6 +517,7 @@ export default {
       'div.blogfooter', // blog footer with author, categories, social share buttons
       'a i.icons.icon__wrapper', // remove > icon on buttons, teaser links etc.
       'p.leaderprofile__name i.icons.icon__wrapper', // remove > icon from leader profile
+      'div.socialmediabar',
     ]);
 
     document.body.append(WebImporter.Blocks.getMetadataBlock(document, meta));
@@ -503,6 +533,7 @@ export default {
       transformIconTextCard,
       transformSideBySideTeasers,
       transformTestimonial,
+      transformOffice,
       transformSections,
       transformEmbed,
       makeProxySrcs,

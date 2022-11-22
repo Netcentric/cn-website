@@ -65,7 +65,7 @@ function createIframe(a, vendor) {
     source = `https://open.spotify.com/embed/episode/${id}`;
     className = 'spotify__player';
     allow = 'autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture';
-  } else if(vendor === 'wistia') {
+  } else if (vendor === 'wistia') {
     div.classList.add('wistia__base');
     source = `https://fast.wistia.net/embed/iframe/${id}`;
     className = 'wistia__player';
@@ -78,6 +78,32 @@ function createIframe(a, vendor) {
         allow="${allow}"
         loading="lazy">
     </iframe>`;
+}
+
+function decorateTwitterFeed(main) {
+  const anchors = main.getElementsByTagName('a');
+  const twitterAnchors = Array.from(anchors).filter((a) => a.href.includes('twitter'));
+
+  twitterAnchors.forEach((a) => {
+    a.innerText = `Tweets by ${a.pathname.split('/').pop()}`;
+    a.setAttribute('data-height', '500px');
+    a.classList.add('twitter-timeline');
+    injectScript('https://platform.twitter.com/widgets.js');
+  });
+}
+
+export function injectScript(src) {
+  window.scriptsLoaded = window.scriptsLoaded || [];
+
+  if(window.scriptsLoaded.indexOf(src)) {
+    const head = document.querySelector('head');
+    const script  = document.createElement('script');
+
+    script.src = src;
+    script.setAttribute('async', 'true');
+    head.append(script);
+    window.scriptsLoaded.push(src);
+  }
 }
 
 /**
@@ -106,6 +132,7 @@ export function decorateMain(main) {
   decorateSections(main);
   decorateBlocks(main);
   decorateEmbed(main);
+  decorateTwitterFeed(main);
 }
 
 /**

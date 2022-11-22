@@ -1,6 +1,6 @@
 import { readBlockConfig, decorateIcons } from '../../scripts/lib-franklin.js';
 
-const mobileBreakpoint = 922;
+const mobileBreakpoint = 992;
 let globalWindowWidth = window.innerWidth;
 
 /**

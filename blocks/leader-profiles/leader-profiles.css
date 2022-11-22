@@ -35,7 +35,7 @@
 
 .leader-profiles .leader-profile-heading .icon-chevron-right {
     font-size: 9px;
-    fill: currentColor;
+    fill: currentcolor;
     display: inline-block;
     width: 1em;
     height: 1em;
@@ -65,7 +65,7 @@
     }
 
     .leader-profiles .leader-profile-heading {
-        background: linear-gradient(transparent,rgba(0, 0, 0, 0.7));
+        background: linear-gradient(transparent,rgba(0 0 0 / 70%));
         height: 56px;
         position: absolute;
         bottom: 16px;

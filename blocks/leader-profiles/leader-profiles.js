@@ -18,12 +18,12 @@ export default function decorate(block) {
     const li = document.createElement('li');
     li.innerHTML = row.innerHTML;
     [...li.children].forEach((div) => {
-      let heading;
-      if (div.children.length === 1 && div.querySelector('picture')) div.className = 'leader-profile-image';
-      else if (heading = div.querySelector('h1,h2,h3,h4')) {
+      const heading = div.querySelector('h1,h2,h3,h4');
+      if (heading) {
         div.className = 'leader-profile-heading';
-        heading.insertAdjacentHTML('beforeend', `<span class="icon icon-chevron-right"></span>`);
-      } else div.className = 'leader-profile-body';
+        heading.insertAdjacentHTML('beforeend', '<span class="icon icon-chevron-right"></span>');
+      } else if (div.children.length === 1 && div.querySelector('picture')) div.className = 'leader-profile-image';
+      else div.className = 'leader-profile-body';
     });
     ul.append(li);
   });

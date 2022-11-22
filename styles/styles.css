@@ -250,15 +250,15 @@ main .section.highlight {
   background-color: var(--highlight-background-color);
 }
 
-.youtube__base,
-.wistia__base {
+.youtube-base,
+.wistia-base {
   position: relative;
   padding-bottom: 56.25%;
   height: 0;
 }
 
-.youtube__player,
-.wistia__player {
+.youtube-player,
+.wistia-player {
   border: none;
   position: absolute;
   top: 0;
@@ -267,11 +267,11 @@ main .section.highlight {
   height: 100%;
 }
 
-.spotify__base {
+.spotify-base {
   height: 232px;
 }
 
-.spotify__player {
+.spotify-player {
   border: none;
   width: 100%;
   height: 232px;

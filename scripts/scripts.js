@@ -43,7 +43,7 @@ function injectScript(src) {
 
 function createEmbedWrap(a, vendor) {
   const div = document.createElement('div');
-  div.classList.add(`${vendor}__base`);
+  div.classList.add(`${vendor}-base`);
 
   a.style.display = 'none';
   a.insertAdjacentElement('afterend', div);
@@ -58,7 +58,7 @@ function preDecorateEmbed(main) {
   window.embedAnchors = {
     youTubeAnchors,
     spotifyAnchors,
-    wistiaAnchors
+    wistiaAnchors,
   };
 
   youTubeAnchors.forEach((a) => {
@@ -84,15 +84,15 @@ function createIframe(a, vendor) {
 
   if (vendor === 'youtube') {
     source = `https://www.youtube.com/embed/${id}`;
-    className = 'youtube__player';
+    className = 'youtube-player';
     allow = 'encrypted-media; accelerometer; gyroscope; picture-in-picture';
   } else if (vendor === 'spotify') {
     source = `https://open.spotify.com/embed/episode/${id}`;
-    className = 'spotify__player';
+    className = 'spotify-player';
     allow = 'autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture';
   } else if (vendor === 'wistia') {
     source = `https://fast.wistia.net/embed/iframe/${id}`;
-    className = 'wistia__player';
+    className = 'wistia-player';
     allow = 'autoplay; clipboard-write; encrypted-media; fullscreen;';
   }
 

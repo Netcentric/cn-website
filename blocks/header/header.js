@@ -68,6 +68,13 @@ export default async function decorate(block) {
       }
     });
 
+    // Set up background overlay for open menu
+    navSections.querySelectorAll(':scope > ul > li.nav-drop').forEach((dropSection) => {
+      const overlay = document.createElement('div');
+      overlay.classList.add('nav-overlay');
+      dropSection.append(overlay);
+    });
+
     const removeAllEventListeners = (element) => {
       element.replaceWith(element.cloneNode(true));
     };
@@ -89,8 +96,8 @@ export default async function decorate(block) {
       });
 
       // top-level nav close
-      navSections.addEventListener('mouseleave', () => {
-        collapseAllNavSections(navSections);
+      block.querySelector('.nav-sections').addEventListener('mouseleave', () => {
+        collapseAllNavSections(block.querySelector('.nav-sections'));
       });
     };
 

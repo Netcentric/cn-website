@@ -42,7 +42,7 @@ function transformBlogRelatedPosts(document) {
 // convert libraryteaserlist to related articles
 function transformLibraryRelatedPosts(document) {
   // related blogs are based on tags we extract from the heading
-  const teaserContainer = document.querySelector('.libraryteaserlist__container');
+  const teaserContainer = document.querySelector('.libraryteaserlist');
   if (teaserContainer) {
     const links = document.createElement('div');
     teaserContainer
@@ -57,7 +57,19 @@ function transformLibraryRelatedPosts(document) {
 
     const cells = [['Related Articles'], [links]];
     const table = WebImporter.DOMUtils.createTable(cells, document);
-    teaserContainer.replaceWith(table);
+    
+    // add extra section if the original teaser list is hidden
+    if (teaserContainer.classList.contains('aem-GridColumn--default--hide')) {
+      teaserContainer.parentElement.append(document.createElement('hr'));
+      teaserContainer.parentElement.append(table);
+      
+      const cells = [['Section Metadata'], ['style', 'desktop-hidden']];
+      const metaTable = WebImporter.DOMUtils.createTable(cells, document);
+      teaserContainer.parentElement.append(metaTable);
+      teaserContainer.parentElement.append(document.createElement('hr'));
+    } else {
+      teaserContainer.querySelector('.libraryteaserlist__base').replaceWith(table);
+    }
   }
 }
 

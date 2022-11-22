@@ -4,8 +4,7 @@ import {
   decorateEmbed,
   decorateTwitterFeed,
 } from './scripts.js';
-import { ScrollIndicator } from "./blogScrollIndicator.js";
-
+import ScrollIndicator from './blogScrollIndicator.js';
 
 // Core Web Vitals RUM collection
 sampleRUM('cwv');
@@ -15,7 +14,7 @@ const main = document.querySelector('main');
 decorateTwitterFeed(main);
 decorateEmbed();
 
-if(document.body.classList.contains('blogpost')) {
+if (document.body.classList.contains('blogpost')) {
   const scrollIndicator = new ScrollIndicator();
 
   scrollIndicator.init();

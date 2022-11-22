@@ -267,6 +267,10 @@ main .section.highlight {
   height: 100%;
 }
 
+.spotify__base {
+  height: 232px;
+}
+
 .spotify__player {
   border: none;
   width: 100%;

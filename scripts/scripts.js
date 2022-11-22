@@ -27,37 +27,62 @@ function buildHeroBlock(main) {
   }
 }
 
-function decorateEmbed(main) {
+function injectScript(src) {
+  window.scriptsLoaded = window.scriptsLoaded || [];
+
+  if(window.scriptsLoaded.indexOf(src)) {
+    const head = document.querySelector('head');
+    const script  = document.createElement('script');
+
+    script.src = src;
+    script.setAttribute('async', 'true');
+    head.append(script);
+    window.scriptsLoaded.push(src);
+  }
+}
+
+function preDecorateEmbed(main) {
   const anchors = main.getElementsByTagName('a');
   const youTubeAnchors = Array.from(anchors).filter((a) => a.href.includes('youtu'));
   const spotifyAnchors = Array.from(anchors).filter((a) => a.href.includes('spotify'));
   const wistiaAnchors = Array.from(anchors).filter((a) => a.href.includes('wistia'));
 
+  window.embedAnchors = {
+    youTubeAnchors: youTubeAnchors,
+    spotifyAnchors: spotifyAnchors,
+    wistiaAnchors: wistiaAnchors
+  };
+
   youTubeAnchors.forEach((a) => {
-    createIframe(a, 'youtube');
+    createEmbedWrap(a, 'youtube');
   });
   spotifyAnchors.forEach((a) => {
-    createIframe(a, 'spotify');
+    createEmbedWrap(a, 'spotify');
   });
   wistiaAnchors.forEach((a) => {
-    createIframe(a, 'wistia');
+    createEmbedWrap(a, 'wistia');
   });
 }
 
-function createIframe(a, vendor) {
+function createEmbedWrap(a, vendor) {
   const div = document.createElement('div');
+  div.classList.add(`${vendor}__base`);
+
+  a.style.display = 'none';
+  a.insertAdjacentElement('afterend', div);
+}
+
+function createIframe(a, vendor) {
+  const div = a.nextElementSibling;
   const embed = a.pathname;
   const id = embed.split('/').pop();
   let source;
   let className;
   let allow;
 
-  a.style.display = 'none';
-  a.insertAdjacentElement('afterend', div);
   a.remove();
 
   if (vendor === 'youtube') {
-    div.classList.add('youtube__base');
     source = `https://www.youtube.com/embed/${id}`;
     className = 'youtube__player';
     allow = 'encrypted-media; accelerometer; gyroscope; picture-in-picture';
@@ -66,7 +91,6 @@ function createIframe(a, vendor) {
     className = 'spotify__player';
     allow = 'autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture';
   } else if (vendor === 'wistia') {
-    div.classList.add('wistia__base');
     source = `https://fast.wistia.net/embed/iframe/${id}`;
     className = 'wistia__player';
     allow = 'autoplay; clipboard-write; encrypted-media; fullscreen;';
@@ -80,7 +104,19 @@ function createIframe(a, vendor) {
     </iframe>`;
 }
 
-function decorateTwitterFeed(main) {
+export function decorateEmbed() {
+  window.embedAnchors?.youTubeAnchors?.forEach((a) => {
+    createIframe(a, 'youtube');
+  });
+  window.embedAnchors?.spotifyAnchors?.forEach((a) => {
+    createIframe(a, 'spotify');
+  });
+  window.embedAnchors?.wistiaAnchors?.forEach((a) => {
+    createIframe(a, 'wistia');
+  });
+}
+
+export function decorateTwitterFeed(main) {
   const anchors = main.getElementsByTagName('a');
   const twitterAnchors = Array.from(anchors).filter((a) => a.href.includes('twitter'));
 
@@ -90,20 +126,6 @@ function decorateTwitterFeed(main) {
     a.classList.add('twitter-timeline');
     injectScript('https://platform.twitter.com/widgets.js');
   });
-}
-
-export function injectScript(src) {
-  window.scriptsLoaded = window.scriptsLoaded || [];
-
-  if(window.scriptsLoaded.indexOf(src)) {
-    const head = document.querySelector('head');
-    const script  = document.createElement('script');
-
-    script.src = src;
-    script.setAttribute('async', 'true');
-    head.append(script);
-    window.scriptsLoaded.push(src);
-  }
 }
 
 /**
@@ -131,8 +153,7 @@ export function decorateMain(main) {
   buildAutoBlocks(main);
   decorateSections(main);
   decorateBlocks(main);
-  decorateEmbed(main);
-  decorateTwitterFeed(main);
+  preDecorateEmbed(main);
 }
 
 /**

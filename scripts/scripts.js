@@ -18,10 +18,20 @@ window.hlx.RUM_GENERATION = 'project-1'; // add your RUM generation information 
 
 function buildHeroBlock(main) {
   const h1 = main.querySelector('h1');
-  // const picture = main.querySelector('picture');
+  const p = main.querySelector('h1 ~ p');
+  const links = [];
+
+  const hasSubtitle = !!p;
+
+  if (hasSubtitle) {
+    main.querySelectorAll('h1 ~ p ~ p > a').forEach((element) => links.push(element));
+  } else {
+    main.querySelectorAll('h1 ~ p > a').forEach((element) => links.push(element));
+  }
+
   if (h1) {
     const section = document.createElement('div');
-    section.append(buildBlock('hero', { elems: [h1] }));
+    section.append(buildBlock('hero', { elems: [h1, p, ...links] }));
     main.prepend(section);
   }
 }

@@ -23,6 +23,23 @@ main .hero h1 {
     font-weight: 400;
 }
 
+main .hero p {
+    color: var(--c-light-teal);
+}
+
+main .hero a:any-link {
+    background: var(--c-light-teal);
+    color: var(--c-dark-plum);
+    font-size: var(--body-font-size-s);
+    text-transform: uppercase;
+}
+
+main .hero a:any-link:hover {
+    border: 2px solid var(--c-light-teal);
+    background: var(--c-dark-plum);
+    color: var(--c-light-teal);
+}
+
 
 main .hero picture {
     position: absolute;

@@ -13,7 +13,7 @@
 /* eslint-disable no-console, class-methods-use-this */
 
 // convert related blog posts based on tags
-function transformRelatedBlogPosts(document) {
+function transformBlogRelatedPosts(document) {
   // related blogs are based on tags we extract from the heading
   const titleTag = document.querySelector(
     'div.topicrelatedblog h4.topicrelatedblog__title',
@@ -29,6 +29,25 @@ function transformRelatedBlogPosts(document) {
     // replace table
     const table = WebImporter.DOMUtils.createTable(cells, document);
     titleTag.replaceWith(table);
+  }
+}
+
+// cleanup source code of older blog posts
+function transformBlogSourceCode(document) {
+  // sample: https://www.netcentric.biz/insights/2015/08/adobe-experience-manager-6-with-a-mongodb-setup.html
+  if (document.querySelector('body.articlepage')) {
+    document.querySelectorAll('table').forEach((table) => {
+      const code = table.querySelector('pre,p,i');
+      if (code) {
+        if (code.tagName === 'PRE') {
+          table.replaceWith(code);
+        } else {
+          const codeContainer = document.createElement('pre');
+          codeContainer.append(code.innerHTML);
+          table.replaceWith(codeContainer);
+        }
+      }
+    });
   }
 }
 
@@ -376,17 +395,6 @@ export default {
       meta.Template = 'blogpost';
     }
 
-    // cleanup source code of older blog posts
-    // sample: https://www.netcentric.biz/insights/2015/08/adobe-experience-manager-6-with-a-mongodb-setup.html
-    if (document.querySelector('div.blogfooter')) {
-      document.querySelectorAll('table').forEach((table) => {
-        const code = table.querySelector('pre');
-        if (code) {
-          table.replaceWith(code);
-        }
-      });
-    }
-
     // use helper method to remove header, footer, etc.
     WebImporter.DOMUtils.remove(document.body, [
       'div.header', // entire header XF
@@ -408,7 +416,8 @@ export default {
     // Convert all blocks
     [
       insertRelatedBlogsSection,
-      transformRelatedBlogPosts,
+      transformBlogRelatedPosts,
+      transformBlogSourceCode,
       transformAccordion,
       transformLeaderProfile,
       transformIconTextCard,

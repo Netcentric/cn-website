@@ -103,8 +103,8 @@ function transformTestimonial(document) {
       const cells = [['Cards (testimonial)']];
       testimonialCards.forEach((card) => {
         // capture profile
-        const profileName = document.querySelector('.authorprofile__name');
-        const profileRole = document.querySelector('.authorprofile__position');
+        const profileName = card.querySelector('.authorprofile__name');
+        const profileRole = card.querySelector('.authorprofile__position');
 
         const imageContainer = document.createElement('div');
         const imgTag = card.querySelector('.authorprofile__image img');

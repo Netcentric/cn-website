@@ -27,46 +27,104 @@ function buildHeroBlock(main) {
   }
 }
 
-function createIframe(a, vendor) {
-  const div = document.createElement('div');
-  const embed = a.pathname;
-  const id = embed.split('/').pop();
+function injectScript(src) {
+  window.scriptsLoaded = window.scriptsLoaded || [];
 
-  a.style.display = 'none';
-  a.insertAdjacentElement('afterend', div);
-  a.remove();
+  if (window.scriptsLoaded.indexOf(src)) {
+    const head = document.querySelector('head');
+    const script = document.createElement('script');
 
-  if (vendor === 'youtube') {
-    div.classList.add('youtube__base');
-    div.innerHTML = `<iframe src="https://www.youtube.com/embed/${id}" 
-        class="youtube__player" 
-        allowfullscreen  
-        allow="encrypted-media; accelerometer; gyroscope; picture-in-picture" 
-        title="Content from Youtube" 
-        loading="lazy">
-    </iframe>`;
-  } else if (vendor === 'spotify') {
-    div.innerHTML = `<iframe src="https://open.spotify.com/embed/episode/${id}" 
-        class="spotify__player"
-        width="100%"
-        height="232"
-        allowfullscreen  
-        allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-        loading="lazy">
-    </iframe>`;
+    script.src = src;
+    script.setAttribute('async', 'true');
+    head.append(script);
+    window.scriptsLoaded.push(src);
   }
 }
 
-function decorateEmbed(main) {
+function createEmbedWrap(a, vendor) {
+  const div = document.createElement('div');
+  div.classList.add(`${vendor}-base`);
+
+  a.style.display = 'none';
+  a.insertAdjacentElement('afterend', div);
+}
+
+function preDecorateEmbed(main) {
   const anchors = main.getElementsByTagName('a');
   const youTubeAnchors = Array.from(anchors).filter((a) => a.href.includes('youtu'));
   const spotifyAnchors = Array.from(anchors).filter((a) => a.href.includes('spotify'));
+  const wistiaAnchors = Array.from(anchors).filter((a) => a.href.includes('wistia'));
+
+  window.embedAnchors = {
+    youTubeAnchors,
+    spotifyAnchors,
+    wistiaAnchors,
+  };
 
   youTubeAnchors.forEach((a) => {
-    createIframe(a, 'youtube');
+    createEmbedWrap(a, 'youtube');
   });
   spotifyAnchors.forEach((a) => {
+    createEmbedWrap(a, 'spotify');
+  });
+  wistiaAnchors.forEach((a) => {
+    createEmbedWrap(a, 'wistia');
+  });
+}
+
+function createIframe(a, vendor) {
+  const div = a.nextElementSibling;
+  const embed = a.pathname;
+  const id = embed.split('/').pop();
+  let source;
+  let className;
+  let allow;
+
+  a.remove();
+
+  if (vendor === 'youtube') {
+    source = `https://www.youtube.com/embed/${id}`;
+    className = 'youtube-player';
+    allow = 'encrypted-media; accelerometer; gyroscope; picture-in-picture';
+  } else if (vendor === 'spotify') {
+    source = `https://open.spotify.com/embed/episode/${id}`;
+    className = 'spotify-player';
+    allow = 'autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture';
+  } else if (vendor === 'wistia') {
+    source = `https://fast.wistia.net/embed/iframe/${id}`;
+    className = 'wistia-player';
+    allow = 'autoplay; clipboard-write; encrypted-media; fullscreen;';
+  }
+
+  div.innerHTML = `<iframe src="${source}" 
+        class="${className}"
+        allowfullscreen  
+        allow="${allow}"
+        loading="lazy">
+    </iframe>`;
+}
+
+export function decorateEmbed() {
+  window.embedAnchors?.youTubeAnchors?.forEach((a) => {
+    createIframe(a, 'youtube');
+  });
+  window.embedAnchors?.spotifyAnchors?.forEach((a) => {
     createIframe(a, 'spotify');
+  });
+  window.embedAnchors?.wistiaAnchors?.forEach((a) => {
+    createIframe(a, 'wistia');
+  });
+}
+
+export function decorateTwitterFeed(main) {
+  const anchors = main.getElementsByTagName('a');
+  const twitterAnchors = Array.from(anchors).filter((a) => a.href.includes('twitter'));
+
+  twitterAnchors.forEach((a) => {
+    a.innerText = `Tweets by ${a.pathname.split('/').pop()}`;
+    a.setAttribute('data-height', '500px');
+    a.classList.add('twitter-timeline');
+    injectScript('https://platform.twitter.com/widgets.js');
   });
 }
 
@@ -95,7 +153,7 @@ export function decorateMain(main) {
   buildAutoBlocks(main);
   decorateSections(main);
   decorateBlocks(main);
-  decorateEmbed(main);
+  preDecorateEmbed(main);
 }
 
 /**

@@ -1,14 +1,92 @@
 footer {
-  padding: 2rem;
-  background-color: var(--overlay-background-color);
+  background-color: #3e40a0;
   font-size: var(--body-font-size-s);
+  color: white;
 }
 
-footer .footer {
+.footer {
   max-width: 1200px;
   margin: auto;
 }
 
-footer .footer p {
-  margin: 0;
+
+.footer ul {
+  list-style-type: none;
+}
+
+.footer a {
+  color: white;
+  text-decoration: none;
+}
+
+/* main footer section that contains the different subsections */
+footer > div > div {
+  display: flex;
+  flex-flow: row wrap;
+  padding: 16px;
+}
+
+/* each footer subsection */
+footer > div > div > div {
+  min-width: 50%;
+}
+
+/* links subsection */
+footer > div > div > div:first-child {
+  display: flex;
+  flex-flow: row wrap;
+
+}
+
+/* each link group */
+footer > div > div > div:first-child > ul {
+  padding-inline-start: 0;
+  padding-inline-end: 50px;
+}
+
+@media(max-width: 600px) {
+  footer > div > div > div:first-child > ul {
+    min-width: 100%;
+  }
+}
+
+@media(min-width: 600px) and (max-width: 900px) {
+  footer > div > div > div:first-child > ul {
+    min-width: 40%;
+  }
+}
+
+/* title of each link section */
+footer > div > div > div:first-child > ul > li:first-child {
+  font-weight: bold;
+}
+
+/* netcentric logo */
+footer > div > div > div:nth-child(2) > p > a > picture > img {
+  width: 150px;
+  height: 40px;
+}
+
+/* social subsection */
+footer > div > div > div:nth-child(3) > ul {
+  display: inline-flex;
+  float: right;
+  padding-inline-start: 0;
+  font-size: large;
+}
+
+.icon {
+  font-size: 46px;
+  height: 1em;
+  width: 1em;
+  fill: currentcolor;
+  display: inline-block;
+}
+
+/* Privacy subsection */
+footer > div > div > div:last-child {
+  font-size: 14px;
+  font-weight: normal;
+  text-align: right;
+  margin-left: auto;
 }

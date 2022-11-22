@@ -17,6 +17,8 @@ export default function decorate(block) {
   [...block.children].forEach((row) => {
     const li = document.createElement('li');
     li.innerHTML = row.innerHTML;
+    li.role = 'button';
+    li.tabIndex = '0';
     [...li.children].forEach((div) => {
       const heading = div.querySelector('h1,h2,h3,h4');
       if (heading) {

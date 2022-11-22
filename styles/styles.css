@@ -131,6 +131,7 @@ body {
   color: var(--text-color);
   background-color: var(--background-color);
   display: none;
+  -webkit-font-smoothing: antialiased;
 }
 
 body.appear {
@@ -281,7 +282,7 @@ hr {
 
 main img {
   max-width: 100%;
-  width: auto;
+  width: 100%;
   height: auto;
 }
 

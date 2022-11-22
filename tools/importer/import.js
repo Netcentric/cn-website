@@ -205,20 +205,18 @@ function transformSideBySideTeasers(document) {
         const text = card.querySelector('.imagetextandlink__description');
         const cta = card.querySelector('.imagetextandlink__action');
         const link = card.querySelector('.imagetextandlink__link');
-        link.innerHTML = link.href;
         const contentContainer = document.createElement('div');
-        contentContainer.append(link);
         if (header) {
-          contentContainer.append(header);
+          contentContainer.append(wrapWithLink(document, header, link));
         }
         contentContainer.append(text);
-        contentContainer.append(cta);
+        contentContainer.append(wrapWithLink(document, cta, link));
 
         // capture image
         const imageContainer = document.createElement('div');
         const img = card.querySelector('.imagetextandlink__image img');
         if (img) {
-          img.alt = cta;
+          img.alt = text.textContent;
           imageContainer.append(img);
         }
 
@@ -312,6 +310,13 @@ function makeAbsoluteLinks(main) {
       }
     }
   });
+}
+
+function wrapWithLink(document, tag, url) {
+  const link = document.createElement("a");
+  link.href = url;
+  link.appendChild(tag);
+  return link;
 }
 
 export default {

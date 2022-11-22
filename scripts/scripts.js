@@ -149,7 +149,6 @@ function buildAutoBlocks(main) {
 export function decorateMain(main) {
   // hopefully forward compatible button decoration
   decorateButtons(main);
-  decorateIcons(main);
   buildAutoBlocks(main);
   decorateSections(main);
   decorateBlocks(main);
@@ -191,6 +190,7 @@ export function addFavIcon(href) {
 async function loadLazy(doc) {
   const main = doc.querySelector('main');
   await loadBlocks(main);
+  decorateIcons(main);
 
   const { hash } = window.location;
   const element = hash ? main.querySelector(hash) : false;

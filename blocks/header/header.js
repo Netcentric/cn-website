@@ -1,6 +1,6 @@
 import { readBlockConfig, decorateIcons } from '../../scripts/lib-franklin.js';
 
-const mobileBreakpoint = 800;
+const mobileBreakpoint = 922;
 let globalWindowWidth = window.innerWidth;
 
 /**
@@ -49,6 +49,12 @@ export default async function decorate(block) {
         openArrow.classList.add('icon', 'icon-submenu-arrow', 'open-menu-arrow');
         section.append(openArrow);
         section.classList.add('nav-drop');
+
+        // Add wrapper div to center dropdown items on screen
+        const wrapperDiv = document.createElement('div');
+        wrapperDiv.classList.add('nav-drop-ul-wrapper');
+        wrapperDiv.append(subSection);
+        section.insertBefore(wrapperDiv, openArrow);
 
         // Add icon/text to close sub-section
         const sectionBack = section.querySelector('a')?.outerHTML ?? '<span>Back</span>';

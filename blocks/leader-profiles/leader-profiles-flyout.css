@@ -1,0 +1,118 @@
+.leader-profiles-flyout {
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  top: 0;
+  left: 0;
+  z-index: 5;
+  background: rgba(0 0 0 / 50%);
+}
+
+.leader-profiles-flyout>div {
+  background: #fff;
+  width: calc(100% - (2 * 16px));
+  height: 100vh;
+  margin-left: 100%;
+  transition: margin-left 200ms ease-in;
+  padding: 16px;
+  color: var(--c-dark-plum);
+  position: relative;
+}
+
+.leader-profiles-flyout.opened>div {
+  margin-left: 0;
+}
+
+.leader-profiles-flyout .leader-profile-image {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 26px;
+}
+
+.leader-profiles-flyout .leader-profile-image img {
+  border-radius: 50%;
+  border: 1px solid transparent;
+}
+
+.leader-profiles-flyout .leader-profile-heading {
+  margin-bottom: 24px;
+  font-size: 28px;
+  line-height: 1.2em;
+  letter-spacing: normal;
+}
+
+.leader-profiles-flyout .leader-profile-heading>* {
+  display: inline;
+  margin: 0;
+}
+
+.leader-profiles-flyout .leader-profile-heading>*:first-child::after {
+  display: inline-block;
+  content: ',';
+}
+
+.leader-profiles-flyout .leader-profile-heading .icon {
+  display: none;
+}
+
+.leader-profiles-flyout .leader-profile-body {
+  font-size: 24px;
+  letter-spacing: normal;
+  line-height: 1.2em;
+  margin-bottom: 24px;
+}
+
+.leader-profiles-flyout .leader-profile-social-icons {
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  margin-top: 40px;
+  margin-left: -16px;
+}
+
+.leader-profiles-flyout .leader-profile-social-icons svg {
+  width: 64px;
+  height: 64px;
+}
+
+.leader-profiles-flyout .icon-close {
+  position: absolute;
+  top: 20px;
+  right: 0;
+  display: block;
+  width: 72px;
+  height: 72px;
+}
+
+@media screen and (min-width: 992px) {
+  .leader-profiles-flyout>div>* {
+    max-width: 600px;
+  }
+
+  .leader-profiles-flyout>div {
+    width: calc(50% - 80px);
+    padding: 48px 20px 48px 60px;
+  }
+
+  .leader-profiles-flyout.opened>div {
+    margin-left: 50%;
+  }
+
+  .leader-profiles-flyout .leader-profile-image {
+    justify-content: unset;
+  }
+
+  .leader-profiles-flyout .icon-close {
+    right: 10px;
+    top: 53px;
+  }
+}
+
+@media screen and (min-width: 1360px) {
+  .leader-profiles-flyout .icon-close {
+    right: unset;
+    left: 597px;
+    top: 53px;
+  }
+}

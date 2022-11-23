@@ -1,80 +1,84 @@
-.leader-profiles > ul {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
+.leader-profiles>ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
 }
 
-.leader-profiles > ul > li {
-    margin: 0 16px;
-    padding: 16px 0;
+.leader-profiles>ul>li {
+  margin: 0 16px;
+  padding: 16px 0;
 }
 
-.leader-profiles .leader-profile-image {
-    height: 100%;
+.leader-profiles svg,
+.leader-profiles-flyout svg {
+  fill: currentcolor;
 }
 
 .leader-profiles .leader-profile-image img {
-    display: block;
-    object-fit: cover;
-    height: 100%;
+  display: block;
+  object-fit: cover;
+  height: 100%;
 }
 
 .leader-profiles .leader-profile-heading {
-    width: 100%;
-    margin: 10px 0;
+  width: 100%;
+  margin: 10px 0;
 }
 
-.leader-profiles .leader-profile-heading > * {
-    font-size: 14px;
-    letter-spacing: -0.5px;
-    line-height: 1em;
-    margin: 0;
+.leader-profiles .leader-profile-heading>* {
+  font-size: 14px;
+  letter-spacing: -0.5px;
+  line-height: 1em;
+  margin: 0;
 }
 
 .leader-profiles .leader-profile-heading .icon-chevron-right {
-    font-size: 9px;
-    fill: currentcolor;
-    display: inline-block;
-    width: 1em;
-    height: 1em;
-    margin-left: 2px;
+  font-size: 9px;
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  margin-left: 2px;
 }
 
 .leader-profiles .leader-profile-heading .icon-chevron-right svg {
-    width: 100%;
-    height: 100%;
+  width: 100%;
+  height: 100%;
 }
 
-.leader-profiles .leader-profile-heading > *:nth-child(2) {
-    margin-top: 3px;
+.leader-profiles .leader-profile-heading>*:nth-child(2) {
+  margin-top: 3px;
 }
 
 .leader-profiles .leader-profile-body {
-    display: none;
+  display: none;
 }
 
 @media screen and (min-width: 992px) {
-    .leader-profiles > ul {
-        grid-template-columns: 1fr 1fr 1fr 1fr;
-    }
+  .leader-profiles>ul {
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+  }
 
-    .leader-profiles > ul > li {
-        position: relative;
-    }
+  .leader-profiles>ul>li {
+    position: relative;
+  }
 
-    .leader-profiles .leader-profile-heading {
-        background: linear-gradient(transparent,rgba(0 0 0 / 70%));
-        height: 56px;
-        position: absolute;
-        bottom: 16px;
-        color: #fff;
-        padding: 22px 20px;
-        margin: 0;
-        width: calc(100% - (2 * 20px));
-        display: flex;
-        flex-direction: column;
-        justify-content: flex-end;
-    }
+  .leader-profiles .leader-profile-image {
+    height: 100%;
+  }
+
+  .leader-profiles .leader-profile-heading {
+    background: linear-gradient(transparent, rgba(0 0 0 / 70%));
+    height: 56px;
+    position: absolute;
+    bottom: 16px;
+    color: #fff;
+    padding: 22px 20px;
+    margin: 0;
+    width: calc(100% - (2 * 20px));
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+  }
 }

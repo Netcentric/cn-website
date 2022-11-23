@@ -338,6 +338,14 @@ main .section.dark-gray {
   background-color: var(--c-dark-gray);
 }
 
+main .section.light-teal {
+  background-color: var(--c-light-teal);
+}
+
+main .section.dark-teal {
+  background-color: var(--c-dark-teal);
+}
+
 .youtube-base,
 .wistia-base {
   position: relative;

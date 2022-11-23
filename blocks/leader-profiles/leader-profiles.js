@@ -61,29 +61,30 @@ async function handleEvent(block, closeIcon, event) {
 }
 
 export default function decorate(block) {
-  const ul = document.createElement('ul');
+  let blockHtml = '<ul>';
   [...block.children].forEach((row) => {
-    const li = document.createElement('li');
-    li.innerHTML = row.innerHTML;
-    li.role = 'button';
-    li.tabIndex = '0';
-    [...li.children].forEach((div) => {
+    blockHtml += '<li role="button" tabindex="0">';
+    [...row.children].forEach((div) => {
       const heading = div.querySelector('h1,h2,h3,h4');
+      let className;
       if (heading) {
-        div.className = 'leader-profile-heading';
+        className = 'leader-profile-heading';
         heading.insertAdjacentHTML('beforeend', '<span class="icon icon-chevron-right"></span>');
       } else if (div.children.length === 1 && div.querySelector('picture')) {
-        div.className = 'leader-profile-image';
+        className = 'leader-profile-image';
       } else {
-        div.className = 'leader-profile-body';
+        className = 'leader-profile-body';
         div.querySelectorAll('.icon').forEach((icon) => {
           icon.closest('a').target = '_blank';
           icon.closest('ul').classList.add('leader-profile-social-icons');
         });
       }
+      blockHtml += `<div class="${className}">${div.innerHTML}</div>`;
     });
-    ul.append(li);
+    blockHtml += '</li>';
   });
+  blockHtml += '</ul>';
+  const ul = document.createRange().createContextualFragment(blockHtml);
   ul.querySelectorAll('img').forEach((img) => {
     const width = getImageWidth();
     const optimizedPicture = createOptimizedPicture(img.src, img.alt, false, [{ width }]);

@@ -129,7 +129,7 @@ function createLabel(fd) {
       label.append(labelTexts[0]);
       label.append(link);
       label.append(labelTexts[1]);
-    }    
+    }
   }
   return label;
 }
@@ -181,7 +181,7 @@ async function createForm(formURL) {
         fieldWrapper.append(createLabel(fd));
         fieldWrapper.append(createTextArea(fd));
         break;
-     case 'submit':
+      case 'submit':
         fieldWrapper.append(createButton(fd));
         break;
       default:

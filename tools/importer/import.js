@@ -450,6 +450,18 @@ function makeAbsoluteLinks(main) {
 }
 
 export default {
+  preprocess: ({ document }) => {
+    document.querySelectorAll('img').forEach((img) => {
+      if (img.src && img.src.startsWith('data:')) {
+        const json = img.getAttribute('data-nc-params-imagelazy');
+        if (json) {
+          const params = JSON.parse(json);
+          img.src = params.src;
+        }
+      }
+    });
+  },
+
   /**
    * Apply DOM operations to the provided document and return
    * the root element to be then transformed to Markdown.

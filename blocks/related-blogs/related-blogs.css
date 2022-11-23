@@ -7,6 +7,6 @@
     font-weight: 400;
     font-size: 40px;
     line-height: 46px;
-    color: #97f5f7;
+    color: var(--c-light-teal);
     margin-bottom: 25px;
 }

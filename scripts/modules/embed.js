@@ -41,34 +41,3 @@ export function decorateEmbed() {
     createIframe(a, 'wistia');
   });
 }
-
-function createEmbedWrap(a, vendor) {
-  const div = document.createElement('div');
-  div.classList.add(`${vendor}-base`);
-
-  a.style.display = 'none';
-  a.insertAdjacentElement('afterend', div);
-}
-
-export function preDecorateEmbed(main) {
-  const anchors = main.getElementsByTagName('a');
-  const youTubeAnchors = Array.from(anchors).filter((a) => a.href.includes('youtu'));
-  const spotifyAnchors = Array.from(anchors).filter((a) => a.href.includes('spotify'));
-  const wistiaAnchors = Array.from(anchors).filter((a) => a.href.includes('wistia'));
-
-  window.embedAnchors = {
-    youTubeAnchors,
-    spotifyAnchors,
-    wistiaAnchors,
-  };
-
-  youTubeAnchors.forEach((a) => {
-    createEmbedWrap(a, 'youtube');
-  });
-  spotifyAnchors.forEach((a) => {
-    createEmbedWrap(a, 'spotify');
-  });
-  wistiaAnchors.forEach((a) => {
-    createEmbedWrap(a, 'wistia');
-  });
-}

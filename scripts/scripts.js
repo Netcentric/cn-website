@@ -12,7 +12,6 @@ import {
   loadBlocks,
   loadCSS,
 } from './lib-franklin.js';
-import { preDecorateEmbed } from './modules/embed.js';
 
 const LCP_BLOCKS = []; // add your LCP blocks to the list
 window.hlx.RUM_GENERATION = 'project-1'; // add your RUM generation information here
@@ -26,6 +25,37 @@ function buildHeroBlock(main) {
     section.append(buildBlock('hero', { elems: [picture, h1] }));
     main.prepend(section);
   }
+}
+
+function createEmbedWrap(a, vendor) {
+  const div = document.createElement('div');
+  div.classList.add(`${vendor}-base`);
+
+  a.style.display = 'none';
+  a.insertAdjacentElement('afterend', div);
+}
+
+function preDecorateEmbed(main) {
+  const anchors = main.getElementsByTagName('a');
+  const youTubeAnchors = Array.from(anchors).filter((a) => a.href.includes('youtu'));
+  const spotifyAnchors = Array.from(anchors).filter((a) => a.href.includes('spotify'));
+  const wistiaAnchors = Array.from(anchors).filter((a) => a.href.includes('wistia'));
+
+  window.embedAnchors = {
+    youTubeAnchors,
+    spotifyAnchors,
+    wistiaAnchors,
+  };
+
+  youTubeAnchors.forEach((a) => {
+    createEmbedWrap(a, 'youtube');
+  });
+  spotifyAnchors.forEach((a) => {
+    createEmbedWrap(a, 'spotify');
+  });
+  wistiaAnchors.forEach((a) => {
+    createEmbedWrap(a, 'wistia');
+  });
 }
 
 /**

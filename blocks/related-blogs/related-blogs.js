@@ -9,15 +9,12 @@ async function enrichProfiles(rArticles) {
   const response = await fetch('/profile-blog.json');
   const json = await response.json();
 
-  Object.entries(rArticles).forEach((entry) => {
-    // eslint-disable-next-line no-unused-vars
-    const [key, value] = entry;
-    // eslint-disable-next-line no-restricted-syntax
-    for (const pkey in json.data) {
-      if (json.data[pkey].Name === value.authors) {
-        value.profiles = json.data[pkey];
+  Object.values(rArticles).forEach((value) => {
+    Object.keys(json.data).forEach((k) => {
+      if (json.data[k].Name === value.authors) {
+        value.profiles = json.data[k];
       }
-    }
+    });
   });
 
   return rArticles;

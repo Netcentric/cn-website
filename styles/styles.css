@@ -318,3 +318,30 @@ main .section[data-section-status='initialized'] {
 main .section.light-plum {
   background-color: var(--c-light-plum);
 }
+
+.youtube-base,
+.wistia-base {
+  position: relative;
+  padding-bottom: 56.25%;
+  height: 0;
+}
+
+.youtube-player,
+.wistia-player {
+  border: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.spotify-base {
+  height: 232px;
+}
+
+.spotify-player {
+  border: none;
+  width: 100%;
+  height: 232px;
+}

@@ -29,6 +29,8 @@ export function sampleRUM(checkpoint, data = {}) {
         .forEach(({ fnname, args }) => sampleRUM[fnname](...args));
     });
   sampleRUM.on = (chkpnt, fn) => { sampleRUM.cases[chkpnt] = fn; };
+  sampleRUM.piggybacks = sampleRUM.piggybacks || [];
+  sampleRUM.piggyback = (url, tf = (a) => a) => sampleRUM.piggybacks.push([url, tf]);
   defer('observe');
   defer('cwv');
   try {
@@ -48,12 +50,13 @@ export function sampleRUM(checkpoint, data = {}) {
     if (window.hlx && window.hlx.rum && window.hlx.rum.isSelected) {
       const sendPing = (pdata = data) => {
         // eslint-disable-next-line object-curly-newline, max-len, no-use-before-define
-        const body = JSON.stringify({ weight, id, referer: window.location.href, generation: window.hlx.RUM_GENERATION, checkpoint, ...data });
+        const bdata = { weight, id, referer: window.location.href, generation: window.hlx.RUM_GENERATION, checkpoint, ...data };
         const url = `https://rum.hlx.page/.rum/${weight}`;
         // eslint-disable-next-line no-unused-expressions
-        navigator.sendBeacon(url, body);
+        navigator.sendBeacon(url, JSON.stringify(bdata));
         // eslint-disable-next-line no-console
         console.debug(`ping:${checkpoint}`, pdata);
+        sampleRUM.piggybacks.forEach(([u, t]) => navigator.sendBeacon(u, JSON.stringify(t(bdata))));
       };
       sampleRUM.cases = sampleRUM.cases || {
         cwv: () => sampleRUM.cwv(data) || true,

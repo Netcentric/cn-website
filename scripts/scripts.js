@@ -37,9 +37,9 @@ function createEmbedWrap(a, vendor) {
 
 function preDecorateEmbed(main) {
   const anchors = main.getElementsByTagName('a');
-  const youTubeAnchors = Array.from(anchors).filter((a) => a.href.includes('youtu'));
-  const spotifyAnchors = Array.from(anchors).filter((a) => a.href.includes('spotify'));
-  const wistiaAnchors = Array.from(anchors).filter((a) => a.href.includes('wistia'));
+  const youTubeAnchors = Array.from(anchors).filter((a) => a.href.includes('youtu') && encodeURI(a.textContent.trim()).indexOf(a.href) !== -1);
+  const spotifyAnchors = Array.from(anchors).filter((a) => a.href.includes('spotify') && encodeURI(a.textContent.trim()).indexOf(a.href) !== -1);
+  const wistiaAnchors = Array.from(anchors).filter((a) => a.href.includes('wistia') && encodeURI(a.textContent.trim()).indexOf(a.href) !== -1);
 
   window.embedAnchors = {
     youTubeAnchors,

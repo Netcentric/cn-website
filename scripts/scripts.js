@@ -17,7 +17,7 @@ const LCP_BLOCKS = []; // add your LCP blocks to the list
 window.hlx.RUM_GENERATION = 'project-1'; // add your RUM generation information here
 
 function buildHeroBlock(main) {
-  /* 1. If there is an explicit hero block, add it to its own section to be full-width */
+  /* 1. If there is an explicit hero block, add it to its own section, so it can be full-width */
   const heroBlock = main.querySelector('.hero');
   if (heroBlock) {
     const section = document.createElement('div');
@@ -26,8 +26,19 @@ function buildHeroBlock(main) {
     return;
   }
 
-  /* 2. If there is a h1, build a block out of the h1 */
+  /* 2. If we are on a blog post with image, add the image and h1 */
   const h1 = main.querySelector('h1');
+  const picture = document.querySelector('body.blogpost main h1 + p > picture');
+
+  if (h1 && picture) {
+    const section = document.createElement('div');
+    const hr = document.createElement('hr');
+    section.append(buildBlock('hero', { elems: [hr, h1, picture] }));
+    main.prepend(section);
+    return;
+  }
+
+  /* 3. If there is only a h1, build a block out of the h1 */
   if (h1) {
     const section = document.createElement('div');
     section.append(buildBlock('hero', { elems: [h1] }));

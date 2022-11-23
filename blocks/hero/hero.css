@@ -12,26 +12,24 @@ main .hero-container > div {
 main .hero-container {
   padding: 0;
   background-color: var(--c-dark-plum);
+  color: var(--c-light-teal);
 }
 
 main .hero {
   position: relative;
-  padding: 32px;
-  padding-top: 60px;
+  padding: 60px 32px 32px;
   min-height: 300px;
 }
 
 main .hero h1 {
   max-width: 1200px;
-  margin-left: auto;
-  margin-right: auto;
-  color: var(--c-light-teal);
+  color: inherit;
   font-weight: 400;
   margin: 0;
 }
 
 main .hero p {
-  color: var(--c-light-teal);
+  color: inherit;
   margin: 0;
 }
 
@@ -46,18 +44,6 @@ main .hero a:any-link:hover {
   border: 1px solid var(--c-light-teal);
   background: var(--c-dark-plum);
   color: var(--c-light-teal);
-}
-
-
-main .hero picture {
-  position: absolute;
-  z-index: -1;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  right: 0;
-  object-fit: cover;
-  box-sizing: border-box;
 }
 
 main .hero img {
@@ -92,6 +78,25 @@ main .hero a.button.secondary {
 main .hero a.button.secondary:hover {
   color: #77bad7;
   border-color: #77bad7;
+}
+
+body.blogpost main .hero-container {
+  background-color: unset;
+  color: var(--c-dark-plum);
+}
+
+body.blogpost main .hero {
+  min-height: unset;
+  padding-top: 0;
+}
+
+body.blogpost main .hero hr {
+  margin-top: 0;
+  margin-bottom: 60px;
+}
+
+body.blogpost main .hero h1 {
+  margin-bottom: 50px;
 }
 
 @media (min-width: 992px) {

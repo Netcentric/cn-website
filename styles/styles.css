@@ -323,12 +323,20 @@ main .section.light-plum {
   background-color: var(--c-light-plum);
 }
 
+main .section.mid-plum {
+  background-color: var(--c-mid-plum);
+}
+
 main .section.dark-plum {
   background-color: var(--c-dark-plum);
 }
 
 main .section.light-blue {
   background-color: var(--c-light-blue);
+}
+
+main .section.mid-blue {
+  background-color: var(--c-mid-blue);
 }
 
 main .section.dark-blue {
@@ -339,12 +347,20 @@ main .section.light-gray {
   background-color: var(--c-light-gray);
 }
 
+main .section.mid-gray {
+  background-color: var(--c-mid-gray);
+}
+
 main .section.dark-gray {
   background-color: var(--c-dark-gray);
 }
 
 main .section.light-teal {
   background-color: var(--c-light-teal);
+}
+
+main .section.mid-teal {
+  background-color: var(--c-mid-teal);
 }
 
 main .section.dark-teal {

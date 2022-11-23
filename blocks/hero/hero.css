@@ -1,5 +1,10 @@
 /* block specific CSS goes here */
 
+:root {
+  --hero-button-font-size: 12px;
+  --hero-paragraph-font-size: 20px;
+}
+
 main .hero-container > div {
   max-width: unset;
 }
@@ -12,6 +17,7 @@ main .hero-container {
 main .hero {
   position: relative;
   padding: 32px;
+  padding-top: 60px;
   min-height: 300px;
 }
 
@@ -21,10 +27,12 @@ main .hero h1 {
   margin-right: auto;
   color: var(--c-light-teal);
   font-weight: 400;
+  margin: 0;
 }
 
 main .hero p {
   color: var(--c-light-teal);
+  margin: 0;
 }
 
 main .hero a:any-link {
@@ -35,7 +43,7 @@ main .hero a:any-link {
 }
 
 main .hero a:any-link:hover {
-  border: 2px solid var(--c-light-teal);
+  border: 1px solid var(--c-light-teal);
   background: var(--c-dark-plum);
   color: var(--c-light-teal);
 }
@@ -61,10 +69,22 @@ main .hero img {
 main .hero .button-container {
   display: flex;
   gap: 50px;
+  margin-top: 30px;
+}
+
+main .hero a.button {
+  font-size: var(--hero-button-font-size);
+}
+
+main .hero a.button svg {
+  width: 12px;
+  height: 12px;
+  fill: currentcolor;
+  margin-left: 14px;
 }
 
 main .hero a.button.secondary {
-  border: 2px solid var(--c-light-teal);
+  border: 1px solid var(--c-light-teal);
   color: var(--c-light-teal);
   background: var(--c-dark-plum);
 }

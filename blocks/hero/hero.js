@@ -1,3 +1,5 @@
+import { decorateIcons } from '../../scripts/lib-franklin.js';
+
 export default function decorate(block) {
   /* Move all buttons to one container */
   const firstButtonContainer = block.querySelector('.button-container');
@@ -11,4 +13,13 @@ export default function decorate(block) {
       buttonContainer.remove();
     });
   }
+
+  /* Add chevron to buttons */
+  block.querySelectorAll('a.button').forEach((button) => {
+    const chevron = document.createElement('span');
+    chevron.classList.add('icon', 'icon-chevron-right');
+    button.append(chevron);
+  });
+
+  decorateIcons(block);
 }

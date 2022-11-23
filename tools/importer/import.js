@@ -171,6 +171,30 @@ function insertRelatedBlogsSection(document) {
   });
 }
 
+// convert hero to hero block if needed
+function transformHero(document) {
+  document.querySelectorAll('div.heroparsys').forEach((hero) => {
+    const pageTitle = hero.querySelector('h1');
+    const pageSubTitle = hero.querySelector('.cmp-teaser__description p');
+    const heroCTAButtons = hero.querySelector('.responsivegrid div');
+    if (pageSubTitle
+      || (heroCTAButtons && heroCTAButtons.querySelector('a.btn'))) {
+      const row = document.createElement('div');
+      row.appendChild(pageTitle);
+      if (pageSubTitle) {
+        row.appendChild(pageSubTitle);
+      }
+      heroCTAButtons.querySelectorAll('.btn').forEach((b) => {
+        row.appendChild(b);
+        row.appendChild(document.createElement('br'));
+      });
+      const cells = [['Hero'], [row]];
+      const table = WebImporter.DOMUtils.createTable(cells, document);
+      hero.replaceWith(table);
+    }
+  });
+}
+
 // convert accordion components
 function transformAccordion(document) {
   document.querySelectorAll('div.accordion').forEach((e) => {

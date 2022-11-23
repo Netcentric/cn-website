@@ -30,7 +30,7 @@ function createIframe(a, vendor) {
     </iframe>`;
 }
 
-export function decorateEmbed() {
+export default function decorateEmbed() {
   window.embedAnchors?.youTubeAnchors?.forEach((a) => {
     createIframe(a, 'youtube');
   });

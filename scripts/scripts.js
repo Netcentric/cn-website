@@ -11,8 +11,8 @@ import {
   waitForLCP,
   loadBlocks,
   loadCSS,
-} from './lib-franklin.js'
-import { preDecorateEmbed } from "./modules/embed.js";
+} from './lib-franklin.js';
+import { preDecorateEmbed } from './modules/embed.js';
 
 const LCP_BLOCKS = []; // add your LCP blocks to the list
 window.hlx.RUM_GENERATION = 'project-1'; // add your RUM generation information here

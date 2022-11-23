@@ -352,15 +352,15 @@ main .section.dark-blue {
   background-color: var(--c-dark-blue);
 }
 
-main .section.light-gray {
+main .section.light-grey {
   background-color: var(--c-light-gray);
 }
 
-main .section.mid-gray {
+main .section.mid-grey {
   background-color: var(--c-mid-gray);
 }
 
-main .section.dark-gray {
+main .section.dark-grey {
   background-color: var(--c-dark-gray);
 }
 

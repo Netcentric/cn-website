@@ -153,7 +153,7 @@ header nav .nav-sections span.close-menu-arrow svg {
   transform: rotate(180deg);
 }
 
-header nav .nav-sections li span.icon.icon-submenu-arrow svg {
+header nav .nav-sections li span.icon.icon-chevron-right svg {
   display: none;
   width: 16px;
   height: 16px;
@@ -161,7 +161,7 @@ header nav .nav-sections li span.icon.icon-submenu-arrow svg {
   cursor: pointer;
 }
 
-header nav[aria-expanded='true'] .nav-sections li span.icon.icon-submenu-arrow svg {
+header nav[aria-expanded='true'] .nav-sections li span.icon.icon-chevron-right svg {
   display: initial;
 }
 
@@ -171,7 +171,7 @@ header nav .nav-tools {
   display: none;
   flex: 0 0 auto;
   height: 100%;
-  background: var(--dark-blue-color);
+  background: var(--c-dark-plum);
 }
 
 header nav .nav-tools p {
@@ -270,7 +270,7 @@ header nav[aria-expanded='true'] .nav-tools {
 header nav .nav-sections ul > li.nav-drop[aria-expanded='true'] > .nav-drop-ul-wrapper > ul {
   width: 100%;
   display: flex;
-  background: var(--dark-blue-color);
+  background: var(--c-dark-plum);
   position: absolute;
   top: 0;
   left: 0;
@@ -354,14 +354,14 @@ header nav .nav-sections ul > li.nav-drop[aria-expanded='true'] > .nav-drop-ul-w
     align-items: center;
     margin: 0;
     padding: 0;
-    color: var(--dark-blue-color);
+    color: var(--c-dark-plum);
   }
 
   header nav .nav-tools ul li a {
-    border-color: var(--dark-blue-color);
+    border-color: var(--c-dark-plum);
     padding: 12px 0;
     margin: 0 8px;
-    color: var(--dark-blue-color);
+    color: var(--c-dark-plum);
     font-size: 12px;
     font-weight: 700;
     text-align: left;
@@ -378,7 +378,7 @@ header nav .nav-sections ul > li.nav-drop[aria-expanded='true'] > .nav-drop-ul-w
     text-decoration: underline;
   }
 
-  header nav .nav-sections ul > li > .nav-drop-ul-wrapper span.icon.icon-submenu-arrow svg {
+  header nav .nav-sections ul > li > .nav-drop-ul-wrapper span.icon.icon-chevron-right svg {
     cursor: initial;
     display: initial;
   }
@@ -390,7 +390,7 @@ header nav .nav-sections ul > li.nav-drop[aria-expanded='true'] > .nav-drop-ul-w
   header nav .nav-sections > ul > li.nav-drop > a {
     padding: 12px 0;
     margin: 0 8px;
-    color: var(--dark-blue-color);
+    color: var(--c-dark-plum);
     font-size: 12px;
     font-weight: 700;
     text-align: left;
@@ -400,11 +400,11 @@ header nav .nav-sections ul > li.nav-drop[aria-expanded='true'] > .nav-drop-ul-w
 
   /* Let's talk button */
   header nav .nav-tools > ul > li:last-of-type > a {
-    background-color:var(--dark-blue-color);
-    color: var(--teal-color);
+    background-color:var(--c-dark-plum);
+    color: var(--c-light-teal);
     border-width: thin;
     border-style: solid;
-    border-color:var(--dark-blue-color);
+    border-color:var(--c-dark-plum);
     border-image: initial;
     border-radius: 36px;
     font-size: 12px;
@@ -420,13 +420,13 @@ header nav .nav-sections ul > li.nav-drop[aria-expanded='true'] > .nav-drop-ul-w
   }
 
   header nav .nav-tools > ul > li:last-of-type > a:hover {
-    border: 1px solid var(--dark-blue-color);
+    border: 1px solid var(--c-dark-plum);
     background: none;
-    color: var(--dark-blue-color);
+    color: var(--c-dark-plum);
   }
 
    header nav .nav-sections > ul > li.nav-drop > a:hover {
-    border-bottom: 3px solid var(--dark-blue-color);
+    border-bottom: 3px solid var(--c-dark-plum);
     text-decoration: none;
    }
 
@@ -435,7 +435,7 @@ header nav .nav-sections ul > li.nav-drop[aria-expanded='true'] > .nav-drop-ul-w
     display: flex;
     margin: 0;
     padding: 0;
-    color: var(--dark-blue-color);
+    color: var(--c-dark-plum);
   }
 
   header nav .nav-sections li[aria-expanded='true'] .nav-overlay {
@@ -465,7 +465,7 @@ header nav .nav-sections ul > li.nav-drop[aria-expanded='true'] > .nav-drop-ul-w
     position: absolute;
     left: 0;
     z-index: 2;
-    background-color: var(--dark-blue-color);
+    background-color: var(--c-dark-plum);
     width: 100vw;
     top: calc(var(--nav-height) - 25px);
     margin: 0 auto;

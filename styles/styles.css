@@ -100,13 +100,6 @@
   --overlay-background-color: #eee;
   --highlight-background-color: #ccc;
   --text-color: var(--c-black);
-  --dark-blue-color: #2E308E;
-  --blue-color: #2f78c4;
-  --light-blue-color: #92bbe6;
-  --teal-color: #97f5f7;
-  --light-plum-color:#85a0f9;
-  --purple-color: #7373d8;
-  --dark-red-color: #b81f2d;
 
   /* fonts */
   --body-font-family: 'Gellix', 'gellix-normal-400-fallback', 'Century Gothic', 'CenturyGothic', 'AppleGothic', sans-serif;
@@ -133,7 +126,6 @@
 
 body {
   font-size: var(--body-font-size-m);
-  font-weight: 400;
   letter-spacing: normal;
   margin: 0;
   font-family: var(--body-font-family);

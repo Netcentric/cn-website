@@ -110,7 +110,7 @@ export default async function decorate(block) {
       if (subSection) {
         // Add icon to open sub-section
         const openArrow = document.createElement('span');
-        openArrow.classList.add('icon', 'icon-submenu-arrow', 'open-menu-arrow');
+        openArrow.classList.add('icon', 'icon-chevron-right', 'open-menu-arrow');
         section.append(openArrow);
         section.classList.add('nav-drop');
 
@@ -124,7 +124,7 @@ export default async function decorate(block) {
         const sectionBack = section.querySelector('a')?.outerHTML ?? '<span>Back</span>';
         const backLi = document.createElement('li');
         const closeArrow = document.createElement('span');
-        closeArrow.classList.add('icon', 'icon-submenu-arrow', 'close-menu-arrow');
+        closeArrow.classList.add('icon', 'icon-chevron-right', 'close-menu-arrow');
         backLi.innerHTML = sectionBack;
         backLi.classList.add('back-button');
         backLi.prepend(closeArrow.cloneNode());

@@ -1,9 +1,7 @@
 /* eslint-disable import/no-cycle */
 import { sampleRUM } from './lib-franklin.js';
-import {
-  decorateEmbed,
-  decorateTwitterFeed,
-} from './scripts.js';
+import decorateTwitterFeed from './modules/twitterFeed.js';
+import { decorateEmbed } from './modules/embed.js';
 
 // Core Web Vitals RUM collection
 sampleRUM('cwv');

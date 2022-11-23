@@ -9,20 +9,21 @@
  * OF ANY KIND, either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
 */
-  
-/* fallback font for Gellix (normal - 400) */
-  @font-face {
-      font-family: "gellix-normal-400-fallback";
-      size-adjust: 100.871%;
-      src: local("Arial");
-  }
 
-  /* fallback font for Gellix (normal - 700) */
-  @font-face {
+/* fallback font for Gellix (normal - 400) */
+
+@font-face {
+  font-family: "gellix-normal-400-fallback";
+  size-adjust: 100.871%;
+  src: local("Arial");
+}
+
+/* fallback font for Gellix (normal - 700) */
+@font-face {
   font-family: "gellix-normal-700-fallback";
   size-adjust: 100.931%;
   src: local("Arial");
-  }
+}
 
  :root {
   /* Netcentric colors */
@@ -119,15 +120,16 @@
   --heading-font-size-xs: 18px;
 
   /* nav height */
-  --nav-height: 64px;
-
+  --desktop-nav-height: 130px;
+  --nav-height: 72px;
 }
 
 body {
   font-size: var(--body-font-size-m);
+  letter-spacing: normal;
   margin: 0;
   font-family: var(--body-font-family);
-  line-height: 1.6;
+  line-height: 1.5;
   color: var(--text-color);
   background-color: var(--background-color);
   display: none;
@@ -144,7 +146,7 @@ header {
 h1, h2, h3,
 h4, h5, h6 {
   font-family: var(--heading-font-family);
-  font-weight: 600;
+  font-weight: 400;
   line-height: 1.25;
   margin-top: 1em;
   margin-bottom: .5em;
@@ -193,19 +195,23 @@ a.button:any-link, button {
   display: inline-block;
   box-sizing: border-box;
   text-decoration: none;
-  border: 2px solid transparent;
-  padding: 5px 30px;
+  text-transform: uppercase;
+  border: 1px solid transparent;
+  padding: 0 24px;
   text-align: center;
-  font-style: normal; 
-  font-weight: 600;
+  font-style: normal;
+  font-weight: 700;
+  font-size: var(--body-font-size-s);
+  line-height: 2.25rem;
   cursor: pointer;
   color: var(--background-color);
   background-color: var(--link-color);
-  margin: 16px 0;
+  margin: 0;
+  height: 2.25rem;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  border-radius: 30px;
+  border-radius: 36px;
 }
 
 a.button:hover, a.button:focus, button:hover, button:focus  {
@@ -222,8 +228,7 @@ a.button.secondary, button.secondary {
   background-color: unset;
   border: 2px solid currentcolor;
   color: var(--text-color)
-} 
-
+}
 
 main input {
   font-size: 1.25rem;
@@ -231,7 +236,7 @@ main input {
   max-width: 50rem;
   display: block;
   margin-bottom: 1rem;
-  padding: 0.75rem 0.6rem;    
+  padding: 0.75rem 0.6rem;
   border-radius: 0.25rem;
   box-sizing: border-box;
   border: 1px solid var(--text-color);
@@ -287,14 +292,18 @@ main img {
 
 @media (min-width: 992px) {
   :root {
+    /* font sizes */
     --heading-font-size-xxl: 60px;
     --heading-font-size-xl: 48px;
     --heading-font-size-l: 36px;
     --heading-font-size-m: 30px;
     --heading-font-size-s: 24px;
-    --heading-font-size-xs: 22px;  
+    --heading-font-size-xs: 22px;
+
+    /* nav */
+    --nav-height: var(--desktop-nav-height);
   }
-  
+
   main .section > div {
     width: 960px;
     margin: 0 auto;

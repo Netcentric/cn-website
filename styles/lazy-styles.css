@@ -31,4 +31,8 @@
     font-display: swap;
 }
 
+body.no-scroll {
+    overflow: hidden;
+}
+
 /* || End Gellix Font imports from netcentric domain */

@@ -1,7 +1,7 @@
 main .form input,
 main .form textarea,
 main .form select {
-  border: 1px solid rgba(0,0,0,.1);
+  border: 1px solid rgba(0 0 0 / 10%);
   font-family: var(--body-font-family);
   font-size: var(--body-font-size-s);
   padding: 11px;

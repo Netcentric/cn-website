@@ -33,13 +33,4 @@ describe('Header block', () => {
     hamburger.click();
     expect(nav.getAttribute('aria-expanded')).to.equal('false');
   });
-
-  it('Section title shows and hides section', async () => {
-    const sections = document.querySelector('.header .nav-sections');
-    const title = sections.querySelector(':scope li');
-    title.click();
-    expect(title.getAttribute('aria-expanded')).to.equal('true');
-    title.click();
-    expect(title.getAttribute('aria-expanded')).to.equal('false');
-  });
 });

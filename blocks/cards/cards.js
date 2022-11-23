@@ -1,5 +1,14 @@
 import { createOptimizedPicture } from '../../scripts/lib-franklin.js';
 
+function getImageWidth(block) {
+  if (block.matches('.icon-with-text')) {
+    // scaling the images down to the actual size makes them blury
+    return 150;
+  }
+
+  return 750;
+}
+
 export default function decorate(block) {
   /* change to ul, li */
   const ul = document.createElement('ul');
@@ -12,7 +21,17 @@ export default function decorate(block) {
     });
     ul.append(li);
   });
-  ul.querySelectorAll('img').forEach((img) => img.closest('picture').replaceWith(createOptimizedPicture(img.src, img.alt, false, [{ width: '750' }])));
+
+  ul.querySelectorAll('img').forEach((img) => {
+    const width = getImageWidth(block);
+    if (width !== img.width) {
+      const optimizedPicture = createOptimizedPicture(img.src, img.alt, false, [{ width }]);
+      const optimizedImg = optimizedPicture.querySelector('img');
+      optimizedImg.width = width;
+      optimizedImg.height = img.height * (width / img.width);
+      img.closest('picture').replaceWith(optimizedPicture);
+    }
+  });
   block.textContent = '';
   block.append(ul);
 }

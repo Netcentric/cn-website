@@ -1,34 +1,10 @@
-function createSelect(fd) {
-  const select = document.createElement('select');
-  select.id = fd.Field;
-  if (fd.Placeholder) {
-    const ph = document.createElement('option');
-    ph.textContent = fd.Placeholder;
-    ph.setAttribute('selected', '');
-    ph.setAttribute('disabled', '');
-    select.append(ph);
-  }
-  fd.Options.split(',').forEach((o) => {
-    const option = document.createElement('option');
-    option.textContent = o.trim();
-    option.value = o.trim();
-    select.append(option);
-  });
-  if (fd.Mandatory === 'x') {
-    select.setAttribute('required', 'required');
-  }
-  return select;
-}
-
 function constructPayload(form) {
   const payload = {};
   [...form.elements].forEach((fe) => {
     if (fe.type === 'checkbox') {
-      if (fe.checked) payload[fe.id] = fe.value;
+      if (fe.checked) payload[fe.name] = fe.value;
     } else if (fe.name) {
       payload[fe.name] = fe.value;
-    } else if (fe.id) {
-      payload[fe.id] = fe.value;
     }
   });
   // send date
@@ -84,8 +60,11 @@ function createInput(fd) {
   const input = document.createElement('input');
   input.type = fd.Type;
   input.id = fd.Field;
+  input.name = fd.Field;
   input.value = fd.Value || '';
-  input.setAttribute('placeholder', fd.Placeholder);
+  if (fd.Placeholder) {
+    input.setAttribute('placeholder', fd.Placeholder);
+  }
   if (fd.Mandatory === 'x') {
     input.setAttribute('required', 'required');
   }
@@ -94,12 +73,38 @@ function createInput(fd) {
 
 function createTextArea(fd) {
   const input = document.createElement('textarea');
-  input.id = fd.Field;
-  input.setAttribute('placeholder', fd.Placeholder);
+  input.name = fd.Field;
+  input.value = fd.Value || '';
+  if (fd.Placeholder) {
+    input.setAttribute('placeholder', fd.Placeholder);
+  }
   if (fd.Mandatory === 'x') {
     input.setAttribute('required', 'required');
   }
   return input;
+}
+
+function createSelect(fd) {
+  const select = document.createElement('select');
+  select.name = fd.Field;
+  select.value = fd.Value || '';
+  if (fd.Placeholder) {
+    const ph = document.createElement('option');
+    ph.textContent = fd.Placeholder;
+    ph.setAttribute('selected', '');
+    ph.setAttribute('disabled', '');
+    select.append(ph);
+  }
+  fd.Options.split(',').forEach((o) => {
+    const option = document.createElement('option');
+    option.textContent = o.trim();
+    option.value = o.trim();
+    select.append(option);
+  });
+  if (fd.Mandatory === 'x') {
+    select.setAttribute('required', 'required');
+  }
+  return select;
 }
 
 function createLabel(fd) {
@@ -157,8 +162,8 @@ async function createForm(formURL) {
     fd.Type = fd.Type || 'text';
     const fieldWrapper = document.createElement('div');
     const style = fd.Style ? ` form-${fd.Style}` : '';
-    const fieldId = `form-${fd.Type}-wrapper${style}`;
-    fieldWrapper.className = fieldId;
+    const fieldClass = `form-${fd.Type}-wrapper${style}`;
+    fieldWrapper.className = fieldClass;
     fieldWrapper.classList.add('field-wrapper');
     switch (fd.Type) {
       case 'select':
@@ -186,7 +191,7 @@ async function createForm(formURL) {
 
     if (fd.Rules) {
       try {
-        rules.push({ fieldId, rule: JSON.parse(fd.Rules) });
+        rules.push({ fieldId: fieldClass, rule: JSON.parse(fd.Rules) });
       } catch (e) {
         // eslint-disable-next-line no-console
         console.warn(`Invalid Rule ${fd.Rules}: ${e}`);

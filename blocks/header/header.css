@@ -31,6 +31,10 @@ header nav .nav-overlay {
   display: none;
 }
 
+header nav .nav-picture {
+  display: none;
+}
+
 /* nav-brand element */
 header .nav-brand {
   grid-area: brand;
@@ -288,6 +292,24 @@ header nav .nav-sections ul > li.nav-drop[aria-expanded='true'] > .nav-drop-ul-w
     padding: 0;
   }
 
+  header nav .nav-picture {
+    display: initial;
+  }
+
+  header nav .nav-picture img {
+    height: 100%;
+    width: auto;
+    max-width: 350px;
+    object-fit: contain;
+    position: absolute;
+    right: 0;
+    top: 0;
+    box-sizing: border-box;
+    padding-right: 50px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+  }
+
   /* hamburger */
   header nav .nav-hamburger {
     display: none;
@@ -484,6 +506,11 @@ header nav .nav-sections ul > li.nav-drop[aria-expanded='true'] > .nav-drop-ul-w
     width: var(--nav-width);
     margin: auto;
     padding: 0;
+  }
+
+  header nav .nav-picture img {
+    right: calc(-1 * (var(--nav-width) - 100vw) / 2);
+    padding-right: 0;
   }
 
   /* Compensate for auto margin to get full width */

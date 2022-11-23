@@ -132,6 +132,11 @@ export default async function decorate(block) {
       }
     });
 
+    // add classes to li containing sub-menu image
+    navSections.querySelectorAll('.nav-drop-ul-wrapper > ul > li > picture').forEach((picture) => {
+      picture.parentElement.classList.add('nav-picture');
+    });
+
     // Set up background overlay for open menu
     navSections.querySelectorAll(':scope > ul > li.nav-drop').forEach((dropSection) => {
       const overlay = document.createElement('div');

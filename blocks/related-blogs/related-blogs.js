@@ -8,7 +8,6 @@ function getConfiguredTag(config) {
 async function enrichProfiles(rArticles) {
   const response = await fetch('/profile-blog.json');
   const json = await response.json();
-  // console.debug(JSON.stringify(json.data));
 
   Object.entries(rArticles).forEach((entry) => {
     // eslint-disable-next-line no-unused-vars
@@ -55,7 +54,6 @@ async function getRelatedArticles(tag) {
                     ${value.title}
                 </h2>
             </div>
-            
         </div>
     </a>
     <div class="authorprofile">

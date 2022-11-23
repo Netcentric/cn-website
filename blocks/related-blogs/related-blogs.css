@@ -1,87 +1,87 @@
 .related-blogs-container {
     padding: 40px 0;
-    background-color: #2e308e;
+    background-color: var(--c-dark-plum);
 }
 
 .related-blogs-container h4 {
     font-weight: 400;
     font-size: 40px;
     line-height: 46px;
-    color: #97f5f7;
+    color: var(--c-light-teal);
     margin-bottom: 25px;
 }
 
-.related-list-item {
-    background-color: #fff;
+.related-blogs-container .related-list-item {
+    background-color: var(--c-white);
     padding: 10px 20px;
     margin-right: 2%;
     border: 0;
     width: 28.5%;
 }
 
-ul.related-list {
+.related-blogs-container ul.related-list {
     list-style: none;
     padding-left: 0;
 }
 
-.related-list {
+.related-blogs-container .related-list {
     display: flex;
     flex-flow: row wrap;
     justify-content: left;
     margin-bottom: 25px;
 }
 
-.related-list-item:last-child {
+.related-blogs-container .related-list-item:last-child {
     margin-right: 0;
 }
 
-.teaser-link {
+.related-blogs-container .teaser-link {
     margin-bottom: 75px;
 }
 
-a.teaser-link {
+.related-blogs-container a.teaser-link {
     text-decoration: none;
 }
 
-div.teaser {
+.related-blogs-container div.teaser {
     display: flex;
     height: 100%;
     flex-direction: column;
 }
 
-h2.teaser-description {
+.related-blogs-container h2.teaser-description {
     font-size: 22px;
-    color: #2e308e;
+    color: var(--c-dark-plum);
     font-weight: 400;
     line-height: 1.25em;
 }
 
-.authorprofile-container {
+.related-blogs-container .authorprofile-container {
     padding-bottom: 35px;
 }
 
-.authorprofile-info {
+.related-blogs-container .authorprofile-info {
     display: inline-flex;
     line-height: 1.4em;
     flex-flow: column wrap;
     vertical-align: top;
 }
 
-.authorprofile-name {
+.related-blogs-container .authorprofile-name {
     font-size: 14px;
     font-weight: 700;
     letter-spacing: -0.5px;
     line-height: 1.4em;
 }
 
-.authorprofile-position {
+.related-blogs-container .authorprofile-position {
     font-size: 14px;
     font-weight: 400;
     letter-spacing: -0.5px;
     line-height: 1.4em;
 }
 
-.authorprofile-image {
+.related-blogs-container .authorprofile-image {
     width: 35px;
     height: 35px;
     margin-right: 8px;
@@ -89,38 +89,37 @@ h2.teaser-description {
     vertical-align: middle;
 }
 
-img.nc-image {
+.related-blogs-container img.nc-image {
     border-radius: 50%;
     overflow: hidden;
 }
 
-div.nc-image-container {
+.related-blogs-container div.nc-image-container {
     max-width: 100%;
     display: flex;
     align-items: center;
     position: relative;
 }
 
-div.related-button-row {
+.related-blogs-container div.related-button-row {
     text-align: center;
-    color: #2e308e;
+    color: var(--c-dark-plum);
 }
 
-i.icon-wrapper {
+.related-blogs-container i.icon-wrapper {
     height: 1em;
     width: 1em;
     display: inline-block;
 }
 
-.icon-wrapper svg {
+.related-blogs-container .icon-wrapper svg {
     pointer-events: none;
     height: 100%;
     width: 100%;
-    will-change: transform;
     transition: transform .3333s cubic-bezier(0.66,-0.1,0.74,0.73);
 }
 
-.btn {
+.related-blogs-container .btn {
     font-size: 12px;
     text-align: center;
     font-weight: 700;
@@ -132,6 +131,6 @@ i.icon-wrapper {
     line-height: 36px;
     border-radius: 36px;
     cursor: pointer;
-    background-color: #97f5f7;
-    border: thin solid #97f5f7;
+    background-color: var(--c-light-teal);
+    border: thin solid var(--c-light-teal);
 }

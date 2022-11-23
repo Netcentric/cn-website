@@ -259,23 +259,26 @@ function transformLeaderProfile(document) {
               .textContent,
           );
         }
-        const socialContainerTag = card.querySelector(
-          '.leaderprofile__socialcontainer',
-        );
-        if (socialContainerTag) {
-          // eslint-disable-next-line no-restricted-syntax
-          for (const item of socialContainerTag.children) {
-            console.log(item.querySelector('a').href);
-            if (item.querySelector('a').href.includes('twitter')) {
-              item.querySelector('a').innerHTML = ':twitter:';
-            } else if (item.querySelector('a').href.includes('linkedin')) {
-              item.querySelector('a').innerHTML = ':linkedin:';
-            } else {
-              item.querySelector('a').innerHTML = ':social:';
+
+        const socialContainer = document.createElement('div');
+        card
+          .querySelectorAll('.leaderprofile__itemSocial')
+          .forEach((socialLink) => {
+            const link = socialLink.querySelector('a');
+            if (link) {
+              if (link.href.includes('twitter')) {
+                link.innerHTML = ':twitter:';
+              } else if (link.href.includes('linkedin')) {
+                link.innerHTML = ':linkedin:';
+              } else {
+                link.innerHTML = ':social:';
+              }
+              socialContainer.append(link);
+              socialContainer.append(document.createElement('br'));
             }
-          }
-          detailsContainer.append(socialContainerTag);
-        }
+          });
+        detailsContainer.append(socialContainer);
+
         cells.push([imageContainer, profileContainer, detailsContainer]);
         card.remove();
       });
@@ -552,6 +555,7 @@ export default {
       transformBlogRelatedPosts,
       transformBlogSourceCode,
       transformLibraryRelatedPosts,
+      transformHero,
       transformAccordion,
       transformLeaderProfile,
       transformIconTextCard,

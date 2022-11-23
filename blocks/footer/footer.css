@@ -1,6 +1,6 @@
 footer {
-  background-color: #3e40a0;
-  font-size: var(--body-font-size-s);
+  background-color: var(--c-dark-mid-plum);
+  font-size: var(--body-font-size-m);
   color: white;
 }
 

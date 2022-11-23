@@ -1,0 +1,12 @@
+.related-blogs-container {
+    padding: 40px 0;
+    background-color: #2e308e;
+}
+
+.related-blogs-container h4 {
+    font-weight: 400;
+    font-size: 40px;
+    line-height: 46px;
+    color: #97f5f7;
+    margin-bottom: 25px;
+}

@@ -21,7 +21,7 @@ function injectScript(src) {
   }
 }
 
-function decorateTwitterFeed(main) {
+function decorateTwitterFeed() {
   const anchors = main.getElementsByTagName('a');
   const twitterAnchors = Array.from(anchors).filter((a) => a.href.includes('twitter') && a.href.includes('ref_src'));
 
@@ -77,5 +77,5 @@ function decorateEmbed() {
   });
 }
 
-decorateTwitterFeed(main);
+decorateTwitterFeed();
 decorateEmbed();

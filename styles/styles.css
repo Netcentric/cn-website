@@ -305,6 +305,10 @@ main img {
   main .section > div {
     width: 1176px;
   }
+  /* section only visible on mobile */
+  main .section.desktop-hidden {
+    display: none;
+  }
 }
 
 /* progressive section appearance */

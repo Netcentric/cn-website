@@ -318,6 +318,26 @@ main .section.light-plum {
   background-color: var(--c-light-plum);
 }
 
+main .section.dark-plum {
+  background-color: var(--c-dark-plum);
+}
+
+main .section.light-blue {
+  background-color: var(--c-light-blue);
+}
+
+main .section.dark-blue {
+  background-color: var(--c-dark-blue);
+}
+
+main .section.light-gray {
+  background-color: var(--c-light-gray);
+}
+
+main .section.dark-gray {
+  background-color: var(--c-dark-gray);
+}
+
 .youtube-base,
 .wistia-base {
   position: relative;

@@ -9,6 +9,7 @@
 .leader-profiles>ul>li {
   margin: 0 16px;
   padding: 16px 0;
+  cursor: pointer;
 }
 
 .leader-profiles svg,

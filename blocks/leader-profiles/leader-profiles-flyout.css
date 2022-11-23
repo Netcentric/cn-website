@@ -75,6 +75,10 @@
   margin-left: -16px;
 }
 
+.leader-profiles-flyout .leader-profile-social-icons a:hover {
+  color: inherit;
+}
+
 .leader-profiles-flyout .leader-profile-social-icons svg {
   width: 64px;
   height: 64px;
@@ -87,6 +91,7 @@
   display: block;
   width: 72px;
   height: 72px;
+  cursor: pointer;
 }
 
 @media screen and (min-width: 992px) {

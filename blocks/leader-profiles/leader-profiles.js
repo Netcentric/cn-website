@@ -17,7 +17,7 @@ async function handleEvent(block, closeIcon, event) {
   const { target, type, keyCode } = event;
   let flyoutContent = document.querySelector('.leader-profiles-flyout > div');
   let flyout = flyoutContent && flyoutContent.parentElement;
-  let closeButton = flyoutContent && flyoutContent.querySelector('[aria-label="Close"]');
+  let closeButton = flyoutContent && flyoutContent.querySelector('span.icon-close');
   if (((type === 'keydown' && keyCode === 13) || type === 'click') && block.contains(target)) {
     focusedElement = document.activeElement;
     const li = target.closest('li');

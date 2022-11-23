@@ -165,9 +165,9 @@ function transformOffice(document) {
 function insertRelatedBlogsSection(document) {
   document.querySelectorAll('div.topicrelatedblog.container').forEach((e) => {
     e.before(document.createElement('hr'));
-    const cells = [['Section Metadata'], ['style', 'dark']];
+    const cells = [['Section Metadata'], ['style', 'dark-plum']];
     const table = WebImporter.DOMUtils.createTable(cells, document);
-    e.before(table);
+    e.after(table);
   });
 }
 

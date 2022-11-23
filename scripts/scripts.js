@@ -17,21 +17,20 @@ const LCP_BLOCKS = []; // add your LCP blocks to the list
 window.hlx.RUM_GENERATION = 'project-1'; // add your RUM generation information here
 
 function buildHeroBlock(main) {
-  const h1 = main.querySelector('h1');
-  const p = main.querySelector('h1 ~ p');
-  const links = [];
-
-  const hasSubtitle = !!p;
-
-  if (hasSubtitle) {
-    main.querySelectorAll('h1 ~ p ~ p > a').forEach((element) => links.push(element));
-  } else {
-    main.querySelectorAll('h1 ~ p > a').forEach((element) => links.push(element));
+  /* 1. If there is an explicit hero block, add it to its own section to be full-width */
+  const heroBlock = main.querySelector('.hero');
+  if (heroBlock) {
+    const section = document.createElement('div');
+    section.append(heroBlock);
+    main.prepend(section);
+    return;
   }
 
+  /* 2. If there is a h1, build a block out of the h1 */
+  const h1 = main.querySelector('h1');
   if (h1) {
     const section = document.createElement('div');
-    section.append(buildBlock('hero', { elems: [h1, p, ...links] }));
+    section.append(buildBlock('hero', { elems: [h1] }));
     main.prepend(section);
   }
 }

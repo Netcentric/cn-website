@@ -22,7 +22,16 @@ export default function decorate(block) {
     ul.append(li);
   });
 
-  ul.querySelectorAll('img').forEach((img) => img.closest('picture').replaceWith(createOptimizedPicture(img.src, img.alt, false, [{ width: getImageWidth(block) }])));
+  ul.querySelectorAll('img').forEach((img) => {
+    const width = getImageWidth(block);
+    if (width !== img.width) {
+      const optimizedPicture = createOptimizedPicture(img.src, img.alt, false, [{ width }]);
+      const optimizedImg = optimizedPicture.querySelector('img');
+      optimizedImg.width = width;
+      optimizedImg.height = img.height * (width / img.width);
+      img.closest('picture').replaceWith(optimizedPicture);
+    }
+  });
   block.textContent = '';
   block.append(ul);
 }

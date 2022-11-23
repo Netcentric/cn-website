@@ -95,8 +95,12 @@ body.blogpost main .hero hr {
   margin-bottom: 60px;
 }
 
-body.blogpost main .hero h1 {
-  margin-bottom: 50px;
+body.blogpost main img {
+  margin-top: 50px;
+}
+
+body.blogpost main p {
+  color: var(--text-color);
 }
 
 @media (min-width: 992px) {

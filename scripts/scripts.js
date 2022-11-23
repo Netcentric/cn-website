@@ -28,12 +28,24 @@ function buildHeroBlock(main) {
 
   /* 2. If we are on a blog post with image, add the image and h1 */
   const h1 = main.querySelector('h1');
-  const picture = document.querySelector('body.blogpost main h1 + p > picture');
+  let picture;
+  let subtitle;
+
+  const h1Sibling = document.querySelector('body.blogpost main h1 + p');
+
+  console.log(h1Sibling)
+  console.log(h1Sibling.nextElementSibling.firstElementChild)
+  if (h1Sibling && h1Sibling.firstChild.nodeName === 'PICTURE') {
+    picture = h1Sibling;
+  } else if (h1Sibling && h1Sibling.nextElementSibling.firstElementChild.nodeName === 'PICTURE') {
+    picture = h1Sibling.nextElementSibling.firstElementChild;
+    subtitle = h1Sibling;
+  }
 
   if (h1 && picture) {
     const section = document.createElement('div');
     const hr = document.createElement('hr');
-    section.append(buildBlock('hero', { elems: [hr, h1, picture] }));
+    section.append(buildBlock('hero', { elems: [hr, h1, subtitle, picture] }));
     main.prepend(section);
     return;
   }

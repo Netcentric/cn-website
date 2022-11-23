@@ -14,10 +14,74 @@ function collapseAllNavSections(sections) {
 }
 
 /**
+ * Attaches event listeners for nav submenus on desktop
+ * @private
+ */
+function addEventListenersDesktop() {
+  const block = document.querySelector('.block.header');
+  // all nav open
+  block.querySelectorAll('.nav-sections ul > .nav-drop > a').forEach((navAnchor) => {
+    navAnchor.addEventListener('mouseenter', () => {
+      collapseAllNavSections(navAnchor.closest('ul'));
+      navAnchor.parentElement.setAttribute('aria-expanded', 'true');
+    });
+  });
+
+  // close sub-level navs if hover over a new anchor (even if no sub menu at that anchor)
+  block.querySelectorAll('.nav-sections ul > :not(.nav-drop) > a').forEach((navAnchor) => {
+    navAnchor.addEventListener('mouseenter', () => {
+      collapseAllNavSections(navAnchor.closest('ul'));
+    });
+  });
+
+  // top-level nav close
+  block.querySelector('.nav-sections').addEventListener('mouseleave', () => {
+    collapseAllNavSections(block.querySelector('.nav-sections'));
+  });
+
+  block.querySelectorAll('.nav-overlay').forEach((overlay) => {
+    overlay.addEventListener('click', () => {
+      collapseAllNavSections(overlay.closest('.nav-sections'));
+    });
+  });
+}
+
+/**
+ * Attaches event listeners for nav submenus on mobile
+ * @private
+ */
+function addEventListenersMobile() {
+  const block = document.querySelector('.block.header');
+  block.querySelectorAll('span.icon.open-menu-arrow').forEach((expansionArrow) => {
+    expansionArrow.addEventListener('click', () => {
+      const section = expansionArrow.parentElement;
+      section.setAttribute('aria-expanded', 'true');
+    });
+  });
+  block.querySelectorAll('span.icon.close-menu-arrow').forEach((expansionArrow) => {
+    expansionArrow.addEventListener('click', () => {
+      const section = expansionArrow.closest('li[aria-expanded="true"]');
+      section.setAttribute('aria-expanded', 'false');
+    });
+  });
+}
+
+/**
+ * Handles re-attaching event listeners after a window resize
+ * @private
+ */
+function reAttachEventListeners() {
+  if (window.innerWidth < mobileBreakpoint) {
+    addEventListenersMobile();
+  } else {
+    addEventListenersDesktop();
+  }
+}
+
+/**
  * decorates the header, mainly the nav
  * @param {Element} block The header block element
  */
-
 export default async function decorate(block) {
   const cfg = readBlockConfig(block);
   block.textContent = '';
@@ -75,62 +139,6 @@ export default async function decorate(block) {
       dropSection.append(overlay);
     });
 
-    const removeAllEventListeners = (element) => {
-      element.replaceWith(element.cloneNode(true));
-    };
-
-    const attachEventListenersDesktop = () => {
-      // all nav open
-      block.querySelectorAll('.nav-sections ul > .nav-drop > a').forEach((navAnchor) => {
-        navAnchor.addEventListener('mouseenter', () => {
-          collapseAllNavSections(navAnchor.closest('ul'));
-          navAnchor.parentElement.setAttribute('aria-expanded', 'true');
-        });
-      });
-
-      // close sub-level navs if hover over a new anchor (even if no sub menu at that anchor)
-      block.querySelectorAll('.nav-sections ul > :not(.nav-drop) > a').forEach((navAnchor) => {
-        navAnchor.addEventListener('mouseenter', () => {
-          collapseAllNavSections(navAnchor.closest('ul'));
-        });
-      });
-
-      // top-level nav close
-      block.querySelector('.nav-sections').addEventListener('mouseleave', () => {
-        collapseAllNavSections(block.querySelector('.nav-sections'));
-      });
-    };
-
-    const attachEventListenersMobile = () => {
-      block.querySelectorAll('span.icon.open-menu-arrow').forEach((expansionArrow) => {
-        expansionArrow.addEventListener('click', () => {
-          const section = expansionArrow.parentElement;
-          section.setAttribute('aria-expanded', 'true');
-        });
-      });
-      block.querySelectorAll('span.icon.close-menu-arrow').forEach((expansionArrow) => {
-        expansionArrow.addEventListener('click', () => {
-          const section = expansionArrow.closest('li[aria-expanded="true"]');
-          section.setAttribute('aria-expanded', 'false');
-        });
-      });
-    };
-
-    const reAttachEventListeners = () => {
-      if (window.innerWidth < mobileBreakpoint) {
-        attachEventListenersMobile();
-      } else {
-        attachEventListenersDesktop();
-      }
-    };
-
-    const shouldResize = () => {
-      const resize = (window.innerWidth > mobileBreakpoint && globalWindowWidth <= mobileBreakpoint)
-        || (window.innerWidth < mobileBreakpoint && globalWindowWidth >= mobileBreakpoint);
-      globalWindowWidth = window.innerWidth;
-      return resize;
-    };
-
     // hamburger for mobile
     const hamburger = document.createElement('div');
     hamburger.classList.add('nav-hamburger');
@@ -153,6 +161,18 @@ export default async function decorate(block) {
       const expanded = langToggleButton.closest('.nav-tools').getAttribute('aria-expanded') === 'true';
       langToggleButton.closest('.nav-tools').setAttribute('aria-expanded', expanded ? 'false' : 'true');
     });
+
+    // Handle different event listeners for mobile/desktop on window resize
+    const removeAllEventListeners = (element) => {
+      element.replaceWith(element.cloneNode(true));
+    };
+
+    const shouldResize = () => {
+      const resize = (window.innerWidth > mobileBreakpoint && globalWindowWidth <= mobileBreakpoint)
+        || (window.innerWidth < mobileBreakpoint && globalWindowWidth >= mobileBreakpoint);
+      globalWindowWidth = window.innerWidth;
+      return resize;
+    };
 
     window.addEventListener('resize', () => {
       if (shouldResize()) {

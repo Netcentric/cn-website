@@ -42,6 +42,7 @@ async function handleEvent(block, closeIcon, event) {
     }
     closeButton.focus();
     window.requestAnimationFrame(() => flyout.classList.add('opened'));
+    window.setTimeout(() => document.body.classList.add('no-scroll'), 200);
   }
   if (((type === 'keydown' && keyCode === 27)
     || (((type === 'keydown' && keyCode === 13) || type === 'click') && closeButton && closeButton.contains(target))
@@ -54,6 +55,7 @@ async function handleEvent(block, closeIcon, event) {
         focusedElement.focus();
       }
       focusedElement = null;
+      document.body.classList.remove('no-scroll');
     });
   }
 }

@@ -30,7 +30,7 @@ export function sampleRUM(checkpoint, data = {}) {
     });
   sampleRUM.on = (chkpnt, fn) => { sampleRUM.cases[chkpnt] = fn; };
   sampleRUM.piggybacks = sampleRUM.piggybacks || [];
-  sampleRUM.piggyback = (url, tf = (a) => a) => sampleRUM.piggybacks.push([url, tf]);
+  sampleRUM.piggyback = (url, cp = '*', tf = (a) => a) => sampleRUM.piggybacks.push([url, cp, tf]);
   defer('observe');
   defer('cwv');
   try {
@@ -56,7 +56,11 @@ export function sampleRUM(checkpoint, data = {}) {
         navigator.sendBeacon(url, JSON.stringify(bdata));
         // eslint-disable-next-line no-console
         console.debug(`ping:${checkpoint}`, pdata);
-        sampleRUM.piggybacks.forEach(([u, t]) => navigator.sendBeacon(u, JSON.stringify(t(bdata))));
+        sampleRUM.piggybacks
+          /* eslint-disable no-unused-vars */
+          .filter(([_, c]) => c === '*' || c === checkpoint)
+          .forEach(async ([u, c, t]) => navigator.sendBeacon(u, JSON.stringify(await t(bdata))));
+        /* eslint-enable no-unused-vars */
       };
       sampleRUM.cases = sampleRUM.cases || {
         cwv: () => sampleRUM.cwv(data) || true,

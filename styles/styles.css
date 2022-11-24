@@ -234,11 +234,10 @@ a.button.secondary, button.secondary {
   color: var(--text-color)
 }
 
-main .hero a.button > .icon-chevron-right svg {
+main a.button > .icon-chevron-right svg {
   width: 12px;
   height: 12px;
   fill: currentcolor;
-  margin-left: 14px;
 }
 
 main input {

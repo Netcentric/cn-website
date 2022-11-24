@@ -62,6 +62,10 @@ main .hero a.button {
   font-size: var(--hero-button-font-size);
 }
 
+main .hero a.button > .icon-chevron-right svg {
+  margin-left: 14px;
+}
+
 main .hero a.button.secondary {
   border: 1px solid var(--c-light-teal);
   color: var(--c-light-teal);

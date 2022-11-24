@@ -54,6 +54,7 @@
   --rss:                      #f26522;
   --youtube:                  #c4302b;
   --instagram:                #8134af;
+  --bg-text-social:           var(--c-white);
 
   /* highlight */
   --c-highlight-red:           var(--c-red);
@@ -108,14 +109,16 @@
 
   /* body sizes */
   --body-font-size-m: 16px;
-  --body-font-size-s: 14px;
-  --body-font-size-xs: 12px;
+  --body-font-size-s: 12px;
+  --body-font-size-xs: 10px;
 
   /* heading sizes */
-  --heading-font-size-xl: 48px;
+  --heading-font-size-xxl: 60px;
+  --heading-font-size-xl: 36px;
   --heading-font-size-l: 30px;
   --heading-font-size-m: 24px;
   --heading-font-size-s: 20px;
+  --heading-nav-font-size: 18px;
 
   /* nav height */
   --desktop-nav-height: 130px;
@@ -147,7 +150,7 @@ header {
 h1, h2, h3,
 h4, h5, h6 {
   font-family: var(--heading-font-family);
-  font-weight: 400;
+  font-weight: normal;
   line-height: 1.25;
   margin-top: 1em;
   margin-bottom: .5em;
@@ -159,7 +162,7 @@ h2 { font-size: var(--heading-font-size-l) }
 h3 { font-size: var(--heading-font-size-m) }
 h4 { font-size: var(--heading-font-size-m) }
 h5 { font-size: var(--heading-font-size-s) }
-h6 { font-size: var(--heading-font-size-s) }
+h6 { font-size: var(--heading-nav-font-size) }
 
 p, dl, ol, ul, pre, blockquote {
   margin-top: 1em;
@@ -231,6 +234,13 @@ a.button.secondary, button.secondary {
   color: var(--text-color)
 }
 
+main .hero a.button > .icon-chevron-right svg {
+  width: 12px;
+  height: 12px;
+  fill: currentcolor;
+  margin-left: 14px;
+}
+
 main input {
   font-size: 1.25rem;
   width: 100%;
@@ -250,7 +260,12 @@ main input:hover {
 }
 
 main .section {
-  padding: 32px 0;
+  padding: 32px;
+}
+
+main .section > div {
+  width: 100vw;
+  margin: 0;
 }
 
 main pre {
@@ -293,13 +308,18 @@ main img {
 
 @media (min-width: 992px) {
   :root {
-    --heading-font-size-xl: 60px;
-    --heading-font-size-l: 36px;
-    --heading-font-size-m: 30px;
-    --heading-font-size-s: 24px;
-
-    /* nav */
+    /* font sizes */
+    --heading-font-size-xxl: 60px;
+    --heading-font-size-xl: 36px;
+    --heading-font-size-l: 30px;
+    --heading-font-size-m: 24px;
+    --heading-font-size-s: 20px;
+    --heading-nav-font-size: 18px;
     --nav-height: var(--desktop-nav-height);
+  }
+
+  main .section {
+    padding: 32px 0;
   }
 
   main .section > div {
@@ -328,30 +348,37 @@ main .section[data-section-status='initialized'] {
 /* section highlights */
 main .section.light-plum {
   background-color: var(--c-light-plum);
+  color: var(--bg-text-light-plum);
 }
 
 main .section.mid-plum {
   background-color: var(--c-mid-plum);
+  color: var(--bg-text-mid-plum);
 }
 
 main .section.dark-plum {
   background-color: var(--c-dark-plum);
+  color: var(--bg-text-dark-plum);
 }
 
 main .section.light-blue {
   background-color: var(--c-light-blue);
+  color: var(--bg-text-dark-blue);
 }
 
 main .section.mid-blue {
   background-color: var(--c-mid-blue);
+  color: var(--bg-text-mid-blue);
 }
 
 main .section.dark-blue {
   background-color: var(--c-dark-blue);
+  color: var(--bg-text-dark-blue);
 }
 
 main .section.light-grey {
   background-color: var(--c-light-gray);
+  color: var(--bg-text-light-grey);
 }
 
 main .section.mid-grey {
@@ -360,18 +387,22 @@ main .section.mid-grey {
 
 main .section.dark-grey {
   background-color: var(--c-dark-gray);
+  color: var(--bg-text-dark-grey);
 }
 
 main .section.light-teal {
   background-color: var(--c-light-teal);
+  color: var(--bg-text-light-teal);
 }
 
 main .section.mid-teal {
   background-color: var(--c-mid-teal);
+  color: var(--bg-text-mid-teal);
 }
 
 main .section.dark-teal {
   background-color: var(--c-dark-teal);
+  color: var(--bg-text-dark-teal);
 }
 
 .youtube-base,

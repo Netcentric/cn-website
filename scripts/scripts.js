@@ -16,28 +16,57 @@ import {
 const LCP_BLOCKS = []; // add your LCP blocks to the list
 window.hlx.RUM_GENERATION = 'project-1'; // add your RUM generation information here
 
-function buildHeroBlock(main) {
-  const h1 = main.querySelector('h1');
-  const picture = main.querySelector('picture');
-  // eslint-disable-next-line no-bitwise
-  if (h1 && picture && (h1.compareDocumentPosition(picture) & Node.DOCUMENT_POSITION_PRECEDING)) {
-    const section = document.createElement('div');
-    section.append(buildBlock('hero', { elems: [picture, h1] }));
-    main.prepend(section);
-  }
+/**
+ * Adds chevron to all buttons that are children of element
+ * @param element The dom subtree containing buttons
+ * @param selector The selector to match buttons
+ */
+export function addChevronToButtons(element, selector = 'a.button') {
+  /* Add chevron to buttons */
+  element.querySelectorAll(selector).forEach((button) => {
+    const chevron = document.createElement('span');
+    chevron.classList.add('icon', 'icon-chevron-right');
+    button.append(chevron);
+  });
 }
 
-function injectScript(src) {
-  window.scriptsLoaded = window.scriptsLoaded || [];
+function buildHeroBlock(main) {
+  /* 1. If there is an explicit hero block, add it to its own section, so it can be full-width */
+  const heroBlock = main.querySelector('.hero');
+  if (heroBlock) {
+    const section = document.createElement('div');
+    section.append(heroBlock);
+    main.prepend(section);
+    return;
+  }
 
-  if (window.scriptsLoaded.indexOf(src)) {
-    const head = document.querySelector('head');
-    const script = document.createElement('script');
+  /* 2. If we are on a blog post with image, add the image and h1 */
+  const h1 = main.querySelector('h1');
+  let picture;
+  let subtitle;
 
-    script.src = src;
-    script.setAttribute('async', 'true');
-    head.append(script);
-    window.scriptsLoaded.push(src);
+  const h1Sibling = document.querySelector('body.blogpost main h1 + p');
+
+  if (h1Sibling && h1Sibling.firstElementChild.nodeName === 'PICTURE') {
+    picture = h1Sibling;
+  } else if (h1Sibling && h1Sibling.nextElementSibling.firstElementChild.nodeName === 'PICTURE') {
+    picture = h1Sibling.nextElementSibling.firstElementChild;
+    subtitle = h1Sibling;
+  }
+
+  if (h1 && picture) {
+    const section = document.createElement('div');
+    const hr = document.createElement('hr');
+    section.append(buildBlock('hero', { elems: [hr, h1, subtitle, picture] }));
+    main.prepend(section);
+    return;
+  }
+
+  /* 3. If there is only a h1, build a block out of the h1 */
+  if (h1) {
+    const section = document.createElement('div');
+    section.append(buildBlock('hero', { elems: [h1] }));
+    main.prepend(section);
   }
 }
 
@@ -51,9 +80,9 @@ function createEmbedWrap(a, vendor) {
 
 function preDecorateEmbed(main) {
   const anchors = main.getElementsByTagName('a');
-  const youTubeAnchors = Array.from(anchors).filter((a) => a.href.includes('youtu'));
-  const spotifyAnchors = Array.from(anchors).filter((a) => a.href.includes('spotify'));
-  const wistiaAnchors = Array.from(anchors).filter((a) => a.href.includes('wistia'));
+  const youTubeAnchors = Array.from(anchors).filter((a) => a.href.includes('youtu') && encodeURI(a.textContent.trim()).indexOf(a.href) !== -1);
+  const spotifyAnchors = Array.from(anchors).filter((a) => a.href.includes('spotify') && encodeURI(a.textContent.trim()).indexOf(a.href) !== -1);
+  const wistiaAnchors = Array.from(anchors).filter((a) => a.href.includes('wistia') && encodeURI(a.textContent.trim()).indexOf(a.href) !== -1);
 
   window.embedAnchors = {
     youTubeAnchors,
@@ -69,63 +98,6 @@ function preDecorateEmbed(main) {
   });
   wistiaAnchors.forEach((a) => {
     createEmbedWrap(a, 'wistia');
-  });
-}
-
-function createIframe(a, vendor) {
-  const div = a.nextElementSibling;
-  const embed = a.pathname;
-  const id = embed.split('/').pop();
-  let source;
-  let className;
-  let allow;
-
-  a.remove();
-
-  if (vendor === 'youtube') {
-    source = `https://www.youtube.com/embed/${id}`;
-    className = 'youtube-player';
-    allow = 'encrypted-media; accelerometer; gyroscope; picture-in-picture';
-  } else if (vendor === 'spotify') {
-    source = `https://open.spotify.com/embed/episode/${id}`;
-    className = 'spotify-player';
-    allow = 'autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture';
-  } else if (vendor === 'wistia') {
-    source = `https://fast.wistia.net/embed/iframe/${id}`;
-    className = 'wistia-player';
-    allow = 'autoplay; clipboard-write; encrypted-media; fullscreen;';
-  }
-
-  div.innerHTML = `<iframe src="${source}" 
-        class="${className}"
-        allowfullscreen  
-        allow="${allow}"
-        loading="lazy">
-    </iframe>`;
-}
-
-export function decorateEmbed() {
-  window.embedAnchors?.youTubeAnchors?.forEach((a) => {
-    createIframe(a, 'youtube');
-  });
-  window.embedAnchors?.spotifyAnchors?.forEach((a) => {
-    createIframe(a, 'spotify');
-  });
-  window.embedAnchors?.wistiaAnchors?.forEach((a) => {
-    createIframe(a, 'wistia');
-  });
-}
-
-export function decorateTwitterFeed(main) {
-  const anchors = main.getElementsByTagName('a');
-  const twitterAnchors = Array.from(anchors)
-    .filter((a) => a.href.includes('twitter') && !(a.children.length === 1 && a.firstElementChild.matches('span.icon')));
-
-  twitterAnchors.forEach((a) => {
-    a.innerText = `Tweets by ${a.pathname.split('/').pop()}`;
-    a.setAttribute('data-height', '500px');
-    a.classList.add('twitter-timeline');
-    injectScript('https://platform.twitter.com/widgets.js');
   });
 }
 

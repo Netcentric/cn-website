@@ -88,11 +88,11 @@ body.blogpost main .hero hr {
   margin-bottom: 60px;
 }
 
-body.blogpost main img {
+body.blogpost main .hero img {
   margin-top: 50px;
 }
 
-body.blogpost main p {
+body.blogpost main .hero p {
   color: var(--text-color);
 }
 

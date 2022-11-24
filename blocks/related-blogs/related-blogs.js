@@ -1,5 +1,5 @@
-import { readBlockConfig, decorateIcons } from "../../scripts/lib-franklin.js";
-import { addChevronToButtons } from "../../scripts/scripts.js";
+import { readBlockConfig, decorateIcons } from '../../scripts/lib-franklin.js';
+import { addChevronToButtons } from '../../scripts/scripts.js';
 
 const maxAutoItems = 3;
 const defaultAuthorName = 'Cognizant Netcentric';
@@ -70,22 +70,18 @@ async function getRelatedArticles(tag) {
   return blogList;
 }
 
-function createDynamicHeading(tagName) {
-
-}
-
 export default async function decorate(block) {
   // get the tag to be fetched
   const { tag } = readBlockConfig(block);
 
-  block.innerHTML = ""; // reset
+  block.innerHTML = ''; // reset
 
-  const container = document.createElement("div");
-  container.classList.add("related-container");
+  const container = document.createElement('div');
+  container.classList.add('related-container');
 
   // dynamic headline if filtered by tag
   if (tag) {
-    const heading = document.createElement("h4");
+    const heading = document.createElement('h4');
     heading.textContent = `More ${tag}`;
     container.appendChild(heading);
   }
@@ -95,13 +91,13 @@ export default async function decorate(block) {
   block.append(container);
 
   // render blog overview cta button
-  const buttonRow = document.createElement("div");
-  buttonRow.classList.add("related-button-row");
-  const button = document.createElement("a");
-  button.classList.add("button");
-  button.classList.add("secondary");
-  button.href = "/insights";
-  button.textContent = "Blog Overview";
+  const buttonRow = document.createElement('div');
+  buttonRow.classList.add('related-button-row');
+  const button = document.createElement('a');
+  button.classList.add('button');
+  button.classList.add('secondary');
+  button.href = '/insights';
+  button.textContent = 'Blog Overview';
   buttonRow.appendChild(button);
   addChevronToButtons(buttonRow);
   decorateIcons(buttonRow);

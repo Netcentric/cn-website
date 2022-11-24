@@ -1,4 +1,5 @@
-import { decorateIcons, createIcon } from '../../scripts/lib-franklin.js';
+import { decorateIcons } from '../../scripts/lib-franklin.js';
+import { createIcon } from '../../scripts/scripts.js';
 
 export default async function decorate(block) {
   const accordionItems = block.querySelectorAll(':scope > div > div');

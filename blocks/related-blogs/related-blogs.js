@@ -1,5 +1,10 @@
 import { readBlockConfig } from '../../scripts/lib-franklin.js';
 
+const maxAutoItems = 3;
+const defaultAuthorName = 'Cognizant Netcentric';
+const defaultAuthorTitle = '';
+const defaultAuthorImage = '/icons/nc.svg';
+
 function getConfiguredTag(config) {
   // should we have a default if no tag is configured?
   return config.tag;
@@ -10,11 +15,7 @@ async function enrichProfiles(rArticles) {
   const json = await response.json();
 
   Object.values(rArticles).forEach((value) => {
-    Object.keys(json.data).forEach((k) => {
-      if (json.data[k].Name === value.authors) {
-        value.profiles = json.data[k];
-      }
-    });
+    value.profiles = json.data.find((profile) => profile.Name === value.authors) ?? {};
   });
 
   return rArticles;
@@ -25,24 +26,20 @@ async function getRelatedArticles(tag) {
   blogList.classList.add('related-list');
   const response = await fetch('/insights/query-index.json');
   const json = await response.json();
-  const qresult = json.data.filter((obj) => obj.tags.indexOf(tag) >= 0);
+  const qresult = json.data.filter((obj) => obj.tags.includes(tag)).slice(0, maxAutoItems);
 
   const enrichedArticles = await enrichProfiles(qresult);
 
-  Object.entries(enrichedArticles).forEach((entry) => {
-    const [key, value] = entry;
+  enrichedArticles.forEach((value) => {
+    const blogListItem = document.createElement('li');
+    blogListItem.classList.add('related-list-item');
+    const ttr = document.createElement('div');
+    ttr.classList.add('teasertopicrelated');
+    blogListItem.append(ttr);
+    const article = document.createElement('article');
+    article.classList.add('teaser-base');
 
-    // max of three items
-    if (key < 3) {
-      const blogListItem = document.createElement('li');
-      blogListItem.classList.add('related-list-item');
-      const ttr = document.createElement('div');
-      ttr.classList.add('teasertopicrelated');
-      blogListItem.append(ttr);
-      const article = document.createElement('article');
-      article.classList.add('teaser-base');
-
-      article.innerHTML = `<div class="teaser">
+    article.innerHTML = `<div class="teaser">
 
     <a href="${value.path}" target="_self" class="teaser-link">
         <div class="teaser-container">
@@ -58,21 +55,20 @@ async function getRelatedArticles(tag) {
                 <div class="authorprofile-image">
                     <div class="nc-image-base">
                         <div class="nc-image-container " itemscope="" itemtype="http://schema.org/ImageObject">
-                            <img class="nc-image" src="${value.profiles.Image}" itemprop="contentUrl" alt="" sizes="10vw">
+                            <img class="nc-image" src="${value.profiles.Image ?? defaultAuthorImage}" itemprop="contentUrl" alt="" sizes="10vw">
                         </div>
                     </div>
                 </div>
                 <div class="authorprofile-info">
-                    <div class="authorprofile-name">${value.profiles.Name}</div>
-                    <div class="authorprofile-position">${value.profiles.Title}</div>
+                    <div class="authorprofile-name">${value.profiles.Name ?? defaultAuthorName}</div>
+                    <div class="authorprofile-position">${value.profiles.Title ?? defaultAuthorTitle}</div>
                 </div>
             </div>
     </div>
 </div>`;
 
-      ttr.appendChild(article);
-      blogList.appendChild(blogListItem);
-    }
+    ttr.appendChild(article);
+    blogList.appendChild(blogListItem);
   });
 
   return blogList;

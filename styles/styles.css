@@ -259,7 +259,7 @@ main input:hover {
 }
 
 main .section {
-  padding: 32px 0;
+  padding: 32px;
 }
 
 main pre {
@@ -312,6 +312,10 @@ main img {
 
     /* nav */
     --nav-height: var(--desktop-nav-height);
+  }
+
+  main .section {
+    padding: 32px 0;
   }
 
   main .section > div {

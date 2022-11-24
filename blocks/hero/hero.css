@@ -1,40 +1,104 @@
 /* block specific CSS goes here */
 
+:root {
+  --hero-button-font-size: 12px;
+  --hero-paragraph-font-size: 20px;
+}
+
 main .hero-container > div {
-    max-width: unset;
+  max-width: unset;
 }
-  
+
 main .hero-container {
-    padding: 0;
+  padding: 0;
+  background-color: var(--c-dark-plum);
+  color: var(--c-light-teal);
 }
-  
+
 main .hero {
-    position: relative;
-    padding: 32px;
-    min-height: 300px;
+  position: relative;
+  padding: 60px 32px 32px;
+  min-height: 300px;
 }
 
 main .hero h1 {
-    max-width: 1200px;
-    margin-left: auto;
-    margin-right: auto;
-    color: white;
+  max-width: 1200px;
+  color: inherit;
+  font-weight: 400;
+  margin: 0;
 }
 
+main .hero p {
+  color: inherit;
+  margin: 0;
+}
 
-main .hero picture {
-    position: absolute;
-    z-index: -1;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    right: 0;
-    object-fit: cover;
-    box-sizing: border-box;
+main .hero a:any-link {
+  background: var(--c-light-teal);
+  color: var(--c-dark-plum);
+  font-size: var(--body-font-size-s);
+  text-transform: uppercase;
+}
+
+main .hero a:any-link:hover {
+  border: 1px solid var(--c-light-teal);
+  background: var(--c-dark-plum);
+  color: var(--c-light-teal);
 }
 
 main .hero img {
-    object-fit: cover;
-    width: 100%;
-    height: 100%;
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+}
+
+main .hero .button-container {
+  display: flex;
+  gap: 50px;
+  margin-top: 30px;
+}
+
+main .hero a.button {
+  font-size: var(--hero-button-font-size);
+}
+
+main .hero a.button.secondary {
+  border: 1px solid var(--c-light-teal);
+  color: var(--c-light-teal);
+  background: var(--c-dark-plum);
+}
+
+main .hero a.button.secondary:hover {
+  color: #77bad7;
+  border-color: #77bad7;
+}
+
+body.blogpost main .hero-container {
+  background-color: unset;
+  color: var(--c-dark-plum);
+}
+
+body.blogpost main .hero {
+  min-height: unset;
+  padding-top: 0;
+}
+
+body.blogpost main .hero hr {
+  margin-top: 0;
+  margin-bottom: 60px;
+}
+
+body.blogpost main img {
+  margin-top: 50px;
+}
+
+body.blogpost main p {
+  color: var(--text-color);
+}
+
+@media (min-width: 992px) {
+  main .hero .button-container {
+    display: flex;
+    gap: 50px;
+  }
 }

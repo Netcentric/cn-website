@@ -216,6 +216,10 @@ header nav[aria-expanded='true'] .nav-tools ul::before {
   right: 27px;
 }
 
+header nav .nav-tools > ul > li:last-of-type > a span.icon.icon-chevron-right svg {
+  display: none;
+}
+
 /* nav tools mobile language selector */
 header nav[aria-expanded='true'] .nav-tools > ul {
   display: none;
@@ -417,6 +421,15 @@ header nav .nav-sections ul > li.nav-drop[aria-expanded='true'] > .nav-drop-ul-w
     line-height: 36px;
     text-transform: uppercase;
     padding: 0 24px;
+  }
+
+  header nav .nav-tools > ul > li:last-of-type > a span.icon.icon-chevron-right svg {
+    width: 12px;
+    height: 12px;
+    fill: currentcolor;
+    margin-left: 10px;
+    margin-bottom: -1px;
+    display: initial;
   }
 
   header nav .nav-tools > ul > li:last-of-type > a:hover {

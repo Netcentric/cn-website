@@ -46,7 +46,7 @@ footer > div > div > div:first-child > ul {
 
 @media(max-width: 600px) {
   footer > div > div > div:first-child > ul {
-    min-width: 100%;
+    min-width: calc(100% - 50px);
   }
 }
 

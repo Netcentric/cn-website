@@ -54,6 +54,7 @@
   --rss:                      #f26522;
   --youtube:                  #c4302b;
   --instagram:                #8134af;
+  --bg-text-social:           var(--c-white);
 
   /* highlight */
   --c-highlight-red:           var(--c-red);
@@ -133,6 +134,9 @@ body {
   color: var(--text-color);
   background-color: var(--background-color);
   display: none;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizelegibility;
 }
 
 body.appear {
@@ -230,6 +234,13 @@ a.button.secondary, button.secondary {
   color: var(--text-color)
 }
 
+main .hero a.button > .icon-chevron-right svg {
+  width: 12px;
+  height: 12px;
+  fill: currentcolor;
+  margin-left: 14px;
+}
+
 main input {
   font-size: 1.25rem;
   width: 100%;
@@ -249,7 +260,12 @@ main input:hover {
 }
 
 main .section {
-  padding: 32px 0;
+  padding: 32px;
+}
+
+main .section > div {
+  width: 100vw;
+  margin: 0;
 }
 
 main pre {
@@ -286,7 +302,7 @@ hr {
 
 main img {
   max-width: 100%;
-  width: auto;
+  width: 100%;
   height: auto;
 }
 
@@ -300,6 +316,10 @@ main img {
     --heading-font-size-s: 20px;
     --heading-font-size-xs: 18px;/* nav */
     --nav-height: var(--desktop-nav-height);
+  }
+
+  main .section {
+    padding: 32px 0;
   }
 
   main .section > div {
@@ -328,50 +348,61 @@ main .section[data-section-status='initialized'] {
 /* section highlights */
 main .section.light-plum {
   background-color: var(--c-light-plum);
+  color: var(--bg-text-light-plum);
 }
 
 main .section.mid-plum {
   background-color: var(--c-mid-plum);
+  color: var(--bg-text-mid-plum);
 }
 
 main .section.dark-plum {
   background-color: var(--c-dark-plum);
+  color: var(--bg-text-dark-plum);
 }
 
 main .section.light-blue {
   background-color: var(--c-light-blue);
+  color: var(--bg-text-dark-blue);
 }
 
 main .section.mid-blue {
   background-color: var(--c-mid-blue);
+  color: var(--bg-text-mid-blue);
 }
 
 main .section.dark-blue {
   background-color: var(--c-dark-blue);
+  color: var(--bg-text-dark-blue);
 }
 
-main .section.light-gray {
+main .section.light-grey {
   background-color: var(--c-light-gray);
+  color: var(--bg-text-light-grey);
 }
 
-main .section.mid-gray {
+main .section.mid-grey {
   background-color: var(--c-mid-gray);
 }
 
-main .section.dark-gray {
+main .section.dark-grey {
   background-color: var(--c-dark-gray);
+  color: var(--bg-text-dark-grey);
 }
 
 main .section.light-teal {
   background-color: var(--c-light-teal);
+  color: var(--bg-text-light-teal);
 }
 
 main .section.mid-teal {
   background-color: var(--c-mid-teal);
+  color: var(--bg-text-mid-teal);
 }
 
 main .section.dark-teal {
   background-color: var(--c-dark-teal);
+  color: var(--bg-text-dark-teal);
 }
 
 .youtube-base,

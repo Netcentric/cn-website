@@ -79,11 +79,11 @@ function decorateEmbed() {
 
 function loadLaunch() {
   window.adobeDataLayer = window.adobeDataLayer || [];
-  
-  const src = window.location.host === 'www.netcentric.biz' 
+
+  const src = window.location.host === 'www.netcentric.biz'
     ? 'https://assets.adobedtm.com/2d725b839720/bfa5096a0ae6/launch-f793edd9423d.min.js'
-    : 'https://assets.adobedtm.com/2d725b839720/bfa5096a0ae6/launch-2033de7801fe-staging.min.js'
-  injectScript(src);  
+    : 'https://assets.adobedtm.com/2d725b839720/bfa5096a0ae6/launch-2033de7801fe-staging.min.js';
+  injectScript(src);
 }
 
 decorateTwitterFeed();

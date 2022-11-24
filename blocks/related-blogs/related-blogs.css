@@ -14,14 +14,15 @@
 .related-blogs-container .related-list-item {
     background-color: var(--c-white);
     padding: 10px 20px;
-    margin-right: 2%;
     border: 0;
-    width: 28.5%;
 }
 
 .related-blogs-container ul.related-list {
     list-style: none;
     padding-left: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
 }
 
 .related-blogs-container .related-list {
@@ -29,10 +30,6 @@
     flex-flow: row wrap;
     justify-content: left;
     margin-bottom: 25px;
-}
-
-.related-blogs-container .related-list-item:last-child {
-    margin-right: 0;
 }
 
 .related-blogs-container .teaser-link {
@@ -133,4 +130,16 @@
     cursor: pointer;
     background-color: var(--c-light-teal);
     border: thin solid var(--c-light-teal);
+}
+
+@media (min-width: 992px) {
+    .related-blogs-container .related-list-item {
+        width: 28.5%;
+    }
+
+    .related-blogs-container ul.related-list {
+        flex-direction: row;
+        justify-content: space-between;
+        gap: 0;
+    }
 }

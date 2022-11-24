@@ -13,6 +13,7 @@ document.head.innerHTML = await readFile({ path: './head.html' });
 describe('Utils methods', () => {
   before(async () => {
     blockUtils = await import('../../scripts/lib-franklin.js');
+    await import('../../scripts/scripts.js');
     document.body.innerHTML = await readFile({ path: './body.html' });
   });
 

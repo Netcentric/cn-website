@@ -17,12 +17,41 @@ const LCP_BLOCKS = []; // add your LCP blocks to the list
 window.hlx.RUM_GENERATION = 'project-1'; // add your RUM generation information here
 
 function buildHeroBlock(main) {
-  const h1 = main.querySelector('h1');
-  const picture = main.querySelector('picture');
-  // eslint-disable-next-line no-bitwise
-  if (h1 && picture && (h1.compareDocumentPosition(picture) & Node.DOCUMENT_POSITION_PRECEDING)) {
+  /* 1. If there is an explicit hero block, add it to its own section, so it can be full-width */
+  const heroBlock = main.querySelector('.hero');
+  if (heroBlock) {
     const section = document.createElement('div');
-    section.append(buildBlock('hero', { elems: [picture, h1] }));
+    section.append(heroBlock);
+    main.prepend(section);
+    return;
+  }
+
+  /* 2. If we are on a blog post with image, add the image and h1 */
+  const h1 = main.querySelector('h1');
+  let picture;
+  let subtitle;
+
+  const h1Sibling = document.querySelector('body.blogpost main h1 + p');
+
+  if (h1Sibling && h1Sibling.firstElementChild.nodeName === 'PICTURE') {
+    picture = h1Sibling;
+  } else if (h1Sibling && h1Sibling.nextElementSibling.firstElementChild.nodeName === 'PICTURE') {
+    picture = h1Sibling.nextElementSibling.firstElementChild;
+    subtitle = h1Sibling;
+  }
+
+  if (h1 && picture) {
+    const section = document.createElement('div');
+    const hr = document.createElement('hr');
+    section.append(buildBlock('hero', { elems: [hr, h1, subtitle, picture] }));
+    main.prepend(section);
+    return;
+  }
+
+  /* 3. If there is only a h1, build a block out of the h1 */
+  if (h1) {
+    const section = document.createElement('div');
+    section.append(buildBlock('hero', { elems: [h1] }));
     main.prepend(section);
   }
 }

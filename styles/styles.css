@@ -20,9 +20,9 @@
 
 /* fallback font for Gellix (normal - 700) */
 @font-face {
-    font-family: "gellix-normal-700-fallback";
-    size-adjust: 100.931%;
-    src: local("Arial");
+  font-family: "gellix-normal-700-fallback";
+  size-adjust: 100.931%;
+  src: local("Arial");
 }
 
  :root {

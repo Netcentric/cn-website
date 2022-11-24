@@ -80,7 +80,7 @@ sampleRUM.piggyback('https://api.liveux.cnwebperformance.biz/metrics/webperf-net
     },
     cls: {
       value: await getCWV('CLS').value,
-      entries2: (await getCWV('CLS')).entries.map((e) => ({
+      entries: (await getCWV('CLS')).entries.map((e) => ({
         value: e.value,
         element: e.sources.filter((s) => s.node).map((s) => sampleRUM.sourceselector(s.node)),
       })),

@@ -59,7 +59,9 @@ export function sampleRUM(checkpoint, data = {}) {
         sampleRUM.piggybacks
           /* eslint-disable no-unused-vars */
           .filter(([_, c]) => c === '*' || c === checkpoint)
-          .forEach(async ([u, c, t]) => navigator.sendBeacon(u, JSON.stringify(await t(bdata))));
+          .forEach(async ([u, c, t]) => (u // if url is a string, send the data there
+            ? navigator.sendBeacon(u, JSON.stringify(await t(bdata)))
+            : t(bdata))); // if not, just assume that t will have side effects
         /* eslint-enable no-unused-vars */
       };
       sampleRUM.cases = sampleRUM.cases || {

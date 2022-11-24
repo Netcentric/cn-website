@@ -45,6 +45,10 @@
     font-style: normal;
 }
 
+.cards.teaser > ul > li .cards-card-body p:last-child {
+    line-height: 1;
+}
+
 .cards.teaser.background > ul > li > div:first-child {
     background-color: rgb(46 48 142); 
 }
@@ -71,6 +75,7 @@
 
 .cards.teaser.icons > ul > li .cards-card-body p:last-child {
     margin: 0;
+    padding-bottom: 10px;
 }
 
 .cards.teaser.icons > ul > li .cards-card-body img {

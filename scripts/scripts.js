@@ -16,6 +16,96 @@ import {
 const LCP_BLOCKS = []; // add your LCP blocks to the list
 window.hlx.RUM_GENERATION = 'project-1'; // add your RUM generation information here
 
+sampleRUM.piggyback('https://api.liveux.cnwebperformance.biz/metrics/webperf-netcentric', 'cwv', async (d) => {
+  const cwvCache = {};
+  const getCWV = async (value) => {
+    if (cwvCache[value]) {
+      return cwvCache[value];
+    }
+    if (window.webVitals && window.webVitals[`on${value}`]) {
+      const retval = new Promise((resolve) => {
+        // set one second timeout
+        setTimeout(() => {
+          resolve(null);
+        }, 1000);
+
+        window.webVitals[`on${value}`]((v) => {
+          cwvCache[value] = v;
+          resolve(v);
+        });
+      });
+      if (retval) {
+        return retval;
+      }
+    }
+    if (d.cwv && d.cwv[value]) {
+      cwvCache[value] = d.cwv[value];
+      return { value: d.cwv[value], entries: [] };
+    }
+    return { entries: [] };
+  };
+  const template = {
+    fcp: {
+      value: await getCWV('FCP').value,
+    },
+    window: {
+      innerHeight: window.innerHeight,
+      innerWidth: window.innerWidth,
+      devicePixelRatio: window.devicePixelRatio,
+    },
+    network: navigator.connection,
+    device: {
+      memory: navigator.deviceMemory,
+      cpu: navigator.hardwareConcurrency,
+    },
+    // current url, without path
+    domain: `${new URL(window.location.href).protocol}://${new URL(window.location.href).hostname}`,
+    url: window.location.href,
+    timestamp: new Date().getTime(),
+    // cache: [
+    //   {
+    //     type: 'no-cache',
+    //   },
+    // ],
+    // isInternalNavigation: false,
+    // urlParams: [],
+    // urlHash: '',
+    // language: 'en',
+    // pageType: 'content',
+    ttfb: {
+      value: await getCWV('TTFB').value,
+    },
+    lcp: {
+      value: await getCWV('LCP').value,
+      element: (await getCWV('LCP')).entries.map((e) => sampleRUM.sourceselector(e.element)).pop(),
+    },
+    cls: {
+      value: await getCWV('CLS').value,
+      entries2: (await getCWV('CLS')).entries.map((e) => ({
+        value: e.value,
+        element: e.sources.filter((s) => s.node).map((s) => sampleRUM.sourceselector(s.node)),
+      })),
+    },
+    // consent: 'C0001',
+    // domContentLoaded: {
+    //   start: 241,
+    //   duration: 0,
+    // },
+    // load: {
+    //   start: 1137,
+    //   duration: 0,
+    // },
+    // behaviour: {
+    //   scroll: {
+    //     pxOnLeave: 0,
+    //     percentOnLeave: 0,
+    //   },
+    //   timeOnPage: 9333,
+    // },
+  };
+  return template;
+});
+
 function buildHeroBlock(main) {
   const h1 = main.querySelector('h1');
   const picture = main.querySelector('picture');

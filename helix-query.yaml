@@ -16,7 +16,7 @@ indices:
         select: head > meta[property="article:tag"]
         values: attribute(el, "content")
       publicationDate:
-        select: parseTimestamp(head > meta[name="publishdate"], "yyyy-MM-dd'T'HH:mm:ss.SSSZ")
+        select: head > meta[name="publishdate"]
         value: attribute(el, "content")
       lastModified:
         select: none

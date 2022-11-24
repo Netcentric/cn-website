@@ -27,20 +27,6 @@ function buildHeroBlock(main) {
   }
 }
 
-function injectScript(src) {
-  window.scriptsLoaded = window.scriptsLoaded || [];
-
-  if (window.scriptsLoaded.indexOf(src)) {
-    const head = document.querySelector('head');
-    const script = document.createElement('script');
-
-    script.src = src;
-    script.setAttribute('async', 'true');
-    head.append(script);
-    window.scriptsLoaded.push(src);
-  }
-}
-
 function createEmbedWrap(a, vendor) {
   const div = document.createElement('div');
   div.classList.add(`${vendor}-base`);
@@ -51,9 +37,9 @@ function createEmbedWrap(a, vendor) {
 
 function preDecorateEmbed(main) {
   const anchors = main.getElementsByTagName('a');
-  const youTubeAnchors = Array.from(anchors).filter((a) => a.href.includes('youtu'));
-  const spotifyAnchors = Array.from(anchors).filter((a) => a.href.includes('spotify'));
-  const wistiaAnchors = Array.from(anchors).filter((a) => a.href.includes('wistia'));
+  const youTubeAnchors = Array.from(anchors).filter((a) => a.href.includes('youtu') && encodeURI(a.textContent.trim()).indexOf(a.href) !== -1);
+  const spotifyAnchors = Array.from(anchors).filter((a) => a.href.includes('spotify') && encodeURI(a.textContent.trim()).indexOf(a.href) !== -1);
+  const wistiaAnchors = Array.from(anchors).filter((a) => a.href.includes('wistia') && encodeURI(a.textContent.trim()).indexOf(a.href) !== -1);
 
   window.embedAnchors = {
     youTubeAnchors,
@@ -69,63 +55,6 @@ function preDecorateEmbed(main) {
   });
   wistiaAnchors.forEach((a) => {
     createEmbedWrap(a, 'wistia');
-  });
-}
-
-function createIframe(a, vendor) {
-  const div = a.nextElementSibling;
-  const embed = a.pathname;
-  const id = embed.split('/').pop();
-  let source;
-  let className;
-  let allow;
-
-  a.remove();
-
-  if (vendor === 'youtube') {
-    source = `https://www.youtube.com/embed/${id}`;
-    className = 'youtube-player';
-    allow = 'encrypted-media; accelerometer; gyroscope; picture-in-picture';
-  } else if (vendor === 'spotify') {
-    source = `https://open.spotify.com/embed/episode/${id}`;
-    className = 'spotify-player';
-    allow = 'autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture';
-  } else if (vendor === 'wistia') {
-    source = `https://fast.wistia.net/embed/iframe/${id}`;
-    className = 'wistia-player';
-    allow = 'autoplay; clipboard-write; encrypted-media; fullscreen;';
-  }
-
-  div.innerHTML = `<iframe src="${source}" 
-        class="${className}"
-        allowfullscreen  
-        allow="${allow}"
-        loading="lazy">
-    </iframe>`;
-}
-
-export function decorateEmbed() {
-  window.embedAnchors?.youTubeAnchors?.forEach((a) => {
-    createIframe(a, 'youtube');
-  });
-  window.embedAnchors?.spotifyAnchors?.forEach((a) => {
-    createIframe(a, 'spotify');
-  });
-  window.embedAnchors?.wistiaAnchors?.forEach((a) => {
-    createIframe(a, 'wistia');
-  });
-}
-
-export function decorateTwitterFeed(main) {
-  const anchors = main.getElementsByTagName('a');
-  const twitterAnchors = Array.from(anchors)
-    .filter((a) => a.href.includes('twitter') && !(a.children.length === 1 && a.firstElementChild.matches('span.icon')));
-
-  twitterAnchors.forEach((a) => {
-    a.innerText = `Tweets by ${a.pathname.split('/').pop()}`;
-    a.setAttribute('data-height', '500px');
-    a.classList.add('twitter-timeline');
-    injectScript('https://platform.twitter.com/widgets.js');
   });
 }
 

@@ -33,14 +33,15 @@ export default async function decorate(block) {
   const triggers = block.querySelectorAll('.accordion-trigger');
   triggers.forEach((trigger) => {
     trigger.addEventListener('click', () => {
-      const wasOpen = trigger.parentElement.classList.contains('open');
+      const openAttribute = 'aria-expanded';
+      const wasOpen = trigger.parentElement.hasAttribute(openAttribute);
 
       triggers.forEach((_trigger) => {
-        _trigger.parentElement.classList.remove('open');
+        _trigger.parentElement.removeAttribute('aria-expanded');
       });
 
       if (!wasOpen) {
-        trigger.parentElement.classList.add('open');
+        trigger.parentElement.setAttribute('aria-expanded', '');
       }
     });
   });

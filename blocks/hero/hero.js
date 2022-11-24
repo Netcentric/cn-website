@@ -1,4 +1,5 @@
 import { decorateIcons } from '../../scripts/lib-franklin.js';
+import { addChevronToButtons } from '../../scripts/scripts.js';
 
 export default function decorate(block) {
   /* Move all buttons to one container */
@@ -14,12 +15,7 @@ export default function decorate(block) {
     });
   }
 
-  /* Add chevron to buttons */
-  block.querySelectorAll('a.button').forEach((button) => {
-    const chevron = document.createElement('span');
-    chevron.classList.add('icon', 'icon-chevron-right');
-    button.append(chevron);
-  });
+  addChevronToButtons(block);
 
   decorateIcons(block);
 }

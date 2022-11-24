@@ -1,4 +1,5 @@
 import { readBlockConfig, decorateIcons } from '../../scripts/lib-franklin.js';
+import { addChevronToButtons } from '../../scripts/scripts.js';
 
 const mobileBreakpoint = 992;
 let globalWindowWidth = window.innerWidth;
@@ -155,8 +156,12 @@ export default async function decorate(block) {
     });
     nav.prepend(hamburger);
     nav.setAttribute('aria-expanded', 'false');
-    decorateIcons(nav);
     block.append(nav);
+
+    // Add icons to buttons
+    addChevronToButtons(nav, '.nav-tools li:last-child a');
+
+    decorateIcons(nav);
 
     // mobile language selector
     const langToggleButton = document.createElement('button');

@@ -16,6 +16,20 @@ import {
 const LCP_BLOCKS = []; // add your LCP blocks to the list
 window.hlx.RUM_GENERATION = 'project-1'; // add your RUM generation information here
 
+/**
+ * Adds chevron to all buttons that are children of element
+ * @param element The dom subtree containing buttons
+ * @param selector The selector to match buttons
+ */
+export function addChevronToButtons(element, selector = 'a.button') {
+  /* Add chevron to buttons */
+  element.querySelectorAll(selector).forEach((button) => {
+    const chevron = document.createElement('span');
+    chevron.classList.add('icon', 'icon-chevron-right');
+    button.append(chevron);
+  });
+}
+
 function buildHeroBlock(main) {
   /* 1. If there is an explicit hero block, add it to its own section, so it can be full-width */
   const heroBlock = main.querySelector('.hero');

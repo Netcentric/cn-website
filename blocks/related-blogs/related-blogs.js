@@ -1,14 +1,10 @@
-import { readBlockConfig } from '../../scripts/lib-franklin.js';
+import { readBlockConfig, decorateIcons } from "../../scripts/lib-franklin.js";
+import { addChevronToButtons } from "../../scripts/scripts.js";
 
 const maxAutoItems = 3;
 const defaultAuthorName = 'Cognizant Netcentric';
 const defaultAuthorTitle = '';
 const defaultAuthorImage = '/icons/nc.svg';
-
-function getConfiguredTag(config) {
-  // should we have a default if no tag is configured?
-  return config.tag;
-}
 
 async function enrichProfiles(rArticles) {
   const response = await fetch('/profile-blog.json');
@@ -74,34 +70,40 @@ async function getRelatedArticles(tag) {
   return blogList;
 }
 
+function createDynamicHeading(tagName) {
+
+}
+
 export default async function decorate(block) {
   // get the tag to be fetched
-  const tagConf = getConfiguredTag(readBlockConfig(block));
+  const { tag } = readBlockConfig(block);
 
-  block.innerHTML = ''; // reset
+  block.innerHTML = ""; // reset
 
-  const outerDiv = document.createElement('div');
-  outerDiv.classList.add('related-container');
+  const container = document.createElement("div");
+  container.classList.add("related-container");
 
-  // headline
-  const head4 = document.createElement('h4');
-  const text4head = document.createTextNode(`More ${tagConf}`);
-  head4.appendChild(text4head);
-  outerDiv.appendChild(head4);
+  // dynamic headline if filtered by tag
+  if (tag) {
+    const heading = document.createElement("h4");
+    heading.textContent = `More ${tag}`;
+    container.appendChild(heading);
+  }
 
-  outerDiv.appendChild(await getRelatedArticles(tagConf));
-  block.append(outerDiv);
+  // render blog article teaser
+  container.appendChild(await getRelatedArticles(tag));
+  block.append(container);
 
-  const ovr = document.createElement('div');
-  ovr.classList.add('btn--light-teal');
-  ovr.classList.add('btn--solid');
-  ovr.classList.add('related-button-row');
-  const ovrlink = document.createElement('a');
-  ovrlink.href = '/insights';
-  ovrlink.classList.add('btn');
-  ovrlink.innerHTML = `BLOG OVERVIEW &nbsp; <i class="icons icon-wrapper ">
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 465 1024"><path d="M465.455 525.838L76.738 1020.226.001 966.133l319.528-455.391L.001 54.093 76.738 0l388.717 491.872z"></path></svg>
-    </i>`;
-  ovr.appendChild(ovrlink);
-  block.append(ovr);
+  // render blog overview cta button
+  const buttonRow = document.createElement("div");
+  buttonRow.classList.add("related-button-row");
+  const button = document.createElement("a");
+  button.classList.add("button");
+  button.classList.add("secondary");
+  button.href = "/insights";
+  button.textContent = "Blog Overview";
+  buttonRow.appendChild(button);
+  addChevronToButtons(buttonRow);
+  decorateIcons(buttonRow);
+  block.append(buttonRow);
 }

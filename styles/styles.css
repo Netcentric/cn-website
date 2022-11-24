@@ -118,7 +118,7 @@
   --heading-font-size-l: 30px;
   --heading-font-size-m: 24px;
   --heading-font-size-s: 20px;
-  --heading-font-size-xs: 18px;
+  --heading-nav-font-size: 18px;
 
   /* nav height */
   --desktop-nav-height: 130px;
@@ -162,7 +162,7 @@ h2 { font-size: var(--heading-font-size-xl) }
 h3 { font-size: var(--heading-font-size-l) }
 h4 { font-size: var(--heading-font-size-m) }
 h5 { font-size: var(--heading-font-size-s) }
-h6 { font-size: var(--heading-font-size-xs) }
+h6 { font-size: var(--heading-nav-font-size) }
 
 p, dl, ol, ul, pre, blockquote {
   margin-top: 1em;
@@ -314,7 +314,7 @@ main img {
     --heading-font-size-l: 30px;
     --heading-font-size-m: 24px;
     --heading-font-size-s: 20px;
-    --heading-font-size-xs: 18px;/* nav */
+    --heading-nav-font-size: 18px;/* nav */
     --nav-height: var(--desktop-nav-height);
   }
 

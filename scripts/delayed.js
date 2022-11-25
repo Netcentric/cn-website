@@ -88,4 +88,4 @@ function loadLaunch() {
 
 decorateTwitterFeed();
 decorateEmbed();
-loadLaunch();
+//loadLaunch();

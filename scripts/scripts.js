@@ -115,6 +115,7 @@ export function createIcon(name) {
 
 function createEmbedWrap(a, vendor) {
   const div = document.createElement('div');
+  div.classList.add('embed');
   div.classList.add(`${vendor}-base`);
 
   a.style.display = 'none';
@@ -126,12 +127,6 @@ function preDecorateEmbed(main) {
   const youTubeAnchors = Array.from(anchors).filter((a) => a.href.includes('youtu') && encodeURI(a.textContent.trim()).indexOf(a.href) !== -1);
   const spotifyAnchors = Array.from(anchors).filter((a) => a.href.includes('spotify') && encodeURI(a.textContent.trim()).indexOf(a.href) !== -1);
   const wistiaAnchors = Array.from(anchors).filter((a) => a.href.includes('wistia') && encodeURI(a.textContent.trim()).indexOf(a.href) !== -1);
-
-  window.embedAnchors = {
-    youTubeAnchors,
-    spotifyAnchors,
-    wistiaAnchors,
-  };
 
   youTubeAnchors.forEach((a) => {
     createEmbedWrap(a, 'youtube');

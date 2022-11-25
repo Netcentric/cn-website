@@ -23,7 +23,9 @@ function injectScript(src) {
 
 function decorateTwitterFeed() {
   const anchors = main.getElementsByTagName('a');
-  const twitterAnchors = Array.from(anchors).filter((a) => a.href.includes('twitter') && a.href.includes('ref_src'));
+  const twitterAnchors = Array.from(anchors).filter(
+    (a) => a.href.includes('twitter') && a.href.includes('ref_src'),
+  );
 
   twitterAnchors.forEach((a) => {
     a.innerText = `Tweets by ${a.pathname.split('/').pop()}`;
@@ -33,8 +35,9 @@ function decorateTwitterFeed() {
   });
 }
 
-function createIframe(a, vendor) {
-  const div = a.nextElementSibling;
+function createIframe(div) {
+  const a = div.previousElementSibling;
+  const vendor = div.classList[1];
   const embed = a.pathname;
   const id = embed.split('/').pop();
   let source;
@@ -43,15 +46,15 @@ function createIframe(a, vendor) {
 
   a.remove();
 
-  if (vendor === 'youtube') {
+  if (vendor === 'youtube-base') {
     source = `https://www.youtube.com/embed/${id}`;
     className = 'youtube-player';
     allow = 'encrypted-media; accelerometer; gyroscope; picture-in-picture';
-  } else if (vendor === 'spotify') {
+  } else if (vendor === 'spotify-base') {
     source = `https://open.spotify.com/embed/episode/${id}`;
     className = 'spotify-player';
     allow = 'autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture';
-  } else if (vendor === 'wistia') {
+  } else if (vendor === 'wistia-base') {
     source = `https://fast.wistia.net/embed/iframe/${id}`;
     className = 'wistia-player';
     allow = 'autoplay; clipboard-write; encrypted-media; fullscreen;';
@@ -66,14 +69,19 @@ function createIframe(a, vendor) {
 }
 
 function decorateEmbed() {
-  window.embedAnchors?.youTubeAnchors?.forEach((a) => {
-    createIframe(a, 'youtube');
+  const embedObserver = new IntersectionObserver((entries) => {
+    entries.forEach(
+      (entry) => {
+        if (entry.isIntersecting) {
+          embedObserver.unobserve(entry.target);
+          createIframe(entry.target);
+        }
+      },
+    );
   });
-  window.embedAnchors?.spotifyAnchors?.forEach((a) => {
-    createIframe(a, 'spotify');
-  });
-  window.embedAnchors?.wistiaAnchors?.forEach((a) => {
-    createIframe(a, 'wistia');
+
+  main.querySelectorAll('.embed').forEach((div) => {
+    embedObserver.observe(div);
   });
 }
 

@@ -86,6 +86,6 @@ function loadLaunch() {
   injectScript(src);
 }
 
-decorateTwitterFeed();
-decorateEmbed();
+// decorateTwitterFeed();
+//decorateEmbed();
 //loadLaunch();

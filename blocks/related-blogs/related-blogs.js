@@ -89,12 +89,7 @@ function createCardsRow(parent, cards) {
 function buildCTASection(parent) {
   const buttonRow = document.createElement('div');
   buttonRow.classList.add('related-button-row');
-  const button = document.createElement('a');
-  button.classList.add('button');
-  button.classList.add('secondary');
-  button.href = '/insights';
-  button.textContent = 'Blog Overview';
-  buttonRow.appendChild(button);
+  buttonRow.innerHTML = '<a href=\'/insights\' class="button secondary">Blog Overview</a>';
   addChevronToButtons(buttonRow);
   decorateIcons(buttonRow);
   parent.append(buttonRow);

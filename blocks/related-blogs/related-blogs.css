@@ -105,6 +105,10 @@
   font-weight: 700;
 }
 
+.related-blogs-container .teaser picture img {
+  aspect-ratio: 1200 / 628;
+}
+
 body.blogpost .related-blogs-container .teaser picture {
   display: none;
 }

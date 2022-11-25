@@ -31,3 +31,13 @@
 .columns.teasers > div > div > .columns-teaser-pretitle ~ .columns-teaser-title {
     margin-top: 4px;
 }
+
+.columns.teasers.columns-teasers-align-images img {
+    width: auto;
+    max-height: 300px;
+}
+
+.columns.teasers .columns-teaser-image {
+    display: flex;
+    justify-content: center;
+}

@@ -1,7 +1,12 @@
 import { loadCSS } from '../../scripts/lib-franklin.js';
 
-function decorateTeasers(cols) {
+function decorateTeasers(cols, block) {
   loadCSS(`${window.hlx.codeBasePath}/blocks/columns/columns-teasers.css`);
+  const pictures = cols.map((div) => div.querySelector('picture')).filter((picture) => !!picture);
+  if (pictures.length === cols.length) {
+    block.classList.add('columns-teasers-align-images');
+  }
+  pictures.forEach((picture) => picture.closest('p').classList.add('columns-teaser-image'));
   cols.forEach((div) => {
     const headings = div.querySelectorAll('h2,h3,h4');
     let title;
@@ -23,6 +28,6 @@ export default function decorate(block) {
   block.classList.add(`columns-${cols.length}-cols`);
 
   if (block.matches('.teasers')) {
-    decorateTeasers(cols);
+    decorateTeasers(cols, block);
   }
 }

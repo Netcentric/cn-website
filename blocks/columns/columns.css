@@ -65,15 +65,11 @@
 
     .columns > div > div {
         padding: 0 16px;
-        flex: 1 1 0%;
+        flex: 1 1 var(--column-fb-other);
     }
 
     .columns.reverse-on-mobile > div {
         flex-direction: unset;
-    }
-
-    .columns > div > div {
-        flex: 1 1 var(--column-fb-other);
     }
 
     .columns > div > div:first-of-type {

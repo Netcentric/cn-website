@@ -52,14 +52,17 @@
 }
 
 @media (min-width: 992px) {
-    .columns > div,
-    .columns.reverse-on-mobile > div {
+    .columns > div {
         flex-direction: unset;
     }
 
     .columns > div > div {
         padding: 0 16px;
         flex: 1 1 0%;
+    }
+
+    .columns.reverse-on-mobile > div {
+        flex-direction: unset;
     }
 
     .columns > div > div:first-of-type {

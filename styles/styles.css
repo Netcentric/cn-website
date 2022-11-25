@@ -284,7 +284,6 @@ main .section {
 }
 
 main .section > div {
-  width: 100vw;
   margin: 0;
 }
 

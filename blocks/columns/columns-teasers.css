@@ -1,0 +1,32 @@
+.columns.teasers .columns-column-title {
+    font-size: 30px;
+    color: var(--c-dark-plum);
+}
+
+.columns.teasers .columns-teaser-title {
+    font-size: 30px;
+}
+
+.columns.teasers > div > div > *:not(:first-child,:last-child) {
+    margin: 32px 0
+}
+
+.columns.teasers > div > div > .columns-teaser-pretitle {
+    margin-bottom: 0;
+    font-weight: 700;
+    font-size: 14px;
+    text-transform: uppercase;
+}
+
+.columns.teasers > div > div > .columns-teaser-pretitle > * {
+    font-weight: inherit;
+    font-size: inherit;
+}
+
+.columns.teasers .columns-teaser-pretitle .icon {
+    display: none;
+}
+
+.columns.teasers > div > div > .columns-teaser-pretitle ~ .columns-teaser-title {
+    margin-top: 4px;
+}

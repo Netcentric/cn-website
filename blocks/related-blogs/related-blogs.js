@@ -135,6 +135,7 @@ async function buildManualRelatedBlogs(block) {
   createCardsRow(outerDiv, relatedArticles);
 
   block.append(outerDiv);
+  buildCTASection(block);
 }
 
 export default async function decorate(block) {

@@ -1,4 +1,4 @@
-import { readBlockConfig, decorateIcons } from '../../scripts/lib-franklin.js';
+import { readBlockConfig } from '../../scripts/lib-franklin.js';
 import { addChevronToButtons } from '../../scripts/scripts.js';
 
 const maxAutoItems = 3;
@@ -100,6 +100,5 @@ export default async function decorate(block) {
   button.textContent = 'Blog Overview';
   buttonRow.appendChild(button);
   addChevronToButtons(buttonRow);
-  decorateIcons(buttonRow);
   block.append(buttonRow);
 }

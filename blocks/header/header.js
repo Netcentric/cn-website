@@ -160,7 +160,6 @@ export default async function decorate(block) {
 
     // Add icons to buttons
     addChevronToButtons(nav, '.nav-tools li:last-child a');
-
     decorateIcons(nav);
 
     // mobile language selector

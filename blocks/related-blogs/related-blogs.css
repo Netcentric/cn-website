@@ -113,10 +113,6 @@ body.blogpost .related-blogs-container .teaser p.tags {
   display: none;
 }
 
-.related-blogs-container a.button {
-  font-size: var(--body-font-size-xs);
-}
-
 .related-blogs-container a.button.secondary {
   border: 1px solid var(--c-light-teal);
   color: var(--c-light-teal);

@@ -104,7 +104,6 @@ async function buildAutoRelatedBlogs(block) {
   // get the tag to be fetched
   const { tag } = readBlockConfig(block);
 
-
   block.innerHTML = ''; // reset
 
   // create container

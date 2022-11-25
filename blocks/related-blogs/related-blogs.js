@@ -1,14 +1,10 @@
-import { createOptimizedPicture, readBlockConfig } from '../../scripts/lib-franklin.js';
+import { readBlockConfig, decorateIcons, createOptimizedPicture } from '../../scripts/lib-franklin.js';
+import { addChevronToButtons } from '../../scripts/scripts.js';
 
 const maxAutoItems = 3;
 const defaultAuthorName = 'Cognizant Netcentric';
 const defaultAuthorTitle = '';
 const defaultAuthorImage = '/icons/nc.svg';
-
-function getConfiguredTag(config) {
-  // should we have a default if no tag is configured?
-  return config.tag;
-}
 
 async function enrichProfiles(rArticles) {
   const response = await fetch('/profile-blog.json');
@@ -91,21 +87,23 @@ function createCardsRow(parent, cards) {
 }
 
 function buildCTASection(parent) {
-  const ovr = document.createElement('div');
-  ovr.classList.add('btn--light-teal', 'btn--solid', 'related-button-row');
-  const ovrlink = document.createElement('a');
-  ovrlink.href = '/insights';
-  ovrlink.classList.add('btn');
-  ovrlink.innerHTML = `BLOG OVERVIEW &nbsp; <i class="icons icon-wrapper ">
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 465 1024"><path d="M465.455 525.838L76.738 1020.226.001 966.133l319.528-455.391L.001 54.093 76.738 0l388.717 491.872z"></path></svg>
-    </i>`;
-  ovr.appendChild(ovrlink);
-  parent.append(ovr);
+  const buttonRow = document.createElement('div');
+  buttonRow.classList.add('related-button-row');
+  const button = document.createElement('a');
+  button.classList.add('button');
+  button.classList.add('secondary');
+  button.href = '/insights';
+  button.textContent = 'Blog Overview';
+  buttonRow.appendChild(button);
+  addChevronToButtons(buttonRow);
+  decorateIcons(buttonRow);
+  parent.append(buttonRow);
 }
 
 async function buildAutoRelatedBlogs(block) {
   // get the tag to be fetched
-  const tagConf = getConfiguredTag(readBlockConfig(block));
+  const { tag } = readBlockConfig(block);
+
 
   block.innerHTML = ''; // reset
 
@@ -114,10 +112,10 @@ async function buildAutoRelatedBlogs(block) {
   outerDiv.classList.add('related-container');
 
   // headline
-  buildHeadline(outerDiv, tagConf);
+  buildHeadline(outerDiv, tag);
 
   // list of cards
-  const relatedArticles = await getRelatedArticles((item) => item.tags.includes(tagConf));
+  const relatedArticles = await getRelatedArticles((item) => item.tags.includes(tag));
   createCardsRow(outerDiv, relatedArticles);
 
   block.append(outerDiv);

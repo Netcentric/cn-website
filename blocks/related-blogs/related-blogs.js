@@ -1,4 +1,4 @@
-import { readBlockConfig } from '../../scripts/lib-franklin.js';
+import { createOptimizedPicture, readBlockConfig } from '../../scripts/lib-franklin.js';
 
 const maxAutoItems = 3;
 const defaultAuthorName = 'Cognizant Netcentric';
@@ -21,33 +21,43 @@ async function enrichProfiles(rArticles) {
   return rArticles;
 }
 
-function buildCard(path, title, authorProfile = {}) {
-  return `<div class="teaser">
+function buildCard(card) {
+  const {
+    path, title, image, tags, profiles: authorProfile,
+  } = card;
+
+  const cardElement = document.createElement('article');
+  cardElement.classList.add('teaser');
+
+  if (authorProfile.Image === '') authorProfile.Image = defaultAuthorImage;
+
+  cardElement.innerHTML = `
+    <p class="tags">${JSON.parse(tags).join(', ')}</p>
     <a href="${path}" target="_self" class="teaser-link">
-        <div class="teaser-container">
-            <div>
-                <h2 class="teaser-description">
-                    ${title}
-                </h2>
+      <h2 class="teaser-description">
+        ${title}
+      </h2>
+    </a>
+    <div class="authorprofile-container">
+      <div class="authorprofile-image">
+        <div class="nc-image-base">
+            <div class="nc-image-container " itemscope="" itemtype="http://schema.org/ImageObject">
+                <img class="nc-image" src="${authorProfile.Image ?? defaultAuthorImage}" itemprop="contentUrl" alt="" sizes="10vw" />
             </div>
         </div>
-    </a>
-    <div class="authorprofile">
-            <div class="authorprofile-container">
-                <div class="authorprofile-image">
-                    <div class="nc-image-base">
-                        <div class="nc-image-container " itemscope="" itemtype="http://schema.org/ImageObject">
-                            <img class="nc-image" src="${authorProfile.Image ?? defaultAuthorImage}" itemprop="contentUrl" alt="" sizes="10vw">
-                        </div>
-                    </div>
-                </div>
-                <div class="authorprofile-info">
-                    <div class="authorprofile-name">${authorProfile.Name ?? defaultAuthorName}</div>
-                    <div class="authorprofile-position">${authorProfile.Title ?? defaultAuthorTitle}</div>
-                </div>
-            </div>
       </div>
-  </div>`;
+      <div class="authorprofile-info">
+          <div class="authorprofile-name">${authorProfile.Name ?? defaultAuthorName}</div>
+          <div class="authorprofile-position">${authorProfile.Title ?? defaultAuthorTitle}</div>
+      </div>
+    </div>`;
+
+  const pictureElement = createOptimizedPicture(image);
+  if (image && pictureElement) {
+    cardElement.prepend(pictureElement);
+  }
+
+  return cardElement;
 }
 
 function buildHeadline(parent, tagConf) {
@@ -65,26 +75,32 @@ async function getRelatedArticles(filter = () => true, maxItems = maxAutoItems) 
   return enrichProfiles(queryResult);
 }
 
-function createCardsRow(parent, items) {
+function createCardsRow(parent, cards) {
   const blogList = document.createElement('ul');
   blogList.classList.add('related-list');
 
-  items.forEach((value) => {
+  cards.forEach((card) => {
     const blogListItem = document.createElement('li');
     blogListItem.classList.add('related-list-item');
-    const ttr = document.createElement('div');
-    ttr.classList.add('teasertopicrelated');
-    blogListItem.append(ttr);
-    const article = document.createElement('article');
-    article.classList.add('teaser-base');
 
-    article.innerHTML = buildCard(value.path, value.title, value.profiles);
-
-    ttr.appendChild(article);
+    blogListItem.append(buildCard(card));
     blogList.appendChild(blogListItem);
   });
 
   parent.appendChild(blogList);
+}
+
+function buildCTASection(parent) {
+  const ovr = document.createElement('div');
+  ovr.classList.add('btn--light-teal', 'btn--solid', 'related-button-row');
+  const ovrlink = document.createElement('a');
+  ovrlink.href = '/insights';
+  ovrlink.classList.add('btn');
+  ovrlink.innerHTML = `BLOG OVERVIEW &nbsp; <i class="icons icon-wrapper ">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 465 1024"><path d="M465.455 525.838L76.738 1020.226.001 966.133l319.528-455.391L.001 54.093 76.738 0l388.717 491.872z"></path></svg>
+    </i>`;
+  ovr.appendChild(ovrlink);
+  parent.append(ovr);
 }
 
 async function buildAutoRelatedBlogs(block) {
@@ -105,20 +121,7 @@ async function buildAutoRelatedBlogs(block) {
   createCardsRow(outerDiv, relatedArticles);
 
   block.append(outerDiv);
-
-  // cta section
-  const ovr = document.createElement('div');
-  ovr.classList.add('btn--light-teal');
-  ovr.classList.add('btn--solid');
-  ovr.classList.add('related-button-row');
-  const ovrlink = document.createElement('a');
-  ovrlink.href = '/insights';
-  ovrlink.classList.add('btn');
-  ovrlink.innerHTML = `BLOG OVERVIEW &nbsp; <i class="icons icon-wrapper ">
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 465 1024"><path d="M465.455 525.838L76.738 1020.226.001 966.133l319.528-455.391L.001 54.093 76.738 0l388.717 491.872z"></path></svg>
-    </i>`;
-  ovr.appendChild(ovrlink);
-  block.append(ovr);
+  buildCTASection(block);
 }
 
 async function buildManualRelatedBlogs(block) {

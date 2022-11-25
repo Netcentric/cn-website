@@ -1,90 +1,14 @@
-import { readBlockConfig, decorateIcons, createOptimizedPicture } from '../../scripts/lib-franklin.js';
+import { readBlockConfig, decorateIcons, loadCSS } from '../../scripts/lib-franklin.js';
 import { addChevronToButtons } from '../../scripts/scripts.js';
+import { createCardsList, getArticles } from '../blog-posts/blog-posts.js';
 
-const maxAutoItems = 3;
-const defaultAuthorName = 'Cognizant Netcentric';
-const defaultAuthorTitle = '';
-const defaultAuthorImage = '/icons/nc.svg';
-
-async function enrichProfiles(rArticles) {
-  const response = await fetch('/profile-blog.json');
-  const json = await response.json();
-
-  Object.values(rArticles).forEach((value) => {
-    value.profiles = json.data.find((profile) => profile.Name === value.authors) ?? {};
-  });
-
-  return rArticles;
-}
-
-function buildCard(card) {
-  const {
-    path, title, image, tags, profiles: authorProfile,
-  } = card;
-
-  const cardElement = document.createElement('article');
-  cardElement.classList.add('teaser');
-
-  if (authorProfile.Image === '') authorProfile.Image = defaultAuthorImage;
-
-  cardElement.innerHTML = `
-    <p class="tags">${JSON.parse(tags).join(', ')}</p>
-    <a href="${path}" target="_self" class="teaser-link">
-      <h2 class="teaser-description">
-        ${title}
-      </h2>
-    </a>
-    <div class="authorprofile-container">
-      <div class="authorprofile-image">
-        <div class="nc-image-base">
-            <div class="nc-image-container " itemscope="" itemtype="http://schema.org/ImageObject">
-                <img class="nc-image" src="${authorProfile.Image ?? defaultAuthorImage}" itemprop="contentUrl" alt="" sizes="10vw" />
-            </div>
-        </div>
-      </div>
-      <div class="authorprofile-info">
-          <div class="authorprofile-name">${authorProfile.Name ?? defaultAuthorName}</div>
-          <div class="authorprofile-position">${authorProfile.Title ?? defaultAuthorTitle}</div>
-      </div>
-    </div>`;
-
-  // Width based on max-width set in css
-  const pictureElement = createOptimizedPicture(image, `Image symbolising ${title}`, false, [{ width: '450' }]);
-  if (image && pictureElement) {
-    cardElement.prepend(pictureElement);
-  }
-
-  return cardElement;
-}
+const maxArticlesToShow = 3;
 
 function buildHeadline(parent, tagConf) {
   const head4 = document.createElement('h4');
   const text4head = document.createTextNode(`More ${tagConf}`);
   head4.appendChild(text4head);
   parent.appendChild(head4);
-}
-
-async function getRelatedArticles(filter = () => true, maxItems = maxAutoItems) {
-  const response = await fetch('/insights/query-index.json');
-  const json = await response.json();
-  const queryResult = json.data.filter(filter).slice(0, maxItems);
-
-  return enrichProfiles(queryResult);
-}
-
-function createCardsRow(parent, cards) {
-  const blogList = document.createElement('ul');
-  blogList.classList.add('related-list');
-
-  cards.forEach((card) => {
-    const blogListItem = document.createElement('li');
-    blogListItem.classList.add('related-list-item');
-
-    blogListItem.append(buildCard(card));
-    blogList.appendChild(blogListItem);
-  });
-
-  parent.appendChild(blogList);
 }
 
 function buildCTASection(parent) {
@@ -110,8 +34,8 @@ async function buildAutoRelatedBlogs(block) {
   buildHeadline(outerDiv, tag);
 
   // list of cards
-  const relatedArticles = await getRelatedArticles((item) => item.tags.includes(tag));
-  createCardsRow(outerDiv, relatedArticles);
+  const relatedArticles = await getArticles((item) => item.tags.includes(tag), maxArticlesToShow);
+  createCardsList(outerDiv, relatedArticles);
 
   block.append(outerDiv);
   buildCTASection(block);
@@ -127,14 +51,18 @@ async function buildManualRelatedBlogs(block) {
   const outerDiv = document.createElement('div');
   outerDiv.classList.add('related-container');
 
-  const relatedArticles = await getRelatedArticles((item) => configuredPaths.includes(item.path));
-  createCardsRow(outerDiv, relatedArticles);
+  const relatedArticles = await getArticles(
+    (item) => configuredPaths.includes(item.path),
+    maxArticlesToShow,
+  );
+  createCardsList(outerDiv, relatedArticles);
 
   block.append(outerDiv);
   buildCTASection(block);
 }
 
 export default async function decorate(block) {
+  loadCSS('/blocks/blog-posts/blog-card.css');
   // TODO improve variant handling - is this the final logic? Do we want a tag?
   const variant = document.querySelector('body.blogpost') ? 'auto' : 'manual';
 

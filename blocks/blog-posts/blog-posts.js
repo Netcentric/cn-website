@@ -74,7 +74,7 @@ export async function joinArticlesWithProfiles(articles) {
   return articles;
 }
 
-export async function getArticles(filter = () => true, maxItems = 12, offset = 0) {
+export async function getArticles(filter = () => true, maxItems = 7, offset = 0) {
   const response = await fetch('/insights/query-index.json');
   const json = await response.json();
   const queryResult = json.data

@@ -410,6 +410,40 @@ function transformEmbed(document) {
   });
 }
 
+// Transforms an author profile experience fragment
+function transformAuthorProfilePage(document) {
+  const oldName = document.querySelector(
+    '.profile__container .authorprofile__name',
+  );
+  const newName = document.createElement('h1');
+  newName.textContent = oldName.textContent;
+  oldName.replaceWith(newName);
+
+  const oldPosition = document.querySelector(
+    '.profile__container .authorprofile__position',
+  );
+  const newPosition = document.createElement('h3');
+  newPosition.textContent = oldPosition.textContent;
+  oldPosition.replaceWith(newPosition);
+
+  document
+    .querySelectorAll('.profile__container .authorprofile__socialnetwork')
+    .forEach((socialLink) => {
+      const link = socialLink.querySelector('a');
+      if (link) {
+        if (link.href.includes('twitter')) {
+          link.innerHTML = ':twitter:';
+        } else if (link.href.includes('linkedin')) {
+          link.innerHTML = ':linkedin:';
+        } else {
+          link.innerHTML = ':social:';
+        }
+      } else {
+        socialLink.remove();
+      }
+    });
+}
+
 // Transform all image urls
 function makeProxySrcs(document) {
   const host = 'https://www.netcentric.biz/';
@@ -557,9 +591,10 @@ export default {
       'a i.icons.icon__wrapper', // remove > icon on buttons, teaser links etc.
       'p.leaderprofile__name i.icons.icon__wrapper', // remove > icon from leader profile
       'div.socialmediabar',
+      'div.authorprofile.authorprofile--large',
+      'div.authorprofile.authorprofile--medium',
+      'div.authorprofile.authorprofile--small',
     ]);
-
-    document.body.append(WebImporter.Blocks.getMetadataBlock(document, meta));
 
     // Convert all blocks
     [
@@ -580,6 +615,13 @@ export default {
       makeAbsoluteLinks,
     ].forEach((f) => f.call(null, document));
 
+    // special treatment of author profiles
+    if (url.includes('/content/experience-fragments/netcentric/profiles')) {
+      transformAuthorProfilePage(document);
+      meta.Robots = 'noindex, nofollow';
+    }
+
+    document.body.append(WebImporter.Blocks.getMetadataBlock(document, meta));
     return document.body;
   },
 

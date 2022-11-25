@@ -33,8 +33,9 @@ function decorateTwitterFeed() {
   });
 }
 
-function createIframe(a, vendor) {
-  const div = a.nextElementSibling;
+function createIframe(div) {
+  const a = div.previousElementSibling;
+  const vendor = div.classList[1];
   const embed = a.pathname;
   const id = embed.split('/').pop();
   let source;
@@ -43,15 +44,15 @@ function createIframe(a, vendor) {
 
   a.remove();
 
-  if (vendor === 'youtube') {
+  if (vendor === 'youtube-base') {
     source = `https://www.youtube.com/embed/${id}`;
     className = 'youtube-player';
     allow = 'encrypted-media; accelerometer; gyroscope; picture-in-picture';
-  } else if (vendor === 'spotify') {
+  } else if (vendor === 'spotify-base') {
     source = `https://open.spotify.com/embed/episode/${id}`;
     className = 'spotify-player';
     allow = 'autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture';
-  } else if (vendor === 'wistia') {
+  } else if (vendor === 'wistia-base') {
     source = `https://fast.wistia.net/embed/iframe/${id}`;
     className = 'wistia-player';
     allow = 'autoplay; clipboard-write; encrypted-media; fullscreen;';
@@ -66,15 +67,14 @@ function createIframe(a, vendor) {
 }
 
 function decorateEmbed() {
-  window.embedAnchors?.youTubeAnchors?.forEach((a) => {
-    createIframe(a, 'youtube');
+  const embedDivs = main.querySelectorAll('.embed');
+  const observer = new IntersectionObserver((entries) => {
+    if (entries.some((e) => e.isIntersecting)) {
+      observer.disconnect();
+      embedDivs.forEach((div) => { createIframe(div); });
+    }
   });
-  window.embedAnchors?.spotifyAnchors?.forEach((a) => {
-    createIframe(a, 'spotify');
-  });
-  window.embedAnchors?.wistiaAnchors?.forEach((a) => {
-    createIframe(a, 'wistia');
-  });
+  observer.observe(main);
 }
 
 function loadLaunch() {
@@ -86,6 +86,6 @@ function loadLaunch() {
   injectScript(src);
 }
 
-// decorateTwitterFeed();
-//decorateEmbed();
+decorateTwitterFeed();
+decorateEmbed();
 loadLaunch();

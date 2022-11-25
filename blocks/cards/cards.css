@@ -25,6 +25,10 @@
 }
 
 /* cards side-by-side */
+.section.cards-container {
+    padding-left: 0;
+}
+
 .cards.side-by-side > ul > li > .cards-card-body {
     padding-left: 20px;
     padding-right: 40px;

@@ -37,7 +37,7 @@ export function sampleRUM(checkpoint, data = {}) {
     window.hlx = window.hlx || {};
     if (!window.hlx.rum) {
       const usp = new URLSearchParams(window.location.search);
-      const weight = (usp.get('rum') === 'on') ? 1 : 100; // with parameter, weight is 1. Defaults to 100.
+      const weight = (usp.get('rum') === 'on') ? 1 : 1; // with parameter, weight is 1. Defaults to 100 (overridden for netcentric).
       // eslint-disable-next-line no-bitwise
       const hashCode = (s) => s.split('').reduce((a, b) => (((a << 5) - a) + b.charCodeAt(0)) | 0, 0);
       const id = `${hashCode(window.location.href)}-${new Date().getTime()}-${Math.random().toString(16).substr(2, 14)}`;
@@ -58,10 +58,10 @@ export function sampleRUM(checkpoint, data = {}) {
         console.debug(`ping:${checkpoint}`, pdata);
         sampleRUM.piggybacks
           /* eslint-disable no-unused-vars */
-          .filter(([_, c]) => c === '*' || c === checkpoint)
-          .forEach(async ([u, c, t]) => (u // if url is a string, send the data there
-            ? navigator.sendBeacon(u, JSON.stringify(await t(bdata)))
-            : t(bdata))); // if not, just assume that t will have side effects
+          .filter(([, chkPntFilter]) => chkPntFilter === '*' || chkPntFilter === checkpoint)
+          .forEach(async ([pingURL, , tfn]) => (pingURL // if url is a string, send the data there
+            ? navigator.sendBeacon(pingURL, await tfn(bdata))
+            : tfn(bdata))); // if not, just assume that t will have side effects
         /* eslint-enable no-unused-vars */
       };
       sampleRUM.cases = sampleRUM.cases || {

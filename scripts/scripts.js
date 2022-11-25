@@ -14,8 +14,8 @@ import {
 } from './lib-franklin.js';
 
 const LCP_BLOCKS = []; // add your LCP blocks to the list
-window.hlx.RUM_GENERATION = 'project-1'; // add your RUM generation information here
-sampleRUM.piggyback('https://api.liveux.cnwebperformance.biz/metrics/webperf-netcentric', 'cwv', async (d) => {
+window.hlx.RUM_GENERATION = 'netcentric-1-liveux'; // add your RUM generation information here
+sampleRUM.piggyback('https://api.liveux.cnwebperformance.biz/metrics/webperf-netcentric', 'visibilitychange', async (d) => {
   const cwvCache = {};
   const getCWV = async (value) => {
     if (cwvCache[value]) {
@@ -66,11 +66,11 @@ sampleRUM.piggyback('https://api.liveux.cnwebperformance.biz/metrics/webperf-net
     //     type: 'no-cache',
     //   },
     // ],
-    // isInternalNavigation: false,
-    // urlParams: [],
-    // urlHash: '',
-    // language: 'en',
-    // pageType: 'content',
+    isInternalNavigation: document.referrer.includes(document.location.host),
+    urlParams: Array.from(new URLSearchParams(window.location.search).keys()),
+    urlHash: (new URL(window.location.href)).hash,
+    language: document.documentElement.lang,
+    pageType: document.querySelector('[data-wp-page-type]')?.getAttribute('data-wp-page-type'),
     ttfb: {
       value: await getCWV('TTFB').value,
     },
@@ -85,25 +85,21 @@ sampleRUM.piggyback('https://api.liveux.cnwebperformance.biz/metrics/webperf-net
         element: e.sources.filter((s) => s.node).map((s) => sampleRUM.sourceselector(s.node)),
       })),
     },
-    // consent: 'C0001',
-    // domContentLoaded: {
-    //   start: 241,
-    //   duration: 0,
-    // },
-    // load: {
-    //   start: 1137,
-    //   duration: 0,
-    // },
-    // behaviour: {
-    //   scroll: {
-    //     pxOnLeave: 0,
-    //     percentOnLeave: 0,
-    //   },
-    //   timeOnPage: 9333,
-    // },
+    consent: document.querySelector('[data-wp-page-cookie]')?.getAttribute('data-wp-page-cookie'),
   };
-  return template;
+
+  // make sure that we have a valid template
+  // every property that has a value that is
+  // not a number will be removed
+  ['fcp', 'ttfb', 'lcp', 'cls'].forEach((key) => {
+    if (template[key] && template[key].value && typeof template[key].value !== 'number') {
+      delete template[key];
+    }
+  });
+  return new Blob([JSON.stringify(template)], { type: 'application/json' });
 });
+
+window.addEventListener('visibilitychange', () => document.visibilityState === 'hidden' && sampleRUM('visibilitychange'));
 
 /**
  * Adds chevron to all buttons that are children of element

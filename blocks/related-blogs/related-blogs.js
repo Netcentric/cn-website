@@ -48,7 +48,8 @@ function buildCard(card) {
       </div>
     </div>`;
 
-  const pictureElement = createOptimizedPicture(image);
+  // Width based on max-width set in css
+  const pictureElement = createOptimizedPicture(image, `Image symbolising ${title}`, false, [{ width: '450' }]);
   if (image && pictureElement) {
     cardElement.prepend(pictureElement);
   }

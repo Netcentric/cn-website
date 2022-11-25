@@ -1,4 +1,4 @@
-import { loadCSS } from "../../scripts/lib-franklin.js";
+import { loadCSS } from '../../scripts/lib-franklin.js';
 
 function decorateTeasers(cols) {
   loadCSS(`${window.hlx.codeBasePath}/blocks/columns/columns-teasers.css`);
@@ -7,13 +7,14 @@ function decorateTeasers(cols) {
     let title;
     if (headings.length > 1) {
       headings[0].classList.add('columns-column-title');
-      headings[1].classList.add('columns-teaser-title');
-      title = headings[1];
-    } else if (headings.length == 1) {
-      headings[0].classList.add('columns-teaser-title');
-      title = headings[0];
+      [, title] = headings;
+    } else if (headings.length === 1) {
+      [title] = headings;
     }
-    if (title && title.previousElementSibling) title.previousElementSibling.classList.add('columns-teaser-pretitle');
+    if (title) {
+      title.classList.add('columns-teaser-title');
+      if (title.previousElementSibling) title.previousElementSibling.classList.add('columns-teaser-pretitle');
+    }
   });
 }
 

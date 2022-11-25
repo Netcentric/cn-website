@@ -8,10 +8,6 @@
     flex-direction: column;
 }
 
-.columns.reverse-on-mobile > div {
-    flex-direction: column-reverse;
-}
-
 .columns > div > div {
     flex: 1 1 0%;
     margin: 16px 0;
@@ -19,6 +15,10 @@
 
 .columns > div > div > *:first-child {
     margin-top: 16px;
+}
+
+.columns.reverse-on-mobile > div {
+    flex-direction: column-reverse;
 }
 
 .columns img {
@@ -95,6 +95,7 @@
         border-right: 2px solid rgba(0 0 0 / 10%);
         padding-right: 4.1667%;
     }
+
     .columns.border-in-between > div > div:not(:first-of-type) {
         padding-left: 4.1667%;
     }

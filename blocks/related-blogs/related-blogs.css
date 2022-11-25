@@ -107,6 +107,7 @@
 
 .related-blogs-container .teaser picture img {
   aspect-ratio: 1200 / 628;
+  object-fit: cover;
 }
 
 body.blogpost .related-blogs-container .teaser picture {

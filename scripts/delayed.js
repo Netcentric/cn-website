@@ -1,37 +1,37 @@
 /* eslint-disable import/no-cycle */
-import { sampleRUM } from "./lib-franklin.js";
+import { sampleRUM } from './lib-franklin.js';
 
 // Core Web Vitals RUM collection
-sampleRUM("cwv");
+sampleRUM('cwv');
 
 // add more delayed functionality here
-const main = document.querySelector("main");
+const main = document.querySelector('main');
 
 function injectScript(src) {
   window.scriptsLoaded = window.scriptsLoaded || [];
 
   if (window.scriptsLoaded.indexOf(src)) {
-    const head = document.querySelector("head");
-    const script = document.createElement("script");
+    const head = document.querySelector('head');
+    const script = document.createElement('script');
 
     script.src = src;
-    script.setAttribute("async", "true");
+    script.setAttribute('async', 'true');
     head.append(script);
     window.scriptsLoaded.push(src);
   }
 }
 
 function decorateTwitterFeed() {
-  const anchors = main.getElementsByTagName("a");
+  const anchors = main.getElementsByTagName('a');
   const twitterAnchors = Array.from(anchors).filter(
-    (a) => a.href.includes("twitter") && a.href.includes("ref_src")
+    (a) => a.href.includes('twitter') && a.href.includes('ref_src'),
   );
 
   twitterAnchors.forEach((a) => {
-    a.innerText = `Tweets by ${a.pathname.split("/").pop()}`;
-    a.setAttribute("data-height", "500px");
-    a.classList.add("twitter-timeline");
-    injectScript("https://platform.twitter.com/widgets.js");
+    a.innerText = `Tweets by ${a.pathname.split('/').pop()}`;
+    a.setAttribute('data-height', '500px');
+    a.classList.add('twitter-timeline');
+    injectScript('https://platform.twitter.com/widgets.js');
   });
 }
 
@@ -39,26 +39,25 @@ function createIframe(div) {
   const a = div.previousElementSibling;
   const vendor = div.classList[1];
   const embed = a.pathname;
-  const id = embed.split("/").pop();
+  const id = embed.split('/').pop();
   let source;
   let className;
   let allow;
 
   a.remove();
 
-  if (vendor === "youtube-base") {
+  if (vendor === 'youtube-base') {
     source = `https://www.youtube.com/embed/${id}`;
-    className = "youtube-player";
-    allow = "encrypted-media; accelerometer; gyroscope; picture-in-picture";
-  } else if (vendor === "spotify-base") {
+    className = 'youtube-player';
+    allow = 'encrypted-media; accelerometer; gyroscope; picture-in-picture';
+  } else if (vendor === 'spotify-base') {
     source = `https://open.spotify.com/embed/episode/${id}`;
-    className = "spotify-player";
-    allow =
-      "autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture";
-  } else if (vendor === "wistia-base") {
+    className = 'spotify-player';
+    allow = 'autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture';
+  } else if (vendor === 'wistia-base') {
     source = `https://fast.wistia.net/embed/iframe/${id}`;
-    className = "wistia-player";
-    allow = "autoplay; clipboard-write; encrypted-media; fullscreen;";
+    className = 'wistia-player';
+    allow = 'autoplay; clipboard-write; encrypted-media; fullscreen;';
   }
 
   div.innerHTML = `<iframe src="${source}" 
@@ -70,18 +69,18 @@ function createIframe(div) {
 }
 
 function decorateEmbed() {
-  const embedObserver = new IntersectionObserver(function (entries) {
+  const embedObserver = new IntersectionObserver((entries) => {
     entries.forEach(
-      function (entry) {
+      (entry) => {
         if (entry.isIntersecting) {
           embedObserver.unobserve(entry.target);
           createIframe(entry.target);
         }
-      }
+      },
     );
   });
 
-  main.querySelectorAll(".embed").forEach(function (div) {
+  main.querySelectorAll('.embed').forEach((div) => {
     embedObserver.observe(div);
   });
 }

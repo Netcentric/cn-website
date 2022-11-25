@@ -1,25 +1,104 @@
+.columns {
+    --column-fb-left: 50%;
+    --column-fb-right: 50%;
+}
+
 .columns > div {
     display: flex;
     flex-direction: column;
+}
+
+.columns > div > div {
+    flex: 1 1 0%;
+    margin: 16px 0;
+}
+
+.columns > div > div > *:first-child {
+    margin-top: 0;
+}
+
+.columns.reverse-on-mobile > div {
+    flex-direction: column-reverse;
 }
 
 .columns img {
     width: 100%;
 }
 
-@media (min-width: 900px) {
+/* borders */
+
+.columns.border-top-left > div > div:first-of-type {
+    border-top: 2px solid rgba(0 0 0 / 10%);
+}
+
+.columns.border-top-right > div > div:last-of-type {
+    /* distance to border is 32px, above by 2 * 16px margin, belown by padding-top 32px */
+    border-top: 2px solid rgba(0 0 0 / 10%);
+}
+
+.columns.border-top-right > div > div:last-of-type > *:first-child,
+.columns.border-top-left > div > div:first-of-type > *:first-child {
+    margin-top: 32px;
+}
+
+/* heading style */
+
+.columns.heading-dark-blue > div > div > :where(h1,h2,h3,h4,h5,h6):first-of-type {
+    color: var(--c-dark-blue);
+}
+
+.columns.heading-dark-plum > div > div > :where(h1,h2,h3,h4,h5,h6):first-of-type {
+    color: var(--c-dark-plum);
+}
+
+@media (min-width: 992px) {
     .columns > div {
-        display: flex;
-        align-items: center;
         flex-direction: unset;
     }
 
     .columns > div > div {
-        flex: 1;
-        margin-left: 32px;
+        padding: 0 16px;
+        flex: 1 1 0%;
+    }
+
+    .columns.reverse-on-mobile > div {
+        flex-direction: unset;
     }
 
     .columns > div > div:first-of-type {
-        margin-left: unset;
+        flex: 1 1 var(--column-fb-left);
+    }
+
+    .columns > div > div:last-of-type {
+        flex: 1 1 var(--column-fb-right);
+    }
+
+    .columns.layout-66-33 {
+        --column-fb-left: 66.6667%;
+        --column-fb-right: 33.3332%;
+    }
+
+    .columns.layout-33-66 {
+        --column-fb-left: 33.3332%;
+        --column-fb-right: 66.6667%;
+    }
+
+    .columns.layout-75-25 {
+        --column-fb-left: 75%;
+        --column-fb-right: 25%;
+    }
+
+    .columns.layout-25-75 {
+        --column-fb-left: 25%;
+        --column-fb-right: 75%;
+    }
+
+    .columns.border-in-between > div > div:not(:last-of-type) {
+        border-right: 2px solid rgba(0 0 0 / 10%);
+        padding-right: 4.1667%;
+    }
+
+    .columns.border-in-between > div > div:not(:first-of-type) {
+        padding-left: 4.1667%;
     }
 }

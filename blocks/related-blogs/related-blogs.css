@@ -128,7 +128,7 @@
 } */
 
 .related-blogs-container a.button {
-  font-size: var(--body-font-size-xs);
+  font-size: var(--body-font-size-m);
 }
 
 .related-blogs-container a.button.secondary {

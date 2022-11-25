@@ -1,4 +1,5 @@
 .columns.teasers .columns-column-title {
+    margin: 16px 0;
     font-size: 30px;
     color: var(--c-dark-plum);
 }

@@ -245,13 +245,14 @@ a.button.primary:hover, a.button.primary:focus, button.primary:hover, button.pri
 }
 
 a.button.secondary, button.secondary {
-  border: thin solid var(--c-dark-plum);
-  background-color: transparent;
+  border: thin solid var(--c-dark-blue);
+  background-color: var(--c-dark-blue);
+  color: var(--c-white);
 }
 
 a.button.secondary:hover, a.button.prsecondaryimary:focus, button.secondary:hover, button.secondary:focus {
-  background-color: var(--c-dark-plum);
-  color: var(--c-light-teal);
+  background-color: transparent;
+  color: var(--c-dark-blue);
 }
 
 main a.button > .icon-chevron-right svg {
@@ -410,6 +411,10 @@ main .section.mid-blue {
 
 main .section.dark-blue {
   background-color: var(--c-dark-blue);
+  color: var(--bg-text-dark-blue);
+}
+
+main .section.dark-blue a, main .section.dark-blue button {
   color: var(--bg-text-dark-blue);
 }
 

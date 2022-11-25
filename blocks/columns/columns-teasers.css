@@ -37,7 +37,7 @@
     max-height: 300px;
 }
 
-.columns.teasers .columns-teaser-image {
+.columns.teasers [data-align='center'] .columns-teaser-image {
     display: flex;
     justify-content: center;
 }

@@ -8,9 +8,17 @@
     flex-direction: column;
 }
 
+.columns.reverse-on-mobile > div {
+    flex-direction: column-reverse;
+}
+
 .columns > div > div {
     flex: 1 1 0%;
     margin: 16px 0;
+}
+
+.columns > div > div > *:first-child {
+    margin-top: 16px;
 }
 
 .columns img {
@@ -30,9 +38,15 @@
     padding-top: 32px;
 }
 
-/* teasers style */
+/* heading style */
 
+.columns.heading-dark-blue > div > div > :where(h1,h2,h3,h4,h5,h6):first-of-type {
+    color: var(--c-dark-blue);
+}
 
+.columns.heading-dark-plum > div > div > :where(h1,h2,h3,h4,h5,h6):first-of-type {
+    color: var(--c-dark-plum);
+}
 
 @media (min-width: 992px) {
     .columns > div {

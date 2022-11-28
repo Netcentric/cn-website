@@ -113,11 +113,11 @@
   --body-font-size-xs: 10px;
 
   /* heading sizes */
-  --heading-font-size-xxl: 60px;
-  --heading-font-size-xl: 36px;
-  --heading-font-size-l: 30px;
-  --heading-font-size-m: 24px;
-  --heading-font-size-s: 20px;
+  --heading-font-size-xxl: 48px;
+  --heading-font-size-xl: 30px;
+  --heading-font-size-l: 24px;
+  --heading-font-size-m: 20px;
+  --heading-font-size-s: 18px;
   --heading-nav-font-size: 18px;
 
   /* button font sizes */

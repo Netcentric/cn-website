@@ -25,14 +25,14 @@ indices:
         select: head > meta[name="authors"]
         value: attribute(el, "content")
       image:
-        select: head > meta[property="og:image"]
-        value: match(attribute(el, "content"), "https:\/\/[^/]+(/.*)")
+        select: main > div:first-of-type img
+        value: match(attribute(el, "src"), "https:\/\/[^/]+(/.*)")
   authors:
     include:
       - /profiles/**
     target: /profiles/query-index.json
     properties:
-      title:
+      name:
         select: head > meta[property="og:title"]
         value: attribute(el, "content")
       image:

@@ -33,7 +33,7 @@ export function buildCard(card, large = false) {
         </div>
       </div>
       <div class="authorprofile-info">
-          <div class="authorprofile-name">${authorProfile.title ?? defaultAuthorName}</div>
+          <div class="authorprofile-name">${authorProfile.name ?? defaultAuthorName}</div>
           <div class="authorprofile-position">${authorProfile.role ?? defaultAuthorRole}</div>
       </div>
     </div>`;
@@ -73,10 +73,8 @@ export async function joinArticlesWithProfiles(articles) {
   const response = await fetch('/profiles/query-index.json');
   const json = await response.json();
 
-  console.log(json)
-
   Object.values(articles).forEach((value) => {
-    value.profiles = json.data.find((profile) => profile.title === value.authors) ?? {};
+    value.profiles = json.data.find((profile) => profile.name === value.authors) ?? {};
   });
 
   return articles;

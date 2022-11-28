@@ -20,6 +20,13 @@ function wrapWithLink(document, tag, url) {
   return link;
 }
 
+// Sanitizes a name for use as class name.
+function toClassName(name) {
+  return typeof name === 'string'
+    ? name.toLowerCase().replace(/[^0-9a-z]/gi, '-').replace(/-+/g, '-').replace(/^-|-$/g, '')
+    : '';
+}
+
 // convert related blog posts based on tags
 function transformBlogRelatedPosts(document) {
   // related blogs are based on tags we extract from the heading
@@ -422,9 +429,11 @@ function transformAuthorProfilePage(document) {
   const oldPosition = document.querySelector(
     '.profile__container .authorprofile__position',
   );
-  const newPosition = document.createElement('h3');
-  newPosition.textContent = oldPosition.textContent;
-  oldPosition.replaceWith(newPosition);
+  if (oldPosition) {
+    const newPosition = document.createElement('h3');
+    newPosition.textContent = oldPosition.textContent;
+    oldPosition.replaceWith(newPosition);
+  }
 
   document
     .querySelectorAll('.profile__container .authorprofile__socialnetwork')
@@ -435,6 +444,8 @@ function transformAuthorProfilePage(document) {
           link.innerHTML = ':twitter:';
         } else if (link.href.includes('linkedin')) {
           link.innerHTML = ':linkedin:';
+        } else if (link.href.includes('xing')) {
+          link.innerHTML = ':xing:';
         } else {
           link.innerHTML = ':social:';
         }
@@ -637,5 +648,23 @@ export default {
   generateDocumentPath: ({
     // eslint-disable-next-line no-unused-vars
     document, url, html, params,
-  }) => new URL(url).pathname.replace(/\.html$/, '').replace(/\/$/, ''),
+  }) => {
+    if (url.includes('/content/experience-fragments/netcentric/profiles')) {
+      const filename = toClassName(
+        document
+          .querySelector('title')
+          .innerHTML.replace(/[\n\t]/gm, '')
+          .split('|')[0]
+          .trim(),
+      );
+      const profileUrl = url.replace(
+        /\/content\/experience-fragments\/netcentric\/profiles\/.*\/master.html/,
+        `/profiles/${filename}`,
+      );
+      return new URL(profileUrl).pathname
+        .replace(/\.html$/, '')
+        .replace(/\/$/, '');
+    }
+    return new URL(url).pathname.replace(/\.html$/, '').replace(/\/$/, '');
+  },
 };

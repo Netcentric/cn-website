@@ -26,6 +26,7 @@
 
 .blog-cards-container .authorprofile-container {
   padding-bottom: 35px;
+  color: var(--text-color);
 }
 
 .blog-cards-container .authorprofile-info {
@@ -40,7 +41,6 @@
   font-weight: 700;
   letter-spacing: -0.5px;
   line-height: 1.4em;
-  color: var(--text-color);
 }
 
 .blog-cards-container .authorprofile-position {

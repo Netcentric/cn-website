@@ -4,7 +4,7 @@ import {
 } from '../../scripts/lib-franklin.js';
 
 const defaultAuthorName = 'Cognizant Netcentric';
-const defaultAuthorTitle = '';
+const defaultAuthorRole = '';
 const defaultAuthorImage = '/icons/nc.svg';
 
 export function buildCard(card, large = false) {
@@ -15,7 +15,7 @@ export function buildCard(card, large = false) {
   const cardElement = document.createElement('article');
   cardElement.classList.add('teaser');
 
-  if (authorProfile.Image === '') authorProfile.Image = defaultAuthorImage;
+  if (authorProfile.image === '') authorProfile.image = defaultAuthorImage;
 
   cardElement.innerHTML = `
     <p class="tags">${JSON.parse(tags).join(', ')}</p>
@@ -28,13 +28,13 @@ export function buildCard(card, large = false) {
       <div class="authorprofile-image">
         <div class="nc-image-base">
             <div class="nc-image-container " itemscope="" itemtype="http://schema.org/ImageObject">
-                <img class="nc-image" src="${authorProfile.Image ?? defaultAuthorImage}" itemprop="contentUrl" alt="" sizes="10vw" />
+                <img class="nc-image" src="${authorProfile.image ?? defaultAuthorImage}" itemprop="contentUrl" alt="" sizes="10vw" />
             </div>
         </div>
       </div>
       <div class="authorprofile-info">
-          <div class="authorprofile-name">${authorProfile.Name ?? defaultAuthorName}</div>
-          <div class="authorprofile-position">${authorProfile.Title ?? defaultAuthorTitle}</div>
+          <div class="authorprofile-name">${authorProfile.title ?? defaultAuthorName}</div>
+          <div class="authorprofile-position">${authorProfile.role ?? defaultAuthorRole}</div>
       </div>
     </div>`;
 
@@ -70,11 +70,13 @@ export function createCardsList(parent, cards = []) {
 }
 
 export async function joinArticlesWithProfiles(articles) {
-  const response = await fetch('/profile-blog.json');
+  const response = await fetch('/profiles/query-index.json');
   const json = await response.json();
 
+  console.log(json)
+
   Object.values(articles).forEach((value) => {
-    value.profiles = json.data.find((profile) => profile.Name === value.authors) ?? {};
+    value.profiles = json.data.find((profile) => profile.title === value.authors) ?? {};
   });
 
   return articles;

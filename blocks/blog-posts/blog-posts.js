@@ -8,7 +8,7 @@ const defaultAuthorName = 'Cognizant Netcentric';
 const defaultAuthorTitle = '';
 const defaultAuthorImage = '/icons/nc.svg';
 
-export function buildCard(card) {
+export function buildCard(card, large = false) {
   const {
     path, title, image, tags, profiles: authorProfile,
   } = card;
@@ -40,7 +40,8 @@ export function buildCard(card) {
     </div>`;
 
   // Width based on max-width set in css
-  const pictureElement = createOptimizedPicture(image, `Image symbolising ${title}`, false, [{ width: '450' }]);
+  const breakpoints = [{ width: large ? '1000' : '450' }];
+  const pictureElement = createOptimizedPicture(image, `Image symbolising ${title}`, false, breakpoints);
   if (image && pictureElement) {
     cardElement.prepend(pictureElement);
   }
@@ -52,11 +53,13 @@ export function createCardsList(parent, cards) {
   const blogList = document.createElement('ul');
   blogList.classList.add('related-list', 'blog-cards-container');
 
-  cards.forEach((card) => {
+  cards.forEach((card, index) => {
     const blogListItem = document.createElement('li');
     blogListItem.classList.add('related-list-item');
 
-    blogListItem.append(buildCard(card));
+    const largeCard = index === 0;
+
+    blogListItem.append(buildCard(card, largeCard));
     blogList.appendChild(blogListItem);
   });
 

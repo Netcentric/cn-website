@@ -3,7 +3,6 @@ import {
   buildBlock,
   loadHeader,
   loadFooter,
-  decorateButtons,
   decorateIcons,
   decorateSections,
   decorateBlocks,
@@ -27,6 +26,38 @@ export function addChevronToButtons(element, selector = 'a.button') {
     const chevron = document.createElement('span');
     chevron.classList.add('icon', 'icon-chevron-right');
     button.append(chevron);
+  });
+}
+
+/**
+ * decorates paragraphs containing a single link as buttons with classes and
+ * chevron icon.
+ * @param {Element} element container element
+ */
+function decorateButtons(element) {
+  element.querySelectorAll('a').forEach((a) => {
+    a.title = a.title || a.textContent;
+    if (a.href !== a.textContent) {
+      const up = a.parentElement;
+      const twoup = a.parentElement.parentElement;
+      if (!a.querySelector('img')) {
+        if (up.childNodes.length === 1 && (up.tagName === 'P' || up.tagName === 'DIV')) {
+          a.className = 'button'; // default navigational link
+          up.classList.add('button-container');
+        }
+        if (up.childNodes.length === 1 && up.tagName === 'STRONG'
+          && twoup.childNodes.length === 1 && twoup.tagName === 'P') {
+          a.className = 'button primary'; // primary CTA button link
+          twoup.classList.add('button-container');
+        }
+        if (up.childNodes.length === 1 && up.tagName === 'EM'
+          && twoup.childNodes.length === 1 && twoup.tagName === 'P') {
+          a.className = 'button secondary'; // secondary CTA button link
+          twoup.classList.add('button-container');
+        }
+        addChevronToButtons(up);
+      }
+    }
   });
 }
 
@@ -84,6 +115,7 @@ export function createIcon(name) {
 
 function createEmbedWrap(a, vendor) {
   const div = document.createElement('div');
+  div.classList.add('embed');
   div.classList.add(`${vendor}-base`);
 
   a.style.display = 'none';
@@ -95,12 +127,6 @@ function preDecorateEmbed(main) {
   const youTubeAnchors = Array.from(anchors).filter((a) => a.href.includes('youtu') && encodeURI(a.textContent.trim()).indexOf(a.href) !== -1);
   const spotifyAnchors = Array.from(anchors).filter((a) => a.href.includes('spotify') && encodeURI(a.textContent.trim()).indexOf(a.href) !== -1);
   const wistiaAnchors = Array.from(anchors).filter((a) => a.href.includes('wistia') && encodeURI(a.textContent.trim()).indexOf(a.href) !== -1);
-
-  window.embedAnchors = {
-    youTubeAnchors,
-    spotifyAnchors,
-    wistiaAnchors,
-  };
 
   youTubeAnchors.forEach((a) => {
     createEmbedWrap(a, 'youtube');

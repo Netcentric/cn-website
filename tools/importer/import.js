@@ -20,6 +20,13 @@ function wrapWithLink(document, tag, url) {
   return link;
 }
 
+// Sanitizes a name for use as class name.
+function toClassName(name) {
+  return typeof name === 'string'
+    ? name.toLowerCase().replace(/[^0-9a-z]/gi, '-').replace(/-+/g, '-').replace(/^-|-$/g, '')
+    : '';
+}
+
 // convert related blog posts based on tags
 function transformBlogRelatedPosts(document) {
   // related blogs are based on tags we extract from the heading
@@ -410,6 +417,44 @@ function transformEmbed(document) {
   });
 }
 
+// Transforms an author profile experience fragment
+function transformAuthorProfilePage(document) {
+  const oldName = document.querySelector(
+    '.profile__container .authorprofile__name',
+  );
+  const newName = document.createElement('h1');
+  newName.textContent = oldName.textContent;
+  oldName.replaceWith(newName);
+
+  const oldPosition = document.querySelector(
+    '.profile__container .authorprofile__position',
+  );
+  if (oldPosition) {
+    const newPosition = document.createElement('h3');
+    newPosition.textContent = oldPosition.textContent;
+    oldPosition.replaceWith(newPosition);
+  }
+
+  document
+    .querySelectorAll('.profile__container .authorprofile__socialnetwork')
+    .forEach((socialLink) => {
+      const link = socialLink.querySelector('a');
+      if (link) {
+        if (link.href.includes('twitter')) {
+          link.innerHTML = ':twitter:';
+        } else if (link.href.includes('linkedin')) {
+          link.innerHTML = ':linkedin:';
+        } else if (link.href.includes('xing')) {
+          link.innerHTML = ':xing:';
+        } else {
+          link.innerHTML = ':social:';
+        }
+      } else {
+        socialLink.remove();
+      }
+    });
+}
+
 // Transform all image urls
 function makeProxySrcs(document) {
   const host = 'https://www.netcentric.biz/';
@@ -557,9 +602,10 @@ export default {
       'a i.icons.icon__wrapper', // remove > icon on buttons, teaser links etc.
       'p.leaderprofile__name i.icons.icon__wrapper', // remove > icon from leader profile
       'div.socialmediabar',
+      'div.authorprofile.authorprofile--large',
+      'div.authorprofile.authorprofile--medium',
+      'div.authorprofile.authorprofile--small',
     ]);
-
-    document.body.append(WebImporter.Blocks.getMetadataBlock(document, meta));
 
     // Convert all blocks
     [
@@ -580,6 +626,13 @@ export default {
       makeAbsoluteLinks,
     ].forEach((f) => f.call(null, document));
 
+    // special treatment of author profiles
+    if (url.includes('/content/experience-fragments/netcentric/profiles')) {
+      transformAuthorProfilePage(document);
+      meta.Robots = 'noindex, nofollow';
+    }
+
+    document.body.append(WebImporter.Blocks.getMetadataBlock(document, meta));
     return document.body;
   },
 
@@ -595,5 +648,23 @@ export default {
   generateDocumentPath: ({
     // eslint-disable-next-line no-unused-vars
     document, url, html, params,
-  }) => new URL(url).pathname.replace(/\.html$/, '').replace(/\/$/, ''),
+  }) => {
+    if (url.includes('/content/experience-fragments/netcentric/profiles')) {
+      const filename = toClassName(
+        document
+          .querySelector('title')
+          .innerHTML.replace(/[\n\t]/gm, '')
+          .split('|')[0]
+          .trim(),
+      );
+      const profileUrl = url.replace(
+        /\/content\/experience-fragments\/netcentric\/profiles\/.*\/master.html/,
+        `/profiles/${filename}`,
+      );
+      return new URL(profileUrl).pathname
+        .replace(/\.html$/, '')
+        .replace(/\/$/, '');
+    }
+    return new URL(url).pathname.replace(/\.html$/, '').replace(/\/$/, '');
+  },
 };

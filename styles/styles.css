@@ -113,12 +113,16 @@
   --body-font-size-xs: 10px;
 
   /* heading sizes */
-  --heading-font-size-xxl: 60px;
-  --heading-font-size-xl: 36px;
-  --heading-font-size-l: 30px;
-  --heading-font-size-m: 24px;
-  --heading-font-size-s: 20px;
+  --heading-font-size-xxl: 48px;
+  --heading-font-size-xl: 30px;
+  --heading-font-size-l: 24px;
+  --heading-font-size-m: 20px;
+  --heading-font-size-s: 18px;
   --heading-nav-font-size: 18px;
+
+  /* button font sizes */
+  --button-font-size-default: 16px;
+  --button-font-size-cta: 12px;
 
   /* nav height */
   --desktop-nav-height: 130px;
@@ -193,29 +197,38 @@ pre {
 }
 
 /* buttons */
-
 a.button:any-link, button {
   font-family: var(--body-font-family);
-  display: inline-block;
   box-sizing: border-box;
   text-decoration: none;
-  text-transform: uppercase;
-  border: 1px solid transparent;
-  padding: 0 24px;
-  text-align: center;
   font-style: normal;
-  font-weight: 700;
-  font-size: var(--body-font-size-s);
-  line-height: 2.25rem;
+  font-weight: 400;
+  font-size: var(--button-font-size-default);
+  line-height: 1;
   cursor: pointer;
-  color: var(--background-color);
-  background-color: var(--link-color);
+  color: var(--c-black);
+  background-color: transparent;
   margin: 0;
-  height: 2.25rem;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+
+button:disabled, button:disabled:hover {
+  cursor: unset;
+}
+
+a.button.primary, a.button.secondary, button.primary, button.secondary {
+  padding: 0 24px;
+  display: inline-block;
+  font-size: var(--button-font-size-cta);
+  font-weight: 700;
+  text-transform: uppercase;
+  text-align: center;
+  line-height: 36px;
+  height: 3em;
   border-radius: 36px;
+  border: thin solid var(--c-black);
 }
 
 a.button:hover, a.button:focus, button:hover, button:focus {
@@ -223,15 +236,28 @@ a.button:hover, a.button:focus, button:hover, button:focus {
   cursor: pointer;
 }
 
-button:disabled, button:disabled:hover {
-  background-color: var(--overlay-background-color);
-  cursor: unset;
+a.button.primary, button.primary {
+  background-color: var(--c-dark-plum);
+  border: thin solid var(--c-dark-plum);
+  color: var(--c-light-teal);
+}
+
+a.button.primary:hover, a.button.primary:focus, button.primary:hover, button.primary:focus  {
+  opacity: 1;
+  background-color: transparent;
+  border: thin solid var(--c-dark-plum);
+  color: var(--c-dark-plum)
 }
 
 a.button.secondary, button.secondary {
-  background-color: unset;
-  border: 2px solid currentcolor;
-  color: var(--text-color)
+  border: thin solid var(--c-dark-blue);
+  background-color: var(--c-dark-blue);
+  color: var(--c-white);
+}
+
+a.button.secondary:hover, a.button.prsecondaryimary:focus, button.secondary:hover, button.secondary:focus {
+  background-color: transparent;
+  color: var(--c-dark-blue);
 }
 
 main a.button > .icon-chevron-right svg {
@@ -263,7 +289,6 @@ main .section {
 }
 
 main .section > div {
-  width: 100vw;
   margin: 0;
 }
 
@@ -360,6 +385,22 @@ main .section.dark-plum {
   color: var(--bg-text-dark-plum);
 }
 
+main .section.dark-plum a, main .section.dark-plum button {
+  color: var(--bg-text-dark-plum);
+}
+
+main .section.dark-plum a.button.primary, main .section.dark-plum button.primary {
+  background-color: var(--c-light-teal);
+  border: thin solid var(--c-light-teal);
+  color: var(--c-dark-plum);
+}
+
+main .section.dark-plum a.button.primary:hover, main .section.dark-plum a.button.primary:focus, main .section.dark-plum button.primary:hover, main .section.dark-plum button.primary:focus  {
+  opacity: 1;
+  background-color: transparent;
+  color: var(--c-light-teal)
+}
+
 main .section.light-blue {
   background-color: var(--c-light-blue);
   color: var(--bg-text-dark-blue);
@@ -375,6 +416,10 @@ main .section.dark-blue {
   color: var(--bg-text-dark-blue);
 }
 
+main .section.dark-blue a, main .section.dark-blue button {
+  color: var(--bg-text-dark-blue);
+}
+
 main .section.light-grey {
   background-color: var(--c-light-gray);
   color: var(--bg-text-light-grey);
@@ -386,6 +431,10 @@ main .section.mid-grey {
 
 main .section.dark-grey {
   background-color: var(--c-dark-gray);
+  color: var(--bg-text-dark-grey);
+}
+
+main .section.dark-grey a, main .section.dark-grey button {
   color: var(--bg-text-dark-grey);
 }
 

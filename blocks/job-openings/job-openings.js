@@ -26,12 +26,16 @@ function addCardsToCardList(cards, cardList) {
 }
 
 function createJobList(parent, cards = []) {
-  const blogList = document.createElement('ul');
-  blogList.classList.add('job-openings-list');
+  const results = document.createElement('p');
+  results.classList.add("job-openings-results");
+  
+  const jobOpeningList = document.createElement('ul');
+  jobOpeningList.classList.add('job-openings-list');
 
-  addCardsToCardList(cards, blogList);
+  addCardsToCardList(cards, jobOpeningList);
 
-  parent.appendChild(blogList);
+  parent.appendChild(results);
+  parent.appendChild(jobOpeningList);
 }
 
 function createCTASection(parent, callback) {
@@ -48,26 +52,34 @@ async function getJobOpenings(filter = () => true, maxItems = 7, offset = 0) {
   );
   const json = await response.json();
   // const queryResult = json.data.filter(filter).slice(offset, offset + maxItems);
-  const queryResult = json.content;
 
-  return queryResult;
+
+  return json;
 }
 
-async function loadMoreJobOpenings(num = 20) {
+async function loadMoreJobOpenings(num = 16) {
   // const filter = getCardFilter();
 
   const jobOpenings = await getJobOpenings(null, num, jobListOffset);
-  jobListOffset += num;
 
-  const jobList = document.querySelector('.job-openings ul');
-  addCardsToCardList(jobOpenings, jobList);
+  // update result count and list
+  const results = document.querySelector(
+    ".job-openings p.job-openings-results"
+  );
+  const count = jobListOffset + jobOpenings.limit;
+  results.textContent = `Showing ${count} of ${jobOpenings.totalFound} jobs`;
+  const jobList = document.querySelector(".job-openings ul.job-openings-list");
+  addCardsToCardList(jobOpenings.content, jobList);
+
+  // adjust offset for next loading
+  jobListOffset += num;
 }
 
 export default async function decorate(block) {
   block.innerHTML = '';
 
   createJobList(block);
-  await loadMoreJobOpenings(16);
+  await loadMoreJobOpenings();
 
   createCTASection(block, () => {
     loadMoreJobOpenings();

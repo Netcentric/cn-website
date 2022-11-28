@@ -1,0 +1,112 @@
+.job-openings-wrapper {
+  border-top: 2px solid rgba(0 0 0 / 10%);
+}
+
+.job-openings ul.job-openings-list {
+  margin-bottom: 90px;
+  padding-left: 0;
+  list-style: none;
+}
+
+.job-openings li.job-opening-list-item {
+  display: block;
+  min-height: 120px;
+  border-bottom: 2px solid #d0d0ce;
+  will-change: padding, margin, background;
+  transition: padding 0.16667s cubic-bezier(0.66, -0.1, 0.74, 0.73),
+    margin 0.16667s cubic-bezier(0.66, -0.1, 0.74, 0.73),
+    background 0.16667s cubic-bezier(0.66, -0.1, 0.74, 0.73);
+}
+
+.job-openings li.job-opening-list-item:hover > a,
+.job-openings li.job-opening-list-item:focus > a {
+  color: #2e308e;
+  text-decoration: none;
+}
+
+.job-openings li.job-opening-list-item > a {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  width: 100%;
+}
+
+.job-openings li.job-opening-list-item .location,
+.job-openings li.job-opening-list-item .position {
+  line-height: 1.4em;
+  text-align: left;
+  color: #000;
+  padding: 30px 0;
+}
+
+.job-openings li.job-opening-list-item .position {
+  line-height: 32px;
+  font-size: 20px;
+  font-weight: 400;
+  text-align: left;
+  width: 100%;
+  display: block;
+  align-self: center;
+}
+
+.job-openings li.job-opening-list-item .location {
+  width: 100%;
+  display: block;
+  font-size: 18px;
+  align-self: center;
+}
+
+.job-openings li.job-opening-list-item:hover,
+.job-openings li.job-opening-list-item:focus {
+  color: #2e308e;
+}
+
+.job-openings li.job-opening-list-item:hover .location,
+.job-openings li.job-opening-list-item:hover .position,
+.job-openings li.job-opening-list-item:focus .location,
+.job-openings li.job-opening-list-item:focus .position {
+  color: #2e308e;
+}
+
+.job-openings .button-row {
+  display: flex;
+  justify-content: center;
+}
+
+@media (min-width: 0) and (max-width: 991px) {
+  .job-openings li.job-opening-list-item .location,
+  .job-openings li.job-opening-list-item .position {
+    display: none;
+  }
+}
+
+@media (min-width: 992px) {
+  .job-openings {
+    width: 80%;
+    margin: 0 auto;
+  }
+
+  .job-openings ul.job-openings-list {
+    margin-top: 25.6px;
+  }
+
+  .job-openings li.job-opening-list-item {
+    display: flex;
+  }
+
+  .job-openings li.job-opening-list-item > a {
+    justify-content: space-between;
+  }
+
+  .job-openings li.job-opening-list-item .position {
+    font-size: 28px;
+    width: 50%;
+  }
+
+  .job-openings li.job-opening-list-item .location {
+    display: flex;
+    width: 25%;
+    flex: 25%;
+    justify-content: flex-end;
+  }
+}

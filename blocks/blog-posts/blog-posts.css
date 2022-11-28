@@ -12,6 +12,19 @@
   padding: 0;
 }
 
+.blog-posts select {
+  padding: 12px;
+  font-size: var(--body-font-size-m);
+  color: var(--c-dark-plum);
+  background: none;
+  border: 1px solid #e5e5e5;
+}
+
+.blog-posts .related-button-row {
+  display: flex;
+  justify-content: center;
+}
+
 @media (min-width: 600px) {
   .blog-posts ul.related-list {
     display: grid;

@@ -1,7 +1,6 @@
 import {
-  createOptimizedPicture, loadCSS,
+  createOptimizedPicture, decorateIcons, loadCSS,
   readBlockConfig,
-  toClassName,
 } from '../../scripts/lib-franklin.js';
 
 const defaultAuthorName = 'Cognizant Netcentric';
@@ -49,10 +48,7 @@ export function buildCard(card, large = false) {
   return cardElement;
 }
 
-export function createCardsList(parent, cards) {
-  const blogList = document.createElement('ul');
-  blogList.classList.add('related-list', 'blog-cards-container');
-
+function addCardsToCardList(cards, cardList) {
   cards.forEach((card, index) => {
     const blogListItem = document.createElement('li');
     blogListItem.classList.add('related-list-item');
@@ -60,8 +56,15 @@ export function createCardsList(parent, cards) {
     const largeCard = index === 0;
 
     blogListItem.append(buildCard(card, largeCard));
-    blogList.appendChild(blogListItem);
+    cardList.appendChild(blogListItem);
   });
+}
+
+export function createCardsList(parent, cards = []) {
+  const blogList = document.createElement('ul');
+  blogList.classList.add('related-list', 'blog-cards-container');
+
+  addCardsToCardList(cards, blogList);
 
   parent.appendChild(blogList);
 }
@@ -87,15 +90,55 @@ export async function getArticles(filter = () => true, maxItems = 7, offset = 0)
   return joinArticlesWithProfiles(queryResult);
 }
 
-function createCategoryDropdown(options, parent) {
+function buildCTASection(parent, callback) {
+  const buttonRow = document.createElement('div');
+  buttonRow.classList.add('related-button-row');
+  buttonRow.innerHTML = '<button id="load-more-button" class="button secondary">Show More</button>';
+  decorateIcons(buttonRow);
+  parent.append(buttonRow);
+  parent.querySelector('#load-more-button').addEventListener('click', callback);
+}
+
+let articleOffset = 0;
+let selectedCategory = 'All categories';
+
+function getCardFilter() {
+  return selectedCategory === 'All categories'
+    // TODO: Only articles with tags can show up now because there are some items that arent
+    //  articles without tags
+    ? (article) => JSON.parse(article.tags).length > 0
+    : (article) => article.tags.includes(selectedCategory);
+}
+
+async function loadMoreArticles(numArticles = 6) {
+  const filter = getCardFilter();
+  const articles = await getArticles(filter, numArticles, articleOffset);
+  articleOffset += numArticles;
+
+  const blogList = document.querySelector('.blog-posts ul');
+
+  addCardsToCardList(articles, blogList);
+}
+
+async function updateFilter(newFilter) {
+  selectedCategory = newFilter;
+
+  // Reset all loaded articles
+  articleOffset = 0;
+  document.querySelector('ul.related-list').innerHTML = '';
+  await loadMoreArticles(7);
+}
+
+function createCategoryDropdown(options, parent, callback) {
   const input = document.createElement('select');
   options.forEach((option) => {
     const optionTag = document.createElement('option');
     optionTag.innerText = option;
-    optionTag.value = toClassName(option);
+    optionTag.value = option;
     input.append(optionTag);
   });
   parent.append(input);
+  input.addEventListener('change', callback);
 }
 
 export default async function decorate(block) {
@@ -105,19 +148,17 @@ export default async function decorate(block) {
 
   const categories = config.categories.split(', ');
 
-  const selectedCategory = 'All Categories';
-
-  const filter = selectedCategory === 'All Categories'
-    // TODO: Only articles with tags can show up now because there are some items that arent
-    //  articles without tags
-    ? (article) => JSON.parse(article.tags).length > 0
-    : (article) => article.tags.includes(selectedCategory);
-
-  const articles = await getArticles(filter);
-
   block.innerHTML = '';
 
-  createCategoryDropdown(categories, block);
+  createCategoryDropdown(categories, block, (e) => {
+    updateFilter(e.target.value);
+  });
 
-  createCardsList(block, articles);
+  createCardsList(block);
+
+  await loadMoreArticles(7);
+
+  buildCTASection(block, () => {
+    loadMoreArticles();
+  });
 }

@@ -1,0 +1,17 @@
+.testimonial ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  padding: 0;
+}
+
+@media (min-width: 600px) {
+  .testimonial ul {
+    flex-direction: row;
+  }
+
+  .testimonial ul li {
+    flex: 1;
+  }
+}

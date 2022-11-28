@@ -214,10 +214,6 @@ a.button:any-link, button {
   text-overflow: ellipsis;
 }
 
-button:disabled, button:disabled:hover {
-  cursor: unset;
-}
-
 a.button.primary, a.button.secondary, button.primary, button.secondary {
   padding: 0 24px;
   display: inline-block;
@@ -258,6 +254,10 @@ a.button.secondary, button.secondary {
 a.button.secondary:hover, a.button.prsecondaryimary:focus, button.secondary:hover, button.secondary:focus {
   background-color: transparent;
   color: var(--c-dark-blue);
+}
+
+button:disabled, button:disabled:hover {
+  cursor: unset;
 }
 
 main a.button > .icon-chevron-right svg {

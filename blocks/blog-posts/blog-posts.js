@@ -9,7 +9,7 @@ const defaultAuthorImage = '/icons/nc.svg';
 
 export function buildCard(card, large = false) {
   const {
-    path, title, image, tags, profiles: authorProfile,
+    path, title, image, tags = '[]', profiles: authorProfile,
   } = card;
 
   const cardElement = document.createElement('article');

@@ -91,7 +91,7 @@ function createCTASection(parent, callback) {
 
 async function getJobOpenings(offset = 0) {
   const response = await fetch(
-    `https://api.smartrecruiters.com/v1/companies/netcentric/postings?offset=${offset}&limit=100`,
+    `https://api.smartrecruiters.com/v1/companies/netcentric/postings?offset=${offset}&limit=50`,
   );
   const json = await response.json();
   return json;
@@ -135,14 +135,16 @@ async function updateJobOpenings(parent, num = 16) {
 
   addCardsToCardList(displayJobOpenings.splice(jobListOffset, num), jobList);
 
-  // load more items in the background
-  while (jobOpenings.content.length < jobOpenings.totalFound) {
-    const moreJobOpenings = await getJobOpenings(jobOpenings.content.length);
-    jobOpenings.content.push(...moreJobOpenings.content);
-  }
-
   // adjust offset for next loading
   jobListOffset += num;
+  // load more items in the background
+  let index = 50;
+  const promises = [];
+  while (index < jobOpenings.totalFound) {
+    promises.push(getJobOpenings(index));
+    index += 50;
+  }
+  (await Promise.all(promises)).forEach((result) => jobOpenings.content.push(...result.content));
 }
 
 function updateFilter(event) {

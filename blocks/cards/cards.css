@@ -14,7 +14,7 @@
 .cards.teaser > ul > li {
     padding-left: 0;
     padding-right: 0;
-} 
+}
 
 .cards.icon-with-text .cards-card-body {
     width: calc(100% - 75px);
@@ -25,10 +25,6 @@
 }
 
 /* cards side-by-side */
-.section.cards-container {
-    padding-left: 0;
-}
-
 .cards.side-by-side > ul > li > .cards-card-body {
     padding-left: 20px;
     padding-right: 40px;
@@ -84,7 +80,7 @@
 }
 
 .cards.teaser.background > ul > li > div:first-child {
-    background-color: rgb(46 48 142); 
+    background-color: rgb(46 48 142);
 }
 
 .cards.teaser.background > ul > li > div:nth-last-child(2) {

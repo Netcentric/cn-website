@@ -1,0 +1,60 @@
+/* Text */
+.offices a.button:any-link {
+  color: var(--link-color);
+}
+
+.offices p,
+.offices a.button:any-link {
+  font-size: 14px;
+  line-height: 1.2em;
+}
+
+.offices .button-container .icon svg {
+  height: 8px;
+}
+
+.offices .button-container:not(:last-of-type) {
+  margin: 0;
+}
+
+/* Layout */
+.offices.layout-1-3 h2:not(:has(+ .button-container)) {
+  color: var(--c-dark-plum);
+}
+
+.offices.layout-1-3 {
+  display: flex;
+  flex-flow: column wrap;
+}
+
+.offices > div {
+  flex: 1 1 0%;
+}
+
+@media (min-width: 600px) {
+  .offices.layout-1-3 {
+    flex-direction: unset;
+  }
+
+  .offices > div {
+    flex: 1 1 44%;
+    padding-inline: 1em;
+  }
+
+  .offices > div:first-of-type {
+    flex: 1 1 100%;
+    padding-block-end: 1em;
+  }
+}
+
+@media (min-width: 992px) {
+  .offices > div {
+    flex: 1 1 20%;
+    padding-inline: 1em;
+  }
+
+  .offices > div:first-of-type,
+  .offices > div:nth-of-type(2) {
+    flex: 1 1 44%;
+  }
+}

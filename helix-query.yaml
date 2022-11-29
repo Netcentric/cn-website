@@ -25,5 +25,22 @@ indices:
         select: head > meta[name="authors"]
         value: attribute(el, "content")
       image:
+        select: main > div:first-of-type img
+        value: attribute(el, "src")
+  authors:
+    include:
+      - /profiles/**
+    target: /profiles/query-index.json
+    properties:
+      name:
+        select: head > meta[property="og:title"]
+        value: attribute(el, "content")
+      image:
         select: head > meta[property="og:image"]
         value: match(attribute(el, "content"), "https:\/\/[^/]+(/.*)")
+      role:
+        select: main h3
+        value: innerHTML(el)
+      lastModified:
+        select: none
+        value: parseTimestamp(headers["last-modified"], "ddd, DD MMM YYYY hh:mm:ss GMT")

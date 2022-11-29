@@ -1,16 +1,5 @@
 import { toClassName } from '../../scripts/lib-franklin.js';
-
-export function buildBlogSidebar(main) {
-  const blogpost = main.querySelector('.blogpost > main > div:nth-child(2)');
-  if (blogpost === null) {
-    return;
-  }
-
-  console.log('blogpost:', blogpost);
-  const sidebar = document.createElement('div');
-  sidebar.classList.add('blog-sidebar');
-  blogpost.prepend(sidebar);
-}
+import { createIcon } from '../../scripts/scripts.js';
 
 function getLang() {
   return document
@@ -40,21 +29,25 @@ export default async function decorate(block) {
   ).toUpperCase();
 
   const sanitizedAuthorName = toClassName(authors);
+
   // TODO handle 404
-  const authorImageHtml = await fetch(`/profiles/${sanitizedAuthorName}.plain.html`)
-    .then((response) => response.text())
-    .then((text) => {
-      const parser = new DOMParser();
-      const parsedHtml = parser.parseFromString(text, 'text/html');
-      console.log('to be parsed:', text, parsedHtml);
-      return parsedHtml.querySelector('picture');
-    });
-  console.log('author html:', authorImageHtml);
+  const authorImageResp = await fetch(`/profiles/${sanitizedAuthorName}.plain.html`);
+
+  let authorImageHtml = createIcon('nc').outerHTML;
+  if (authorImageResp.ok) {
+    authorImageHtml = await authorImageResp.text()
+      .then((text) => {
+        const parser = new DOMParser();
+        const parsedHtml = parser.parseFromString(text, 'text/html');
+        return parsedHtml.querySelector('picture').outerHTML;
+      });
+  }
 
   // TODO cache and share with related-blogs?
   const response = await fetch('/profile-blog.json');
   const json = await response.json();
   if (!response.ok) {
+    // eslint-disable-next-line no-console
     console.log('error loading profile blog', response);
     return;
   }
@@ -64,7 +57,7 @@ export default async function decorate(block) {
   block.innerHTML = `
 <div class="authorprofile">
   <div class="image">
-    ${authorImageHtml.outerHTML}  
+    ${authorImageHtml}
   </div>
   <div class="info">
     <p class="name" >${authorInfo.Name}</p>

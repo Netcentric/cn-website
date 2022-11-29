@@ -11,7 +11,6 @@ import {
   loadBlocks,
   loadCSS,
 } from './lib-franklin.js';
-import { buildBlogSidebar } from '../blocks/blog-sidebar/blog-sidebar.js';
 
 const LCP_BLOCKS = []; // add your LCP blocks to the list
 window.hlx.RUM_GENERATION = 'project-1'; // add your RUM generation information here
@@ -60,6 +59,17 @@ function decorateButtons(element) {
       }
     }
   });
+}
+
+export function buildBlogSidebar(main) {
+  const blogpost = main.querySelector('.blogpost > main > div:nth-child(2)');
+  if (blogpost === null) {
+    return;
+  }
+
+  const sidebar = document.createElement('div');
+  sidebar.classList.add('blog-sidebar');
+  blogpost.prepend(sidebar);
 }
 
 function buildHeroBlock(main) {

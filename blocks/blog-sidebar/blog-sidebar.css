@@ -40,11 +40,17 @@
     display: flex;
   }
 
-  .blog-sidebar-wrapper {
-    width: 24.9%;
+  main .section > div.blog-sidebar-wrapper {
+    width: 300px;
+    margin: 0 0 0 auto;
   }
 
   .blog-sidebar .authorprofile .info {
     display: block;
+  }
+
+  .section.blog-sidebar-container > div:not(.blog-sidebar-wrapper) {
+    width: calc(var(--section-width) - 300px);
+    margin: 0 auto 0 0;
   }
 }

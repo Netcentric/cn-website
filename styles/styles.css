@@ -340,6 +340,9 @@ main img {
     --heading-font-size-s: 20px;
     --heading-nav-font-size: 18px;
     --nav-height: var(--desktop-nav-height);
+
+    /* global viewport sizing */
+    --section-width: 960px;
   }
 
   main .section {
@@ -347,7 +350,7 @@ main img {
   }
 
   main .section > div {
-    width: 960px;
+    width: var(--section-width);
     margin: 0 auto;
   }
 
@@ -357,8 +360,9 @@ main img {
 }
 
 @media (min-width: 1200px) {
-  main .section > div {
-    width: 1176px;
+  :root {
+    /* global viewport sizing */
+    --section-width: 1176px;
   }
 
   /* section only visible on mobile */

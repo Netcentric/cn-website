@@ -1,0 +1,10 @@
+main .embed {
+    width: unset;
+    text-align: center;
+    max-width: 100%;
+    margin: 16px auto;
+}
+
+main .embed > div {
+    display: block;
+}

@@ -60,6 +60,10 @@
     width: 100%;
 }
 
+.cards.side-by-side > ul > li a.button:any-link {
+  color: white;
+}
+
 /* cards side-by-side */
 .cards.side-by-side .cards-card-body h3 {
     font-size: 32px;

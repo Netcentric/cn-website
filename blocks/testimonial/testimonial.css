@@ -6,12 +6,65 @@
   padding: 0;
 }
 
-@media (min-width: 600px) {
+.testimonial ul .testimonial-card {
+  background-color: var(--c-white);
+  padding: 10px 20px;
+  border: 0;
+}
+
+.testimonial ul a.teaser-link {
+  text-decoration: none;
+}
+
+.testimonial ul h2.quote {
+  font-size: var(--heading-font-size-l);
+  color: var(--c-dark-plum);
+  font-weight: 400;
+  line-height: 1.25em;
+  margin-bottom: 30px;
+}
+
+.testimonial ul .authorprofile-container {
+  padding-bottom: 35px;
+  color: var(--text-color);
+  display: grid;
+  grid-template: 'photo name' 1fr 'photo title' 1fr / 85px auto;
+  column-gap: 25px;
+}
+
+.testimonial ul .authorprofile-name {
+  align-self: end;
+  grid-area: name;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+  line-height: 1.4em;
+}
+
+.testimonial ul .authorprofile-position {
+  grid-area: title;
+  font-size: 14px;
+  font-weight: 400;
+  letter-spacing: -0.5px;
+  line-height: 1.4em;
+}
+
+.testimonial ul img.nc-image {
+  border-radius: 50%;
+  overflow: hidden;
+  grid-area: photo;
+}
+
+
+@media (min-width: 992px) {
   .testimonial ul {
     flex-direction: row;
   }
 
   .testimonial ul li {
     flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
   }
 }

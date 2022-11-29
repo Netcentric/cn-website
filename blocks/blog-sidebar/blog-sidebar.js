@@ -1,9 +1,12 @@
+import { toClassName } from '../../scripts/lib-franklin.js';
+
 export function buildBlogSidebar(main) {
   const blogpost = main.querySelector('.blogpost > main > div:nth-child(2)');
   if (blogpost === null) {
     return;
   }
 
+  console.log('blogpost:', blogpost);
   const sidebar = document.createElement('div');
   sidebar.classList.add('blog-sidebar');
   blogpost.prepend(sidebar);
@@ -36,6 +39,18 @@ export default async function decorate(block) {
     },
   ).toUpperCase();
 
+  const sanitizedAuthorName = toClassName(authors);
+  // TODO handle 404
+  const authorImageHtml = await fetch(`/profiles/${sanitizedAuthorName}.plain.html`)
+    .then((response) => response.text())
+    .then((text) => {
+      const parser = new DOMParser();
+      const parsedHtml = parser.parseFromString(text, 'text/html');
+      console.log('to be parsed:', text, parsedHtml);
+      return parsedHtml.querySelector('picture');
+    });
+  console.log('author html:', authorImageHtml);
+
   // TODO cache and share with related-blogs?
   const response = await fetch('/profile-blog.json');
   const json = await response.json();
@@ -45,14 +60,12 @@ export default async function decorate(block) {
   }
 
   const authorInfo = json.data.find((element) => element.Name === authors);
-  console.log('author info', authorInfo);
-
-  // TODO remove afterwards, this is just for testing
-  authorInfo.Image = 'http://localhost:3000/insights/2022/09/media_1935b3dcc6abaebc63bbfd19146145c6b67c0e6b4.jpeg?width=2000&format=webply&optimize=medium';
 
   block.innerHTML = `
 <div class="authorprofile">
-  <img src="${authorInfo.Image}" alt="Picture of the author" /><!-- TODO i18n on alt text? -->
+  <div class="image">
+    ${authorImageHtml.outerHTML}  
+  </div>
   <div class="info">
     <p class="name" >${authorInfo.Name}</p>
     <p class="role">${authorInfo.Title}</p>

@@ -2,12 +2,13 @@
   /*display: inline-block;*/
   padding-bottom: 35px;
 }
-.blog-sidebar .authorprofile img {
+.blog-sidebar .authorprofile .image {
   display: inline-block;
   vertical-align: middle;
   border-radius: 50%;
   width: 70px;
   height: 70px;
+  overflow: hidden;
 }
 
 .blog-sidebar .authorprofile .info {

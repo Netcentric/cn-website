@@ -1,6 +1,6 @@
 import { loadCSS, toClassName } from '../../scripts/lib-franklin.js';
 
-async function getProfile() {
+export async function getProfile() {
   const authors = document.head.querySelector('meta[name="authors"]').content;
   const profile = {};
   let profileQuery = '/profiles/';
@@ -135,4 +135,9 @@ export async function buildBlogFooter(main) {
   }
   bFooter.append(blogfooterAuthor);
   blogpost.appendChild(bFooter);
+}
+
+export default async function decorate(block) {
+  // do nothing - auto blocked
+  block.innerHTML = '';
 }

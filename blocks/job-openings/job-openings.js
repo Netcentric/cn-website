@@ -32,6 +32,7 @@ function createJobFilters(parent, positions, locations, callback) {
   const filterPositions = document.createElement('select');
   filterPositions.setAttribute('filter-type', 'positions');
   const defaultPositionTag = document.createElement('option');
+  // TODO translation
   defaultPositionTag.innerText = 'all roles';
   defaultPositionTag.value = 'all';
   filterPositions.append(defaultPositionTag);
@@ -49,6 +50,7 @@ function createJobFilters(parent, positions, locations, callback) {
   const filterLocations = document.createElement('select');
   filterLocations.setAttribute('filter-type', 'locations');
   const defaultLocationTag = document.createElement('option');
+  // TODO translation
   defaultLocationTag.innerText = 'all countries';
   defaultLocationTag.value = 'all';
   filterLocations.append(defaultLocationTag);
@@ -81,6 +83,7 @@ function createJobList(parent, cards = []) {
 function createCTASection(parent, callback) {
   const buttonRow = document.createElement('div');
   buttonRow.classList.add('button-row');
+  // TODO translation
   buttonRow.innerHTML = '<button id="load-more-button" class="button primary">Show More</button>';
   parent.append(buttonRow);
   parent.querySelector('#load-more-button').addEventListener('click', callback);
@@ -126,6 +129,7 @@ async function updateJobOpenings(parent, num = 16) {
     ? jobOpenings.totalFound
     : displayJobOpenings.length;
   const count = jobListOffset + num < size ? jobListOffset + num : size;
+  // TODO translation
   results.textContent = `Showing ${count} of ${size} jobs`;
   const jobList = parent.querySelector('.job-openings ul.job-openings-list');
 

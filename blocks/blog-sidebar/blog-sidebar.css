@@ -1,14 +1,20 @@
 .blog-sidebar .authorprofile {
-  display: inline-block;
+  /*display: inline-block;*/
+  padding-bottom: 35px;
 }
 .blog-sidebar .authorprofile img {
+  display: inline-block;
+  vertical-align: middle;
   border-radius: 50%;
   width: 70px;
   height: 70px;
 }
 
 .blog-sidebar .authorprofile .info {
-  display: inline-block;
+  /*display: inline-flex;*/
+  /*line-height: 1.4em;*/
+  /*flex-flow: column wrap;*/
+  /*vertical-align: top;*/
 }
 
 .blog-sidebar .authorprofile .info {
@@ -32,6 +38,19 @@
 }
 .share .icon > svg {
   height: 1em;
+}
+
+@media (min-width: 992px) {
+  .blog-sidebar-container {
+    display: flex;
+  }
+  .blog-sidebar-wrapper {
+    width: 24.9%;
+  }
+
+  .blog-sidebar .authorprofile .info {
+    display: block;
+  }
 }
 
 /*

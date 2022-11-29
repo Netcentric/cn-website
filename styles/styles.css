@@ -353,6 +353,10 @@ main img {
     width: var(--section-width);
     margin: 0 auto;
   }
+
+  main.blogpost {
+    display: flex;
+  }
 }
 
 @media (min-width: 1200px) {

@@ -17,7 +17,7 @@ main .hero-container {
 
 main .hero {
   position: relative;
-  padding: 60px 32px 32px;
+  padding: 60px 32px;
   min-height: 300px;
 }
 
@@ -105,5 +105,9 @@ body.blogpost main .hero p {
   main .hero .button-container {
     display: flex;
     gap: 50px;
+  }
+
+  main .hero {
+    padding: 60px 0;
   }
 }

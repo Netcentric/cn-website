@@ -1,7 +1,7 @@
 .blog-sidebar .authorprofile {
-  /*display: inline-block;*/
   padding-bottom: 35px;
 }
+
 .blog-sidebar .authorprofile .image {
   display: inline-block;
   vertical-align: middle;
@@ -9,13 +9,6 @@
   width: 70px;
   height: 70px;
   overflow: hidden;
-}
-
-.blog-sidebar .authorprofile .info {
-  /*display: inline-flex;*/
-  /*line-height: 1.4em;*/
-  /*flex-flow: column wrap;*/
-  /*vertical-align: top;*/
 }
 
 .blog-sidebar .authorprofile .info {
@@ -37,6 +30,7 @@
   font-size: 42px;
   fill: var(--c-dark-teal);
 }
+
 .share .icon > svg {
   height: 1em;
 }
@@ -45,6 +39,7 @@
   .blog-sidebar-container {
     display: flex;
   }
+
   .blog-sidebar-wrapper {
     width: 24.9%;
   }
@@ -53,203 +48,3 @@
     display: block;
   }
 }
-
-/*
-.sidebar-container {
-  display: flex;
-  gap: 2px;
-  flex-direction: column;
-}
-
-.article main .sidebar-container {
-  gap: 16px;
-}
-
-.sidebar-container > div {
-  background-color: #eef4f4;
-  padding: 16px;
-}
-
-.sidebar-container > div a h3 {
-  font-size: 1.5rem;
-  font-weight: 400;
-  margin: 0 0 12px;
-}
-
-.sidebar-container > div p {
-  margin: 0;
-  font-size: 1rem;
-  font-weight: 400;
-}
-
-.sidebar-container .author {
-  display: grid;
-  grid-template:
-      'top top'
-      'picture title'
-      'picture description' / 1fr 2fr;
-  gap: 12px;
-}
-
-.sidebar-container .author .button.primary {
-  padding: unset;
-  margin: unset;
-  background-color: unset;
-}
-
-.sidebar-container .download h3 {
-  width: 100%;
-  padding: 12px;
-  box-sizing: border-box;
-  color: white;
-  font-weight: 400;
-  font-size: 1.5rem;
-  background-color: #7dbd42;
-  margin: 0 0 16px;
-  grid-area: top;
-}
-
-.sidebar-container > div > a {
-  display: flex;
-  gap: 12px;
-  align-items: baseline;
-}
-
-.sidebar-container .download {
-  padding: 0;
-  display: grid;
-  grid-template: 'top top' 'pdf text';
-}
-
-.sidebar-container .download > *:not(h3) {
-  margin-left: 16px;
-  margin-right: 16px;
-}
-
-.sidebar-container .download > p {
-  margin-top: 16px;
-}
-
-.sidebar-container .download a {
-  background-color: unset;
-  padding: unset;
-  grid-area: pdf;
-}
-
-.sidebar-container .author h3 {
-  grid-area: top;
-  margin: 0;
-  font-size: 0.8rem;
-  font-weight: 500;
-}
-
-.sidebar-container .author img {
-  grid-area: picture;
-}
-
-.sidebar-container .author .author-name {
-  grid-area: title;
-}
-
-.sidebar-container > div:last-child h3 {
-  margin: 0;
-}
-
-.sidebar-container .teaser {
-  padding: 0;
-}
-
-.sidebar-container > div.teaser a {
-  flex-direction: column;
-  gap: 0;
-}
-
-.sidebar-container > div.teaser a:hover {
-  text-decoration: unset;
-}
-
-.sidebar-container .teaser a h3 {
-  padding: 12px;
-  background: #5d87a1;
-  color: white;
-}
-
-.sidebar-container .teaser p {
-  padding: 16px 16px 30px;
-}
-
-.article .sidebar-container > div p {
-  font-size: 0.9rem;
-  line-height: 1.2;
-}
-
-.sidebar-container .teaser img {
-  max-height: 100px;
-  width: 100%;
-  height: auto;
-  object-fit: cover;
-}
-
-.sidebar-container > div .description {
-  text-transform: uppercase;
-  font-size: 0.8rem;
-  font-weight: 500;
-}
-
-.sidebar-container > div .date {
-  text-transform: uppercase;
-  font-size: 0.8rem;
-}
-
-.sidebar-container > div > a .icon {
-  transform: translate(0);
-  transition: transform 200ms ease-in-out;
-}
-
-.sidebar-container > div > a:hover .icon {
-  transition: transform 200ms ease-in-out;
-  transform: translate(15px);
-}
-
-.sidebar-container .author .text {
-  grid-area: description;
-}
-
-@media (min-width: 1200px) {
-  :root {
-    --sidebar-width: 350px;
-  }
-
-  .sidebar-container {
-    max-width: var(--sidebar-width);
-  }
-
-  .articles-sidebar-container {
-    display: grid;
-    grid-template-columns: auto var(--sidebar-width);
-    grid-template-rows: auto;
-    column-gap: 20px;
-  }
-
-  body.article .articles-sidebar-container {
-    column-gap: 90px;
-  }
-
-  .blog-sidebar-container {
-    height: 100%;
-    grid-column: 2;
-    grid-row: 1 / infinite;
-    width: 100%;
-  }
-
-  .articles-sidebar-container > *:not(.articles-sidebar-wrapper) {
-    grid-column: 1;
-  }
-
-  main .section.articles-sidebar-container {
-    max-width: 1200px;
-    margin: auto;
-    padding: 50px 0;
-  }
-}
-*/

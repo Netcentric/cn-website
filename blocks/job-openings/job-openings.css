@@ -42,15 +42,9 @@
   min-height: 120px;
   border-bottom: 2px solid var(--c-light-gray);
   will-change: padding, margin, background;
-  transition: padding 0.16667s cubic-bezier(0.66, -0.1, 0.74, 0.73),
-    margin 0.16667s cubic-bezier(0.66, -0.1, 0.74, 0.73),
-    background 0.16667s cubic-bezier(0.66, -0.1, 0.74, 0.73);
-}
-
-.job-openings li.job-opening-list-item:hover > a,
-.job-openings li.job-opening-list-item:focus > a {
-  color: var(-c-dark-plum);
-  text-decoration: none;
+  transition: padding 0.1667s cubic-bezier(0.66, -0.1, 0.74, 0.73),
+    margin 0.1667s cubic-bezier(0.66, -0.1, 0.74, 0.73),
+    background 0.1667s cubic-bezier(0.66, -0.1, 0.74, 0.73);
 }
 
 .job-openings li.job-opening-list-item > a {
@@ -59,6 +53,12 @@
   gap: 16px;
   width: 100%;
   padding-top: 20px;
+}
+
+.job-openings li.job-opening-list-item:hover > a,
+.job-openings li.job-opening-list-item:focus > a {
+  color: var(-c-dark-plum);
+  text-decoration: none;
 }
 
 .job-openings li.job-opening-list-item .location,

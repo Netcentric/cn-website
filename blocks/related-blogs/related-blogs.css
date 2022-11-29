@@ -2,11 +2,11 @@
   list-style: none;
   padding-left: 0;
   display: flex;
-  align-items: center;
   gap: 20px;
   flex-direction: column;
   justify-content: left;
   margin-bottom: 25px;
+  align-items: stretch;
 }
 
 .related-blogs-container div.related-button-row {
@@ -53,5 +53,10 @@ body.blogpost .related-blogs-container a.button.secondary:hover {
   .related-blogs-container ul.related-list {
     flex-direction: row;
     justify-content: space-between;
+  }
+
+  .related-blogs-container .blog-cards-container {
+    width: calc(var(--section-width) + var(--blog-card-padding) + var(--blog-card-padding));
+    margin-left: calc(-1 * var(--blog-card-padding));
   }
 }

@@ -6,6 +6,7 @@
 .columns > div {
     display: flex;
     flex-direction: column;
+    gap: 32px;
 }
 
 .columns > div > div {
@@ -64,7 +65,7 @@
     }
 
     .columns > div > div {
-        padding: 0 16px;
+        padding: 0;
         flex: 1 1 var(--column-fb-other);
     }
 

@@ -387,6 +387,7 @@ main .section.mid-plum {
 main .section.dark-plum {
   background-color: var(--c-dark-plum);
   color: var(--bg-text-dark-plum);
+  padding: 20px;
 }
 
 main .section.dark-plum a, main .section.dark-plum button {
@@ -497,4 +498,9 @@ main .section.dark-teal {
   background-color: var(--c-dark-teal);
   position: absolute;
   left: 0;
+}
+
+main .section.cards-container {
+  padding-left: 0;
+  padding-right: 0;
 }

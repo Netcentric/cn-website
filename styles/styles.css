@@ -161,6 +161,10 @@ h4, h5, h6 {
   scroll-margin: calc(var(--nav-height) + 1em);
 }
 
+h1, h2, h3 {
+  color: var(--c-primary);
+}
+
 h1 { font-size: var(--heading-font-size-xxl) }
 h2 { font-size: var(--heading-font-size-xl) }
 h3 { font-size: var(--heading-font-size-l) }
@@ -387,13 +391,34 @@ main .section.light-plum {
   color: var(--bg-text-light-plum);
 }
 
+main .section.light-plum h2,
+main .section.light-plum h3,
+main .section.light-plum h4,
+main .section.light-plum h5 {
+  color: var(--bg-text-light-plum);
+}
+
 main .section.mid-plum {
   background-color: var(--c-mid-plum);
   color: var(--bg-text-mid-plum);
 }
 
+main .section.mid-plum h2,
+main .section.mid-plum h3,
+main .section.mid-plum h4,
+main .section.mid-plum h5 {
+  color: var(--bg-text-mid-plum);
+}
+
 main .section.dark-plum {
   background-color: var(--c-dark-plum);
+  color: var(--bg-text-dark-plum);
+}
+
+main .section.dark-plum h2,
+main .section.dark-plum h3,
+main .section.dark-plum h4,
+main .section.dark-plum h5 {
   color: var(--bg-text-dark-plum);
 }
 
@@ -418,13 +443,34 @@ main .section.light-blue {
   color: var(--bg-text-dark-blue);
 }
 
+main .section.light-blue h2,
+main .section.light-blue h3,
+main .section.light-blue h4,
+main .section.light-blue h5 {
+  color: var(--bg-text-dark-blue);
+}
+
 main .section.mid-blue {
   background-color: var(--c-mid-blue);
   color: var(--bg-text-mid-blue);
 }
 
+main .section.mid-blue h2,
+main .section.mid-blue h3,
+main .section.mid-blue h4,
+main .section.mid-blue h5 {
+  color: var(--bg-text-mid-blue);
+}
+
 main .section.dark-blue {
   background-color: var(--c-dark-blue);
+  color: var(--bg-text-dark-blue);
+}
+
+main .section.dark-blue h2,
+main .section.dark-blue h3,
+main .section.dark-blue h4,
+main .section.dark-blue h5 {
   color: var(--bg-text-dark-blue);
 }
 
@@ -437,12 +483,26 @@ main .section.light-grey {
   color: var(--bg-text-light-grey);
 }
 
+main .section.light-grey h2,
+main .section.light-grey h3,
+main .section.light-grey h4,
+main .section.light-grey h5 {
+  color: var(--bg-text-light-grey);
+}
+
 main .section.mid-grey {
   background-color: var(--c-mid-gray);
 }
 
 main .section.dark-grey {
   background-color: var(--c-dark-gray);
+  color: var(--bg-text-dark-grey);
+}
+
+main .section.dark-grey h2,
+main .section.dark-grey h3,
+main .section.dark-grey h4,
+main .section.dark-grey h5 {
   color: var(--bg-text-dark-grey);
 }
 
@@ -505,8 +565,4 @@ main .section.dark-teal {
   background-color: var(--c-dark-teal);
   position: absolute;
   left: 0;
-}
-
-.blogpost h2 {
-  color: var(--c-dark-plum);
 }

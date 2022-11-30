@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+sitemap: https://www.netcentric.biz/sitemap.xml

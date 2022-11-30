@@ -101,6 +101,7 @@
   --overlay-background-color: #eee;
   --highlight-background-color: #ccc;
   --text-color: var(--c-black);
+  --heading-color: var(--c-dark-plum);
 
   /* fonts */
   --body-font-family: 'Gellix', 'gellix-normal-400-fallback', 'Century Gothic', 'CenturyGothic', 'AppleGothic', sans-serif;
@@ -159,6 +160,7 @@ h4, h5, h6 {
   margin-top: 1em;
   margin-bottom: .5em;
   scroll-margin: calc(var(--nav-height) + 1em);
+  color: var(--heading-color);
 }
 
 h1, h2, h3 {

@@ -11,6 +11,7 @@ import {
   loadBlocks,
   loadCSS,
 } from './lib-franklin.js';
+import { buildBlogFooter } from '../blocks/blog-footer/blog-footer.js';
 
 const LCP_BLOCKS = []; // add your LCP blocks to the list
 window.hlx.RUM_GENERATION = 'project-1'; // add your RUM generation information here
@@ -157,6 +158,7 @@ function preDecorateEmbed(main) {
 function buildAutoBlocks(main) {
   try {
     buildHeroBlock(main);
+    buildBlogFooter(main);
     buildBlogSidebar(main);
   } catch (error) {
     // eslint-disable-next-line no-console

@@ -1,6 +1,6 @@
 import {
   createOptimizedPicture, decorateIcons, loadCSS,
-  readBlockConfig,
+  readBlockConfig, toClassName,
 } from '../../scripts/lib-franklin.js';
 
 const defaultAuthorName = 'Cognizant Netcentric';
@@ -100,14 +100,15 @@ function buildCTASection(parent, callback) {
 }
 
 let articleOffset = 0;
-let selectedCategory = new URLSearchParams(window.location.search).get('tag_filter') ?? 'All categories';
+let selectedCategory = toClassName(new URLSearchParams(window.location.search).get('tag_filter')) ?? 'all-categories';
 
 function getCardFilter() {
-  return selectedCategory === 'All categories'
+  return selectedCategory === 'all-categories'
     // TODO: Only articles with tags can show up now because there are some items that arent
     //  articles without tags
     ? (article) => JSON.parse(article.tags).length > 0
-    : (article) => article.tags.includes(selectedCategory);
+    : (article) => JSON.parse(article.tags)
+      .map((tag) => toClassName(tag)).includes(selectedCategory);
 }
 
 async function loadMoreArticles(numArticles = 6) {
@@ -135,11 +136,11 @@ function createCategoryDropdown(options, parent, callback) {
   options.forEach((option) => {
     const optionTag = document.createElement('option');
     optionTag.innerText = option;
-    optionTag.value = option;
+    optionTag.value = toClassName(option);
     input.append(optionTag);
   });
 
-  const initialIndex = options.indexOf(selectedCategory);
+  const initialIndex = options.map((option) => toClassName(option)).indexOf(selectedCategory);
   if (initialIndex >= 0) {
     input.selectedIndex = initialIndex;
   }

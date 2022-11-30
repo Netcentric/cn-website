@@ -17,7 +17,7 @@ main .hero-container {
 
 main .hero {
   position: relative;
-  padding: 60px 32px 32px;
+  padding: 60px 32px;
   min-height: 300px;
 }
 
@@ -55,11 +55,17 @@ main .hero img {
 
 main .hero .button-container {
   display: flex;
-  gap: 50px;
+  flex-direction: column;
+  gap: 10px;
   margin-top: 30px;
 }
 
+main .hero .button-container > * {
+  max-width: 250px;
+}
+
 main .hero a.button {
+  width: 100%;
   font-size: var(--hero-button-font-size);
 }
 
@@ -102,8 +108,17 @@ body.blogpost main .hero p {
 }
 
 @media (min-width: 992px) {
+  main .hero a.button {
+    width: unset;
+  }
+
   main .hero .button-container {
     display: flex;
     gap: 50px;
+    flex-direction: row;
+  }
+
+  main .hero {
+    padding: 60px 0;
   }
 }

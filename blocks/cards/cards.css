@@ -28,7 +28,6 @@
 }
 
 /* cards side-by-side */
-
 .cards.side-by-side > ul > li > .cards-card-body {
     padding-left: 20px;
     padding-right: 40px;
@@ -71,7 +70,7 @@
 
 /* cards side-by-side */
 .cards.side-by-side .cards-card-body h3 {
-    font-size: 32px;
+    font-size: 30px;
     margin-top: 130px;
 }
 
@@ -154,22 +153,20 @@
 }
 
 .cards.side-by-side .cards-card-body h3 a {
-    font-size: 30px;
     color: white;
     font-weight: 600;
 }
 
 .cards.side-by-side .cards-card-body h5 {
+    font-size: 13px;
     margin-top: 10px;
 }
 
 .cards.side-by-side .cards-card-body h5 a {
-    font-size: 13px;
     color: white;
 }
 
 .cards.side-by-side .cards-card-body h4 a {
-    font-size: 18px;
     color: white;
 }
 
@@ -188,6 +185,7 @@
 }
 
 .cards.side-by-side .cards-card-body h4 {
+    font-size: 18px;
     margin-top: 0;
 }
 

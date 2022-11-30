@@ -4,7 +4,6 @@
 }
 
 .accordion-trigger {
-    color: var(--c-dark-plum);
     display: flex;
     align-items: center;
     border-top: 2px solid;
@@ -13,6 +12,18 @@
     min-height: 120px;
     line-height: 40px;
     font-size: 36px;
+}
+
+.accordion-trigger, .dark-blue {
+    color: var(--c-dark-blue);
+}
+
+.accordion-trigger, .dark-plum {
+    color: var(--c-dark-plum);
+}
+
+.accordion-trigger, .red {
+    color: var(--c-red);
 }
 
 .accordion-trigger > p {

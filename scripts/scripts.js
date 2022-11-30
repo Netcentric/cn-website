@@ -89,10 +89,10 @@ function buildHeroBlock(main) {
 
   const h1Sibling = document.querySelector('body.blogpost main h1 + p');
 
-  if (h1Sibling && h1Sibling.firstElementChild.nodeName === 'PICTURE') {
+  if (h1Sibling && h1Sibling.firstElementChild?.nodeName === 'PICTURE') {
     picture = h1Sibling;
-  } else if (h1Sibling && h1Sibling.nextElementSibling.firstElementChild.nodeName === 'PICTURE') {
-    picture = h1Sibling.nextElementSibling.firstElementChild;
+  } else if (h1Sibling && h1Sibling.nextElementSibling?.firstElementChild?.nodeName === 'PICTURE') {
+    picture = h1Sibling.nextElementSibling?.firstElementChild;
     subtitle = h1Sibling;
   }
 

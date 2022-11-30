@@ -135,24 +135,24 @@ async function updateJobOpenings(parent, num = 16) {
 
   addCardsToCardList(displayJobOpenings.splice(jobListOffset, num), jobList);
 
-  // hide show more
-  if (count == size) {
-    parent
-      .querySelector(".job-openings .button-row")
-      .classList.add("hidden");
+  // hide show more if we are at the end of the list
+  if (count === size) {
+    parent.querySelector('.job-openings .button-row').classList.add('hidden');
   }
 
   // adjust offset for next loading
   jobListOffset += num;
 
   // load more items in the background
-  let index = 50;
-  const promises = [];
-  while (index < jobOpenings.totalFound) {
-    promises.push(getJobOpenings(index));
-    index += 50;
+  if (jobOpenings.content.length < jobOpenings.totalFound) {
+    let index = 50;
+    const promises = [];
+    while (index < jobOpenings.totalFound) {
+      promises.push(getJobOpenings(index));
+      index += 50;
+    }
+    (await Promise.all(promises)).forEach((result) => jobOpenings.content.push(...result.content));
   }
-  (await Promise.all(promises)).forEach((result) => jobOpenings.content.push(...result.content));
 }
 
 function updateFilter(event) {
@@ -170,8 +170,8 @@ function updateFilter(event) {
     jobListOffset = 0;
     document.querySelector('.job-openings ul.job-openings-list').innerHTML = '';
     document
-      .querySelector(".job-openings .button-row")
-      .classList.remove("hidden");
+      .querySelector('.job-openings .button-row')
+      .classList.remove('hidden');
     updateJobOpenings(document.querySelector('.job-openings'));
   }
 }

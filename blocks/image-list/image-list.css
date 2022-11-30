@@ -1,0 +1,11 @@
+.slider-base {
+  width: 100%;
+  position: relative;
+  background-color: #6aa2dc;
+}
+
+.slider-wrap {
+  display: flex;
+}
+
+

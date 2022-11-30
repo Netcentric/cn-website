@@ -26,6 +26,10 @@
   transition: transform 0.3333s cubic-bezier(0.66, -0.1, 0.74, 0.73);
 }
 
+body.blogpost .blog-cards-container .teaser h2.teaser-description {
+  color: var(--c-dark-plum);
+}
+
 body.blogpost .related-blogs-container .teaser picture {
   display: none;
 }

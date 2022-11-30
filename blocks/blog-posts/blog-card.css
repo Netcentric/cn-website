@@ -23,7 +23,7 @@
 
 .blog-cards-container h2.teaser-description {
   font-size: var(--heading-font-size-s);
-  color: var(--c-dark-plum) !important;
+  color: var(--c-dark-plum);
   font-weight: 400;
   line-height: 1.25em;
 }

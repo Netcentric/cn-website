@@ -94,6 +94,11 @@ function loadLaunch() {
   injectScript(src);
 }
 
+function loadLiveUXRUM() {
+  const src = 'https://liveux.cnwebperformance.biz/collector/collector.min.js?id=webperf-netcentric';
+  injectScript(src);
+}
+
 class ScrollIndicator {
   constructor() {
     this.container = document.createElement('div');
@@ -123,6 +128,7 @@ class ScrollIndicator {
 decorateTwitterFeed();
 decorateEmbed();
 loadLaunch();
+loadLiveUXRUM();
 
 if (document.body.classList.contains('blogpost')) {
   const scrollIndicator = new ScrollIndicator();

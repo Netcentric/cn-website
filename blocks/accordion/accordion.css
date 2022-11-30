@@ -14,6 +14,18 @@
     font-size: 36px;
 }
 
+.dark-blue .accordion-trigger {
+    color: var(--c-dark-blue);
+}
+
+.dark-plum .accordion-trigger {
+    color: var(--c-dark-plum);
+}
+
+.red .accordion-trigger {
+    color: var(--c-red);
+}
+
 .accordion-trigger > p {
     display: inline-flex;
     width: calc(100% - 40px);

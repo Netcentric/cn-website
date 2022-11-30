@@ -4,6 +4,7 @@
 }
 
 .accordion-trigger {
+    color: var(--c-dark-plum);
     display: flex;
     align-items: center;
     border-top: 2px solid;

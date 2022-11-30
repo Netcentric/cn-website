@@ -14,15 +14,15 @@
     font-size: 36px;
 }
 
-.accordion-trigger, .dark-blue {
+.dark-blue .accordion-trigger {
     color: var(--c-dark-blue);
 }
 
-.accordion-trigger, .dark-plum {
+.dark-plum .accordion-trigger {
     color: var(--c-dark-plum);
 }
 
-.accordion-trigger, .red {
+.red .accordion-trigger {
     color: var(--c-red);
 }
 

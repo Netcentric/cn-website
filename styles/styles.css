@@ -355,6 +355,10 @@ main img {
     width: var(--section-width);
     margin: 0 auto;
   }
+
+  main.blogpost {
+    display: flex;
+  }
 }
 
 @media (min-width: 1200px) {
@@ -373,6 +377,10 @@ main img {
 main .section[data-section-status='loading'],
 main .section[data-section-status='initialized'] {
   display: none;
+}
+
+main .section.center {
+  text-align: center;
 }
 
 /* section highlights */
@@ -499,4 +507,8 @@ main .section.dark-teal {
   background-color: var(--c-dark-teal);
   position: absolute;
   left: 0;
+}
+
+.blogpost h2 {
+  color: var(--c-dark-plum);
 }

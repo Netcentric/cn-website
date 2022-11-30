@@ -100,7 +100,7 @@ function buildCTASection(parent, callback) {
 }
 
 let articleOffset = 0;
-let selectedCategory = toClassName(new URLSearchParams(window.location.search).get('tag_filter')) ?? 'all-categories';
+let selectedCategory = toClassName(new URLSearchParams(window.location.search).get('tag_filter')) || 'all-categories';
 
 function getCardFilter() {
   return selectedCategory === 'all-categories'

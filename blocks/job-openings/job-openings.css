@@ -3,17 +3,15 @@
 }
 
 .job-openings-filters {
-    padding-top: 30px;
+  padding-top: 30px;
 }
 
-@media (min-width: 600px){
-.job-openings-filters {
+@media (min-width: 600px) {
+  .job-openings-filters {
     display: flex;
     gap: 60px;
+  }
 }
-}
-
-
 
 .job-openings-filters select {
   font-size: var(--body-font-size-m);
@@ -28,8 +26,6 @@
   cursor: pointer;
   background-color: var(--c-light-gray);
 }
-
-
 
 .job-openings ul.job-openings-list {
   margin-bottom: 90px;
@@ -66,7 +62,6 @@
   line-height: 1.4em;
   text-align: left;
   color: var(--c-black);
-  
 }
 
 .job-openings li.job-opening-list-item .position {
@@ -98,6 +93,10 @@
   color: var(-c-dark-plum);
 }
 
+.job-openings .button-row.hidden {
+  display: none;
+}
+
 .job-openings .button-row {
   display: flex;
   justify-content: center;
@@ -107,7 +106,7 @@
   .job-openings-filters select {
     margin-bottom: 25.6px;
     width: 100%;
-}
+  }
 }
 
 @media (min-width: 992px) {
@@ -142,7 +141,7 @@
   }
 
   .job-openings li.job-opening-list-item .location,
-.job-openings li.job-opening-list-item .position {
-  padding: 30px 0;
-}
+  .job-openings li.job-opening-list-item .position {
+    padding: 30px 0;
+  }
 }

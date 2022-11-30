@@ -40,6 +40,10 @@
     flex: 1 1 var(--column-fb-right);
 }
 
+.columns > div > div:last-child {
+  color: var(--c-white);
+}
+
 .columns > div > div > *:first-child {
     margin-top: 0;
 }
@@ -77,8 +81,16 @@
     color: var(--c-dark-blue);
 }
 
+.columns.heading-dark-teal > div > div > :where(h1,h2,h3,h4,h5,h6):first-of-type {
+  color: var(--c-dark-teal);
+}
+
 .columns.heading-dark-plum > div > div > :where(h1,h2,h3,h4,h5,h6):first-of-type {
     color: var(--c-dark-plum);
+}
+
+.columns.heading-white > div > div > :where(h1,h2,h3,h4,h5,h6):first-of-type {
+  color: var(--c-white);
 }
 
 .columns.rainbow > div > div:nth-of-type(3n),
@@ -109,7 +121,7 @@
         --column-fb-other: 40%;
         --column-fb-right: 40%;
     }
-    
+
     .columns.columns-3-cols:where(.rainbow,.rainbow-reverse) {
         --column-fb-left: 100%;
     }

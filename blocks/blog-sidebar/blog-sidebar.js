@@ -1,5 +1,8 @@
-import { toClassName } from '../../scripts/lib-franklin.js';
-import { createIcon } from '../../scripts/scripts.js';
+import { createOptimizedPicture } from '../../scripts/lib-franklin.js';
+
+const defaultAuthorName = 'Cognizant Netcentric';
+const defaultAuthorRole = '';
+const defaultAuthorImage = '/icons/nc.svg';
 
 function getLang() {
   return document
@@ -28,23 +31,8 @@ export default async function decorate(block) {
     },
   ).toUpperCase();
 
-  const sanitizedAuthorName = toClassName(authors);
-
-  // TODO handle 404
-  const authorImageResp = await fetch(`/profiles/${sanitizedAuthorName}.plain.html`);
-
-  let authorImageHtml = createIcon('nc').outerHTML;
-  if (authorImageResp.ok) {
-    authorImageHtml = await authorImageResp.text()
-      .then((text) => {
-        const parser = new DOMParser();
-        const parsedHtml = parser.parseFromString(text, 'text/html');
-        return parsedHtml.querySelector('picture').outerHTML;
-      });
-  }
-
   // TODO cache and share with related-blogs?
-  const response = await fetch('/profile-blog.json');
+  const response = await fetch('/profiles/query-index.json');
   const json = await response.json();
   if (!response.ok) {
     // eslint-disable-next-line no-console
@@ -52,16 +40,27 @@ export default async function decorate(block) {
     return;
   }
 
-  const authorInfo = json.data.find((element) => element.Name === authors);
+  const authorInfo = json.data.find((element) => element.name === authors);
+
+  const authorImageAlt = `Picture of ${authorInfo?.name ?? defaultAuthorName}`;
+  let authorImageHTML = `<img src="${authorInfo?.image ?? defaultAuthorImage}" alt="${authorImageAlt}" />`;
+  if (authorInfo?.image) {
+    authorImageHTML = createOptimizedPicture(
+      authorInfo.image,
+      authorImageAlt,
+      false,
+      [{ width: 70 }],
+    ).outerHTML;
+  }
 
   block.innerHTML = `
 <div class="authorprofile">
   <div class="image">
-    ${authorImageHtml}
+    ${authorImageHTML}
   </div>
   <div class="info">
-    <p class="name" >${authorInfo.Name}</p>
-    <p class="role">${authorInfo.Title}</p>
+    <p class="name" >${authorInfo?.name ?? defaultAuthorName}</p>
+    <p class="role">${authorInfo?.role ?? defaultAuthorRole}</p>
   </div>
 </div>
 <div class="date">${printableDate}</div>

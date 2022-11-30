@@ -36,13 +36,20 @@
 }
 
 @media (min-width: 992px) {
+  :root {
+    --blog-sidebar-margin-width: calc((100vw - var(--section-width)) / 2);
+  }
+
   .blog-sidebar-container {
-    display: flex;
+    display: grid;
+    grid-template-columns: calc(var(--blog-sidebar-margin-width) + 300px) 1fr;
   }
 
   main .section > div.blog-sidebar-wrapper {
+    grid-column: 1;
+    justify-content: end;
     width: 300px;
-    margin: 0 0 0 auto;
+    margin-left: var(--blog-sidebar-margin-width);
   }
 
   .blog-sidebar .authorprofile .info {
@@ -51,6 +58,7 @@
 
   .section.blog-sidebar-container > div:not(.blog-sidebar-wrapper) {
     width: calc(var(--section-width) - 300px);
-    margin: 0 auto 0 0;
+    grid-column: 2;
+    margin-right: var(--blog-sidebar-margin-width);
   }
 }

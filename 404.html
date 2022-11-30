@@ -13,7 +13,7 @@
   <script type="module">
     import { sampleRUM } from '/scripts/lib-franklin.js';
 
-    window.addEventListener('load', () => {
+    window.addEventListener('load', async () => {
       if (document.referrer) {
         const { origin, pathname } = new URL(document.referrer);
         if (origin === window.location.origin) {
@@ -24,6 +24,17 @@
           backBtn.title = 'Go back';
           const btnContainer = document.querySelector('.button-container');
           btnContainer.append(backBtn);
+        }
+      }
+      const resp = await fetch(`metadata.json`);
+      if (resp.ok) {
+        const json = await resp.json();
+        if (json && json.data) {
+          const main = document.querySelector('main');
+          if (main) {
+            main.setAttribute('data-wp-version-traffic', json.data[0]['wp-version-traffic']);
+            main.setAttribute('data-wp-page-cookie', json.data[0]['wp-page-cookie']);
+          }
         }
       }
       sampleRUM('404', { source: document.referrer, target: window.location.href });
@@ -50,7 +61,7 @@
 
 <body>
   <header></header>
-  <main class="error">
+  <main class="error" data-wp-version-name="franklin" data-wp-http-status="404" data-wp-page-type="error">
     <div class="section">
       <svg viewBox="1 0 38 18" class="error-number">
         <text x="0" y="17">404</text>

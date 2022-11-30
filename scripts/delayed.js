@@ -122,7 +122,7 @@ class ScrollIndicator {
 
 decorateTwitterFeed();
 decorateEmbed();
-loadLaunch();
+// loadLaunch();
 
 if (document.body.classList.contains('blogpost')) {
   const scrollIndicator = new ScrollIndicator();

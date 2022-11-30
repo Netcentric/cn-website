@@ -161,7 +161,7 @@ function updateFilter(event) {
     // reset all loaded job openings
     jobListOffset = 0;
     document.querySelector('.job-openings ul.job-openings-list').innerHTML = '';
-    updateJobOpenings();
+    updateJobOpenings(document.querySelector('.job-openings'));
   }
 }
 

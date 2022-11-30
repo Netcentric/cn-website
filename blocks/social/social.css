@@ -3,6 +3,7 @@
     list-style: none;
     grid-template-columns: 1fr;
     padding: 0;
+    column-gap: 32px;
 }
 
 .social .icon {
@@ -78,7 +79,7 @@
 
 @media screen and (min-width: 992px) {
     .social>ul>li {
-        padding: 0 16px;
+        padding: 0;
     }
 
     .social>ul>li>a>*:nth-child(2) {

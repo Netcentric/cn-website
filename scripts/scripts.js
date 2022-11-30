@@ -61,6 +61,17 @@ function decorateButtons(element) {
   });
 }
 
+export function buildBlogSidebar(main) {
+  const blogpost = main.querySelector('.blogpost > main > div:nth-child(2)');
+  if (blogpost === null) {
+    return;
+  }
+
+  const sidebar = document.createElement('div');
+  sidebar.classList.add('blog-sidebar');
+  blogpost.prepend(sidebar);
+}
+
 function buildHeroBlock(main) {
   /* 1. If there is an explicit hero block, add it to its own section, so it can be full-width */
   const heroBlock = main.querySelector('.hero');
@@ -78,10 +89,10 @@ function buildHeroBlock(main) {
 
   const h1Sibling = document.querySelector('body.blogpost main h1 + p');
 
-  if (h1Sibling && h1Sibling.firstElementChild.nodeName === 'PICTURE') {
+  if (h1Sibling && h1Sibling.firstElementChild?.nodeName === 'PICTURE') {
     picture = h1Sibling;
-  } else if (h1Sibling && h1Sibling.nextElementSibling.firstElementChild.nodeName === 'PICTURE') {
-    picture = h1Sibling.nextElementSibling.firstElementChild;
+  } else if (h1Sibling && h1Sibling.nextElementSibling?.firstElementChild?.nodeName === 'PICTURE') {
+    picture = h1Sibling.nextElementSibling?.firstElementChild;
     subtitle = h1Sibling;
   }
 
@@ -146,6 +157,7 @@ function preDecorateEmbed(main) {
 function buildAutoBlocks(main) {
   try {
     buildHeroBlock(main);
+    buildBlogSidebar(main);
   } catch (error) {
     // eslint-disable-next-line no-console
     console.error('Auto Blocking failed', error);

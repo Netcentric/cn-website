@@ -10,5 +10,4 @@ export default function decorate(block) {
   });
   block.innerHTML = '';
   block.append(wrap);
-  waitForAppear(block);
 }

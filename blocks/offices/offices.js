@@ -12,7 +12,7 @@ function addTitleClass(textblock) {
   const isCallToActionBlock = !hasBtn || (hasBtn && textblock.querySelector(ctaBtn));
   if (!isCallToActionBlock) {
     const title = textblock.querySelector('h2');
-    title.classList.add('offices__title');
+    title.classList.add('title');
   }
 }
 

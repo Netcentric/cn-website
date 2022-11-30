@@ -17,8 +17,7 @@
   margin: 0;
 }
 
-/* stylelint-disable-next-line selector-class-pattern */
-.offices__title {
+.offices .title {
   color: var(--c-black);
 }
 

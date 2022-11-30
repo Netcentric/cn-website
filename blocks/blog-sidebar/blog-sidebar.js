@@ -4,18 +4,6 @@ const defaultAuthorName = 'Cognizant Netcentric';
 const defaultAuthorRole = '';
 const defaultAuthorImage = '/icons/nc.svg';
 
-export function buildBlogSidebar(main) {
-  const blogpost = main.querySelector('.blogpost > main > div:nth-child(2)');
-  if (blogpost === null) {
-    return;
-  }
-
-  console.log('blogpost:', blogpost);
-  const sidebar = document.createElement('div');
-  sidebar.classList.add('blog-sidebar');
-  blogpost.prepend(sidebar);
-}
-
 function getLang() {
   return document
     .querySelector('html')
@@ -47,6 +35,7 @@ export default async function decorate(block) {
   const response = await fetch('/profiles/query-index.json');
   const json = await response.json();
   if (!response.ok) {
+    // eslint-disable-next-line no-console
     console.log('error loading profile blog', response);
     return;
   }

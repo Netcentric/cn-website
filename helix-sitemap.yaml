@@ -1,5 +1,5 @@
 sitemaps:
   netcentric:
-    origin: https://main--netcentric--hlxsites.hlx.page/
+    origin: https://www.netcentric.biz
     source: /query-index.json
     destination: /sitemap.xml

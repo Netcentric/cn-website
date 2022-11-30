@@ -27,7 +27,7 @@ export function buildCard(card, large = false) {
     <div class="authorprofile-container">
       <div class="authorprofile-image">
         <div class="nc-image-base">
-            <div class="nc-image-container " itemscope="" itemtype="http://schema.org/ImageObject">
+            <div class="nc-image-container" itemscope="" itemtype="http://schema.org/ImageObject">
                 <img class="nc-image" src="${authorProfile.image ?? defaultAuthorImage}" itemprop="contentUrl" alt="" sizes="10vw" />
             </div>
         </div>

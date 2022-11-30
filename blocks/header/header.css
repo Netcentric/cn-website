@@ -283,6 +283,10 @@ header nav .nav-sections ul > li.nav-drop[aria-expanded='true'] > .nav-drop-ul-w
 
 /* desktop nav styles */
 @media (min-width: 992px)  {
+  body:has(header nav li.nav-drop[aria-expanded='true']) {
+    overflow: hidden;
+  }
+
   header nav {
     display: flex;
     width: 100%;

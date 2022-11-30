@@ -27,7 +27,7 @@ export function buildCard(card, large = false) {
     <div class="authorprofile-container">
       <div class="authorprofile-image">
         <div class="nc-image-base">
-            <div class="nc-image-container " itemscope="" itemtype="http://schema.org/ImageObject">
+            <div class="nc-image-container" itemscope="" itemtype="http://schema.org/ImageObject">
                 <img class="nc-image" src="${authorProfile.image ?? defaultAuthorImage}" itemprop="contentUrl" alt="" sizes="10vw" />
             </div>
         </div>
@@ -100,7 +100,7 @@ function buildCTASection(parent, callback) {
 }
 
 let articleOffset = 0;
-let selectedCategory = 'All categories';
+let selectedCategory = new URLSearchParams(window.location.search).get('tag_filter') ?? 'All categories';
 
 function getCardFilter() {
   return selectedCategory === 'All categories'
@@ -131,12 +131,19 @@ async function updateFilter(newFilter) {
 
 function createCategoryDropdown(options, parent, callback) {
   const input = document.createElement('select');
+
   options.forEach((option) => {
     const optionTag = document.createElement('option');
     optionTag.innerText = option;
     optionTag.value = option;
     input.append(optionTag);
   });
+
+  const initialIndex = options.indexOf(selectedCategory);
+  if (initialIndex >= 0) {
+    input.selectedIndex = initialIndex;
+  }
+
   parent.append(input);
   input.addEventListener('change', callback);
 }

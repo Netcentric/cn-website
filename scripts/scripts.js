@@ -62,6 +62,17 @@ function decorateButtons(element) {
   });
 }
 
+export function buildBlogSidebar(main) {
+  const blogpost = main.querySelector('.blogpost > main > div:nth-child(2)');
+  if (blogpost === null) {
+    return;
+  }
+
+  const sidebar = document.createElement('div');
+  sidebar.classList.add('blog-sidebar');
+  blogpost.prepend(sidebar);
+}
+
 function buildHeroBlock(main) {
   /* 1. If there is an explicit hero block, add it to its own section, so it can be full-width */
   const heroBlock = main.querySelector('.hero');
@@ -148,6 +159,7 @@ function buildAutoBlocks(main) {
   try {
     buildHeroBlock(main);
     buildBlogFooter(main);
+    buildBlogSidebar(main);
   } catch (error) {
     // eslint-disable-next-line no-console
     console.error('Auto Blocking failed', error);

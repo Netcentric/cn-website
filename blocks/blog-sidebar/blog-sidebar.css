@@ -1,0 +1,71 @@
+.blog-sidebar .authorprofile {
+  padding-bottom: 35px;
+}
+
+.blog-sidebar .authorprofile .image {
+  display: inline-block;
+  vertical-align: middle;
+  border-radius: 50%;
+  width: 70px;
+  height: 70px;
+  overflow: hidden;
+}
+
+.blog-sidebar .authorprofile .info {
+  display: inline-block;
+  line-height: 1.4em;
+  vertical-align: middle;
+  font-size: 14px;
+}
+
+.blog-sidebar .share {
+  padding-top: 5px;
+  margin-top: 24px;
+}
+
+.blog-sidebar p {
+  /* undoes margin from styles.css */
+  margin: 0;
+}
+
+.blog-sidebar .authorprofile .name {
+  font-weight: bold;
+  color: var(--c-dark-plum);
+}
+
+.blog-sidebar .share .icon {
+  font-size: 42px;
+  fill: var(--c-dark-teal);
+}
+
+.share .icon > svg {
+  height: 1em;
+}
+
+@media (min-width: 992px) {
+  :root {
+    --blog-sidebar-margin-width: calc((100vw - var(--section-width)) / 2);
+  }
+
+  .blog-sidebar-container {
+    display: grid;
+    grid-template-columns: calc(var(--blog-sidebar-margin-width) + 300px) 1fr;
+  }
+
+  main .section > div.blog-sidebar-wrapper {
+    grid-column: 1;
+    justify-content: end;
+    width: 300px;
+    margin-left: var(--blog-sidebar-margin-width);
+  }
+
+  .blog-sidebar .authorprofile .info {
+    display: block;
+  }
+
+  .section.blog-sidebar-container > div:not(.blog-sidebar-wrapper) {
+    width: calc(var(--section-width) - 300px);
+    grid-column: 2;
+    margin-right: var(--blog-sidebar-margin-width);
+  }
+}

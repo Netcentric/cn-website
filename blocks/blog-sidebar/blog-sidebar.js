@@ -53,6 +53,13 @@ export default async function decorate(block) {
     ).outerHTML;
   }
 
+  const pageURL = window.location.href;
+  console.log('urls:', pageURL, 'https://www.netcentric.biz/insights/2022/10/future-at-netcentric.html');
+  // TODO is twitter title good enough?
+  //  should we check whether it exists and hide the icon otherwise?
+  const shareText = getMetaContent('twitter:title');
+  const shareSource = 'netcentric.biz';
+
   block.innerHTML = `
 <div class="authorprofile">
   <div class="image">
@@ -67,10 +74,10 @@ export default async function decorate(block) {
 <div class="share">
   <p>SHARE</p>
   <div>
-    <span class="icon icon-facebook"></span>
-    <span class="icon icon-twitter"></span>
-    <span class="icon icon-linkedin"></span>    
-    <span class="icon icon-email"></span>
+    <a href="http://www.facebook.com/share.php?u=${pageURL}"><span class="icon icon-facebook"></span></a>
+    <a href="http://www.twitter.com/share?url=${pageURL}&text=${shareText}"><span class="icon icon-twitter"></span></a>
+    <a href="http://www.linkedin.com/shareArticle?mini=true&url=${pageURL}&title=${shareText}&source=${shareSource}"><span class="icon icon-linkedin"></span></a>
+    <a href="mailto:?subject=${shareText}&body=${pageURL}"><span class="icon icon-email"></span></a>
   </div>
 </div>
   `;

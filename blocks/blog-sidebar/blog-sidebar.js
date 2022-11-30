@@ -54,7 +54,6 @@ export default async function decorate(block) {
   }
 
   const pageURL = window.location.href;
-  console.log('urls:', pageURL, 'https://www.netcentric.biz/insights/2022/10/future-at-netcentric.html');
   // TODO is twitter title good enough?
   //  should we check whether it exists and hide the icon otherwise?
   const shareText = getMetaContent('twitter:title');

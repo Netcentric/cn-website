@@ -502,3 +502,7 @@ main .section.dark-teal {
   position: absolute;
   left: 0;
 }
+
+.blogpost h2 {
+  color: var(--c-dark-plum);
+}

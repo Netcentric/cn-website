@@ -15,6 +15,12 @@
   display: inline-block;
   line-height: 1.4em;
   vertical-align: middle;
+  font-size: 14px;
+}
+
+.blog-sidebar .share {
+  padding-top: 5px;
+  margin-top: 24px;
 }
 
 .blog-sidebar p {
@@ -24,6 +30,7 @@
 
 .blog-sidebar .authorprofile .name {
   font-weight: bold;
+  color: var(--c-dark-plum);
 }
 
 .blog-sidebar .share .icon {

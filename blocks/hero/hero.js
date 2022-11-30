@@ -1,11 +1,8 @@
-import { decorateIcons } from '../../scripts/lib-franklin.js';
-import { addChevronToButtons } from '../../scripts/scripts.js';
-
 export default function decorate(block) {
   /* Move all buttons to one container */
   const firstButtonContainer = block.querySelector('.button-container');
   if (firstButtonContainer) {
-    block.querySelectorAll('.button-container > a.button').forEach((button, i) => {
+    block.querySelectorAll('.button-container a.button').forEach((button, i) => {
       if (i === 0) return;
       const buttonContainer = button.parentNode;
       firstButtonContainer.append(button);
@@ -14,8 +11,4 @@ export default function decorate(block) {
       buttonContainer.remove();
     });
   }
-
-  addChevronToButtons(block);
-
-  decorateIcons(block);
 }

@@ -17,7 +17,7 @@ main .hero-container {
 
 main .hero {
   position: relative;
-  padding: 60px 32px 32px;
+  padding: 60px 32px;
   min-height: 300px;
 }
 
@@ -31,6 +31,7 @@ main .hero h1 {
 main .hero p {
   color: inherit;
   margin: 0;
+  font-size: var(--heading-font-size-s);
 }
 
 main .hero a:any-link {
@@ -54,12 +55,22 @@ main .hero img {
 
 main .hero .button-container {
   display: flex;
-  gap: 50px;
+  flex-direction: column;
+  gap: 10px;
   margin-top: 30px;
 }
 
+main .hero .button-container > * {
+  max-width: 250px;
+}
+
 main .hero a.button {
+  width: 100%;
   font-size: var(--hero-button-font-size);
+}
+
+main .hero a.button > .icon-chevron-right svg {
+  margin-left: 14px;
 }
 
 main .hero a.button.secondary {
@@ -88,17 +99,26 @@ body.blogpost main .hero hr {
   margin-bottom: 60px;
 }
 
-body.blogpost main img {
+body.blogpost main .hero img {
   margin-top: 50px;
 }
 
-body.blogpost main p {
+body.blogpost main .hero p {
   color: var(--text-color);
 }
 
 @media (min-width: 992px) {
+  main .hero a.button {
+    width: unset;
+  }
+
   main .hero .button-container {
     display: flex;
     gap: 50px;
+    flex-direction: row;
+  }
+
+  main .hero {
+    padding: 60px 0;
   }
 }

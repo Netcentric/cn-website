@@ -1,3 +1,7 @@
+.social h2 {
+    color: var(--c-white);
+}
+
 .social>ul {
     display: grid;
     list-style: none;

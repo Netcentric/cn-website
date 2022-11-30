@@ -377,6 +377,10 @@ main .section[data-section-status='initialized'] {
   display: none;
 }
 
+main .section.center {
+  text-align: center;
+}
+
 /* section highlights */
 main .section.light-plum {
   background-color: var(--c-light-plum);

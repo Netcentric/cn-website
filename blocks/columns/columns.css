@@ -73,6 +73,10 @@
 
 /* heading style */
 
+.columns.heading-white > div > div > :where(h1,h2,h3,h4,h5,h6):first-of-type {
+  color: var(--c-white);
+}
+
 .columns.heading-dark-blue > div > div > :where(h1,h2,h3,h4,h5,h6):first-of-type {
     color: var(--c-dark-blue);
 }

@@ -2,6 +2,8 @@
     --column-fb-left: 50%;
     --column-fb-other: 0%;
     --column-fb-right: 50%;
+
+    padding: 0 16px;
 }
 
 .columns > div {
@@ -14,10 +16,6 @@
     flex: 1 1 var(--column-fb-other);
     padding: 0 16px;
     margin: 16px 0;
-}
-
-.columns {
-  padding: 0 16px;
 }
 
 .columns.rainbow > div,
@@ -58,6 +56,47 @@
     --column-fb-left: 33%;
     --column-fb-other: 33%;
     --column-fb-right: 33%;
+}
+
+
+.columns.background-dark-plum {
+  background-color: var(--c-dark-plum);
+}
+
+.columns.background-dark-plum > div > div {
+  background-color: white;
+}
+
+.columns.background-light-plum {
+  background-color: var(--c-light-plum);
+}
+
+.columns.background-light-plum > div > div {
+  background-color: white;
+}
+
+.columns.background-dark-blue {
+  background-color: var(--c-dark-plum);
+}
+
+.columns.background-dark-blue > div > div {
+  background-color: white;
+}
+
+.columns.background-light-gray {
+  background-color: var(--c-light-gray);
+}
+
+.columns.background-light-gray > div > div {
+  background-color: white;
+}
+
+.columns.background-dark-gray {
+  background-color: var(--c-dark-gray);
+}
+
+.columns.background-dark-gray > div > div {
+  background-color: white;
 }
 
 /* borders */
@@ -178,44 +217,4 @@
     .columns.border-in-between > div > div:not(:first-of-type) {
         padding-left: 4.1667%;
     }
-}
-
-.columns.background-dark-plum {
-  background-color: var(--c-dark-plum);
-}
-
-.columns.background-dark-plum > div > div {
-  background-color: white;
-}
-
-.columns.background-light-plum {
-  background-color: var(--c-light-plum);
-}
-
-.columns.background-light-plum > div > div {
-  background-color: white;
-}
-
-.columns.background-dark-blue {
-  background-color: var(--c-dark-plum);
-}
-
-.columns.background-dark-blue > div > div {
-  background-color: white;
-}
-
-.columns.background-light-gray {
-  background-color: var(--c-light-gray);
-}
-
-.columns.background-light-gray > div > div {
-  background-color: white;
-}
-
-.columns.background-dark-gray {
-  background-color: var(--c-dark-gray);
-}
-
-.columns.background-dark-gray > div > div {
-  background-color: white;
 }

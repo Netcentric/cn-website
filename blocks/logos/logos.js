@@ -1,5 +1,6 @@
 import { decorateIcons } from '../../scripts/lib-franklin.js';
 
+// eslint-disable-next-line no-unused-vars
 class CarouselSlider {
   constructor(element, options) {
     this.element = element;
@@ -211,40 +212,40 @@ class CarouselSlider {
   }
 }
 
-function waitForAppear(block) {
-  const intersectionObserver = new IntersectionObserver((entries) => {
-    entries.forEach((entry) => {
-      if (entry.isIntersecting) {
-        const slider = new CarouselSlider(block, {
-          elementsPerSlide: 1,
-          transitionTime: '1s',
-          breakpoints: {
-            0: {
-              elementsPerSlide: 2,
-              responsiveWidth: 'fluid',
-            },
-            992: {
-              elementsPerSlide: 6,
-              responsiveWidth: 'static',
-            },
-            1200: {
-              elementsPerSlide: 6,
-              responsiveWidth: 'static',
-            },
-          },
-        });
-        slider.init();
-        intersectionObserver.unobserve(document.body);
-      }
-    });
-  });
-
-  intersectionObserver.observe(document.body);
-}
+// function waitForAppear(block) {
+//   const intersectionObserver = new IntersectionObserver((entries) => {
+//     entries.forEach((entry) => {
+//       if (entry.isIntersecting) {
+//         const slider = new CarouselSlider(block, {
+//           elementsPerSlide: 1,
+//           transitionTime: '1s',
+//           breakpoints: {
+//             0: {
+//               elementsPerSlide: 2,
+//               responsiveWidth: 'fluid',
+//             },
+//             992: {
+//               elementsPerSlide: 6,
+//               responsiveWidth: 'static',
+//             },
+//             1200: {
+//               elementsPerSlide: 6,
+//               responsiveWidth: 'static',
+//             },
+//           },
+//         });
+//         slider.init();
+//         intersectionObserver.unobserve(document.body);
+//       }
+//     });
+//   });
+//
+//   intersectionObserver.observe(document.body);
+// }
 
 export default function decorate(block) {
-  const elements = Array.from(block.children);
-  const wrap = document.createElement('div');
+  // const elements = Array.from(block.children);
+  // const wrap = document.createElement('div');
 
   block.classList.add('logos');
   // wrap.classList.add('slider-wrap');
@@ -254,5 +255,5 @@ export default function decorate(block) {
   // });
   // block.innerHTML = '';
   // block.append(wrap);
-  //waitForAppear(block);
+  // waitForAppear(block);
 }

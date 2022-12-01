@@ -10,6 +10,7 @@ class CarouselSlider {
     this.inTransition = false;
     this.elementsPerSlide = this.options.elementsPerSlide;
     this.breakpoint = false;
+    this.viewportWidth = window.innerWidth;
   }
 
   init() {
@@ -52,7 +53,13 @@ class CarouselSlider {
 
   handleResize() {
     const breakpoint = this.getBreakpoint();
+    const viewportWidth = window.innerWidth;
 
+    if (viewportWidth === this.viewportWidth) {
+      return;
+    }
+
+    this.viewportWidth = viewportWidth;
     if (breakpoint !== this.breakpoint) {
       this.slideCounter = 0;
       this.element.style.setProperty('--slide-transform', '0');

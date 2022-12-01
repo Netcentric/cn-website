@@ -30,10 +30,16 @@
       if (resp.ok) {
         const json = await resp.json();
         if (json && json.data) {
-          const main = document.querySelector('main');
-          if (main) {
-            main.setAttribute('data-wp-version-traffic', json.data[0]['wp-version-traffic']);
-            main.setAttribute('data-wp-page-cookie', json.data[0]['wp-page-cookie']);
+          const matchedRow = json.data.find((row) => (row.URL === '404.html'));
+          if (matchedRow) {
+            const main = document.querySelector('main');
+            if (main) {
+              main.setAttribute('data-wp-version-name', matchedRow['wp-version-name']);
+              main.setAttribute('data-wp-page-type', matchedRow['wp-page-type']);
+              main.setAttribute('data-wp-http-status', matchedRow['wp-http-status']);
+              main.setAttribute('data-wp-version-traffic', matchedRow['wp-version-traffic']);
+              main.setAttribute('data-wp-page-cookie', matchedRow['wp-page-cookie']);
+            }
           }
         }
       }

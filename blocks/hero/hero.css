@@ -34,19 +34,6 @@ main .hero p {
   font-size: var(--heading-font-size-s);
 }
 
-main .hero a:any-link {
-  background: var(--c-light-teal);
-  color: var(--c-dark-plum);
-  font-size: var(--body-font-size-s);
-  text-transform: uppercase;
-}
-
-main .hero a:any-link:hover {
-  border: 1px solid var(--c-light-teal);
-  background: var(--c-dark-plum);
-  color: var(--c-light-teal);
-}
-
 main .hero img {
   object-fit: cover;
   width: 100%;

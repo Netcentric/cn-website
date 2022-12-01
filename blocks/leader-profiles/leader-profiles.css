@@ -33,6 +33,7 @@
   letter-spacing: -0.5px;
   line-height: 1em;
   margin: 0;
+  color: inherit;
 }
 
 .leader-profiles .leader-profile-heading .icon-chevron-right {

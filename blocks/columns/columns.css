@@ -85,16 +85,6 @@
     color: var(--c-dark-plum);
 }
 
-.columns.heading-white > div > div > :where(h1,h2,h3,h4,h5,h6):first-of-type {
-  color: var(--c-white);
-}
-
-/* content style */
-
-.columns.content-white > div > div:last-child {
-  color: white;
-}
-
 .columns.rainbow > div > div:nth-of-type(3n),
 .columns.rainbow-reverse > div > div:nth-of-type(3n + 1) {
     background-color: var(--c-mid-blue);

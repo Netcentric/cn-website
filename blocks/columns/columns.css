@@ -43,8 +43,8 @@
     flex: 1 1 var(--column-fb-right);
 }
 
-.columns > div > div > *:first-child {
-    margin-top: 0;
+.columns > div > div > * {
+    margin: 16px 0;
 }
 
 .columns img {

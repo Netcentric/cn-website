@@ -527,6 +527,12 @@ main .section.dark-teal {
   color: var(--bg-text-dark-teal);
 }
 
+/* section text color */
+
+main .section.text-white {
+  color: var(--c-white);
+}
+
 .youtube-base,
 .wistia-base {
   position: relative;

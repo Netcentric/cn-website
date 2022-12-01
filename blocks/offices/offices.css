@@ -1,0 +1,58 @@
+/* Text */
+.offices .button-container:not(:has(strong)) a.button:any-link {
+  color: var(--link-color);
+}
+
+.offices p,
+.offices .button-container:not(:has(strong)) a.button:any-link {
+  font-size: 14px;
+  line-height: 1.2em;
+}
+
+.offices .button-container .icon svg {
+  height: 8px;
+}
+
+.offices .button-container:not(:last-of-type) {
+  margin: 0;
+}
+
+.offices .title {
+  color: var(--c-black);
+}
+
+/* Layout */
+.offices {
+  display: flex;
+  flex-direction: column;
+}
+
+.offices > div {
+  flex: 1 1 0%;
+}
+
+@media (min-width: 600px) {
+  .offices,
+  .offices.call-to-action {
+    flex-direction: unset;
+  }
+
+  .offices {
+    flex-wrap: wrap;
+    gap: 1em;
+  }
+
+  .offices > div {
+    flex-basis: 40%;
+  }
+
+  .offices.call-to-action > div {
+    flex-basis: 0%;
+  }
+}
+
+@media (min-width: 992px) {
+  .offices > div {
+    flex-basis: 20%;
+  }
+}

@@ -1,8 +1,0 @@
-.related-articles {
-    /*
-    todo: remove when block implemented
-    currently this messes with the very small viewport of 400px on the homepage
-    and causes horizontzal scroll
-    */
-    display: none;
-}

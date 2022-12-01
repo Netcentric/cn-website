@@ -1,4 +1,5 @@
 import { createOptimizedPicture, decorateIcons, loadCSS } from '../../scripts/lib-franklin.js';
+import { addChevronToButtons } from '../../scripts/scripts.js';
 
 let focusedElement;
 const viewportWidth = Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0);
@@ -65,11 +66,10 @@ export default function decorate(block) {
   [...block.children].forEach((row) => {
     blockHtml += '<li role="button" tabindex="0">';
     [...row.children].forEach((div) => {
-      const heading = div.querySelector('h1,h2,h3,h4');
       let className;
-      if (heading) {
+      if (div.querySelector('h2,h3,h4')) {
         className = 'leader-profile-heading';
-        heading.insertAdjacentHTML('beforeend', '<span class="icon icon-chevron-right"></span>');
+        addChevronToButtons(div, 'h2,h3,h4');
       } else if (div.children.length === 1 && div.querySelector('picture')) {
         className = 'leader-profile-image';
       } else {

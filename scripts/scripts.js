@@ -3,7 +3,6 @@ import {
   buildBlock,
   loadHeader,
   loadFooter,
-  decorateButtons,
   decorateIcons,
   decorateSections,
   decorateBlocks,
@@ -12,6 +11,7 @@ import {
   loadBlocks,
   loadCSS,
 } from './lib-franklin.js';
+import { buildBlogFooter } from '../blocks/blog-footer/blog-footer.js';
 
 const LCP_BLOCKS = []; // add your LCP blocks to the list
 window.hlx.RUM_GENERATION = 'project-1'; // add your RUM generation information here
@@ -28,6 +28,49 @@ export function addChevronToButtons(element, selector = 'a.button') {
     chevron.classList.add('icon', 'icon-chevron-right');
     button.append(chevron);
   });
+}
+
+/**
+ * decorates paragraphs containing a single link as buttons with classes and
+ * chevron icon.
+ * @param {Element} element container element
+ */
+function decorateButtons(element) {
+  element.querySelectorAll('a').forEach((a) => {
+    a.title = a.title || a.textContent;
+    if (a.href !== a.textContent) {
+      const up = a.parentElement;
+      const twoup = a.parentElement.parentElement;
+      if (!a.querySelector('img')) {
+        if (up.childNodes.length === 1 && (up.tagName === 'P' || up.tagName === 'DIV')) {
+          a.className = 'button'; // default navigational link
+          up.classList.add('button-container');
+        }
+        if (up.childNodes.length === 1 && up.tagName === 'STRONG'
+          && twoup.childNodes.length === 1 && twoup.tagName === 'P') {
+          a.className = 'button primary'; // primary CTA button link
+          twoup.classList.add('button-container');
+        }
+        if (up.childNodes.length === 1 && up.tagName === 'EM'
+          && twoup.childNodes.length === 1 && twoup.tagName === 'P') {
+          a.className = 'button secondary'; // secondary CTA button link
+          twoup.classList.add('button-container');
+        }
+        addChevronToButtons(up);
+      }
+    }
+  });
+}
+
+export function buildBlogSidebar(main) {
+  const blogpost = main.querySelector('.blogpost > main > div:nth-child(2)');
+  if (blogpost === null) {
+    return;
+  }
+
+  const sidebar = document.createElement('div');
+  sidebar.classList.add('blog-sidebar');
+  blogpost.prepend(sidebar);
 }
 
 function buildHeroBlock(main) {
@@ -47,10 +90,10 @@ function buildHeroBlock(main) {
 
   const h1Sibling = document.querySelector('body.blogpost main h1 + p');
 
-  if (h1Sibling && h1Sibling.firstElementChild.nodeName === 'PICTURE') {
+  if (h1Sibling && h1Sibling.firstElementChild?.nodeName === 'PICTURE') {
     picture = h1Sibling;
-  } else if (h1Sibling && h1Sibling.nextElementSibling.firstElementChild.nodeName === 'PICTURE') {
-    picture = h1Sibling.nextElementSibling.firstElementChild;
+  } else if (h1Sibling && h1Sibling.nextElementSibling?.firstElementChild?.nodeName === 'PICTURE') {
+    picture = h1Sibling.nextElementSibling?.firstElementChild;
     subtitle = h1Sibling;
   }
 
@@ -84,6 +127,7 @@ export function createIcon(name) {
 
 function createEmbedWrap(a, vendor) {
   const div = document.createElement('div');
+  div.classList.add('embed');
   div.classList.add(`${vendor}-base`);
 
   a.style.display = 'none';
@@ -95,12 +139,6 @@ function preDecorateEmbed(main) {
   const youTubeAnchors = Array.from(anchors).filter((a) => a.href.includes('youtu') && encodeURI(a.textContent.trim()).indexOf(a.href) !== -1);
   const spotifyAnchors = Array.from(anchors).filter((a) => a.href.includes('spotify') && encodeURI(a.textContent.trim()).indexOf(a.href) !== -1);
   const wistiaAnchors = Array.from(anchors).filter((a) => a.href.includes('wistia') && encodeURI(a.textContent.trim()).indexOf(a.href) !== -1);
-
-  window.embedAnchors = {
-    youTubeAnchors,
-    spotifyAnchors,
-    wistiaAnchors,
-  };
 
   youTubeAnchors.forEach((a) => {
     createEmbedWrap(a, 'youtube');
@@ -120,6 +158,8 @@ function preDecorateEmbed(main) {
 function buildAutoBlocks(main) {
   try {
     buildHeroBlock(main);
+    buildBlogFooter(main);
+    buildBlogSidebar(main);
   } catch (error) {
     // eslint-disable-next-line no-console
     console.error('Auto Blocking failed', error);

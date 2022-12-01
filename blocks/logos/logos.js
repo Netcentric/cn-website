@@ -1,4 +1,4 @@
-import {decorateIcons} from '../../scripts/lib-franklin.js';
+import { decorateIcons } from '../../scripts/lib-franklin.js';
 
 class CarouselSlider {
   constructor(element, options) {
@@ -18,7 +18,7 @@ class CarouselSlider {
     if (breakpoint) {
       this.elementsPerSlide = this.options.breakpoints[breakpoint].elementsPerSlide;
       this.breakpoint = breakpoint;
-      window.addEventListener('resize', this.debounce(this.handleResize.bind(this)));
+      window.addEventListener('resize', CarouselSlider.debounce(this.handleResize.bind(this)));
     }
     if (this.originalElements.length > this.elementsPerSlide) {
       this.setStyles();
@@ -27,6 +27,14 @@ class CarouselSlider {
       this.setControls();
       this.addEventListeners();
     }
+  }
+
+  static debounce(func) {
+    let timer;
+    return (event) => {
+      if (timer) clearTimeout(timer);
+      timer = setTimeout(func, 200, event);
+    };
   }
 
   getBreakpoint() {
@@ -40,14 +48,6 @@ class CarouselSlider {
       });
     }
     return newBreakpoint;
-  }
-
-  debounce(func) {
-    let timer;
-    return function (event) {
-      if (timer) clearTimeout(timer);
-      timer = setTimeout(func, 200, event);
-    };
   }
 
   handleResize() {
@@ -101,7 +101,7 @@ class CarouselSlider {
   setElements() {
     const width = this.element.offsetWidth;
     const elementWidth = width / this.elementsPerSlide;
-    let elementsLength = this.originalElements.length;
+    const elementsLength = this.originalElements.length;
     let clonesNumber = 0;
     let i = 0;
     let indexToAppend;
@@ -113,6 +113,7 @@ class CarouselSlider {
         clonesNumber += elementsLength;
       }
     }
+    // eslint-disable-next-line no-plusplus
     for (i; i < elementsLength + clonesNumber; i++) {
       indexToAppend = i % elementsLength;
       elementToAppend = this.originalElements[indexToAppend].cloneNode(true);
@@ -139,6 +140,7 @@ class CarouselSlider {
       '--slide-transform',
       `${transformValue + this.wrap.children[this.slideCounter].scrollWidth * this.elementsPerSlide}px`,
     );
+    // eslint-disable-next-line no-plusplus
     this.slideCounter--;
   }
 
@@ -147,6 +149,7 @@ class CarouselSlider {
       '--slide-transform',
       `${transformValue - this.wrap.children[this.slideCounter].scrollWidth * this.elementsPerSlide}px`,
     );
+    // eslint-disable-next-line no-plusplus
     this.slideCounter++;
   }
 
@@ -172,11 +175,13 @@ class CarouselSlider {
 
     this.element.style.setProperty('--transition', 'none');
     if (this.slideCounter === this.slidesNumber - 1) {
+      // eslint-disable-next-line no-plusplus
       for (i; i < this.elementsPerSlide; i++) {
         this.wrap.appendChild(this.wrap.firstElementChild);
       }
       this.moveLeft(transformValue);
     } else if (this.slideCounter === 0) {
+      // eslint-disable-next-line no-plusplus
       for (i; i < this.elementsPerSlide; i++) {
         this.wrap.prepend(this.wrap.lastElementChild);
       }
@@ -192,6 +197,8 @@ class CarouselSlider {
         break;
       case 'ArrowRight':
         this.move('right');
+        break;
+      default:
         break;
     }
   }
@@ -216,8 +223,8 @@ function waitForAppear(block) {
             1200: {
               elementsPerSlide: 6,
               responsiveWidth: 'static',
-            }
-          }
+            },
+          },
         });
         slider.init();
         intersectionObserver.unobserve(document.body);

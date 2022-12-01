@@ -1,6 +1,8 @@
 .logos {
   width: 100%;
   position: relative;
+  padding-top: 24px;
+  padding-bottom: 24px;
   overflow: hidden;
 }
 
@@ -19,18 +21,32 @@
 }
 
 .slider-element img {
-  aspect-ratio: 1;
+  aspect-ratio: 4 / 3;
   object-fit: contain;
 }
 
 .slider-button {
   position: absolute;
-  top: 0;
+  height: 60px;
+  top: calc(50% - 30px);
   z-index: 1;
+  border: none;
+  border-radius: 5px;
+  background-color: var(--c-dark-gray);
+  opacity: 0.3;
+  transition: opacity 0.2s ease;
 }
 
+.slider-button:hover,
+.slider-button:focus {
+  background-color: var(--c-dark-gray);
+  opacity: 0.8;
+}
+
+
 .slider-button svg {
-  height: 10px;
+  height: 15px;
+  fill: var(--c-white);
 }
 
 .slider-button-prev {

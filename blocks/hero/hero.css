@@ -69,7 +69,7 @@ main .hero a.button {
   font-size: var(--hero-button-font-size);
 }
 
-main .hero a.button > .icon-chevron-right svg {
+main .hero a.button > .icon-chevron-right {
   margin-left: 14px;
 }
 

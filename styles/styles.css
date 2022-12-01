@@ -278,10 +278,18 @@ button:disabled, button:disabled:hover {
   cursor: unset;
 }
 
-main a.button > .icon-chevron-right svg {
+main a.button > .icon-chevron-right, main a.button > .icon-chevron-right svg {
   width: 12px;
   height: 12px;
   fill: currentcolor;
+}
+
+span.icon {
+  display: inline-block;
+}
+
+span.icon-chevron-right {
+  margin-left: 5px;
 }
 
 main input {

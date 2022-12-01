@@ -1,26 +1,67 @@
-import { decorateIcons } from '../../scripts/lib-franklin.js';
+import {decorateIcons} from '../../scripts/lib-franklin.js';
 
 class CarouselSlider {
   constructor(element, options) {
-    const defaults = {
-      elementsPerSlide: 6,
-      transitionTime: '1s',
-    };
     this.element = element;
-    this.options = options || defaults;
+    this.options = options;
     this.wrap = this.element.querySelector('.slider-wrap');
     this.originalElements = Array.from(this.element.querySelectorAll('.slider-element'));
     this.slideCounter = 0;
     this.inTransition = false;
+    this.elementsPerSlide = this.options.elementsPerSlide;
+    this.breakpoint = false;
   }
 
   init() {
-    if (this.originalElements.length > this.options.elementsPerSlide) {
+    const breakpoint = this.getBreakpoint();
+
+    if (breakpoint) {
+      this.elementsPerSlide = this.options.breakpoints[breakpoint].elementsPerSlide;
+      this.breakpoint = breakpoint;
+      window.addEventListener('resize', this.debounce(this.handleResize.bind(this)));
+    }
+    if (this.originalElements.length > this.elementsPerSlide) {
       this.setStyles();
       this.setElements();
       this.reorderSlides();
       this.setControls();
       this.addEventListeners();
+    }
+  }
+
+  getBreakpoint() {
+    let newBreakpoint = false;
+
+    if (this.options.breakpoints) {
+      Object.keys(this.options.breakpoints).forEach((key) => {
+        if (window.matchMedia(`(min-width: ${key}px)`).matches) {
+          newBreakpoint = key;
+        }
+      });
+    }
+    return newBreakpoint;
+  }
+
+  debounce(func) {
+    let timer;
+    return function (event) {
+      if (timer) clearTimeout(timer);
+      timer = setTimeout(func, 200, event);
+    };
+  }
+
+  handleResize() {
+    const breakpoint = this.getBreakpoint();
+
+    if (breakpoint !== this.breakpoint) {
+      this.slideCounter = 0;
+      this.element.style.setProperty('--slide-transform', '0');
+      this.elementsPerSlide = this.options.breakpoints[breakpoint].elementsPerSlide;
+      this.setElements();
+      this.reorderSlides();
+      this.breakpoint = breakpoint;
+    } else if (this.options.breakpoints[breakpoint].responsiveWidth === 'fluid') {
+      this.resetElements();
     }
   }
 
@@ -35,6 +76,8 @@ class CarouselSlider {
     this.element.setAttribute('tabindex', '0');
     this.prevButton = document.createElement('button');
     this.nextButton = document.createElement('button');
+    this.prevButton.classList.add('slider-button', 'slider-button-prev');
+    this.nextButton.classList.add('slider-button', 'slider-button-next');
     this.prevButton.innerHTML = '<span class="icon icon-chevron-right"></span><span class="visuallyhidden">Previous</span>';
     this.nextButton.innerHTML = '<span class="icon icon-chevron-right"></span><span class="visuallyhidden">Next</span>';
     this.element.prepend(this.prevButton);
@@ -42,9 +85,22 @@ class CarouselSlider {
     decorateIcons(this.element);
   }
 
+  resetElements() {
+    const width = this.element.offsetWidth;
+    const elementWidth = width / this.elementsPerSlide;
+    const elements = this.wrap.childNodes;
+
+    elements.forEach((element) => {
+      element.style.width = `${elementWidth}px`;
+    });
+    this.wrap.style.width = `${elementWidth * (elements.length)}px`;
+    this.element.style.setProperty('--slide-transform', `-${elementWidth * this.elementsPerSlide}px`);
+    this.slideCounter = 1;
+  }
+
   setElements() {
     const width = this.element.offsetWidth;
-    const elementWidth = width / this.options.elementsPerSlide;
+    const elementWidth = width / this.elementsPerSlide;
     let elementsLength = this.originalElements.length;
     let clonesNumber = 0;
     let i = 0;
@@ -52,11 +108,9 @@ class CarouselSlider {
     let elementToAppend;
 
     this.wrap.innerHTML = '';
-
-    if (this.options.elementsPerSlide * 3 > elementsLength) {
-      clonesNumber = elementsLength;
-      while (this.options.elementsPerSlide * 3 > clonesNumber) {
-        clonesNumber += clonesNumber;
+    if (this.elementsPerSlide * 3 >= elementsLength) {
+      while (this.elementsPerSlide * 3 >= (elementsLength + clonesNumber)) {
+        clonesNumber += elementsLength;
       }
     }
     for (i; i < elementsLength + clonesNumber; i++) {
@@ -65,9 +119,8 @@ class CarouselSlider {
       elementToAppend.style.width = `${elementWidth}px`;
       this.wrap.append(elementToAppend);
     }
-    elementsLength += clonesNumber;
-    this.slidesNumber = Math.floor(elementsLength / this.options.elementsPerSlide);
-    this.wrap.style.width = `${elementWidth * (elementsLength)}px`;
+    this.slidesNumber = Math.floor((elementsLength + clonesNumber) / this.elementsPerSlide);
+    this.wrap.style.width = `${elementWidth * (elementsLength + clonesNumber)}px`;
   }
 
   addEventListeners() {
@@ -84,7 +137,7 @@ class CarouselSlider {
   moveLeft(transformValue) {
     this.element.style.setProperty(
       '--slide-transform',
-      `${transformValue + this.wrap.children[this.slideCounter].scrollWidth * this.options.elementsPerSlide}px`,
+      `${transformValue + this.wrap.children[this.slideCounter].scrollWidth * this.elementsPerSlide}px`,
     );
     this.slideCounter--;
   }
@@ -92,7 +145,7 @@ class CarouselSlider {
   moveRight(transformValue) {
     this.element.style.setProperty(
       '--slide-transform',
-      `${transformValue - this.wrap.children[this.slideCounter].scrollWidth * this.options.elementsPerSlide}px`,
+      `${transformValue - this.wrap.children[this.slideCounter].scrollWidth * this.elementsPerSlide}px`,
     );
     this.slideCounter++;
   }
@@ -116,15 +169,15 @@ class CarouselSlider {
   reorderSlides() {
     const transformValue = this.getTransformValue();
     let i = 0;
-    this.element.style.setProperty('--transition', 'none');
 
+    this.element.style.setProperty('--transition', 'none');
     if (this.slideCounter === this.slidesNumber - 1) {
-      for (i; i < this.options.elementsPerSlide; i++) {
+      for (i; i < this.elementsPerSlide; i++) {
         this.wrap.appendChild(this.wrap.firstElementChild);
       }
       this.moveLeft(transformValue);
     } else if (this.slideCounter === 0) {
-      for (i; i < this.options.elementsPerSlide; i++) {
+      for (i; i < this.elementsPerSlide; i++) {
         this.wrap.prepend(this.wrap.lastElementChild);
       }
       this.moveRight(transformValue);
@@ -148,7 +201,24 @@ function waitForAppear(block) {
   const intersectionObserver = new IntersectionObserver((entries) => {
     entries.forEach((entry) => {
       if (entry.isIntersecting) {
-        const slider = new CarouselSlider(block);
+        const slider = new CarouselSlider(block, {
+          elementsPerSlide: 1,
+          transitionTime: '1s',
+          breakpoints: {
+            0: {
+              elementsPerSlide: 2,
+              responsiveWidth: 'fluid',
+            },
+            992: {
+              elementsPerSlide: 6,
+              responsiveWidth: 'static',
+            },
+            1200: {
+              elementsPerSlide: 6,
+              responsiveWidth: 'static',
+            }
+          }
+        });
         slider.init();
         intersectionObserver.unobserve(document.body);
       }
@@ -162,7 +232,7 @@ export default function decorate(block) {
   const elements = Array.from(block.children);
   const wrap = document.createElement('div');
 
-  block.classList.add('slider-base');
+  block.classList.add('logos');
   wrap.classList.add('slider-wrap');
   elements.forEach((element) => {
     element.classList.add('slider-element');

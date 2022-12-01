@@ -1,0 +1,47 @@
+.logos {
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+}
+
+.logos * {
+  box-sizing: border-box;
+}
+
+.slider-wrap {
+  display: flex;
+  align-items: center;
+}
+
+.slider-element {
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.slider-element img {
+  aspect-ratio: 1;
+  object-fit: contain;
+}
+
+.slider-button {
+  position: absolute;
+  top: 0;
+  z-index: 1;
+}
+
+.slider-button svg {
+  height: 10px;
+}
+
+.slider-button-prev {
+  left: 0;
+}
+
+.slider-button-prev svg {
+  transform: rotate(180deg);
+}
+
+.slider-button-next {
+  right: 0;
+}
+

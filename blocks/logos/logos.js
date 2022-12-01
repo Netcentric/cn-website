@@ -211,6 +211,10 @@ class CarouselSlider {
   }
 }
 
+class beautifyLogos() {
+
+}
+
 function waitForAppear(block) {
   const intersectionObserver = new IntersectionObserver((entries) => {
     entries.forEach((entry) => {
@@ -254,5 +258,5 @@ export default function decorate(block) {
   });
   block.innerHTML = '';
   block.append(wrap);
-  waitForAppear(block);
+  //waitForAppear(block);
 }

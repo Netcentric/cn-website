@@ -4,10 +4,22 @@
   padding-top: 24px;
   padding-bottom: 24px;
   overflow: hidden;
+  display: flex;
+  justify-content: center;
 }
 
 .logos * {
   box-sizing: border-box;
+}
+
+.logos > div {
+  width: 50%;
+}
+
+@media (min-width: 992px) {
+  .logos > div {
+    width: 16.6%;;
+  }
 }
 
 .logos img {

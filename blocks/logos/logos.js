@@ -211,10 +211,6 @@ class CarouselSlider {
   }
 }
 
-class beautifyLogos() {
-
-}
-
 function waitForAppear(block) {
   const intersectionObserver = new IntersectionObserver((entries) => {
     entries.forEach((entry) => {

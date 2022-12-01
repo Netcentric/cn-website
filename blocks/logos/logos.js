@@ -247,12 +247,12 @@ export default function decorate(block) {
   const wrap = document.createElement('div');
 
   block.classList.add('logos');
-  wrap.classList.add('slider-wrap');
-  elements.forEach((element) => {
-    element.classList.add('slider-element');
-    wrap.append(element);
-  });
-  block.innerHTML = '';
-  block.append(wrap);
+  // wrap.classList.add('slider-wrap');
+  // elements.forEach((element) => {
+  //   element.classList.add('slider-element');
+  //   wrap.append(element);
+  // });
+  // block.innerHTML = '';
+  // block.append(wrap);
   //waitForAppear(block);
 }

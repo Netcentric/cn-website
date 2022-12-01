@@ -238,6 +238,18 @@ a.button:hover, a.button:focus, button:hover, button:focus {
   cursor: pointer;
 }
 
+.dark-plum a.button:any-link,
+.mid-plum a.button:any-link,
+.light-plum a.button:any-link,
+.dark-teal a.button:any-link,
+.mid-teal a.button:any-link,
+.light-teal a.button:any-link,
+.dark-blue a.button:any-link,
+.mid-blue a.button:any-link,
+.light-blue a.button:any-link {
+  color: inherit;
+}
+
 a.button.primary, button.primary {
   background-color: var(--c-dark-plum);
   border: thin solid var(--c-dark-plum);

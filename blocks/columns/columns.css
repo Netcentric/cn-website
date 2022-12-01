@@ -55,6 +55,7 @@
     --column-fb-right: 33%;
 }
 
+/* columns with background color */
 
 .columns.background-dark-plum {
   background-color: var(--c-dark-plum);
@@ -99,7 +100,6 @@
 .columns.background-dark-gray > div > div > * {
   margin: 16px 0;
 }
-
 
 /* borders */
 

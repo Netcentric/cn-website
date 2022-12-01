@@ -40,10 +40,6 @@
     flex: 1 1 var(--column-fb-right);
 }
 
-.columns > div > div:last-child {
-  color: var(--c-white);
-}
-
 .columns > div > div > *:first-child {
     margin-top: 0;
 }
@@ -91,6 +87,12 @@
 
 .columns.heading-white > div > div > :where(h1,h2,h3,h4,h5,h6):first-of-type {
   color: var(--c-white);
+}
+
+/* content style */
+
+.columns.content-white > div > div:last-child {
+  color: white;
 }
 
 .columns.rainbow > div > div:nth-of-type(3n),

@@ -167,11 +167,22 @@ function buildAutoBlocks(main) {
 }
 
 /**
+ * Instruments the main element with document metadata for LiveUX tracking
+ * @param {*} main The main element
+ */
+function instrumentMain(main) {
+  [...document.head.children]
+    .filter((child) => child.nodeName === 'META' && child.name.startsWith('wp-'))
+    .forEach((meta) => main.setAttribute(`data-${meta.name}`, meta.content));
+}
+
+/**
  * Decorates the main element.
  * @param {Element} main The main element
  */
 // eslint-disable-next-line import/prefer-default-export
 export function decorateMain(main) {
+  instrumentMain(main);
   // hopefully forward compatible button decoration
   decorateButtons(main);
   buildAutoBlocks(main);

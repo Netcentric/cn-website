@@ -211,3 +211,11 @@
 .columns.background-light-gray > div > div {
   background-color: white;
 }
+
+.columns.background-dark-gray {
+  background-color: var(--c-dark-gray);
+}
+
+.columns.background-dark-gray > div > div {
+  background-color: white;
+}

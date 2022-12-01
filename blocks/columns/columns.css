@@ -2,8 +2,6 @@
     --column-fb-left: 50%;
     --column-fb-other: 0%;
     --column-fb-right: 50%;
-
-    padding: 0 16px;
 }
 
 .columns > div {
@@ -14,7 +12,6 @@
 
 .columns > div > div {
     flex: 1 1 var(--column-fb-other);
-    padding: 0 16px;
     margin: 16px 0;
 }
 
@@ -77,6 +74,14 @@
 
 .columns.background-dark-gray {
   background-color: var(--c-dark-gray);
+}
+
+.columns.background-light-plum,
+.columns.background-dark-plum,
+.columns.background-dark-blue,
+.columns.background-light-gray,
+.columns.background-dark-gray {
+  padding: 0 16px;
 }
 
 .columns.background-light-plum > div > div,

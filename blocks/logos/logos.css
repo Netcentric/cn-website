@@ -10,6 +10,11 @@
   box-sizing: border-box;
 }
 
+.logos img {
+  aspect-ratio: 4 / 3;
+  object-fit: contain;
+}
+
 .slider-wrap {
   display: flex;
   align-items: center;
@@ -18,11 +23,6 @@
 .slider-element {
   padding-left: 10px;
   padding-right: 10px;
-}
-
-.slider-element img {
-  aspect-ratio: 4 / 3;
-  object-fit: contain;
 }
 
 .slider-button {

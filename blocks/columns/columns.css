@@ -63,41 +63,38 @@
   background-color: var(--c-dark-plum);
 }
 
-.columns.background-dark-plum > div > div {
-  background-color: white;
-}
-
 .columns.background-light-plum {
   background-color: var(--c-light-plum);
-}
-
-.columns.background-light-plum > div > div {
-  background-color: white;
 }
 
 .columns.background-dark-blue {
   background-color: var(--c-dark-plum);
 }
 
-.columns.background-dark-blue > div > div {
-  background-color: white;
-}
-
 .columns.background-light-gray {
   background-color: var(--c-light-gray);
-}
-
-.columns.background-light-gray > div > div {
-  background-color: white;
 }
 
 .columns.background-dark-gray {
   background-color: var(--c-dark-gray);
 }
 
+.columns.background-light-plum > div > div,
+.columns.background-dark-blue > div > div,
+.columns.background-dark-plum > div > div,
+.columns.background-light-gray > div > div,
 .columns.background-dark-gray > div > div {
   background-color: white;
 }
+
+.columns.background-light-plum > div > div > *,
+.columns.background-dark-blue > div > div > *,
+.columns.background-dark-plum > div > div > *,
+.columns.background-light-gray > div > div > *,
+.columns.background-dark-gray > div > div > * {
+  margin: 16px 0;
+}
+
 
 /* borders */
 

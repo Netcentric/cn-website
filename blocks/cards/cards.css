@@ -69,6 +69,13 @@
 }
 
 /* cards side-by-side */
+.cards.side-by-side .cards-card-body h2,
+.cards.side-by-side .cards-card-body h3,
+.cards.side-by-side .cards-card-body h4,
+.cards.side-by-side .cards-card-body h5 {
+    color: var(--c-white);
+}
+
 .cards.side-by-side .cards-card-body h3 {
     font-size: 30px;
     margin-top: 130px;
@@ -152,29 +159,20 @@
     padding-right: 40px;
 }
 
+.cards.side-by-side .cards-card-body h2 a,
+.cards.side-by-side .cards-card-body h3 a,
+.cards.side-by-side .cards-card-body h4 a,
+.cards.side-by-side .cards-card-body h5 a {
+    color: var(--c-white);
+}
+
 .cards.side-by-side .cards-card-body h3 a {
-    color: white;
     font-weight: 600;
 }
 
-.cards.side-by-side .cards-card-body h5 {
-    font-size: 13px;
-    margin-top: 10px;
-}
-
-.cards.side-by-side .cards-card-body h5 a {
-    color: white;
-}
-
-.cards.side-by-side .cards-card-body h4 a {
-    color: white;
-}
-
-.cards.side-by-side .cards-card-body h5 a:hover {
-    text-decoration: none;
-}
-
-.cards.side-by-side .cards-card-body h3 a:hover {
+.cards.side-by-side .cards-card-body h5 a:hover,
+.cards.side-by-side .cards-card-body h4 a:hover,
+.cards.side-by-side .cards-card-body h3 a:hover{
     text-decoration: none;
 }
 
@@ -189,8 +187,9 @@
     margin-top: 0;
 }
 
-.cards.side-by-side .cards-card-body h4 a:hover {
-    text-decoration: none;
+.cards.side-by-side .cards-card-body h5 {
+    font-size: 13px;
+    margin-top: 10px;
 }
 
 @media (min-width: 600px) {
@@ -400,6 +399,10 @@
     margin-top: 0;
     margin-bottom: 5px;
     font-size: 18px;
+}
+
+.cards.icon-with-text .cards-card-body > h4 {
+    color: var(--c-dark-plum);
 }
 
 /* section highlights */

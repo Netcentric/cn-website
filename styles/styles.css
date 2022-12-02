@@ -400,7 +400,8 @@ main img {
   height: auto;
 }
 
-main .default-content-wrapper img {
+main .default-content-wrapper img,
+main .columns-wrapper img {
   width: auto;
 }
 

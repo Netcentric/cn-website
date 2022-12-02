@@ -293,7 +293,9 @@ export function updateSectionsStatus(main) {
         section.setAttribute('data-section-status', 'loading');
         break;
       } else {
+        const event = new Event('sectionLoaded');
         section.setAttribute('data-section-status', 'loaded');
+        section.dispatchEvent(event);
       }
     }
   }

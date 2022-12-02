@@ -4,22 +4,10 @@
   padding-top: 24px;
   padding-bottom: 24px;
   overflow: hidden;
-  display: flex;
-  justify-content: center;
 }
 
 .logos * {
   box-sizing: border-box;
-}
-
-.logos > div {
-  width: 50%;
-}
-
-@media (min-width: 992px) {
-  .logos > div {
-    width: 16.6%;;
-  }
 }
 
 .logos img {
@@ -30,11 +18,20 @@
 .slider-wrap {
   display: flex;
   align-items: center;
+  justify-content: center;
+  width: 100%;
 }
 
 .slider-element {
   padding-left: 10px;
   padding-right: 10px;
+  width: 50%;
+}
+
+@media (min-width: 992px) {
+  .slider-element {
+    width: 16.6%;;
+  }
 }
 
 .slider-button {

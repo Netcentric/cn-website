@@ -284,6 +284,7 @@ export function decorateSections(main) {
  */
 export function updateSectionsStatus(main) {
   const sections = [...main.querySelectorAll(':scope > div.section')];
+  const event = new Event('sectionLoaded');
   for (let i = 0; i < sections.length; i += 1) {
     const section = sections[i];
     const status = section.getAttribute('data-section-status');
@@ -293,7 +294,6 @@ export function updateSectionsStatus(main) {
         section.setAttribute('data-section-status', 'loading');
         break;
       } else {
-        const event = new Event('sectionLoaded');
         section.setAttribute('data-section-status', 'loaded');
         section.dispatchEvent(event);
       }

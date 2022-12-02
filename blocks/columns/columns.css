@@ -44,10 +44,6 @@
     margin-top: 0;
 }
 
-.columns img {
-    width: 100%;
-}
-
 /* 3 columns */
 .columns.columns-3-cols {
     --column-fb-left: 33%;

@@ -248,7 +248,12 @@ async function loadLazy(doc) {
  */
 function loadDelayed() {
   // eslint-disable-next-line import/no-cycle
-  window.setTimeout(() => import('./delayed.js'), 3000);
+  const delayed = document.createElement('script'); 
+  delayed.setAttribute('type', 'module');
+  delayed.setAttribute('defer', '');
+  delayed.setAttribute('src', 'https://www.netcentric.biz/scripts/delayed.js')
+  document.body.appendChild(delayed);
+  //window.setTimeout(() => import('./delayed.js'), 3000);
   // load anything that can be postponed to the latest here
 }
 

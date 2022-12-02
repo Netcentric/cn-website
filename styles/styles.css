@@ -13,16 +13,16 @@
 /* fallback font for Gellix (normal - 400) */
 
 @font-face {
-  font-family: "gellix-normal-400-fallback";
+  font-family: 'gellix-normal-400-fallback';
   size-adjust: 100.871%;
-  src: local("Arial");
+  src: local('Arial');
 }
 
 /* fallback font for Gellix (normal - 700) */
 @font-face {
-  font-family: "gellix-normal-700-fallback";
+  font-family: 'gellix-normal-700-fallback';
   size-adjust: 100.931%;
-  src: local("Arial");
+  src: local('Arial');
 }
 
 :root {
@@ -47,14 +47,14 @@
   --c-white: #fff;
 
   /* social colors */
-  --twitter:                  #1d9bf0;
-  --facebook:                 #3b5998;
-  --linked-in:                #007bb5;
-  --git:                      #24292e;
-  --rss:                      #f26522;
-  --youtube:                  #c4302b;
-  --instagram:                #8134af;
-  --bg-text-social:           var(--c-white);
+  --twitter: #1d9bf0;
+  --facebook: #3b5998;
+  --linked-in: #007bb5;
+  --git: #24292e;
+  --rss: #f26522;
+  --youtube: #c4302b;
+  --instagram: #8134af;
+  --bg-text-social: var(--c-white);
 
   /* highlight */
   --c-highlight-red: var(--c-red);
@@ -103,9 +103,12 @@
   --heading-color: var(--c-dark-plum);
 
   /* fonts */
-  --body-font-family: 'Gellix', 'gellix-normal-400-fallback', 'Century Gothic', 'CenturyGothic', 'AppleGothic', sans-serif;
-  --heading-font-family: 'Gellix', 'gellix-normal-700-fallback', 'Century Gothic', 'CenturyGothic', 'AppleGothic', sans-serif;
-  --fixed-font-family: 'Roboto Mono', menlo, consolas, 'Liberation Mono', monospace;
+  --body-font-family: 'Gellix', 'gellix-normal-400-fallback', 'Century Gothic',
+    'CenturyGothic', 'AppleGothic', sans-serif;
+  --heading-font-family: 'Gellix', 'gellix-normal-700-fallback',
+    'Century Gothic', 'CenturyGothic', 'AppleGothic', sans-serif;
+  --fixed-font-family: 'Roboto Mono', menlo, consolas, 'Liberation Mono',
+    monospace;
 
   /* body sizes */
   --body-font-size-m: 16px;
@@ -151,29 +154,57 @@ header {
   height: var(--nav-height);
 }
 
-h1, h2, h3,
-h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   font-family: var(--heading-font-family);
   font-weight: normal;
   line-height: 1.25;
   margin-top: 1em;
-  margin-bottom: .5em;
+  margin-bottom: 0.5em;
   scroll-margin: calc(var(--nav-height) + 1em);
   color: var(--heading-color);
 }
 
-h1, h2, h3 {
+h1,
+h2,
+h3 {
   color: var(--c-primary);
 }
 
-h1 { font-size: var(--heading-font-size-xxl) }
-h2 { font-size: var(--heading-font-size-xl) }
-h3 { font-size: var(--heading-font-size-l) }
-h4 { font-size: var(--heading-font-size-m) }
-h5 { font-size: var(--heading-font-size-s) }
-h6 { font-size: var(--heading-nav-font-size) }
+h1 {
+  font-size: var(--heading-font-size-xxl);
+}
 
-p, dl, ol, ul, pre, blockquote {
+h2 {
+  font-size: var(--heading-font-size-xl);
+}
+
+h3 {
+  font-size: var(--heading-font-size-l);
+}
+
+h4 {
+  font-size: var(--heading-font-size-m);
+}
+
+h5 {
+  font-size: var(--heading-font-size-s);
+}
+
+h6 {
+  font-size: var(--heading-nav-font-size);
+}
+
+p,
+dl,
+ol,
+ul,
+pre,
+blockquote {
   margin-top: 1em;
   margin-bottom: 1em;
 }
@@ -183,13 +214,16 @@ a:any-link {
   text-decoration: none;
 }
 
-code, pre, samp {
+code,
+pre,
+samp {
   font-family: var(--fixed-font-family);
   font-size: var(--body-font-size-s);
 }
 
-code, samp {
-  padding: .125em;
+code,
+samp {
+  padding: 0.125em;
 }
 
 pre {
@@ -197,7 +231,8 @@ pre {
 }
 
 /* buttons */
-a.button:any-link, button {
+a.button:any-link,
+button {
   font-family: var(--body-font-family);
   box-sizing: border-box;
   text-decoration: none;
@@ -214,7 +249,10 @@ a.button:any-link, button {
   text-overflow: ellipsis;
 }
 
-a.button.primary, a.button.secondary, button.primary, button.secondary {
+a.button.primary,
+a.button.secondary,
+button.primary,
+button.secondary {
   padding: 0 24px;
   display: inline-block;
   font-size: var(--button-font-size-cta);
@@ -227,7 +265,10 @@ a.button.primary, a.button.secondary, button.primary, button.secondary {
   border: thin solid var(--c-black);
 }
 
-a.button:hover, a.button:focus, button:hover, button:focus {
+a.button:hover,
+a.button:focus,
+button:hover,
+button:focus {
   cursor: pointer;
 }
 
@@ -243,35 +284,45 @@ a.button:hover, a.button:focus, button:hover, button:focus {
   color: inherit;
 }
 
-a.button.primary, button.primary {
+a.button.primary,
+button.primary {
   background-color: var(--c-dark-plum);
   border: thin solid var(--c-dark-plum);
   color: var(--c-light-teal);
 }
 
-a.button.primary:hover, a.button.primary:focus, button.primary:hover, button.primary:focus  {
+a.button.primary:hover,
+a.button.primary:focus,
+button.primary:hover,
+button.primary:focus {
   opacity: 1;
   background-color: transparent;
   border: thin solid var(--c-dark-plum);
-  color: var(--c-dark-plum)
+  color: var(--c-dark-plum);
 }
 
-a.button.secondary, button.secondary {
+a.button.secondary,
+button.secondary {
   border: thin solid var(--c-dark-blue);
   background-color: var(--c-dark-blue);
   color: var(--c-white);
 }
 
-a.button.secondary:hover, a.button.prsecondaryimary:focus, button.secondary:hover, button.secondary:focus {
+a.button.secondary:hover,
+a.button.prsecondaryimary:focus,
+button.secondary:hover,
+button.secondary:focus {
   background-color: transparent;
   color: var(--c-dark-blue);
 }
 
-button:disabled, button:disabled:hover {
+button:disabled,
+button:disabled:hover {
   cursor: unset;
 }
 
-main a.button > .icon-chevron-right, main a.button > .icon-chevron-right svg {
+main a.button > .icon-chevron-right,
+main a.button > .icon-chevron-right svg {
   width: 12px;
   height: 12px;
   fill: currentcolor;
@@ -314,7 +365,7 @@ main .section > div {
 main pre {
   background-color: var(--overlay-background-color);
   padding: 1em;
-  border-radius: .25em;
+  border-radius: 0.25em;
   overflow-x: auto;
   white-space: pre;
 }
@@ -327,12 +378,12 @@ main blockquote {
 }
 
 main blockquote p::before {
-  content: "“";
+  content: '“';
   line-height: 0;
 }
 
 main blockquote p::after {
-  content: "”";
+  content: '”';
   line-height: 0;
 }
 
@@ -345,8 +396,12 @@ hr {
 
 main img {
   max-width: 100%;
-  width: auto;
+  width: 100;
   height: auto;
+}
+
+main .default-content-wrapper img {
+  width: auto;
 }
 
 @media (min-width: 992px) {
@@ -437,20 +492,25 @@ main .section.dark-plum h5 {
   color: var(--bg-text-dark-plum);
 }
 
-main .section.dark-plum a, main .section.dark-plum button {
+main .section.dark-plum a,
+main .section.dark-plum button {
   color: var(--bg-text-dark-plum);
 }
 
-main .section.dark-plum a.button.primary, main .section.dark-plum button.primary {
+main .section.dark-plum a.button.primary,
+main .section.dark-plum button.primary {
   background-color: var(--c-light-teal);
   border: thin solid var(--c-light-teal);
   color: var(--c-dark-plum);
 }
 
-main .section.dark-plum a.button.primary:hover, main .section.dark-plum a.button.primary:focus, main .section.dark-plum button.primary:hover, main .section.dark-plum button.primary:focus  {
+main .section.dark-plum a.button.primary:hover,
+main .section.dark-plum a.button.primary:focus,
+main .section.dark-plum button.primary:hover,
+main .section.dark-plum button.primary:focus {
   opacity: 1;
   background-color: transparent;
-  color: var(--c-light-teal)
+  color: var(--c-light-teal);
 }
 
 main .section.light-blue {
@@ -489,7 +549,8 @@ main .section.dark-blue h5 {
   color: var(--bg-text-dark-blue);
 }
 
-main .section.dark-blue a, main .section.dark-blue button {
+main .section.dark-blue a,
+main .section.dark-blue button {
   color: var(--bg-text-dark-blue);
 }
 
@@ -521,7 +582,8 @@ main .section.dark-grey h5 {
   color: var(--bg-text-dark-grey);
 }
 
-main .section.dark-grey a, main .section.dark-grey button {
+main .section.dark-grey a,
+main .section.dark-grey button {
   color: var(--bg-text-dark-grey);
 }
 

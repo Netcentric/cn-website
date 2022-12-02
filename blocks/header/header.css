@@ -45,7 +45,7 @@ header nav .nav-brand p {
   margin: 0;
 }
 
-header nav .nav-brand img {
+header nav .nav-brand .icon, header nav .nav-brand .icon img {
   width: 150px;
   height: 40px;
 }
@@ -153,7 +153,7 @@ header nav .nav-sections span.close-menu-arrow svg {
   transform: rotate(180deg);
 }
 
-header nav .nav-sections li span.icon.icon-chevron-right svg {
+header nav .nav-sections li span.icon.icon-chevron-right, header nav .nav-sections li span.icon.icon-chevron-right svg {
   display: none;
   width: 16px;
   height: 16px;
@@ -216,7 +216,7 @@ header nav[aria-expanded='true'] .nav-tools ul::before {
   right: 27px;
 }
 
-header nav .nav-tools > ul > li:last-of-type > a span.icon.icon-chevron-right svg {
+header nav .nav-tools > ul > li:last-of-type > a span.icon.icon-chevron-right {
   display: none;
 }
 
@@ -427,13 +427,18 @@ header nav .nav-sections ul > li.nav-drop[aria-expanded='true'] > .nav-drop-ul-w
     padding: 0 24px;
   }
 
+  header nav .nav-tools > ul > li:last-of-type > a span.icon.icon-chevron-right {
+    width: 12px;
+    height: 12px;
+    margin-left: 10px;
+    margin-bottom: -1px;
+    display: inline-block;
+  }
+
   header nav .nav-tools > ul > li:last-of-type > a span.icon.icon-chevron-right svg {
     width: 12px;
     height: 12px;
     fill: currentcolor;
-    margin-left: 10px;
-    margin-bottom: -1px;
-    display: initial;
   }
 
   header nav .nav-tools > ul > li:last-of-type > a:hover {

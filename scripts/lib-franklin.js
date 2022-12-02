@@ -134,7 +134,7 @@ const decorateIcon = (span, html) => {
   } else {
     span.innerHTML = html;
   }
-}
+};
 
 /**
  * Replace icons with inline SVG and prefix with codeBasePath.
@@ -150,12 +150,10 @@ export function decorateIcons(element = document) {
     if (ICON_CACHE[icon]) {
       // cache hit
       decorateIcon(span, ICON_CACHE[icon]);
-    } else {
-      if (!icons.includes(icon)) {
-        // need to fetch ico
-        span.classList.add('icon-decorating');
-        icons.push(icon);
-      }
+    } else if (!icons.includes(icon)) {
+      // need to fetch ico
+      span.classList.add('icon-decorating');
+      icons.push(icon);
     }
   });
 

@@ -96,7 +96,7 @@
 
   /* colors */
   --link-color: var(--c-dark-plum);
-  --link-hover-color: var(--c-mid-plum);
+  --link-hover-color: var(--c-dark-mid-plum);
   --background-color: var(--c-white);
   --overlay-background-color: #eee;
   --highlight-background-color: #ccc;

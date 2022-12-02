@@ -73,13 +73,13 @@ main .hero a.button > .icon-chevron-right svg {
   margin-left: 14px;
 }
 
-main .hero a.button.secondary {
+main .hero .button-container a.button.secondary {
   border: 1px solid var(--c-light-teal);
   color: var(--c-light-teal);
   background: var(--c-dark-plum);
 }
 
-main .hero a.button.secondary:hover {
+main .hero .button-container a.button.secondary:hover {
   color: #77bad7;
   border-color: #77bad7;
 }

@@ -251,7 +251,7 @@ function loadDelayed() {
   const delayed = document.createElement('script'); 
   delayed.setAttribute('type', 'module');
   delayed.setAttribute('defer', '');
-  delayed.setAttribute('src', 'https://www.netcentric.biz/scripts/delayed.js')
+  delayed.setAttribute('src', '/scripts/delayed.js')
   document.body.appendChild(delayed);
   //window.setTimeout(() => import('./delayed.js'), 3000);
   // load anything that can be postponed to the latest here

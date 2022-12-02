@@ -86,6 +86,7 @@ class CarouselSlider {
   handleResize() {
     const breakpoint = this.getBreakpoint();
     const viewportWidth = window.innerWidth;
+    const breakpointChange = breakpoint !== this.breakpoint;
 
     if (viewportWidth === this.viewportWidth) {
       return;
@@ -93,11 +94,11 @@ class CarouselSlider {
 
     this.viewportWidth = viewportWidth;
     this.elementsPerSlide = this.options.breakpoints[breakpoint].elementsPerSlide;
-    if (breakpoint !== this.breakpoint && this.originalElements.length > this.elementsPerSlide) {
+    if (breakpointChange && this.originalElements.length > this.elementsPerSlide) {
       this.setSlider();
       this.resetSlider();
       this.breakpoint = breakpoint;
-    } else if (breakpoint !== this.breakpoint && this.originalElements.length <= this.elementsPerSlide) {
+    } else if (breakpointChange && this.originalElements.length <= this.elementsPerSlide) {
       this.destroySlider();
       this.breakpoint = breakpoint;
     } else if (this.options.breakpoints[breakpoint].responsiveWidth === 'fluid') {
@@ -145,17 +146,18 @@ class CarouselSlider {
     this.slideCounter = 1;
   }
 
-  setElements(noSlider) {
+  setElements() {
     const width = this.element.offsetWidth;
     const elementWidth = width / this.elementsPerSlide;
     const elementsLength = this.originalElements.length;
+    const sliderNeeded = this.originalElements.length > this.elementsPerSlide;
     let clonesNumber = 0;
     let i = 0;
     let indexToAppend;
     let elementToAppend;
 
     this.wrap.innerHTML = '';
-    if (this.elementsPerSlide * 3 > elementsLength && this.originalElements.length > this.elementsPerSlide) {
+    if (this.elementsPerSlide * 3 > elementsLength && sliderNeeded) {
       while (this.elementsPerSlide * 3 >= (elementsLength + clonesNumber)) {
         clonesNumber += elementsLength;
       }

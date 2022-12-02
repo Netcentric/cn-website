@@ -96,7 +96,6 @@
 
   /* colors */
   --link-color: var(--c-dark-plum);
-  --link-hover-color: var(--c-mid-plum);
   --background-color: var(--c-white);
   --overlay-background-color: #eee;
   --highlight-background-color: #ccc;
@@ -184,11 +183,6 @@ a:any-link {
   text-decoration: none;
 }
 
-a:hover {
-  text-decoration: underline;
-  color: var(--link-hover-color);
-}
-
 code, pre, samp {
   font-family: var(--fixed-font-family);
   font-size: var(--body-font-size-s);
@@ -234,7 +228,6 @@ a.button.primary, a.button.secondary, button.primary, button.secondary {
 }
 
 a.button:hover, a.button:focus, button:hover, button:focus {
-  background-color: var(--link-hover-color);
   cursor: pointer;
 }
 

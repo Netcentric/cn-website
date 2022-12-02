@@ -12,6 +12,7 @@ class CarouselSlider {
     this.elementsPerSlide = this.options.elementsPerSlide;
     this.breakpoint = false;
     this.viewportWidth = window.innerWidth;
+    this.sliderSet = false;
   }
 
   init() {
@@ -23,11 +24,7 @@ class CarouselSlider {
       window.addEventListener('resize', CarouselSlider.debounce(this.handleResize.bind(this)));
     }
     if (this.originalElements.length > this.elementsPerSlide) {
-      this.setStyles();
-      this.setElements();
-      this.reorderSlides();
-      this.setControls();
-      this.addEventListeners();
+      this.setSlider();
     }
   }
 
@@ -37,6 +34,40 @@ class CarouselSlider {
       if (timer) clearTimeout(timer);
       timer = setTimeout(func, 200, event);
     };
+  }
+
+  setSlider() {
+    if (this.sliderSet) {
+      return;
+    }
+    this.setStyles();
+    this.setElements();
+    this.reorderSlides();
+    this.setControls();
+    this.addEventListeners();
+    this.sliderSet = true;
+  }
+
+  resetSlider() {
+    if (!this.sliderSet) {
+      return;
+    }
+    this.slideCounter = 0;
+    this.element.style.setProperty('--slide-transform', '0');
+    this.setElements();
+    this.reorderSlides();
+  }
+
+  destroySlider() {
+    if (!this.sliderSet) {
+      return;
+    }
+    this.removeStyles();
+    this.setElements();
+    this.removeEventListeners();
+    this.prevButton.remove();
+    this.nextButton.remove();
+    this.sliderSet = false;
   }
 
   getBreakpoint() {
@@ -55,21 +86,23 @@ class CarouselSlider {
   handleResize() {
     const breakpoint = this.getBreakpoint();
     const viewportWidth = window.innerWidth;
+    const breakpointChange = breakpoint !== this.breakpoint;
 
     if (viewportWidth === this.viewportWidth) {
       return;
     }
 
     this.viewportWidth = viewportWidth;
-    if (breakpoint !== this.breakpoint) {
-      this.slideCounter = 0;
-      this.element.style.setProperty('--slide-transform', '0');
-      this.elementsPerSlide = this.options.breakpoints[breakpoint].elementsPerSlide;
-      this.setElements();
-      this.reorderSlides();
+    this.elementsPerSlide = this.options.breakpoints[breakpoint].elementsPerSlide;
+    if (breakpointChange && this.originalElements.length > this.elementsPerSlide) {
+      this.setSlider();
+      this.resetSlider();
+      this.breakpoint = breakpoint;
+    } else if (breakpointChange && this.originalElements.length <= this.elementsPerSlide) {
+      this.destroySlider();
       this.breakpoint = breakpoint;
     } else if (this.options.breakpoints[breakpoint].responsiveWidth === 'fluid') {
-      this.resetElements();
+      this.resizeElements();
     }
   }
 
@@ -78,6 +111,13 @@ class CarouselSlider {
     this.element.style.setProperty('--transition', `transform ${this.options.transitionTime}`);
     this.wrap.style.setProperty('transform', 'translateX(var(--slide-transform))');
     this.wrap.style.setProperty('transition', 'var(--transition)');
+  }
+
+  removeStyles() {
+    this.element.style.removeProperty('--slide-transform');
+    this.element.style.removeProperty('--transition');
+    this.wrap.style.removeProperty('transform');
+    this.wrap.style.removeProperty('transition');
   }
 
   setControls() {
@@ -93,7 +133,7 @@ class CarouselSlider {
     decorateIcons(this.element);
   }
 
-  resetElements() {
+  resizeElements() {
     const width = this.element.offsetWidth;
     const elementWidth = width / this.elementsPerSlide;
     const elements = this.wrap.childNodes;
@@ -110,13 +150,14 @@ class CarouselSlider {
     const width = this.element.offsetWidth;
     const elementWidth = width / this.elementsPerSlide;
     const elementsLength = this.originalElements.length;
+    const sliderNeeded = this.originalElements.length > this.elementsPerSlide;
     let clonesNumber = 0;
     let i = 0;
     let indexToAppend;
     let elementToAppend;
 
     this.wrap.innerHTML = '';
-    if (this.elementsPerSlide * 3 >= elementsLength) {
+    if (this.elementsPerSlide * 3 > elementsLength && sliderNeeded) {
       while (this.elementsPerSlide * 3 >= (elementsLength + clonesNumber)) {
         clonesNumber += elementsLength;
       }
@@ -137,6 +178,13 @@ class CarouselSlider {
     this.prevButton.addEventListener('click', this.move.bind(this, 'left'));
     this.nextButton.addEventListener('click', this.move.bind(this, 'right'));
     this.element.addEventListener('keydown', this.keyboardNavigation.bind(this));
+  }
+
+  removeEventListeners() {
+    this.wrap.removeEventListener('transitionend', this.reorderSlides.bind(this));
+    this.prevButton.removeEventListener('click', this.move.bind(this, 'left'));
+    this.nextButton.removeEventListener('click', this.move.bind(this, 'right'));
+    this.element.removeEventListener('keydown', this.keyboardNavigation.bind(this));
   }
 
   getTransformValue() {
@@ -212,48 +260,38 @@ class CarouselSlider {
   }
 }
 
-// function waitForAppear(block) {
-//   const intersectionObserver = new IntersectionObserver((entries) => {
-//     entries.forEach((entry) => {
-//       if (entry.isIntersecting) {
-//         const slider = new CarouselSlider(block, {
-//           elementsPerSlide: 1,
-//           transitionTime: '1s',
-//           breakpoints: {
-//             0: {
-//               elementsPerSlide: 2,
-//               responsiveWidth: 'fluid',
-//             },
-//             992: {
-//               elementsPerSlide: 6,
-//               responsiveWidth: 'static',
-//             },
-//             1200: {
-//               elementsPerSlide: 6,
-//               responsiveWidth: 'static',
-//             },
-//           },
-//         });
-//         slider.init();
-//         intersectionObserver.unobserve(document.body);
-//       }
-//     });
-//   });
-//
-//   intersectionObserver.observe(document.body);
-// }
-
 export default function decorate(block) {
-  // const elements = Array.from(block.children);
-  // const wrap = document.createElement('div');
+  const elements = Array.from(block.children);
+  const wrap = document.createElement('div');
+  const section = block.closest('.section');
 
   block.classList.add('logos');
-  // wrap.classList.add('slider-wrap');
-  // elements.forEach((element) => {
-  //   element.classList.add('slider-element');
-  //   wrap.append(element);
-  // });
-  // block.innerHTML = '';
-  // block.append(wrap);
-  // waitForAppear(block);
+  wrap.classList.add('slider-wrap');
+  elements.forEach((element) => {
+    element.classList.add('slider-element');
+    wrap.append(element);
+  });
+  block.innerHTML = '';
+  block.append(wrap);
+  section.addEventListener('sectionLoaded', () => {
+    const slider = new CarouselSlider(block, {
+      elementsPerSlide: 1,
+      transitionTime: '1s',
+      breakpoints: {
+        0: {
+          elementsPerSlide: 2,
+          responsiveWidth: 'fluid',
+        },
+        992: {
+          elementsPerSlide: 6,
+          responsiveWidth: 'static',
+        },
+        1200: {
+          elementsPerSlide: 6,
+          responsiveWidth: 'static',
+        },
+      },
+    });
+    slider.init();
+  });
 }

@@ -95,7 +95,7 @@
 }
 
 .cards.teaser > ul > li .cards-card-body p:last-child {
-    line-height: 1;
+    line-height: 1.5em;
 }
 
 .cards.teaser.background > ul > li > div:first-child {

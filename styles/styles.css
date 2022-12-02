@@ -183,10 +183,6 @@ a:any-link {
   text-decoration: none;
 }
 
-a:hover {
-  text-decoration: underline;
-}
-
 code, pre, samp {
   font-family: var(--fixed-font-family);
   font-size: var(--body-font-size-s);
@@ -232,7 +228,6 @@ a.button.primary, a.button.secondary, button.primary, button.secondary {
 }
 
 a.button:hover, a.button:focus, button:hover, button:focus {
-  text-decoration: underline;
   cursor: pointer;
 }
 

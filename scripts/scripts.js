@@ -201,10 +201,10 @@ async function loadEager(doc) {
   if (main) {
     decorateMain(main);
     // await waitForLCP(LCP_BLOCKS);
+    document.querySelector('body').classList.add('appear');
     const gellix = new FontFace('Gellix', 'url("/fonts/gellix-regular_r.woff2")');
     await gellix.load();
     document.fonts.add(gellix);
-    document.querySelector('body').classList.add('appear');
   }
 }
 

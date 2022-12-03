@@ -200,7 +200,11 @@ async function loadEager(doc) {
   const main = doc.querySelector('main');
   if (main) {
     decorateMain(main);
-    await waitForLCP(LCP_BLOCKS);
+    // await waitForLCP(LCP_BLOCKS);
+    const gellix = new FontFace('Gellix', 'url("/fonts/gellix-regular_r.woff2")');
+    await gellix.load();
+    document.fonts.add(gellix);
+    document.querySelector('body').classList.add('appear');
   }
 }
 
@@ -235,7 +239,6 @@ async function loadLazy(doc) {
   loadHeader(doc.querySelector('header'));
   loadFooter(doc.querySelector('footer'));
 
-  loadCSS(`${window.hlx.codeBasePath}/styles/lazy-styles.css`);
   addFavIcon(`${window.hlx.codeBasePath}/icons/favicon.ico`);
   sampleRUM('lazy');
   sampleRUM.observe(main.querySelectorAll('div[data-block-name]'));

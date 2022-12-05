@@ -192,7 +192,7 @@ export async function decorateIcons(element = document) {
 
   icons.forEach((span) => {
     span.classList.remove('icon-decorating');
-    const iconName = span.className.split('icon-')[1];
+    const iconName = span.classList.item(1).split('icon-')[1];
     if (symbols[iconName].startsWith('<svg ')) {
       decorateIcon(span, symbols[iconName]);
     } else {

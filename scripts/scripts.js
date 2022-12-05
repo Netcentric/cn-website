@@ -9,7 +9,6 @@ import {
   decorateTemplateAndTheme,
   waitForLCP,
   loadBlocks,
-  loadCSS,
 } from './lib-franklin.js';
 import { buildBlogFooter } from '../blocks/blog-footer/blog-footer.js';
 
@@ -200,11 +199,14 @@ async function loadEager(doc) {
   const main = doc.querySelector('main');
   if (main) {
     decorateMain(main);
-    // await waitForLCP(LCP_BLOCKS);
-    document.querySelector('body').classList.add('appear');
-    const gellix = new FontFace('Gellix', 'url("/fonts/gellix-regular_r.woff2")');
-    await gellix.load();
-    document.fonts.add(gellix);
+    if (document.querySelector('main .section:first-child img')) {
+      await waitForLCP(LCP_BLOCKS);
+    } else {
+      document.querySelector('body').classList.add('appear');
+      const gellix = new FontFace('Gellix', 'url("/fonts/gellix-regular_r.woff2")');
+      await gellix.load();
+      document.fonts.add(gellix);
+    }
   }
 }
 

@@ -103,7 +103,7 @@ export async function buildBlogFooter(main) {
                     <div class="authorprofile-image">
                         <div class="nc-image-base">
                             <div class="nc-image-container" itemtype="http://schema.org/ImageObject">
-                                <img class="nc-image" src="${author.image ?? '/icons/nc.svg'}" itemprop="contentUrl" alt="" sizes="10vw">
+                                <img class="nc-image" src="${author.image ?? '/icons/nc.svg'}" itemprop="contentUrl" alt="" sizes="10vw"  width="70" height="70">
                             </div>
                         </div>
                     </div>

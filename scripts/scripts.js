@@ -205,7 +205,7 @@ async function loadEager(doc) {
       await waitForLCP(LCP_BLOCKS);
     } else {
       document.querySelector('body').classList.add('appear');
-      // loadGellix();
+      await loadGellix();
     }
   }
 }

@@ -37,11 +37,11 @@ export function addChevronToButtons(element, selector = 'a.button') {
  */
 function decorateButtons(element) {
   element.querySelectorAll('a').forEach((a) => {
-    a.title = a.title || a.textContent;
     if (a.href !== a.textContent) {
       const up = a.parentElement;
       const twoup = a.parentElement.parentElement;
       if (!a.querySelector('img')) {
+        a.title = a.title || a.textContent.trim();
         if (up.childNodes.length === 1 && (up.tagName === 'P' || up.tagName === 'DIV')) {
           a.className = 'button'; // default navigational link
           up.classList.add('button-container');

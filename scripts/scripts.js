@@ -186,6 +186,12 @@ export function decorateMain(main) {
   preDecorateEmbed(main);
 }
 
+async function loadGellix() {
+  const gellix = new FontFace('Gellix', 'url("/fonts/gellix-regular_r.woff2")');
+  await gellix.load();
+  document.fonts.add(gellix);
+}
+
 /**
  * loads everything needed to get to LCP.
  */
@@ -199,9 +205,7 @@ async function loadEager(doc) {
       await waitForLCP(LCP_BLOCKS);
     } else {
       document.querySelector('body').classList.add('appear');
-      const gellix = new FontFace('Gellix', 'url("/fonts/gellix-regular_r.woff2")');
-      await gellix.load();
-      document.fonts.add(gellix);
+      loadGellix();
     }
   }
 }

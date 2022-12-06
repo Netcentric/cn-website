@@ -9,8 +9,9 @@ import {
   decorateTemplateAndTheme,
   waitForLCP,
   loadBlocks,
+  toClassName,
+  getMetadata,
 } from './lib-franklin.js';
-import { buildBlogFooter } from '../blocks/blog-footer/blog-footer.js';
 
 const LCP_BLOCKS = []; // add your LCP blocks to the list
 window.hlx.RUM_GENERATION = 'project-1'; // add your RUM generation information here
@@ -59,17 +60,6 @@ function decorateButtons(element) {
       }
     }
   });
-}
-
-export function buildBlogSidebar(main) {
-  const blogpost = main.querySelector('.blogpost > main > div:nth-child(2)');
-  if (blogpost === null) {
-    return;
-  }
-
-  const sidebar = document.createElement('div');
-  sidebar.classList.add('blog-sidebar');
-  blogpost.prepend(sidebar);
 }
 
 function buildHeroBlock(main) {
@@ -154,11 +144,17 @@ function preDecorateEmbed(main) {
  * Builds all synthetic blocks in a container element.
  * @param {Element} main The container element
  */
-function buildAutoBlocks(main) {
+async function buildAutoBlocks(main) {
   try {
     buildHeroBlock(main);
-    buildBlogFooter(main);
-    buildBlogSidebar(main);
+    const template = toClassName(getMetadata('template'));
+    const templates = ['blogpost'];
+    if (templates.includes(template)) {
+      const mod = await import(`../templates/${template}/${template}.js`);
+      if (mod.default) {
+        await mod.default(main);
+      }
+    }
   } catch (error) {
     // eslint-disable-next-line no-console
     console.error('Auto Blocking failed', error);

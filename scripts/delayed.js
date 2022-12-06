@@ -35,56 +35,6 @@ function decorateTwitterFeed() {
   });
 }
 
-function createIframe(div) {
-  const a = div.previousElementSibling;
-  const vendor = div.classList[1];
-  const embed = a.pathname;
-  const id = embed.split('/').pop();
-  let source;
-  let className;
-  let allow;
-
-  a.remove();
-
-  if (vendor === 'youtube-base') {
-    source = `https://www.youtube.com/embed/${id}`;
-    className = 'youtube-player';
-    allow = 'encrypted-media; accelerometer; gyroscope; picture-in-picture';
-  } else if (vendor === 'spotify-base') {
-    source = `https://open.spotify.com/embed/episode/${id}`;
-    className = 'spotify-player';
-    allow = 'autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture';
-  } else if (vendor === 'wistia-base') {
-    source = `https://fast.wistia.net/embed/iframe/${id}`;
-    className = 'wistia-player';
-    allow = 'autoplay; clipboard-write; encrypted-media; fullscreen;';
-  }
-
-  div.innerHTML = `<iframe src="${source}" 
-        class="${className}"
-        allowfullscreen  
-        allow="${allow}"
-        loading="lazy">
-    </iframe>`;
-}
-
-function decorateEmbed() {
-  const embedObserver = new IntersectionObserver((entries) => {
-    entries.forEach(
-      (entry) => {
-        if (entry.isIntersecting) {
-          embedObserver.unobserve(entry.target);
-          createIframe(entry.target);
-        }
-      },
-    );
-  });
-
-  main.querySelectorAll('.embed').forEach((div) => {
-    embedObserver.observe(div);
-  });
-}
-
 function loadLaunch() {
   window.adobeDataLayer = window.adobeDataLayer || [];
 
@@ -126,7 +76,6 @@ class ScrollIndicator {
 }
 
 decorateTwitterFeed();
-decorateEmbed();
 loadLaunch();
 loadLiveUXRUM();
 

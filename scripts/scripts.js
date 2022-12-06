@@ -125,30 +125,75 @@ export function createIcon(name) {
   return icon;
 }
 
-function createEmbedWrap(a, vendor) {
+function createEmbedIFrame(a, vendor) {
   const div = document.createElement('div');
-  div.classList.add('embed');
   div.classList.add(`${vendor}-base`);
+  const id = a.pathname.split('/').pop();
 
-  a.style.display = 'none';
-  a.insertAdjacentElement('afterend', div);
+  let source;
+  let className;
+  let allow;
+  if (vendor === 'youtube') {
+    source = `https://www.youtube.com/embed/${id}`;
+    className = 'youtube-player';
+    allow = 'encrypted-media; accelerometer; gyroscope; picture-in-picture';
+  } else if (vendor === 'spotify') {
+    source = `https://open.spotify.com/embed/episode/${id}`;
+    className = 'spotify-player';
+    allow = 'autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture';
+  } else if (vendor === 'wistia') {
+    source = `https://fast.wistia.net/embed/iframe/${id}`;
+    className = 'wistia-player';
+    allow = 'autoplay; clipboard-write; encrypted-media; fullscreen;';
+  }
+
+  div.innerHTML = `<iframe data-src="${source}" 
+        class="${className}"
+        allowfullscreen  
+        allow="${allow}"
+        style="display: none"
+        loading="lazy">
+    </iframe>`;
+
+  a.replaceWith(div);
+  return div;
 }
 
 function preDecorateEmbed(main) {
+  const lazyEmbeds = [];
+
   const anchors = main.getElementsByTagName('a');
   const youTubeAnchors = Array.from(anchors).filter((a) => a.href.includes('youtu') && encodeURI(a.textContent.trim()).indexOf(a.href) !== -1);
   const spotifyAnchors = Array.from(anchors).filter((a) => a.href.includes('spotify') && encodeURI(a.textContent.trim()).indexOf(a.href) !== -1);
   const wistiaAnchors = Array.from(anchors).filter((a) => a.href.includes('wistia') && encodeURI(a.textContent.trim()).indexOf(a.href) !== -1);
 
   youTubeAnchors.forEach((a) => {
-    createEmbedWrap(a, 'youtube');
+    lazyEmbeds.push(createEmbedIFrame(a, 'youtube'));
   });
   spotifyAnchors.forEach((a) => {
-    createEmbedWrap(a, 'spotify');
+    lazyEmbeds.push(createEmbedIFrame(a, 'spotify'));
   });
   wistiaAnchors.forEach((a) => {
-    createEmbedWrap(a, 'wistia');
+    lazyEmbeds.push(createEmbedIFrame(a, 'wistia'));
   });
+
+  if ('IntersectionObserver' in window) {
+    // eslint-disable-next-line vars-on-top
+    const lazyEmbedObserver = new IntersectionObserver((entries) => {
+      entries.forEach((embed) => {
+        if (embed.isIntersecting) {
+          const iframe = embed.target.firstChild;
+          iframe.src = iframe.dataset.src;
+          iframe.style.display = iframe.style.display === 'none' ? '' : 'none';
+          lazyEmbedObserver.unobserve(embed.target);
+        }
+      });
+    });
+
+    lazyEmbeds.forEach((lazyEmbed) => {
+      lazyEmbedObserver.observe(lazyEmbed);
+    });
+  }
 }
 
 /**

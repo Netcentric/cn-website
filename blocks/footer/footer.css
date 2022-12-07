@@ -75,7 +75,8 @@ footer > div > div > div:nth-child(3) > ul {
   font-size: large;
 }
 
-footer .icon {
+footer .icon,
+footer .icon svg {
   font-size: 46px;
   height: 1em;
   width: 1em;

@@ -15,7 +15,8 @@ export function buildCard(card, large = false) {
   const cardElement = document.createElement('article');
   cardElement.classList.add('teaser');
 
-  if (authorProfile.image === '') authorProfile.image = defaultAuthorImage;
+  authorProfile.name = authorProfile.name ?? defaultAuthorName;
+  authorProfile.image = authorProfile.image ?? defaultAuthorImage;
 
   cardElement.innerHTML = `
     <p class="tags">${JSON.parse(tags).join(', ')}</p>
@@ -27,14 +28,14 @@ export function buildCard(card, large = false) {
     <div class="authorprofile-container">
       <div class="authorprofile-image">
         <div class="nc-image-base">
-            <div class="nc-image-container" itemscope="" itemtype="http://schema.org/ImageObject">
-                <img class="nc-image" src="${authorProfile.image ?? defaultAuthorImage}" itemprop="contentUrl" alt="" sizes="10vw" width="35" height="35" />
-            </div>
+          <div class="nc-image-container" itemscope="" itemtype="http://schema.org/ImageObject">
+            <img class="nc-image" src="${authorProfile.image}" itemprop="contentUrl" alt="${authorProfile.name}" sizes="10vw" width="35" height="35" />
+          </div>
         </div>
       </div>
       <div class="authorprofile-info">
-          <div class="authorprofile-name">${authorProfile.name ?? defaultAuthorName}</div>
-          <div class="authorprofile-position">${authorProfile.role ?? defaultAuthorRole}</div>
+        <div class="authorprofile-name">${authorProfile.name}</div>
+        <div class="authorprofile-position">${authorProfile.role ?? defaultAuthorRole}</div>
       </div>
     </div>`;
 

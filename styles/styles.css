@@ -272,18 +272,6 @@ button:focus {
   cursor: pointer;
 }
 
-.section.dark-plum a.button:any-link,
-.section.mid-plum a.button:any-link,
-.section.light-plum a.button:any-link,
-.section.dark-teal a.button:any-link,
-.section.mid-teal a.button:any-link,
-.section.light-teal a.button:any-link,
-.section.dark-blue a.button:any-link,
-.section.mid-blue a.button:any-link,
-.section.light-blue a.button:any-link {
-  color: inherit;
-}
-
 a.button.primary,
 button.primary {
   background-color: var(--c-dark-plum);
@@ -309,7 +297,7 @@ button.secondary {
 }
 
 a.button.secondary:hover,
-a.button.prsecondaryimary:focus,
+a.button.secondary:focus,
 button.secondary:hover,
 button.secondary:focus {
   background-color: transparent;

@@ -176,11 +176,11 @@ function instrumentMain(main) {
  * @param {Element} main The main element
  */
 // eslint-disable-next-line import/prefer-default-export
-export function decorateMain(main) {
+export async function decorateMain(main) {
   instrumentMain(main);
   // hopefully forward compatible button decoration
   decorateButtons(main);
-  buildAutoBlocks(main);
+  await buildAutoBlocks(main);
   decorateSections(main);
   decorateBlocks(main);
   preDecorateEmbed(main);
@@ -200,7 +200,7 @@ async function loadEager(doc) {
   decorateTemplateAndTheme();
   const main = doc.querySelector('main');
   if (main) {
-    decorateMain(main);
+    await decorateMain(main);
     if (document.querySelector('main .section:first-child img')) {
       await waitForLCP(LCP_BLOCKS);
     } else {

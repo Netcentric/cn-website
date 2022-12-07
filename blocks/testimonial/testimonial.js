@@ -17,7 +17,7 @@ function buildCard(card) {
       ${title}
     </h2>
     <div class="authorprofile-container">
-      <img class="nc-image" src="${authorProfile.image ?? defaultAuthorImage}" itemprop="contentUrl" alt="" sizes="10vw" />
+      <img class="nc-image" src="${authorProfile.image ?? defaultAuthorImage}" itemprop="contentUrl" alt="" sizes="10vw" width="85" height="85" />
       <div class="authorprofile-name">${authorProfile.name ?? defaultAuthorName}</div>
       <div class="authorprofile-position">${authorProfile.role ?? defaultAuthorRole}</div>
     </div>`;

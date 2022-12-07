@@ -80,4 +80,7 @@ export default async function decorate(block) {
   </div>
 </div>
   `;
+  const imageElement = block.querySelector('.authorprofile .image img');
+  imageElement.setAttribute('width', 70);
+  imageElement.setAttribute('height', 70);
 }

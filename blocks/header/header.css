@@ -161,6 +161,8 @@ header nav .nav-sections li span.icon.icon-chevron-right, header nav .nav-sectio
   cursor: pointer;
 }
 
+header .nav-sections li[aria-expanded='true'] .nav-drop span.icon-chevron-right,
+header nav[aria-expanded='true'] .nav-sections li span.icon.icon-chevron-right,
 header nav[aria-expanded='true'] .nav-sections li span.icon.icon-chevron-right svg {
   display: initial;
 }

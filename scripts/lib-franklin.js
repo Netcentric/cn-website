@@ -334,7 +334,6 @@ export function decorateSections(main) {
  */
 export function updateSectionsStatus(main) {
   const sections = [...main.querySelectorAll(':scope > div.section')];
-  const event = new Event('sectionLoaded');
   for (let i = 0; i < sections.length; i += 1) {
     const section = sections[i];
     const status = section.getAttribute('data-section-status');
@@ -345,7 +344,8 @@ export function updateSectionsStatus(main) {
         break;
       } else {
         section.setAttribute('data-section-status', 'loaded');
-        section.dispatchEvent(event);
+        const event = new CustomEvent('section-display', { detail: { section, numSections: sections.length, sectionIndex: i } });
+        document.body.dispatchEvent(event);
       }
     }
   }
@@ -425,6 +425,8 @@ export async function loadBlock(block) {
       console.log(`failed to load block ${blockName}`, error);
     }
     block.setAttribute('data-block-status', 'loaded');
+    const event = new CustomEvent('block-loaded', { detail: { block, blockName } });
+    document.body.dispatchEvent(event);
   }
 }
 

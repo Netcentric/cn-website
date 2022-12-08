@@ -153,6 +153,7 @@ export async function decorateIcons(element = document) {
       try {
         const response = await fetch(`${window.hlx.codeBasePath}/icons/${iconName}.svg`);
         if (!response.ok) {
+          // eslint-disable-next-line no-console
           console.warn('Icon not found:', iconName);
           return;
         }
@@ -173,6 +174,7 @@ export async function decorateIcons(element = document) {
             .trim();
         }
       } catch (err) {
+        // eslint-disable-next-line no-console
         console.error(err);
       }
     }

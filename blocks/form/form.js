@@ -1,3 +1,21 @@
+import { loadCSS } from '../../scripts/lib-franklin.js';
+
+// TODO change to production URLs
+const mktoFormCSS = 'https://pages.netcentric.biz/rs/598-XRJ-385/images/netcentric-forms-rebranded.min.css';
+const mktoFormHost = '742-RCX-794.mktoweb.com';
+
+const loadScript = (url, callback, type) => {
+  const head = document.querySelector('head');
+  const script = document.createElement('script');
+  script.src = url;
+  if (type) {
+    script.setAttribute('type', type);
+  }
+  head.append(script);
+  script.onload = callback;
+  return script;
+};
+
 function constructPayload(form) {
   const payload = {};
   [...form.elements].forEach((fe) => {
@@ -137,7 +155,10 @@ function createLabel(fd) {
 function applyRules(form, rules) {
   const payload = constructPayload(form);
   rules.forEach((field) => {
-    const { type, condition: { key, operator, value } } = field.rule;
+    const {
+      type,
+      condition: { key, operator, value },
+    } = field.rule;
     if (type === 'visible') {
       if (operator === 'eq') {
         if (payload[key] === value) {
@@ -201,12 +222,24 @@ async function createForm(formURL) {
   form.addEventListener('change', () => applyRules(form, rules));
   applyRules(form, rules);
 
-  return (form);
+  return form;
 }
 
 export default async function decorate(block) {
   const form = block.querySelector('a[href$=".json"]');
   if (form) {
     form.replaceWith(await createForm(form.href));
+  }
+
+  // TODO this should be a Markto Form URL
+  const formId = block.firstElementChild.firstElementChild.textContent;
+  if (formId) {
+    const mktoForm = `<form id="mktoForm_${formId}"></form>`;
+    block.innerHTML = mktoForm;
+    const mktoMunchkinId = mktoFormHost.substring(0, mktoFormHost.indexOf('.'));
+    loadCSS(mktoFormCSS);
+    loadScript(`//${mktoFormHost}/js/forms2/js/forms2.min.js`, () => {
+      window.MktoForms2.loadForm(`//${mktoFormHost}`, mktoMunchkinId, formId);
+    });
   }
 }

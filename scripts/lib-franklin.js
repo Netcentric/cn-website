@@ -123,28 +123,80 @@ export function toCamelCase(name) {
   return toClassName(name).replace(/-([a-z])/g, (g) => g[1].toUpperCase());
 }
 
+const decorateIcon = (span, html) => {
+  if (html.match(/<style/i)) {
+    const img = document.createElement('img');
+    img.src = `data:image/svg+xml,${encodeURIComponent(html)}`;
+    span.innerHTML = img.outerHTML;
+  } else {
+    span.innerHTML = html;
+  }
+  span.classList.add('icon-decorated');
+};
+
 /**
  * Replace icons with inline SVG and prefix with codeBasePath.
  * @param {Element} element
  */
-export function decorateIcons(element = document) {
-  element.querySelectorAll('span.icon:not(.icon-decorated)').forEach(async (span) => {
+export async function decorateIcons(element = document) {
+  const icons = [...element.querySelectorAll('span.icon:not(.icon-decorated, .icon-decorating)')];
+
+  const symbols = {};
+  await Promise.all(icons.map(async (span) => {
     if (span.classList.length < 2 || !span.classList[1].startsWith('icon-')) {
       return;
     }
-    span.classList.add('icon-decorated');
-    const icon = span.classList[1].substring(5);
-    // eslint-disable-next-line no-use-before-define
-    const resp = await fetch(`${window.hlx.codeBasePath}/icons/${icon}.svg`);
-    if (resp.ok) {
-      const iconHTML = await resp.text();
-      if (iconHTML.match(/<style/i)) {
-        const img = document.createElement('img');
-        img.src = `data:image/svg+xml,${encodeURIComponent(iconHTML)}`;
-        span.appendChild(img);
-      } else {
-        span.innerHTML = iconHTML;
+    const iconName = span.classList.item(1).split('icon-')[1];
+    if (!symbols[iconName]) {
+      symbols[iconName] = true;
+      span.classList.add('icon-decorating');
+      try {
+        const response = await fetch(`${window.hlx.codeBasePath}/icons/${iconName}.svg`);
+        if (!response.ok) {
+          // eslint-disable-next-line no-console
+          console.warn('Icon not found:', iconName);
+          return;
+        }
+        const svg = await response.text();
+        if (svg.match(/<style/i)) {
+          symbols[iconName] = svg
+            .replace(/<\?.*\?>\n/, '') // remove <?…?> xml header
+            .trim();
+        } else {
+          symbols[iconName] = svg
+            .replace(/<\?.*\?>\n/, '') // remove <?…?> xml header
+            .replace('<svg ', `<symbol id="${iconName}"`)
+            .replace('</svg>', '</symbol>')
+            .replace(/ xmlns=".*?"/, '') // remove redundant namespace definitions
+            .replace(/ xmlns:xlink=".*?"/, '')
+            .replace(/ width=".*?"/, '') // remove hard-coded size so wrapping .icon can override it
+            .replace(/ height=".*?"/, '')
+            .trim();
+        }
+      } catch (err) {
+        // eslint-disable-next-line no-console
+        console.error(err);
       }
+    }
+  }));
+
+  let svgSprite = document.getElementById('franklin-svg-sprite');
+  if (!svgSprite) {
+    const div = document.createElement('div');
+    div.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" id="franklin-svg-sprite" style="display: none">${Object.values(symbols).join('\n')}</svg>`;
+    svgSprite = div.firstElementChild;
+    document.body.prepend(div.firstElementChild);
+  } else {
+    svgSprite.innerHTML += Object.values(symbols).join('\n');
+  }
+
+  icons.forEach((span) => {
+    span.classList.remove('icon-decorating');
+    const iconName = span.classList.item(1).split('icon-')[1];
+    if (symbols[iconName].startsWith('<svg ')) {
+      decorateIcon(span, symbols[iconName]);
+    } else {
+      decorateIcon(span, `<svg xmlns="http://www.w3.org/2000/svg"><use href="#${iconName}"/></svg>`);
     }
   });
 }
@@ -284,7 +336,6 @@ export function decorateSections(main) {
  */
 export function updateSectionsStatus(main) {
   const sections = [...main.querySelectorAll(':scope > div.section')];
-  const event = new Event('sectionLoaded');
   for (let i = 0; i < sections.length; i += 1) {
     const section = sections[i];
     const status = section.getAttribute('data-section-status');
@@ -295,7 +346,8 @@ export function updateSectionsStatus(main) {
         break;
       } else {
         section.setAttribute('data-section-status', 'loaded');
-        section.dispatchEvent(event);
+        const event = new CustomEvent('section-display', { detail: { section, numSections: sections.length, sectionIndex: i } });
+        document.body.dispatchEvent(event);
       }
     }
   }
@@ -375,6 +427,8 @@ export async function loadBlock(block) {
       console.log(`failed to load block ${blockName}`, error);
     }
     block.setAttribute('data-block-status', 'loaded');
+    const event = new CustomEvent('block-loaded', { detail: { block, blockName } });
+    document.body.dispatchEvent(event);
   }
 }
 

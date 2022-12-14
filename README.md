@@ -2,8 +2,8 @@
 Relaunch of the [netcentric.biz](https://www.netcentric.biz) website.
 
 ## Environments
-- Preview: https://main--netcentric--hlxsites.hlx.page/
-- Live: https://main--netcentric--hlxsites.hlx.live/
+- Preview: https://main--cn-website--netcentric.hlx.page
+- Live: https://main--cn-website--netcentric.hlx.live/
 
 ## Installation
 

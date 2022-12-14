@@ -9,9 +9,9 @@ import {
   decorateTemplateAndTheme,
   waitForLCP,
   loadBlocks,
-  loadCSS,
+  toClassName,
+  getMetadata,
 } from './lib-franklin.js';
-import { buildBlogFooter } from '../blocks/blog-footer/blog-footer.js';
 
 const LCP_BLOCKS = []; // add your LCP blocks to the list
 window.hlx.RUM_GENERATION = 'project-1'; // add your RUM generation information here
@@ -60,17 +60,6 @@ function decorateButtons(element) {
       }
     }
   });
-}
-
-export function buildBlogSidebar(main) {
-  const blogpost = main.querySelector('.blogpost > main > div:nth-child(2)');
-  if (blogpost === null) {
-    return;
-  }
-
-  const sidebar = document.createElement('div');
-  sidebar.classList.add('blog-sidebar');
-  blogpost.prepend(sidebar);
 }
 
 function buildHeroBlock(main) {
@@ -200,11 +189,17 @@ function preDecorateEmbed(main) {
  * Builds all synthetic blocks in a container element.
  * @param {Element} main The container element
  */
-function buildAutoBlocks(main) {
+async function buildAutoBlocks(main) {
   try {
     buildHeroBlock(main);
-    buildBlogFooter(main);
-    buildBlogSidebar(main);
+    const template = toClassName(getMetadata('template'));
+    const templates = ['blogpost'];
+    if (templates.includes(template)) {
+      const mod = await import(`../templates/${template}/${template}.js`);
+      if (mod.default) {
+        await mod.default(main);
+      }
+    }
   } catch (error) {
     // eslint-disable-next-line no-console
     console.error('Auto Blocking failed', error);
@@ -226,14 +221,20 @@ function instrumentMain(main) {
  * @param {Element} main The main element
  */
 // eslint-disable-next-line import/prefer-default-export
-export function decorateMain(main) {
+export async function decorateMain(main) {
   instrumentMain(main);
   // hopefully forward compatible button decoration
   decorateButtons(main);
-  buildAutoBlocks(main);
+  await buildAutoBlocks(main);
   decorateSections(main);
   decorateBlocks(main);
   preDecorateEmbed(main);
+}
+
+async function loadGellix() {
+  const gellix = new FontFace('Gellix', 'url("/fonts/gellix-regular_r.woff2")');
+  await gellix.load();
+  document.fonts.add(gellix);
 }
 
 /**
@@ -244,8 +245,13 @@ async function loadEager(doc) {
   decorateTemplateAndTheme();
   const main = doc.querySelector('main');
   if (main) {
-    decorateMain(main);
-    await waitForLCP(LCP_BLOCKS);
+    await decorateMain(main);
+    if (document.querySelector('main .section:first-child img')) {
+      await waitForLCP(LCP_BLOCKS);
+    } else {
+      document.querySelector('body').classList.add('appear');
+      await loadGellix();
+    }
   }
 }
 
@@ -280,7 +286,6 @@ async function loadLazy(doc) {
   loadHeader(doc.querySelector('header'));
   loadFooter(doc.querySelector('footer'));
 
-  loadCSS(`${window.hlx.codeBasePath}/styles/lazy-styles.css`);
   addFavIcon(`${window.hlx.codeBasePath}/icons/favicon.ico`);
   sampleRUM('lazy');
   sampleRUM.observe(main.querySelectorAll('div[data-block-name]'));

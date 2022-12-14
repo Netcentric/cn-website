@@ -75,8 +75,19 @@ function registerPerformanceLogger() {
         stamp(`${entry.name} loaded`, Math.round(entry.startTime + entry.duration));
       });
     });
-
     pores.observe({ type: 'resource', buffered: true });
+
+    document.body.addEventListener('section-display', (e) => {
+      stamp(`section displayed (${e.detail.sectionIndex + 1}/${e.detail.numSections})`, new Date() - performance.timing.navigationStart, 'franklin');
+      // eslint-disable-next-line no-console
+      console.log(e.detail.section);
+    });
+
+    document.body.addEventListener('block-loaded', (e) => {
+      stamp(`block loaded (${e.detail.blockName})`, new Date() - performance.timing.navigationStart, 'franklin');
+      // eslint-disable-next-line no-console
+      console.log(e.detail.block);
+    });
   } catch (e) {
     // no output
   }

@@ -153,16 +153,12 @@ header nav .nav-sections span.close-menu-arrow svg {
   transform: rotate(180deg);
 }
 
-header nav .nav-sections li span.icon.icon-chevron-right, header nav .nav-sections li span.icon.icon-chevron-right svg {
-  display: none;
+header nav .nav-sections li span.icon.icon-chevron-right,
+header nav .nav-sections li span.icon.icon-chevron-right svg {
   width: 16px;
   height: 16px;
   fill: white;
   cursor: pointer;
-}
-
-header nav[aria-expanded='true'] .nav-sections li span.icon.icon-chevron-right svg {
-  display: initial;
 }
 
 /* tools */
@@ -404,7 +400,11 @@ header nav .nav-sections ul > li.nav-drop[aria-expanded='true'] > .nav-drop-ul-w
     text-align: left;
     line-height: 1em;
     text-transform: uppercase;
-   }
+  }
+
+  header .nav-sections > ul > .nav-drop > .icon {
+    display: none;
+  }
 
   /* Let's talk button */
   header nav .nav-tools > ul > li:last-of-type > a {

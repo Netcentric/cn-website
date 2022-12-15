@@ -165,6 +165,45 @@ header nav[aria-expanded='true'] .nav-sections li span.icon.icon-chevron-right s
   display: initial;
 }
 
+/* search */
+header nav .nav-search {
+  position: absolute;
+  top: 1.5em;
+  right: 5em;
+  width: fit-content;
+}
+
+header nav .nav-search .search {
+  display: flex;
+}
+
+header nav .nav-search .search button {
+  background-color: var(--c-dark-plum);
+  color: var(--c-light-teal);
+  height: 1.8em;
+  width: 1.8em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+header nav .nav-search .search button:hover {
+  background-color: var(--c-white);
+  color: var(--c-dark-plum);
+}
+
+header nav .nav-search .search :where(input, button) {
+  border-width: thin;
+  border-radius: 0.3em;
+  border-color: var(--c-dark-plum);
+}
+
+/* stylelint-disable-next-line no-descending-specificity */
+header nav .nav-search svg {
+  height: 1em;
+  width: 1em;
+}
+
 /* tools */
 header nav .nav-tools {
   grid-area: tools;
@@ -281,6 +320,21 @@ header nav .nav-sections ul > li.nav-drop[aria-expanded='true'] > .nav-drop-ul-w
   height: 100%;
 }
 
+/* special media query for search input form */
+@media (max-width: 480px) {
+  header nav .nav-search {
+    display: none;
+  }
+
+  header nav[aria-expanded='true'] .nav-search {
+    display: initial;
+    top: inherit;
+    bottom: 0.5em;
+    left: 50%;
+    translate: -50%;
+  }
+}
+
 /* desktop nav styles */
 @media (min-width: 992px)  {
   body:has(header nav li.nav-drop[aria-expanded='true']) {
@@ -380,6 +434,15 @@ header nav .nav-sections ul > li.nav-drop[aria-expanded='true'] > .nav-drop-ul-w
   header nav .nav-sections li a:hover {
     border-bottom: 3px solid #fff;
     text-decoration: none;
+  }
+
+  /* search */
+  header nav .nav-search {
+    position: unset;
+  }
+
+  header nav .nav-search .search input {
+    width: 5em;
   }
 
   header nav .nav-tools > ul > li:first-child > a {
@@ -533,6 +596,10 @@ header nav .nav-sections ul > li.nav-drop[aria-expanded='true'] > .nav-drop-ul-w
   header nav .nav-picture img {
     right: calc(-1 * (var(--nav-width) - 100vw) / 2);
     padding-right: 0;
+  }
+
+  header nav .nav-search .search input {
+    width: unset;
   }
 
   /* Compensate for auto margin to get full width */

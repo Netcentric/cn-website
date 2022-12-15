@@ -3,5 +3,5 @@ export default function decorate(block) {
 
   links.forEach((link) => {
     link.setAttribute('target', '_blank');
-  })
+  });
 }

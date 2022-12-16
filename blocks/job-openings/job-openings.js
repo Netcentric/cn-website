@@ -81,7 +81,8 @@ function createJobList(parent, cards = []) {
 function createCTASection(parent, callback) {
   const buttonRow = document.createElement('div');
   buttonRow.classList.add('button-row');
-  buttonRow.innerHTML = `<button id="load-more-button" class="button primary">${window.placeholders?.default?.showMore || 'Show More'}</button>`;
+  buttonRow.innerHTML = `
+    <button id="load-more-button" class="button primary">${window.placeholders?.default?.showMore || 'Show More'}</button>`;
   parent.append(buttonRow);
   parent.querySelector('#load-more-button').addEventListener('click', callback);
 }
@@ -126,8 +127,7 @@ async function updateJobOpenings(parent, num = 16) {
     ? jobOpenings.totalFound
     : displayJobOpenings.length;
   const count = jobListOffset + num < size ? jobListOffset + num : size;
-  const resultText = window.placeholders?.default?.showingCountOfSizeJobs?.replace('${count}', count).replace('${size}', size) || `Showing ${count} of ${size} jobs`
-  results.textContent = resultText;
+  results.textContent = window.placeholders?.default?.showingCountOfSizeJobs?.replace('{count}', count).replace('{size}', size) || `Showing ${count} of ${size} jobs`;
   const jobList = parent.querySelector('.job-openings ul.job-openings-list');
 
   addCardsToCardList(displayJobOpenings.splice(jobListOffset, num), jobList);

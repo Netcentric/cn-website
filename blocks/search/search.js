@@ -1,4 +1,4 @@
-import { TEST_RESULTS, TEST_RESULTS_PLUS } from './test.js';
+import { TEST_RESULTS, TEST_RESULTS_PLUS } from '../../tools/search/test.js';
 
 function search(term) {
   // TODO: do this query async without the mock results

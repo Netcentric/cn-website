@@ -1,4 +1,4 @@
-import { readBlockConfig, decorateIcons } from '../../scripts/lib-franklin.js';
+import { decorateIcons, getMetadata } from '../../scripts/lib-franklin.js';
 import { addChevronToButtons } from '../../scripts/scripts.js';
 
 const mobileBreakpoint = 992;
@@ -79,17 +79,27 @@ function reAttachEventListeners() {
   }
 }
 
+function getNavPath() {
+  try {
+    const navMeta = getMetadata('nav');
+    if(navMeta) {
+      return new URL(navMeta).pathname;
+    }
+  } catch(e) {
+    log.error('error while loading navigaiton path', e);
+  }
+  return '/nav';
+}
+
 /**
  * decorates the header, mainly the nav
  * @param {Element} block The header block element
  */
 export default async function decorate(block) {
-  const cfg = readBlockConfig(block);
   block.textContent = '';
 
   // fetch nav content
-  const navPath = cfg.nav || '/nav';
-  const resp = await fetch(`${navPath}.plain.html`);
+  const resp = await fetch(`${getNavPath()}.plain.html`);
   if (resp.ok) {
     const html = await resp.text();
 

@@ -329,9 +329,19 @@ header nav .nav-sections ul > li.nav-drop[aria-expanded='true'] > .nav-drop-ul-w
   header nav[aria-expanded='true'] .nav-search {
     display: initial;
     top: inherit;
-    bottom: 0.5em;
+    bottom: 0.3em;
     left: 50%;
     translate: -50%;
+  }
+
+  header nav[aria-expanded='true'] .nav-search button {
+    background-color: var(--c-light-teal);
+    color: var(--c-dark-plum);
+  }
+
+  header nav[aria-expanded='true'] .nav-search button:hover {
+    background-color: var(--c-dark-plum);
+    color: var(--c-light-teal);
   }
 }
 

@@ -14,7 +14,7 @@ function buildHeadline(parent, tagConf) {
 function buildCTASection(parent) {
   const buttonRow = document.createElement('div');
   buttonRow.classList.add('related-button-row');
-  buttonRow.innerHTML = `<a href=\\'/insights\\' class="button secondary">${window.placeholders?.default?.blogOverview || 'Blog Overview'}</a>`;
+  buttonRow.innerHTML = `<a href="/insights" class="button secondary">${window.placeholders?.default?.blogOverview || 'Blog Overview'}</a>`;
   addChevronToButtons(buttonRow);
   decorateIcons(buttonRow);
   parent.append(buttonRow);

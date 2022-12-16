@@ -141,7 +141,7 @@ function createEmbedIFrame(a, vendor) {
         allowfullscreen  
         allow="${allow}"
         style="display: none"
-        loading="lazy">
+        loading="auto">
     </iframe>`;
 
   a.replaceWith(div);

@@ -182,6 +182,12 @@ function preDecorateEmbed(main) {
     lazyEmbeds.forEach((lazyEmbed) => {
       lazyEmbedObserver.observe(lazyEmbed);
     });
+  } else {
+    lazyEmbeds.forEach((embed) => {
+      const iframe = embed.querySelector('iframe');
+      iframe.src = iframe.dataset.src;
+      iframe.style.display = iframe.style.display === "none" ? "" : "none";
+    });
   }
 }
 

@@ -126,7 +126,8 @@ async function updateJobOpenings(parent, num = 16) {
     ? jobOpenings.totalFound
     : displayJobOpenings.length;
   const count = jobListOffset + num < size ? jobListOffset + num : size;
-  results.textContent = `${window.placeholders?.default?.showing || 'Showing'} ${count} ${window.placeholders?.default?.of || 'of'} ${size} ${window.placeholders?.default?.jobs || 'jobs'}`;
+  const resultText = window.placeholders?.default?.showingCountOfSizeJobs?.replace('${count}', count).replace('${size}', size) || `Showing ${count} of ${size} jobs`
+  results.textContent = resultText;
   const jobList = parent.querySelector('.job-openings ul.job-openings-list');
 
   addCardsToCardList(displayJobOpenings.splice(jobListOffset, num), jobList);

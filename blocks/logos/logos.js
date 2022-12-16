@@ -273,25 +273,29 @@ export default function decorate(block) {
   });
   block.innerHTML = '';
   block.append(wrap);
-  section.addEventListener('sectionLoaded', () => {
-    const slider = new CarouselSlider(block, {
-      elementsPerSlide: 1,
-      transitionTime: '1s',
-      breakpoints: {
-        0: {
-          elementsPerSlide: 2,
-          responsiveWidth: 'fluid',
+  document.body.addEventListener('section-display', (e) => {
+    console.log('section loaded');
+    if (e.detail.section === section) {
+      console.log('logos section loaded', section);
+      const slider = new CarouselSlider(block, {
+        elementsPerSlide: 1,
+        transitionTime: '1s',
+        breakpoints: {
+          0: {
+            elementsPerSlide: 2,
+            responsiveWidth: 'fluid',
+          },
+          992: {
+            elementsPerSlide: 6,
+            responsiveWidth: 'static',
+          },
+          1200: {
+            elementsPerSlide: 6,
+            responsiveWidth: 'static',
+          },
         },
-        992: {
-          elementsPerSlide: 6,
-          responsiveWidth: 'static',
-        },
-        1200: {
-          elementsPerSlide: 6,
-          responsiveWidth: 'static',
-        },
-      },
-    });
-    slider.init();
+      });
+      slider.init();
+    }
   });
 }

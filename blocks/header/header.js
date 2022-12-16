@@ -82,11 +82,11 @@ function reAttachEventListeners() {
 function getNavPath() {
   try {
     const navMeta = getMetadata('nav');
-    if(navMeta) {
+    if (navMeta) {
       return new URL(navMeta).pathname;
     }
-  } catch(e) {
-    log.error('error while loading navigaiton path', e);
+  } catch (e) {
+    console.error('error while loading navigaiton path', e);
   }
   return '/nav';
 }

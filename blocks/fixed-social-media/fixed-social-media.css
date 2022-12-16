@@ -1,0 +1,24 @@
+.fixed-social-media-wrapper {
+  display: none;
+}
+
+@media (min-width: 992px) {
+  .fixed-social-media-wrapper {
+    display: flex;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    align-items: center;
+    position: fixed;
+  }
+}
+
+.fixed-social-media {
+  background-color: var(--c-white-50);
+}
+
+.fixed-social-media svg {
+  height: 45px;
+  width: 45px;
+  fill: var(--c-dark-plum);
+}

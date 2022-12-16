@@ -1,4 +1,4 @@
-import { decorateIcons } from '../../scripts/lib-franklin.js';
+import {decorateIcons} from '../../scripts/lib-franklin.js';
 
 // eslint-disable-next-line no-unused-vars
 class CarouselSlider {
@@ -126,8 +126,12 @@ class CarouselSlider {
     this.nextButton = document.createElement('button');
     this.prevButton.classList.add('slider-button', 'slider-button-prev');
     this.nextButton.classList.add('slider-button', 'slider-button-next');
-    this.prevButton.innerHTML = '<span class="icon icon-chevron-right"></span><span class="visuallyhidden">Previous</span>';
-    this.nextButton.innerHTML = '<span class="icon icon-chevron-right"></span><span class="visuallyhidden">Next</span>';
+    this.prevButton.innerHTML = `
+      <span class="icon icon-chevron-right"></span>
+      <span class="visuallyhidden">${window.placeholders?.default?.previous || 'Previous'}</span>`;
+    this.nextButton.innerHTML = `
+      <span class="icon icon-chevron-right"></span>
+      <span class="visuallyhidden">${window.placeholders?.default?.next || 'Next'}</span>`;
     this.element.prepend(this.prevButton);
     this.element.append(this.nextButton);
     decorateIcons(this.element);
@@ -294,4 +298,23 @@ export default function decorate(block) {
     });
     slider.init();
   });
+  const slider = new CarouselSlider(block, {
+    elementsPerSlide: 1,
+    transitionTime: '1s',
+    breakpoints: {
+      0: {
+        elementsPerSlide: 2,
+        responsiveWidth: 'fluid',
+      },
+      992: {
+        elementsPerSlide: 6,
+        responsiveWidth: 'static',
+      },
+      1200: {
+        elementsPerSlide: 6,
+        responsiveWidth: 'static',
+      },
+    },
+  });
+  slider.init();
 }

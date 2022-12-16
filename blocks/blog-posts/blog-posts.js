@@ -94,7 +94,7 @@ export async function getArticles(filter = () => true, maxItems = 7, offset = 0)
 function buildCTASection(parent, callback) {
   const buttonRow = document.createElement('div');
   buttonRow.classList.add('related-button-row');
-  buttonRow.innerHTML = '<button id="load-more-button" class="button secondary">Show More</button>';
+  buttonRow.innerHTML = `<button id="load-more-button" class="button secondary">${window.placeholders?.default?.showMore || 'Show More'}</button>`;
   decorateIcons(buttonRow);
   parent.append(buttonRow);
   parent.querySelector('#load-more-button').addEventListener('click', callback);

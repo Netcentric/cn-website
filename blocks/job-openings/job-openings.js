@@ -32,9 +32,8 @@ function createJobFilters(parent, positions, locations, callback) {
   const filterPositions = document.createElement('select');
   filterPositions.setAttribute('filter-type', 'positions');
   const defaultPositionTag = document.createElement('option');
-  // TODO translation
-  defaultPositionTag.innerText = 'all roles';
-  defaultPositionTag.value = 'all';
+  defaultPositionTag.innerText = `${window.placeholders?.default?.allRoles || 'all roles'}`;
+  defaultPositionTag.value = `${window.placeholders?.default?.all || 'all'}`;
   filterPositions.append(defaultPositionTag);
 
   positions.forEach((position) => {
@@ -50,9 +49,8 @@ function createJobFilters(parent, positions, locations, callback) {
   const filterLocations = document.createElement('select');
   filterLocations.setAttribute('filter-type', 'locations');
   const defaultLocationTag = document.createElement('option');
-  // TODO translation
-  defaultLocationTag.innerText = 'all countries';
-  defaultLocationTag.value = 'all';
+  defaultLocationTag.innerText = `${window.placeholders?.default?.allCountries || 'all countries'}`;
+  defaultLocationTag.value = `${window.placeholders?.default?.all || 'all'}`;
   filterLocations.append(defaultLocationTag);
 
   locations.forEach((location) => {
@@ -83,8 +81,8 @@ function createJobList(parent, cards = []) {
 function createCTASection(parent, callback) {
   const buttonRow = document.createElement('div');
   buttonRow.classList.add('button-row');
-  // TODO translation
-  buttonRow.innerHTML = '<button id="load-more-button" class="button primary">Show More</button>';
+  buttonRow.innerHTML = `
+    <button id="load-more-button" class="button primary">${window.placeholders?.default?.showMore || 'Show More'}</button>`;
   parent.append(buttonRow);
   parent.querySelector('#load-more-button').addEventListener('click', callback);
 }
@@ -129,8 +127,7 @@ async function updateJobOpenings(parent, num = 16) {
     ? jobOpenings.totalFound
     : displayJobOpenings.length;
   const count = jobListOffset + num < size ? jobListOffset + num : size;
-  // TODO translation
-  results.textContent = `Showing ${count} of ${size} jobs`;
+  results.textContent = window.placeholders?.default?.showingCountOfSizeJobs?.replace('{count}', count).replace('{size}', size) || `Showing ${count} of ${size} jobs`;
   const jobList = parent.querySelector('.job-openings ul.job-openings-list');
 
   addCardsToCardList(displayJobOpenings.splice(jobListOffset, num), jobList);

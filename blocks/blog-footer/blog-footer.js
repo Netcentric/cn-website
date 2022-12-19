@@ -33,7 +33,7 @@ export async function buildBlogFooter(main) {
   const shareFooter = document.createElement('div');
   shareFooter.setAttribute('data-nc', 'Share');
   shareFooter.setAttribute('class', 'share-base share-big');
-  shareFooter.innerHTML = `<span class="share-header">SHARE</span>
+  shareFooter.innerHTML = `<span class="share-header">${window.placeholders?.default?.share || 'SHARE'}</span>
         <ul class="share-list">
             <li class="share-item">
                 <a href="http://www.facebook.com/share.php?u=${window.location.href}" class="share-link share-facebook" target="_blank" rel="noopener noreferrer">

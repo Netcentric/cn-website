@@ -7,6 +7,7 @@ import {
   decorateSections,
   decorateBlocks,
   decorateTemplateAndTheme,
+  fetchPlaceholders,
   waitForLCP,
   loadBlocks,
   toClassName,
@@ -182,6 +183,7 @@ export async function decorateMain(main) {
   instrumentMain(main);
   // hopefully forward compatible button decoration
   decorateButtons(main);
+  await fetchPlaceholders();
   await buildAutoBlocks(main);
   decorateSections(main);
   decorateBlocks(main);

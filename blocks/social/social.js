@@ -1,6 +1,6 @@
 export default function decorate(block) {
   const ul = document.createElement('ul');
-  ul.ariaLabel = 'Social Channels';
+  ul.ariaLabel = `${window.placeholders?.default?.socialChannels || 'Social Channels'}`;
   [...block.children].forEach((div) => {
     let a = div.querySelector('a');
     const li = document.createElement('li');

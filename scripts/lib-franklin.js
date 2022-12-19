@@ -573,6 +573,13 @@ export function loadFooter(footer) {
 }
 
 /**
+ * @returns language path portion for the current URL to be used to build language specific URLs
+ */
+export function getLanguagePath() {
+  return window.location.pathname === '/de' || window.location.pathname.startsWith('/de/') ? '/de' : '';
+}
+
+/**
  * init block utils
  */
 

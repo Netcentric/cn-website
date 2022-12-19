@@ -1,5 +1,4 @@
-import { readBlockConfig, decorateIcons } from '../../scripts/lib-franklin.js';
-import { getLanguagePath } from '../../scripts/scripts.js';
+import { readBlockConfig, decorateIcons, getLanguagePath } from '../../scripts/lib-franklin.js';
 
 /**
  * loads and decorates the footer

@@ -282,13 +282,6 @@ export function addFavIcon(href) {
 }
 
 /**
- * @returns language path portion for the current URL to be used to build language specific URLs
- */
-export function getLanguagePath() {
-  return window.location.pathname === '/de' || window.location.pathname.startsWith('/de/') ? '/de' : '';
-}
-
-/**
  * loads everything that doesn't need to be delayed.
  */
 async function loadLazy(doc) {

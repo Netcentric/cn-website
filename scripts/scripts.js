@@ -285,7 +285,7 @@ export function addFavIcon(href) {
  * @returns language path portion for the current URL to be used to build language specific URLs
  */
 export function getLanguagePath() {
-  return location.pathname === '/de' || location.pathname.startsWith('/de/') ? '/de' : '';
+  return window.location.pathname === '/de' || window.location.pathname.startsWith('/de/') ? '/de' : '';
 }
 
 /**

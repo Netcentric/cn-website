@@ -61,8 +61,8 @@ function transformLibraryRelatedPosts(document) {
         links.appendChild(link);
         links.appendChild(br);
       });
-    
-    if(links.length > 0) {
+
+    if (links.length > 0) {
       const cells = [['Related Blogs'], [links]];
       const table = WebImporter.DOMUtils.createTable(cells, document);
 
@@ -104,7 +104,7 @@ function transformBlogSourceCode(document) {
 // map testimonial blocks
 function transformTestimonial(document) {
   const testimonialCards = document.querySelectorAll('.testimonial');
-  
+
   if (testimonialCards.length > 0) {
     const container = testimonialCards[0].parentElement;
 

@@ -1,6 +1,32 @@
 version: 1
 
 indices:
+  search:
+    include:
+      - '/**'
+    exclude:
+      - '/de/**'
+      - '/de'
+    target: /query-index-search.json
+    properties:
+      title:
+        select: head > meta[property="og:title"]
+        value: attribute(el, "content")
+      description:
+        select: head > meta[name="description"]
+        value: attribute(el, "content")
+      fulltext:
+        select: main
+        value: textContent(el)
+      robots:
+        select: head > meta[name="robots"]
+        value: attribute(el, 'content')
+      status:
+        select: head > meta[name="site-search"]
+        value: attribute(el, 'content')
+      lastModified:
+        select: none
+        value: parseTimestamp(headers["last-modified"], "ddd, DD MMM YYYY hh:mm:ss GMT")
   site:
     include:
       - '/**'

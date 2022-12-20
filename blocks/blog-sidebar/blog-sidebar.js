@@ -71,7 +71,7 @@ export default async function decorate(block) {
 </div>
 <div class="date">${printableDate}</div>
 <div class="share">
-  <p>SHARE</p>
+  <p>${window.placeholders?.default?.share || 'SHARE'}</p>
   <div>
     <a href="http://www.facebook.com/share.php?u=${pageURL}"><span class="icon icon-facebook"></span></a>
     <a href="http://www.twitter.com/share?url=${pageURL}&text=${shareText}"><span class="icon icon-twitter"></span></a>

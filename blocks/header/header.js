@@ -168,14 +168,13 @@ export default async function decorate(block) {
     const searchIcon = navSearch.children[0].children[0].children[0];
     const placeholder = 'search';
     const searchForm = document.createElement('form');
-    searchForm.classList.add('search');
-    // searchForm.setAttribute('action', '/search');
+    searchForm.classList.add('search-form');
     searchForm.setAttribute('action', '/drafts/jlledo/search'); // FIXME: don't merge this line
     navSearch.replaceChild(searchForm, navSearch.children[0]);
     const searchElement = [...navSearch.children][0];
     searchElement.innerHTML = `
-      <input type="text" class="search__input" id="search" value="" placeholder="${placeholder}" />
-      <button type="submit" class="search__submit"></button>
+      <input type="text" class="search-input" id="search" value="" placeholder="${placeholder}" />
+      <button type="submit" class="search-submit"></button>
     `;
     const button = searchElement.children[1];
     button.appendChild(searchIcon);

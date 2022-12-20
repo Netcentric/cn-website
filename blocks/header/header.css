@@ -21,7 +21,11 @@ header nav a:any-link {
 }
 
 header nav[aria-expanded='true'] {
-  grid-template: 'brand hamburger' var(--nav-height) 'sections sections' 1fr 'tools tools' 56px;
+  grid-template:
+    'brand hamburger' var(--nav-height)
+    'sections sections' 1fr
+    'search search'
+    'tools tools' 56px;
   grid-template-columns: 1fr 56px;
   overflow-y: scroll;
   min-height: 100vh;
@@ -126,7 +130,7 @@ header nav .nav-sections .nav-drop-ul-wrapper {
 }
 
 header nav[aria-expanded='true'] .nav-sections {
-  background-color: #2e308e;
+  background-color: var(--c-dark-plum);
   display: block;
   height: 100%;
 }
@@ -153,7 +157,8 @@ header nav .nav-sections span.close-menu-arrow svg {
   transform: rotate(180deg);
 }
 
-header nav .nav-sections li span.icon.icon-chevron-right, header nav .nav-sections li span.icon.icon-chevron-right svg {
+header nav .nav-sections li span.icon.icon-chevron-right,
+header nav .nav-sections li span.icon.icon-chevron-right svg {
   display: none;
   width: 16px;
   height: 16px;
@@ -166,18 +171,37 @@ header nav[aria-expanded='true'] .nav-sections li span.icon.icon-chevron-right s
 }
 
 /* search */
-header nav .nav-search {
-  position: absolute;
-  top: 1.5em;
-  right: 5em;
-  width: fit-content;
+.nav-search {
+  box-sizing: border-box;
+  grid-area: search;
+  display: none;
+  width: 100%;
+  padding-left: 1.5em;
+  padding-right: 1.5em;
+  padding-bottom: 2em;
+  background-color: var(--c-dark-plum);
 }
 
-header nav .nav-search .search {
+header nav[aria-expanded='true'] .nav-search {
+  display: initial;
+}
+
+@media (min-width: 992px)  {
+  .nav-search {
+    display: initial;
+    padding-left: 0;
+    padding-right: 0;
+    padding-bottom: 0;
+    width: fit-content;
+    background-color: transparent;
+  }
+}
+
+.search-form {
   display: flex;
 }
 
-header nav .nav-search .search button {
+.search-form .search-submit {
   background-color: var(--c-dark-plum);
   color: var(--c-light-teal);
   height: 1.8em;
@@ -185,21 +209,28 @@ header nav .nav-search .search button {
   display: flex;
   align-items: center;
   justify-content: center;
+  border-top-right-radius: 0.3em;
+  border-bottom-right-radius: 0.3em;
 }
 
-header nav .nav-search .search button:hover {
+.search-form .search-submit:hover {
   background-color: var(--c-white);
   color: var(--c-dark-plum);
 }
 
-header nav .nav-search .search :where(input, button) {
+.search-form .search-input {
+  border-top-left-radius: 0.3em;
+  border-bottom-left-radius: 0.3em;
+  flex-grow: 2;
+}
+
+.search-form :where(input, button) {
   border-width: thin;
-  border-radius: 0.3em;
   border-color: var(--c-dark-plum);
 }
 
 /* stylelint-disable-next-line no-descending-specificity */
-header nav .nav-search svg {
+.nav-search svg {
   height: 1em;
   width: 1em;
 }
@@ -320,31 +351,6 @@ header nav .nav-sections ul > li.nav-drop[aria-expanded='true'] > .nav-drop-ul-w
   height: 100%;
 }
 
-/* special media query for search input form */
-@media (max-width: 480px) {
-  header nav .nav-search {
-    display: none;
-  }
-
-  header nav[aria-expanded='true'] .nav-search {
-    display: initial;
-    top: inherit;
-    bottom: 0.3em;
-    left: 50%;
-    translate: -50%;
-  }
-
-  header nav[aria-expanded='true'] .nav-search button {
-    background-color: var(--c-light-teal);
-    color: var(--c-dark-plum);
-  }
-
-  header nav[aria-expanded='true'] .nav-search button:hover {
-    background-color: var(--c-dark-plum);
-    color: var(--c-light-teal);
-  }
-}
-
 /* desktop nav styles */
 @media (min-width: 992px)  {
   body:has(header nav li.nav-drop[aria-expanded='true']) {
@@ -447,11 +453,11 @@ header nav .nav-sections ul > li.nav-drop[aria-expanded='true'] > .nav-drop-ul-w
   }
 
   /* search */
-  header nav .nav-search {
+  .nav-search {
     position: unset;
   }
 
-  header nav .nav-search .search input {
+  .search-form input {
     width: 5em;
   }
 
@@ -608,7 +614,7 @@ header nav .nav-sections ul > li.nav-drop[aria-expanded='true'] > .nav-drop-ul-w
     padding-right: 0;
   }
 
-  header nav .nav-search .search input {
+  .search-form input {
     width: unset;
   }
 

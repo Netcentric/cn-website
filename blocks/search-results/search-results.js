@@ -26,10 +26,12 @@ class SearchResults {
   }
 
   showResults() {
-    let HTMLResults = `<h2 class="results-empty">No results for ${this.searchterm}</h2>`;
+    let resultsText = window.placeholders?.default?.noResultsFor.replace('{value}', this.searchterm) || `No results for ${this.searchterm}`;
+    let HTMLResults = `<h2 class="results-empty">${resultsText}</h2>`;
 
     if (this.searchResults) {
-      HTMLResults = `<h2>Results for ${this.searchterm}</h2>`
+      resultsText = window.placeholders?.default?.resultsFor.replace('{value}', this.searchterm) || `Results for ${this.searchterm}`
+      HTMLResults = `<h2>${resultsText}</h2>`
 
       this.searchResults.results.forEach((result) => {
         HTMLResults += `

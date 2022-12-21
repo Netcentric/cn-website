@@ -7,6 +7,7 @@ import {
   decorateSections,
   decorateBlocks,
   decorateTemplateAndTheme,
+  fetchPlaceholders,
   waitForLCP,
   loadBlocks,
   toClassName,
@@ -39,8 +40,10 @@ function decorateButtons(element) {
   element.querySelectorAll('a').forEach((a) => {
     if (a.href !== a.textContent) {
       const up = a.parentElement;
-      const twoup = a.parentElement.parentElement;
-      if (!a.querySelector('img')) {
+      const twoup = up.parentElement;
+      const threeUp = twoup.parentElement;
+
+      if (!a.querySelector('img') && !threeUp.classList.contains('fixed-social-media')) {
         a.title = a.title || a.textContent.trim();
         if (up.childNodes.length === 1 && (up.tagName === 'P' || up.tagName === 'DIV')) {
           a.className = 'button'; // default navigational link
@@ -231,6 +234,7 @@ export async function decorateMain(main) {
   instrumentMain(main);
   // hopefully forward compatible button decoration
   decorateButtons(main);
+  await fetchPlaceholders();
   await buildAutoBlocks(main);
   decorateSections(main);
   decorateBlocks(main);

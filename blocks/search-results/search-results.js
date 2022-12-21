@@ -5,7 +5,7 @@ class SearchResults {
   }
 
   init() {
-    this.searchterm = this.getSearchTerm();
+    this.searchterm = SearchResults.getSearchTerm();
 
     if (this.searchterm) {
       this.searchterm.trim();
@@ -41,7 +41,7 @@ class SearchResults {
         this.searchResults = result.data.search;
         this.showResults();
       })
-      .catch((error) => {
+      .catch(() => {
         this.showResults();
       });
   }
@@ -51,8 +51,8 @@ class SearchResults {
     let HTMLResults = `<h2 class="results-empty">${resultsText}</h2>`;
 
     if (this.searchResults && this.searchResults.count > 0) {
-      resultsText = window.placeholders?.default?.resultsFor.replace('{value}', this.searchterm) || `Results for ${this.searchterm}:`
-      HTMLResults = `<h2>${resultsText}</h2>`
+      resultsText = window.placeholders?.default?.resultsFor.replace('{value}', this.searchterm) || `Results for ${this.searchterm}:`;
+      HTMLResults = `<h2>${resultsText}</h2>`;
 
       this.searchResults.items.forEach((result) => {
         HTMLResults += `
@@ -65,7 +65,7 @@ class SearchResults {
     this.element.innerHTML = HTMLResults;
   }
 
-  getSearchTerm() {
+  static getSearchTerm() {
     const url = new URL(window.location.href);
     const params = new URLSearchParams(url.search);
 
@@ -76,7 +76,7 @@ class SearchResults {
 export default function decorate(block) {
   const container = block.children[0];
   const endpoint = block.innerText;
-  const searchResults = new SearchResults(container, {endpoint: endpoint});
+  const searchResults = new SearchResults(container, { endpoint });
 
   container.innerHTML = '';
   container.classList.add('search-results-content');

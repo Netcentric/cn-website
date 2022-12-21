@@ -8,6 +8,7 @@ class SearchResults {
     this.searchterm = this.getSearchTerm();
 
     if (this.searchterm) {
+      this.searchterm.trim();
       this.getResults();
     }
   }
@@ -39,6 +40,9 @@ class SearchResults {
       .then((result) => {
         this.searchResults = result.data.search;
         this.showResults();
+      })
+      .catch((error) => {
+        this.showResults();
       });
   }
 
@@ -65,7 +69,7 @@ class SearchResults {
     const url = new URL(window.location.href);
     const params = new URLSearchParams(url.search);
 
-    return params.get('terms').trim();
+    return params.get('terms');
   }
 }
 

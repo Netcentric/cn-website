@@ -88,8 +88,7 @@ export default async function decorate(block) {
   block.textContent = '';
 
   // fetch nav content
-  // const navPath = cfg.nav || '/nav';
-  const navPath = cfg.nav || '/drafts/jlledo/nav'; // FIXME: don't merge this line
+  const navPath = cfg.nav || '/nav';
   const resp = await fetch(`${navPath}.plain.html`);
   if (resp.ok) {
     const html = await resp.text();
@@ -168,7 +167,7 @@ export default async function decorate(block) {
     const searchIcon = navSearch.children[0].children[0].children[0];
     const searchForm = document.createElement('form');
     searchForm.classList.add('search-form');
-    searchForm.setAttribute('action', '/drafts/jlledo/search'); // FIXME: don't merge this line
+    searchForm.setAttribute('action', '/search');
     navSearch.replaceChild(searchForm, navSearch.children[0]);
     const searchElement = [...navSearch.children][0];
     searchElement.innerHTML = `

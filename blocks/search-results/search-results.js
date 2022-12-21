@@ -1,8 +1,7 @@
-import {TEST_RESULTS, TEST_RESULTS_PLUS} from '../../tools/search/test.js';
-
 class SearchResults {
-  constructor(element) {
+  constructor(element, options) {
     this.element = element;
+    this.options = options;
   }
 
   init() {
@@ -14,29 +13,47 @@ class SearchResults {
   }
 
   getResults() {
-    //TODO here goes the fetch
-    const testTerms = {
-      test: TEST_RESULTS_PLUS,
-      squad: TEST_RESULTS,
-    };
-
-    this.searchResults = testTerms[this.searchterm.toLowerCase()] ?? null;
-
-    this.showResults();
+    fetch(this.options.endpoint, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        query: `
+        query ($q: String) {search(q: $q){
+              count
+            items {
+              title
+              snippet
+              path
+            }
+          }
+        }
+      `,
+        variables: {
+          q: this.searchterm,
+        },
+      }),
+    })
+      .then((res) => res.json())
+      .then((result) => {
+        this.searchResults = result.data.search;
+        this.showResults();
+      });
   }
 
   showResults() {
     let resultsText = window.placeholders?.default?.noResultsFor.replace('{value}', this.searchterm) || `No results for ${this.searchterm}`;
     let HTMLResults = `<h2 class="results-empty">${resultsText}</h2>`;
 
-    if (this.searchResults) {
-      resultsText = window.placeholders?.default?.resultsFor.replace('{value}', this.searchterm) || `Results for ${this.searchterm}`
+    if (this.searchResults && this.searchResults.count > 0) {
+      resultsText = window.placeholders?.default?.resultsFor.replace('{value}', this.searchterm) || `Results for ${this.searchterm}:`
       HTMLResults = `<h2>${resultsText}</h2>`
 
-      this.searchResults.results.forEach((result) => {
+      this.searchResults.items.forEach((result) => {
         HTMLResults += `
-          <h3 class="results-title"><a class="results-link" href="${result.link}">${result.title}</a></h3>
-          <p class="results-text">${result.snipped}</p>
+          <h3 class="results-title"><a class="results-link" href="${result.path}">${result.title}</a></h3>
+          <p class="results-text">${result.snippet}</p>
         `;
       });
     }
@@ -54,8 +71,10 @@ class SearchResults {
 
 export default function decorate(block) {
   const container = block.children[0];
-  const searchResults = new SearchResults(container)
+  const endpoint = block.innerText;
+  const searchResults = new SearchResults(container, {endpoint: endpoint});
 
+  container.innerHTML = '';
   container.classList.add('search-results-content');
   searchResults.init();
 }

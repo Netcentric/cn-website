@@ -86,6 +86,7 @@ function getNavPath() {
       return new URL(navMeta).pathname;
     }
   } catch (e) {
+    // eslint-disable-next-line no-console
     console.error('error while loading navigaiton path', e);
   }
   return '/nav';

@@ -79,6 +79,8 @@ indices:
     exclude:
       - '/de/**'
       - '/de'
+      - '/profiles/**'
+      - '/drafts/**'
     target: /query-index-search.json
     properties:
       title:

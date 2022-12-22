@@ -16,7 +16,12 @@ const sleep = async (time = 1000) => new Promise((resolve) => {
   }, time);
 });
 
-const headerBlock = buildBlock('header', [['Nav', '/test/blocks/header/nav']]);
+const navMeta = document.createElement('meta');
+navMeta.setAttribute('name', 'nav');
+navMeta.setAttribute('content', 'https://main--helix-project-boilerplate--adobe.hlx.page/test/blocks/header/nav');
+document.head.append(navMeta);
+
+const headerBlock = buildBlock('header', [[]]);
 document.querySelector('header').append(headerBlock);
 decorateBlock(headerBlock);
 await loadBlock(headerBlock);

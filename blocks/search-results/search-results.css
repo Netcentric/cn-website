@@ -16,6 +16,10 @@
   height: 60vh;
 }
 
+.search-results:has(.results-loading) {
+  height: 100vh;
+}
+
 .search-results:has(.results-empty, .results-loading) .search-results-content {
   flex: 0 0 40%;
 }

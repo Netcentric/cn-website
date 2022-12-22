@@ -208,10 +208,12 @@ export async function decorateIcons(element = document) {
 export async function fetchPlaceholders(prefix = 'default') {
   window.placeholders = window.placeholders || {};
   const loaded = window.placeholders[`${prefix}-loaded`];
+  const languagePath = getLanguagePath();
+  
   if (!loaded) {
     window.placeholders[`${prefix}-loaded`] = new Promise((resolve, reject) => {
       try {
-        fetch(`${prefix === 'default' ? '' : prefix}/placeholders.json`)
+        fetch(`${prefix === 'default' ? '' : prefix}${languagePath}/placeholders.json`)
           .then((resp) => resp.json())
           .then((json) => {
             const placeholders = {};

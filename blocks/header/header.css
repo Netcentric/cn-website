@@ -378,10 +378,6 @@ header nav .nav-sections ul > li.nav-drop[aria-expanded='true'] > .nav-drop-ul-w
     text-decoration: none;
   }
 
-  header nav .nav-tools > ul > li:first-child > a {
-    text-decoration: underline;
-  }
-
   header nav .nav-sections ul > li > .nav-drop-ul-wrapper span.icon.icon-chevron-right svg {
     cursor: initial;
     display: initial;

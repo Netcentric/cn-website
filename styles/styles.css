@@ -412,7 +412,7 @@ main .columns-wrapper img {
     padding: 32px 0;
   }
 
-  main .section > div {
+  main .section > div:not(.fixed-social-media-wrapper) {
     width: var(--section-width);
     margin: 0 auto;
   }

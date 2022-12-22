@@ -3,8 +3,10 @@
   height: auto;
 }
 
-.search-results.block .search-results-content {
-  padding: 0 5em;
+@media (min-width: 992px) {
+  .search-results-content {
+    padding: 0 5em;
+  }
 }
 
 .search-results.block:has(.results-empty) {

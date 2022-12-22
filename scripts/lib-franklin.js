@@ -220,6 +220,10 @@ export async function fetchPlaceholders(prefix = 'default') {
             });
             window.placeholders[prefix] = placeholders;
             resolve();
+          })
+          .catch(() => {
+            window.placeholders[prefix] = {};
+            resolve();
           });
       } catch (error) {
         // error loading placeholders

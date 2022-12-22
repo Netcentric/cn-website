@@ -1,4 +1,4 @@
-import { decorateIcons, getMetadata } from '../../scripts/lib-franklin.js';
+import { decorateIcons, getMetadata, getLanguagePath } from '../../scripts/lib-franklin.js';
 import { addChevronToButtons } from '../../scripts/scripts.js';
 
 const mobileBreakpoint = 992;
@@ -99,7 +99,7 @@ export default async function decorate(block) {
   block.textContent = '';
 
   // fetch nav content
-  const resp = await fetch(`${getNavPath()}.plain.html`);
+  const resp = await fetch(`${getLanguagePath()}${getNavPath()}.plain.html`);
   if (resp.ok) {
     const html = await resp.text();
 

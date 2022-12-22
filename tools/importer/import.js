@@ -62,20 +62,22 @@ function transformLibraryRelatedPosts(document) {
         links.appendChild(br);
       });
 
-    const cells = [['Related Articles'], [links]];
-    const table = WebImporter.DOMUtils.createTable(cells, document);
+    if (links.length > 0) {
+      const cells = [['Related Blogs'], [links]];
+      const table = WebImporter.DOMUtils.createTable(cells, document);
 
-    // add extra section if the original teaser list is hidden
-    if (teaserContainer.classList.contains('aem-GridColumn--default--hide')) {
-      teaserContainer.parentElement.append(document.createElement('hr'));
-      teaserContainer.parentElement.append(table);
+      // add extra section if the original teaser list is hidden
+      if (teaserContainer.classList.contains('aem-GridColumn--default--hide')) {
+        teaserContainer.parentElement.append(document.createElement('hr'));
+        teaserContainer.parentElement.append(table);
 
-      const metaCells = [['Section Metadata'], ['style', 'desktop-hidden']];
-      const metaTable = WebImporter.DOMUtils.createTable(metaCells, document);
-      teaserContainer.parentElement.append(metaTable);
-      teaserContainer.parentElement.append(document.createElement('hr'));
-    } else {
-      teaserContainer.querySelector('.libraryteaserlist__base').replaceWith(table);
+        const metaCells = [['Section Metadata'], ['style', 'desktop-hidden']];
+        const metaTable = WebImporter.DOMUtils.createTable(metaCells, document);
+        teaserContainer.parentElement.append(metaTable);
+        teaserContainer.parentElement.append(document.createElement('hr'));
+      } else {
+        teaserContainer.querySelector('.libraryteaserlist__base').replaceWith(table);
+      }
     }
   }
 }
@@ -101,41 +103,39 @@ function transformBlogSourceCode(document) {
 
 // map testimonial blocks
 function transformTestimonial(document) {
-  let container = document.querySelector('.testimonial');
-  if (container) {
-    container = container.parentElement;
+  const testimonialCards = document.querySelectorAll('.testimonial');
 
-    const testimonialCards = document.querySelectorAll('.testimonial');
-    if (testimonialCards) {
-      const cells = [['Cards (testimonial)']];
-      testimonialCards.forEach((card) => {
-        // capture profile
-        const profileName = card.querySelector('.authorprofile__name');
-        const profileRole = card.querySelector('.authorprofile__position');
+  if (testimonialCards.length > 0) {
+    const container = testimonialCards[0].parentElement;
 
-        const imageContainer = document.createElement('div');
-        const imgTag = card.querySelector('.authorprofile__image img');
-        if (imgTag) {
-          imgTag.alt = profileName.textContent;
-          imageContainer.append(imgTag);
-        }
+    const cells = [['Cards (testimonial)']];
+    testimonialCards.forEach((card) => {
+      // capture profile
+      const profileName = card.querySelector('.authorprofile__name');
+      const profileRole = card.querySelector('.authorprofile__position');
 
-        // capture text
-        const text = card.querySelector('h2.testimonial__title');
-        const contentContainer = document.createElement('div');
-        contentContainer.appendChild(text);
-        contentContainer.appendChild(profileName);
-        const roleContainer = document.createElement('em');
-        roleContainer.appendChild(profileRole);
-        contentContainer.appendChild(roleContainer);
+      const imageContainer = document.createElement('div');
+      const imgTag = card.querySelector('.authorprofile__image img');
+      if (imgTag) {
+        imgTag.alt = profileName.textContent;
+        imageContainer.append(imgTag);
+      }
 
-        cells.push([imageContainer, contentContainer]);
-        card.remove();
-      });
+      // capture text
+      const text = card.querySelector('h2.testimonial__title');
+      const contentContainer = document.createElement('div');
+      contentContainer.appendChild(text);
+      contentContainer.appendChild(profileName);
+      const roleContainer = document.createElement('em');
+      roleContainer.appendChild(profileRole);
+      contentContainer.appendChild(roleContainer);
 
-      const table = WebImporter.DOMUtils.createTable(cells, document);
-      container.replaceWith(table);
-    }
+      cells.push([imageContainer, contentContainer]);
+      card.remove();
+    });
+
+    const table = WebImporter.DOMUtils.createTable(cells, document);
+    container.replaceWith(table);
   }
 }
 
@@ -586,7 +586,6 @@ export default {
     if (document.querySelector('div.blogfooter')) {
       meta.Template = 'blogpost';
     }
-
     // use helper method to remove header, footer, etc.
     WebImporter.DOMUtils.remove(document.body, [
       'div.header', // entire header XF
@@ -602,10 +601,15 @@ export default {
       'a i.icons.icon__wrapper', // remove > icon on buttons, teaser links etc.
       'p.leaderprofile__name i.icons.icon__wrapper', // remove > icon from leader profile
       'div.socialmediabar',
-      'div.authorprofile.authorprofile--large',
-      'div.authorprofile.authorprofile--medium',
-      'div.authorprofile.authorprofile--small',
     ]);
+
+    if (url.includes('/content/experience-fragments/netcentric/profiles')) {
+      WebImporter.DOMUtils.remove(document.body, [
+        'div.authorprofile.authorprofile--large',
+        'div.authorprofile.authorprofile--medium',
+        'div.authorprofile.authorprofile--small',
+      ]);
+    }
 
     // Convert all blocks
     [

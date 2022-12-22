@@ -48,11 +48,11 @@ class SearchResults {
   }
 
   showResults() {
-    let resultsText = window.placeholders?.default?.noResultsFor.replace('{value}', this.searchterm) || `No results for ${this.searchterm}`;
+    let resultsText = window.placeholders?.default?.noResultsFor.replace('{0}', this.searchterm) || `No results for ${this.searchterm}`;
     let HTMLResults = `<h2 class="results-empty">${resultsText}</h2>`;
 
     if (this.searchResults && this.searchResults.count > 0) {
-      resultsText = window.placeholders?.default?.resultsFor.replace('{value}', this.searchterm) || `Results for ${this.searchterm}:`;
+      resultsText = window.placeholders?.default?.resultsFor.replace('{0}', this.searchterm) || `Results for ${this.searchterm}:`;
       HTMLResults = `<h2>${resultsText}</h2>`;
 
       this.searchResults.items.forEach((result) => {

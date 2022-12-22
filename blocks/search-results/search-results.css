@@ -1,4 +1,4 @@
-.search-results.block {
+.search-results {
   display: flex;
   height: auto;
 }
@@ -9,17 +9,17 @@
   }
 }
 
-.search-results.block:has(.results-empty) {
+.search-results:has(.results-empty, .results-loading) {
   justify-content: center;
   align-items: center;
   flex-direction: column;
   height: 60vh;
 }
 
-.search-results.block:has(.results-empty) .search-results-content {
+.search-results:has(.results-empty, .results-loading) .search-results-content {
   flex: 0 0 40%;
 }
 
-.search-results.block .results-link:hover {
+.search-results .results-link:hover {
   text-decoration: underline;
 }

@@ -8,6 +8,7 @@ class SearchResults {
     this.searchterm = SearchResults.getSearchTerm();
 
     if (this.searchterm) {
+      this.element.innerHTML = '<div class="results-loading"></div>';
       this.searchterm.trim();
       this.getResults();
     }

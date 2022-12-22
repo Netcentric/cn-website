@@ -29,7 +29,7 @@ main .form label {
 }
 
 main .form label.required::after {
-  content: "*";
+  content: '*';
   color: red;
   padding-left: 5px;
 }
@@ -61,7 +61,11 @@ main .form .form-checkbox-wrapper input[type='checkbox'] + label::before {
   background-size: contain;
 }
 
-main .form .form-checkbox-wrapper input[type='checkbox']:checked +label::before {
+main
+  .form
+  .form-checkbox-wrapper
+  input[type='checkbox']:checked
+  + label::before {
   width: 20px;
   height: 20px;
   background: url('/icons/checkbox-checked.svg') center center no-repeat;

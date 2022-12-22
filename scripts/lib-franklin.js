@@ -202,6 +202,13 @@ export async function decorateIcons(element = document) {
 }
 
 /**
+ * @returns language path portion for the current URL to be used to build language specific URLs
+ */
+export function getLanguagePath() {
+  return window.location.pathname === '/de' || window.location.pathname.startsWith('/de/') ? '/de' : '';
+}
+
+/**
  * Gets placeholders object
  * @param {string} prefix
  */
@@ -576,13 +583,6 @@ export function loadFooter(footer) {
   footer.append(footerBlock);
   decorateBlock(footerBlock);
   return loadBlock(footerBlock);
-}
-
-/**
- * @returns language path portion for the current URL to be used to build language specific URLs
- */
-export function getLanguagePath() {
-  return window.location.pathname === '/de' || window.location.pathname.startsWith('/de/') ? '/de' : '';
 }
 
 /**

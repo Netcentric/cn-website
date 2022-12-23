@@ -300,23 +300,4 @@ export default function decorate(block) {
       slider.init();
     }
   });
-  const slider = new CarouselSlider(block, {
-    elementsPerSlide: 1,
-    transitionTime: '1s',
-    breakpoints: {
-      0: {
-        elementsPerSlide: 2,
-        responsiveWidth: 'fluid',
-      },
-      992: {
-        elementsPerSlide: 6,
-        responsiveWidth: 'static',
-      },
-      1200: {
-        elementsPerSlide: 6,
-        responsiveWidth: 'static',
-      },
-    },
-  });
-  slider.init();
 }

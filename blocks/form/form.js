@@ -1,4 +1,5 @@
 import { loadCSS } from '../../scripts/lib-franklin.js';
+import { isMarketoFormUrl } from '../../scripts/scripts.js';
 
 const loadScript = (url, callback, type) => {
   const head = document.querySelector('head');
@@ -384,7 +385,7 @@ export default async function decorate(block) {
   const form = block.querySelector('a[href]');
   try {
     const target = new URL(form?.href);
-    if (target.hostname === 'engage-lon.marketo.com') {
+    if (isMarketoFormUrl(target)) {
       loadCSS('/blocks/form/form-marketo.css');
       const [, formId] = target.hash.split('#/mktForm/');
       const munchkinId = new URLSearchParams(target.search).get('munchkinId');

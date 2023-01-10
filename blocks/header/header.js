@@ -93,6 +93,36 @@ function getNavPath() {
 }
 
 /**
+ * Handles the language switch
+ * @private
+ */
+function languageSwitch() {
+  const header = document.querySelector('.header');
+  const langSwitch = header.querySelector('.nav-tools ul');
+  const languages = {
+    en: langSwitch.children[0].firstElementChild,
+    de: langSwitch.children[1].firstElementChild,
+  };
+  const defaultLanguage = 'en';
+  const isHomepage = window.location.pathname.replace(document.documentElement.lang, '').length === 1;
+
+  Object.keys(languages).forEach((key) => {
+    if (key === document.documentElement.lang) {
+      languages[key].href = '#';
+      languages[key].style.textDecoration = 'underline';
+    } else if (isHomepage && key === defaultLanguage) {
+      languages[key].href = '/';
+    } else if (isHomepage && key !== defaultLanguage) {
+      languages[key].href = `/${key}`;
+    } else if (key === defaultLanguage) {
+      languages[key].href = window.location.pathname.replace(`/${document.documentElement.lang}`, '');
+    } else {
+      languages[key].href = `/${key}${window.location.pathname}`;
+    }
+  });
+}
+
+/**
  * decorates the header, mainly the nav
  * @param {Element} block The header block element
  */
@@ -227,6 +257,7 @@ export default async function decorate(block) {
       }
     });
 
+    languageSwitch();
     reAttachEventListeners();
   }
 }

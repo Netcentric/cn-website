@@ -1,5 +1,6 @@
 import {
   sampleRUM,
+  getLanguagePath,
   buildBlock,
   loadHeader,
   loadFooter,
@@ -281,10 +282,24 @@ async function loadGellix() {
 }
 
 /**
+ * sets the language attribute in the html tag
+ */
+function setPageLanguage() {
+  let languagePath = getLanguagePath();
+
+  if (languagePath) {
+    languagePath = languagePath.slice(1);
+  } else {
+    languagePath = 'en';
+  }
+  document.documentElement.lang = languagePath;
+}
+
+/**
  * loads everything needed to get to LCP.
  */
 async function loadEager(doc) {
-  document.documentElement.lang = 'en';
+  setPageLanguage();
   decorateTemplateAndTheme();
   const main = doc.querySelector('main');
   if (main) {

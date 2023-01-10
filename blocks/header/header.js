@@ -226,6 +226,7 @@ export default async function decorate(block) {
       url.search = params;
       window.open(url.href, '_self');
     });
+    if (getLanguagePath() === '/de') navSearch.style.display = 'none';
 
     // mobile language selector
     const langToggleButton = document.createElement('button');

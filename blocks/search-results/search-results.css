@@ -1,0 +1,29 @@
+.search-results {
+  display: flex;
+  height: auto;
+}
+
+@media (min-width: 992px) {
+  .search-results-content {
+    padding: 0 5em;
+  }
+}
+
+.search-results:has(.results-empty, .results-loading) {
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  height: 60vh;
+}
+
+.search-results:has(.results-loading) {
+  height: 100vh;
+}
+
+.search-results:has(.results-empty, .results-loading) .search-results-content {
+  flex: 0 0 40%;
+}
+
+.search-results .results-link:hover {
+  text-decoration: underline;
+}

@@ -1,3 +1,18 @@
+import { loadCSS } from '../../scripts/lib-franklin.js';
+import { isMarketoFormUrl } from '../../scripts/scripts.js';
+
+const loadScript = (url, callback, type) => {
+  const head = document.querySelector('head');
+  const script = document.createElement('script');
+  script.src = url;
+  if (type) {
+    script.setAttribute('type', type);
+  }
+  head.append(script);
+  script.onload = callback;
+  return script;
+};
+
 function constructPayload(form) {
   const payload = {};
   [...form.elements].forEach((fe) => {
@@ -137,7 +152,10 @@ function createLabel(fd) {
 function applyRules(form, rules) {
   const payload = constructPayload(form);
   rules.forEach((field) => {
-    const { type, condition: { key, operator, value } } = field.rule;
+    const {
+      type,
+      condition: { key, operator, value },
+    } = field.rule;
     if (type === 'visible') {
       if (operator === 'eq') {
         if (payload[key] === value) {
@@ -201,12 +219,196 @@ async function createForm(formURL) {
   form.addEventListener('change', () => applyRules(form, rules));
   applyRules(form, rules);
 
-  return (form);
+  return form;
+}
+
+const marketoCnames = {
+  '742-RCX-794': 'pagessbx.netcentric.biz',
+  '598-XRJ-385': 'pages.netcentric.biz',
+};
+
+/**
+ * Create a completely barebones, user-styles-only Marketo form by removing inline STYLE
+ * attributes and disabling STYLE and LINK elements.
+ * @param {Object} form
+ * @return {Void}
+ */
+function removeDefaultFormStyles(mktoForm) {
+  const formEl = mktoForm.getFormElem()[0];
+  const formStyleEl = formEl.querySelectorAll('[style]');
+
+  formEl.removeAttribute('style');
+  for (let i = 0; i < formStyleEl.length; i += 1) {
+    formStyleEl[i].removeAttribute('style');
+  }
+
+  // Remove all default Marketo stylesheets
+  const { styleSheets } = document;
+
+  for (let i = 0; i < styleSheets.length; i += 1) {
+    const styleSheetId = styleSheets[i].ownerNode.getAttribute('id');
+    if (styleSheetId === 'mktoForms2BaseStyle' || styleSheetId === 'mktoForms2ThemeStyle' || formEl.contains(styleSheets[i].ownerNode)) {
+      styleSheets[i].disabled = true;
+    }
+  }
+}
+
+/**
+ * Marketo uses the same ids for the same fields. To allow multiple forms, we append a random
+ * value to the default input ids
+ * @param {Object} form
+ * @returns {Void}
+ */
+function fixFieldLabelAssociation(form) {
+  const formEl = form.getFormElem()[0];
+  const randomValue = `-${Date.now()}${Math.random()}`;
+  const labelEl = formEl.querySelectorAll('label[for]');
+
+  for (let i = 0; i < labelEl.length; i += 1) {
+    const forEl = formEl.querySelector(`[id='${labelEl[i].htmlFor}'],
+       [id='${labelEl[i].htmlFor}${randomValue}']`);
+    if (forEl) {
+      forEl.setAttribute('data-orig-id', labelEl[i].htmlFor);
+      forEl.id = forEl.id.indexOf(randomValue) === -1
+        ? forEl.id + randomValue
+        : forEl.id;
+      labelEl[i].htmlFor = forEl.id;
+    }
+  }
+}
+
+/**
+   * By default all checkboxes and radio buttons are right aligned in Marketo Forms. This function
+   * moves these elements to the left side.
+   * @param {Object} form
+   * @return {Void}
+   */
+function moveCheckboxesToTheLeft(form) {
+  const formEl = form.getFormElem()[0];
+  const formRowEl = formEl.querySelectorAll('.mktoFormRow');
+
+  for (let i = 0; i < formRowEl.length; i += 1) {
+    // Get all checkboxes and radio buttons within form row
+    const formCheckboxEl = formRowEl[i].querySelectorAll('input[type=checkbox], input[type=radio]');
+    const hasOnlyOneCheckbox = formCheckboxEl !== null && formCheckboxEl.length === 1;
+
+    // Check if there's only one of these elements in that row to ensure to only transform single
+    // checkbox / radio button elements
+    if (hasOnlyOneCheckbox) {
+      const formCheckboxLabel = formRowEl[i].querySelectorAll(`label[for="${formCheckboxEl[0].getAttribute('name')}"],
+         label[for="${formCheckboxEl[0].getAttribute('id')}"]`);
+
+      // Check if second label element is empty which should be the case for all single checkbox /
+      // radio button elements
+      if (formCheckboxLabel[1].textContent === '') {
+        formCheckboxLabel[1].innerHTML = formCheckboxLabel[0].innerHTML;
+        formCheckboxLabel[0].innerHTML = '';
+      }
+    }
+  }
+}
+
+/**
+ * Transform asterisk element into text in order to fix styling issues for rich-text
+ * labels. The asterisks for non-required fields are removed.
+ * @param {Object} form
+ * @param {String} [pos='right'] 'right' or 'left'
+ * @returns {Void}
+ */
+function adjustAsterisk(form, pos) {
+  const formEl = form.getFormElem()[0];
+  const formFieldWrapEl = formEl.querySelectorAll('.mktoFieldWrap');
+  const asteriskPos = pos === 'left' ? 'left' : 'right';
+  for (let i = 0; i < formFieldWrapEl.length; i += 1) {
+    if (
+      formFieldWrapEl[i].getAttribute('data-asterisk-adjusted') !== 'true'
+    ) {
+      const isRequired = formFieldWrapEl[i].classList.contains('mktoRequiredField');
+      const asteriskEl = formFieldWrapEl[i].querySelector('.mktoAsterix');
+      if (asteriskEl) {
+        const asteriskParentEl = asteriskEl.parentNode;
+        asteriskParentEl.removeChild(asteriskEl);
+        if (isRequired) {
+          const labelHTML = asteriskParentEl.innerHTML;
+          asteriskParentEl.innerHTML = asteriskPos === 'left' ? `* ${labelHTML}` : `${labelHTML} *`;
+        }
+
+        formFieldWrapEl[i].setAttribute('data-asterisk-adjusted', true);
+      }
+    }
+  }
+}
+
+/**
+ * Get closest parent element by selector
+ * @param {Element} elem
+ * @param {String} selector
+ * @returns {Element|null}
+ */
+function getClosest(el, selector) {
+  let elTemp = el;
+  for (; elTemp && elTemp !== document; elTemp = elTemp.parentNode) {
+    if (elTemp.matches(selector)) {
+      return elTemp;
+    }
+  }
+  return null;
+}
+
+function attachSuccessMessage(block, form) {
+  const fieldsetEl = form.getFormElem()[0].querySelectorAll('fieldset');
+  let successMessage = false;
+  for (let i = 0; i < fieldsetEl.length; i += 1) {
+    const legendEl = fieldsetEl[i].querySelector('legend');
+    if (legendEl.textContent === 'Success Message') {
+      const hasInputEl = fieldsetEl[i].querySelector('input, select, textarea') !== null;
+      const htmlTextEl = fieldsetEl[i].querySelector('.mktoHtmlText');
+      if (!hasInputEl && htmlTextEl) {
+        const rowEl = getClosest(fieldsetEl[i], '.mktoFormRow');
+        rowEl.parentNode.removeChild(rowEl);
+        successMessage = htmlTextEl.innerHTML;
+        break;
+      }
+    }
+  }
+
+  if (successMessage) {
+    form.onSuccess(() => {
+      block.className = 'mktoFormSuccess';
+      block.innerHTML = `<div class="mktoFormSuccess">${successMessage}</div>`;
+      return false;
+    });
+  }
 }
 
 export default async function decorate(block) {
-  const form = block.querySelector('a[href$=".json"]');
-  if (form) {
-    form.replaceWith(await createForm(form.href));
+  const form = block.querySelector('a[href]');
+  try {
+    const target = new URL(form?.href);
+    if (isMarketoFormUrl(target)) {
+      loadCSS('/blocks/form/form-marketo.css');
+      const [, formId] = target.hash.split('#/mktForm/');
+      const munchkinId = new URLSearchParams(target.search).get('munchkinId');
+      const cname = marketoCnames[munchkinId];
+      block.innerHTML = `<form id="mktoForm_${formId}"></form>`;
+      loadScript(`//${cname}/js/forms2/js/forms2.min.js`, () => {
+        window.MktoForms2.loadForm(`//${cname}`, munchkinId, formId, (loadedForm) => {
+          removeDefaultFormStyles(loadedForm);
+          fixFieldLabelAssociation(loadedForm);
+          moveCheckboxesToTheLeft(loadedForm);
+          adjustAsterisk(loadedForm);
+          attachSuccessMessage(block, loadedForm);
+        });
+      });
+    } else if (target.pathname.endsWith('.json')) {
+      form.replaceWith(await createForm(form.href));
+    }
+  } catch (e) {
+    if (window.location.hostname.endsWith('.page')) {
+      block.innerHTML = `Invalid form configuration: ${e}`;
+    } else {
+      block.innerHTML = '<!-- invalid form configuration -->';
+    }
+    console.error(e); // eslint-disable-line no-console
   }
 }

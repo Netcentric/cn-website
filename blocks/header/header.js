@@ -138,13 +138,14 @@ export default async function decorate(block) {
     const nav = document.createElement('nav');
     nav.innerHTML = html;
 
-    const classes = ['brand', 'sections', 'tools'];
+    const classes = ['brand', 'sections', 'search', 'tools'];
     classes.forEach((e, j) => {
       const section = nav.children[j];
       if (section) section.classList.add(`nav-${e}`);
     });
 
     const navSections = [...nav.children][1];
+    const navSearch = [...nav.children][2];
 
     // Set up sub menu classes and elements
     navSections.querySelectorAll(':scope ul > li').forEach((section) => {
@@ -202,6 +203,29 @@ export default async function decorate(block) {
     // Add icons to buttons
     addChevronToButtons(nav, '.nav-tools li:last-child a');
     decorateIcons(nav);
+
+    // Add search form
+    const searchIcon = navSearch.children[0].children[0].children[0];
+    const searchForm = document.createElement('form');
+    searchForm.classList.add('search-form');
+    searchForm.setAttribute('action', '/search');
+    navSearch.replaceChild(searchForm, navSearch.children[0]);
+    const searchElement = [...navSearch.children][0];
+    searchElement.innerHTML = `
+      <input type="text" class="search-input" id="search" value="" placeholder="${window.placeholders?.default?.search || 'Search'}" />
+      <button type="submit" class="search-submit"></button>
+    `;
+    const button = searchElement.children[1];
+    button.appendChild(searchIcon);
+    searchElement.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const { value } = e.target[0];
+      const url = new URL(e.target.action);
+      const params = new URLSearchParams(url.search);
+      params.set('terms', value);
+      url.search = params;
+      window.open(url.href, '_self');
+    });
 
     // mobile language selector
     const langToggleButton = document.createElement('button');

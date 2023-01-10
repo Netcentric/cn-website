@@ -195,6 +195,38 @@ function preDecorateEmbed(main) {
   }
 }
 
+export function isMarketoFormUrl(url) {
+  return url.hostname === 'engage-lon.marketo.com';
+}
+
+function findParent(element, callback) {
+  if (!element.parentElement) {
+    return null;
+  }
+  if (callback(element.parentElement)) {
+    return element.parentElement;
+  }
+  return findParent(element.parentElement, callback);
+}
+
+function preDecorateMarketoForm(main) {
+  [...main.getElementsByTagName('a')].filter((a) => {
+    try {
+      return a.href
+        && isMarketoFormUrl(new URL(a.href))
+        && !findParent(a, (parent) => parent.classList.contains('form'));
+    } catch (e) {
+      console.error('error while parsind form anchors', e);
+      return false;
+    }
+  }).forEach((a) => {
+    const formDiv = document.createElement('div');
+    formDiv.classList.add('form');
+    formDiv.innerHTML = `<div><div>${a.outerHTML}</div></div>`;
+    a.parentElement.replaceWith(formDiv);
+  });
+}
+
 /**
  * Builds all synthetic blocks in a container element.
  * @param {Element} main The container element
@@ -238,6 +270,7 @@ export async function decorateMain(main) {
   await fetchPlaceholders();
   await buildAutoBlocks(main);
   decorateSections(main);
+  preDecorateMarketoForm(main);
   decorateBlocks(main);
   preDecorateEmbed(main);
 }

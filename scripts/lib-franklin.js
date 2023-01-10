@@ -202,16 +202,25 @@ export async function decorateIcons(element = document) {
 }
 
 /**
+ * @returns language path portion for the current URL to be used to build language specific URLs
+ */
+export function getLanguagePath() {
+  return window.location.pathname === '/de' || window.location.pathname.startsWith('/de/') ? '/de' : '';
+}
+
+/**
  * Gets placeholders object
  * @param {string} prefix
  */
 export async function fetchPlaceholders(prefix = 'default') {
   window.placeholders = window.placeholders || {};
   const loaded = window.placeholders[`${prefix}-loaded`];
+  const languagePath = getLanguagePath();
+
   if (!loaded) {
     window.placeholders[`${prefix}-loaded`] = new Promise((resolve, reject) => {
       try {
-        fetch(`${prefix === 'default' ? '' : prefix}/placeholders.json`)
+        fetch(`${prefix === 'default' ? '' : prefix}${languagePath}/placeholders.json`)
           .then((resp) => resp.json())
           .then((json) => {
             const placeholders = {};
@@ -574,13 +583,6 @@ export function loadFooter(footer) {
   footer.append(footerBlock);
   decorateBlock(footerBlock);
   return loadBlock(footerBlock);
-}
-
-/**
- * @returns language path portion for the current URL to be used to build language specific URLs
- */
-export function getLanguagePath() {
-  return window.location.pathname === '/de' || window.location.pathname.startsWith('/de/') ? '/de' : '';
 }
 
 /**

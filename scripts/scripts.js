@@ -15,7 +15,92 @@ import {
 } from './lib-franklin.js';
 
 const LCP_BLOCKS = []; // add your LCP blocks to the list
-window.hlx.RUM_GENERATION = 'project-1'; // add your RUM generation information here
+window.hlx.RUM_GENERATION = 'netcentric-1-liveux'; // add your RUM generation information here
+sampleRUM.piggyback('https://api.liveux.cnwebperformance.biz/metrics/webperf-netcentric', 'visibilitychange', async (d) => {
+  const cwvCache = {};
+  const getCWV = async (value) => {
+    if (cwvCache[value]) {
+      return cwvCache[value];
+    }
+    if (window.webVitals && window.webVitals[`on${value}`]) {
+      const retval = new Promise((resolve) => {
+        // set one second timeout
+        setTimeout(() => {
+          resolve(null);
+        }, 1000);
+
+        window.webVitals[`on${value}`]((v) => {
+          cwvCache[value] = v;
+          resolve(v);
+        });
+      });
+      if (retval) {
+        return retval;
+      }
+    }
+    if (d.cwv && d.cwv[value]) {
+      cwvCache[value] = d.cwv[value];
+      return { value: d.cwv[value], entries: [] };
+    }
+    return { entries: [] };
+  };
+  const template = {
+    fcp: {
+      value: await getCWV('FCP').value,
+    },
+    window: {
+      innerHeight: window.innerHeight,
+      innerWidth: window.innerWidth,
+      devicePixelRatio: window.devicePixelRatio,
+    },
+    network: navigator.connection,
+    device: {
+      memory: navigator.deviceMemory,
+      cpu: navigator.hardwareConcurrency,
+    },
+    // current url, without path
+    domain: `${new URL(window.location.href).protocol}://${new URL(window.location.href).hostname}`,
+    url: window.location.href,
+    timestamp: new Date().getTime(),
+    // cache: [
+    //   {
+    //     type: 'no-cache',
+    //   },
+    // ],
+    isInternalNavigation: document.referrer.includes(document.location.host),
+    urlParams: Array.from(new URLSearchParams(window.location.search).keys()),
+    urlHash: (new URL(window.location.href)).hash,
+    language: document.documentElement.lang,
+    pageType: document.querySelector('[data-wp-page-type]')?.getAttribute('data-wp-page-type'),
+    ttfb: {
+      value: await getCWV('TTFB').value,
+    },
+    lcp: {
+      value: await getCWV('LCP').value,
+      element: (await getCWV('LCP')).entries.map((e) => sampleRUM.sourceselector(e.element)).pop(),
+    },
+    cls: {
+      value: await getCWV('CLS').value,
+      entries: (await getCWV('CLS')).entries.map((e) => ({
+        value: e.value,
+        element: e.sources.filter((s) => s.node).map((s) => sampleRUM.sourceselector(s.node)),
+      })),
+    },
+    consent: document.querySelector('[data-wp-page-cookie]')?.getAttribute('data-wp-page-cookie'),
+  };
+
+  // make sure that we have a valid template
+  // every property that has a value that is
+  // not a number will be removed
+  ['fcp', 'ttfb', 'lcp', 'cls'].forEach((key) => {
+    if (template[key] && template[key].value && typeof template[key].value !== 'number') {
+      delete template[key];
+    }
+  });
+  return new Blob([JSON.stringify(template)], { type: 'application/json' });
+});
+
+window.addEventListener('visibilitychange', () => document.visibilityState === 'hidden' && sampleRUM('visibilitychange'));
 
 /**
  * Adds chevron to all buttons that are children of element

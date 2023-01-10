@@ -29,13 +29,15 @@ export function sampleRUM(checkpoint, data = {}) {
         .forEach(({ fnname, args }) => sampleRUM[fnname](...args));
     });
   sampleRUM.on = (chkpnt, fn) => { sampleRUM.cases[chkpnt] = fn; };
+  sampleRUM.piggybacks = sampleRUM.piggybacks || [];
+  sampleRUM.piggyback = (url, cp = '*', tf = (a) => a) => sampleRUM.piggybacks.push([url, cp, tf]);
   defer('observe');
   defer('cwv');
   try {
     window.hlx = window.hlx || {};
     if (!window.hlx.rum) {
       const usp = new URLSearchParams(window.location.search);
-      const weight = (usp.get('rum') === 'on') ? 1 : 100; // with parameter, weight is 1. Defaults to 100.
+      const weight = (usp.get('rum') === 'on') ? 1 : 1; // with parameter, weight is 1. Defaults to 100 (overridden for netcentric).
       // eslint-disable-next-line no-bitwise
       const hashCode = (s) => s.split('').reduce((a, b) => (((a << 5) - a) + b.charCodeAt(0)) | 0, 0);
       const id = `${hashCode(window.location.href)}-${new Date().getTime()}-${Math.random().toString(16).substr(2, 14)}`;
@@ -48,12 +50,19 @@ export function sampleRUM(checkpoint, data = {}) {
     if (window.hlx && window.hlx.rum && window.hlx.rum.isSelected) {
       const sendPing = (pdata = data) => {
         // eslint-disable-next-line object-curly-newline, max-len, no-use-before-define
-        const body = JSON.stringify({ weight, id, referer: window.location.href, generation: window.hlx.RUM_GENERATION, checkpoint, ...data });
+        const bdata = { weight, id, referer: window.location.href, generation: window.hlx.RUM_GENERATION, checkpoint, ...data };
         const url = `https://rum.hlx.page/.rum/${weight}`;
         // eslint-disable-next-line no-unused-expressions
-        navigator.sendBeacon(url, body);
+        navigator.sendBeacon(url, JSON.stringify(bdata));
         // eslint-disable-next-line no-console
         console.debug(`ping:${checkpoint}`, pdata);
+        sampleRUM.piggybacks
+          /* eslint-disable no-unused-vars */
+          .filter(([, chkPntFilter]) => chkPntFilter === '*' || chkPntFilter === checkpoint)
+          .forEach(async ([pingURL, , tfn]) => (pingURL // if url is a string, send the data there
+            ? navigator.sendBeacon(pingURL, await tfn(bdata))
+            : tfn(bdata))); // if not, just assume that t will have side effects
+        /* eslint-enable no-unused-vars */
       };
       sampleRUM.cases = sampleRUM.cases || {
         cwv: () => sampleRUM.cwv(data) || true,

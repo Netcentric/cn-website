@@ -1,6 +1,13 @@
 import { loadCSS } from '../../scripts/lib-franklin.js';
 import { isMarketoFormUrl } from '../../scripts/scripts.js';
 
+/**
+ * Add a script element to the document's head
+ * @param {String} url
+ * @param {Function} callback
+ * @param {String} type
+ * @returns {HTMLScriptElement} HTMLScriptElement
+ */
 const loadScript = (url, callback, type) => {
   const head = document.querySelector('head');
   const script = document.createElement('script');
@@ -13,13 +20,24 @@ const loadScript = (url, callback, type) => {
   return script;
 };
 
+/**
+ * Prepares the values of the form elements to be submitted
+ * @param {object} form
+ * @returns {object} payload
+ */
 function constructPayload(form) {
   const payload = {};
-  [...form.elements].forEach((fe) => {
-    if (fe.type === 'checkbox') {
-      if (fe.checked) payload[fe.name] = fe.value;
-    } else if (fe.name) {
-      payload[fe.name] = fe.value;
+  [...form.elements].forEach((formElement) => {
+    const {
+      type,
+      checked,
+      name,
+      value,
+    } = formElement;
+    if (type === 'checkbox') {
+      if (checked) payload[name] = value;
+    } else if (name) {
+      payload[name] = value;
     }
   });
   // send date
@@ -27,6 +45,11 @@ function constructPayload(form) {
   return payload;
 }
 
+/**
+ * Send the form values and returns the payload values if the send is ok, or null if not
+ * @param {object} form
+ * @returns {(object|null)} payload || null
+ */
 async function submitForm(form) {
   const payload = constructPayload(form);
   const resp = await fetch(form.dataset.action, {
@@ -44,11 +67,20 @@ async function submitForm(form) {
   return null;
 }
 
+/**
+ * Creates a button element based on the Field data
+ * @param {object} fd - field data object
+ * @param {string} fd.Type - field type
+ * @param {string} fd.Label - button text
+ * @param {string} fd.Extra - extra link
+ * @returns {HTMLButtonElement} HTMLButtonElement
+ */
 function createButton(fd) {
+  const { Type: type, Label: text, Extra: redirectTo } = fd;
   const button = document.createElement('button');
-  button.textContent = fd.Label;
+  button.textContent = text;
   button.classList.add('button');
-  if (fd.Type === 'submit') {
+  if (type === 'submit') {
     button.addEventListener('click', async (event) => {
       const form = button.closest('form');
       if (form.checkValidity()) {
@@ -56,7 +88,6 @@ function createButton(fd) {
         button.setAttribute('disabled', '');
         const payload = await submitForm(form);
         if (payload) {
-          const redirectTo = fd.Extra;
           window.location.href = redirectTo;
         }
       }
@@ -65,47 +96,100 @@ function createButton(fd) {
   return button;
 }
 
+/**
+ * Creates a header element based on the Field data
+ * @param {object} fd - field data object
+ * @param {string} fd.Label - header text
+ * @returns {HTMLHeadingElement} HTMLHeadingElement
+ */
 function createHeading(fd) {
   const heading = document.createElement('h3');
   heading.textContent = fd.Label;
   return heading;
 }
 
+/**
+ * Creates an input element based on the Field data
+ * @param {object} fd - field data object
+ * @param {string} fd.Type - field type
+ * @param {string} fd.Field - id or name
+ * @param {string} fd.Value - field value
+ * @param {string} fd.Placeholder  - field placeholder
+ * @param {string} fd.Mandatory - 'x' means required
+ * @returns {HTMLInputElement} HTMLInputElement
+ */
 function createInput(fd) {
+  const {
+    Type: type,
+    Field: name,
+    Value: value,
+    Placeholder: placeholder,
+    Mandatory: isRequired,
+  } = fd;
   const input = document.createElement('input');
-  input.type = fd.Type;
-  input.id = fd.Field;
-  input.name = fd.Field;
-  input.value = fd.Value || '';
-  if (fd.Placeholder) {
-    input.setAttribute('placeholder', fd.Placeholder);
+  input.type = type;
+  input.id = name;
+  input.name = name;
+  input.value = value || '';
+  if (placeholder) {
+    input.setAttribute('placeholder', placeholder);
   }
-  if (fd.Mandatory === 'x') {
+  if (isRequired === 'x') {
     input.setAttribute('required', 'required');
   }
   return input;
 }
 
+/**
+ * Creates a textarea element based on the Field data
+ * @param {object} fd - field data object
+ * @param {string} fd.Field - field name
+ * @param {string} fd.Value - field value
+ * @param {string} fd.Placeholder - field placeholder
+ * @param {string} fd.Mandatory - 'x' means required
+ * @returns {HTMLTextAreaElement} HTMLTextAreaElement
+ */
 function createTextArea(fd) {
+  const {
+    Field: name,
+    Value: value,
+    Placeholder: placeholder,
+    Mandatory: isRequired,
+  } = fd;
   const input = document.createElement('textarea');
-  input.name = fd.Field;
-  input.value = fd.Value || '';
-  if (fd.Placeholder) {
-    input.setAttribute('placeholder', fd.Placeholder);
+  input.name = name;
+  input.value = value || '';
+  if (placeholder) {
+    input.setAttribute('placeholder', placeholder);
   }
-  if (fd.Mandatory === 'x') {
+  if (isRequired === 'x') {
     input.setAttribute('required', 'required');
   }
   return input;
 }
 
+/**
+ * Creates a select element based on the Field data
+ * @param {object} fd - field data object
+ * @param {string} fd.Field - field name
+ * @param {string} fd.Value - field value
+ * @param {string} fd.Placeholder - field placeholder
+ * @param {string} fd.Mandatory - 'x' means required
+ * @returns {HTMLSelectElement} HTMLSelectElement
+ */
 function createSelect(fd) {
+  const {
+    Field: name,
+    Value: value,
+    Placeholder: placeholder,
+    Mandatory: isRequired,
+  } = fd;
   const select = document.createElement('select');
-  select.name = fd.Field;
-  select.value = fd.Value || '';
-  if (fd.Placeholder) {
+  select.name = name;
+  select.value = value || '';
+  if (placeholder) {
     const ph = document.createElement('option');
-    ph.textContent = fd.Placeholder;
+    ph.textContent = placeholder;
     ph.setAttribute('selected', '');
     ph.setAttribute('disabled', '');
     select.append(ph);
@@ -116,21 +200,36 @@ function createSelect(fd) {
     option.value = o.trim();
     select.append(option);
   });
-  if (fd.Mandatory === 'x') {
+  if (isRequired === 'x') {
     select.setAttribute('required', 'required');
   }
   return select;
 }
 
+/**
+ * Creates a select element based on the Field data
+ * @param {object} fd - field data object
+ * @param {string} fd.Field - id
+ * @param {string} fd.Label - field text
+ * @param {string} fd.Extra - a link text
+ * @param {string} fd.Mandatory - 'x' means required
+ * @returns {HTMLLabelElement} HTMLLabelElement
+ */
 function createLabel(fd) {
+  const {
+    Field: id,
+    Label: text,
+    Extra: linkString,
+    Mandatory: isRequired,
+  } = fd;
   const label = document.createElement('label');
-  label.setAttribute('for', fd.Field);
-  label.textContent = fd.Label;
-  if (fd.Mandatory === 'x') {
+  label.setAttribute('for', id);
+  label.textContent = text;
+  if (isRequired === 'x') {
     label.classList.add('required');
   }
-  if (fd.Extra) {
-    const [linkText, href] = fd.Extra.split(',').map((str) => str.trim());
+  if (linkString) {
+    const [linkText, href] = linkString.split(',').map((str) => str.trim());
     if (href) {
       // insert link in label text
       const labelTexts = label.textContent.split(linkText);
@@ -149,6 +248,12 @@ function createLabel(fd) {
   return label;
 }
 
+/**
+ * Show or hide each form field depending of its rule in a none Marketo form
+ * @param {object} form
+ * @param {Array<object>} rules
+ * @returns {void}
+ */
 function applyRules(form, rules) {
   const payload = constructPayload(form);
   rules.forEach((field) => {
@@ -168,6 +273,29 @@ function applyRules(form, rules) {
   });
 }
 
+/**
+ * Returns an array with the functions to create the elements of a certain field type
+ * @param {string} type filed type
+ * @returns {Array<Function>} create[element] functions
+ */
+function getFieldFunctionsByType(type) {
+  const defaultFieldType = [createLabel, createInput];
+  const fieldType = {
+    select: [createLabel, createSelect],
+    heading: [createHeading],
+    checkbox: [createInput, createLabel],
+    'text-area': [createLabel, createTextArea],
+    submit: [createButton],
+  };
+
+  return fieldType[type] ?? defaultFieldType;
+}
+
+/**
+ * Creates a form passed by parameters if it is not a Marketo one
+ * @param {string} formURL
+ * @returns {Promise<HTMLFormElement>} Promise<HTMLFormElement>
+ */
 async function createForm(formURL) {
   const { pathname } = new URL(formURL);
   const resp = await fetch(pathname);
@@ -176,42 +304,23 @@ async function createForm(formURL) {
   const rules = [];
   [form.dataset.action] = pathname.split('.json');
   json.data.forEach((fd) => {
-    fd.Type = fd.Type || 'text';
+    // fd stands for field data
+    const type = fd.Type || 'text';
+    const { Style: theme, Rules: fieldRules } = fd;
     const fieldWrapper = document.createElement('div');
-    const style = fd.Style ? ` form-${fd.Style}` : '';
-    const fieldClass = `form-${fd.Type}-wrapper${style}`;
+    const style = theme ? ` form-${theme}` : '';
+    const fieldClass = `form-${type}-wrapper${style}`;
     fieldWrapper.className = fieldClass;
     fieldWrapper.classList.add('field-wrapper');
-    switch (fd.Type) {
-      case 'select':
-        fieldWrapper.append(createLabel(fd));
-        fieldWrapper.append(createSelect(fd));
-        break;
-      case 'heading':
-        fieldWrapper.append(createHeading(fd));
-        break;
-      case 'checkbox':
-        fieldWrapper.append(createInput(fd));
-        fieldWrapper.append(createLabel(fd));
-        break;
-      case 'text-area':
-        fieldWrapper.append(createLabel(fd));
-        fieldWrapper.append(createTextArea(fd));
-        break;
-      case 'submit':
-        fieldWrapper.append(createButton(fd));
-        break;
-      default:
-        fieldWrapper.append(createLabel(fd));
-        fieldWrapper.append(createInput(fd));
-    }
 
-    if (fd.Rules) {
+    getFieldFunctionsByType(type).forEach((createField) => fieldWrapper.append(createField(fd)));
+
+    if (fieldRules) {
       try {
-        rules.push({ fieldId: fieldClass, rule: JSON.parse(fd.Rules) });
-      } catch (e) {
+        rules.push({ fieldId: fieldClass, rule: JSON.parse(fieldRules) });
+      } catch (error) {
         // eslint-disable-next-line no-console
-        console.warn(`Invalid Rule ${fd.Rules}: ${e}`);
+        console.warn(`Invalid Rule ${fieldRules}: ${error}`);
       }
     }
     form.append(fieldWrapper);
@@ -230,101 +339,100 @@ const marketoCnames = {
 /**
  * Create a completely barebones, user-styles-only Marketo form by removing inline STYLE
  * attributes and disabling STYLE and LINK elements.
- * @param {Object} form
- * @return {Void}
+ * @param {object} mktoForm
+ * @return {void}
  */
 function removeDefaultFormStyles(mktoForm) {
   const formEl = mktoForm.getFormElem()[0];
-  const formStyleEl = formEl.querySelectorAll('[style]');
+  const formStyleElements = formEl.querySelectorAll('[style]');
 
   formEl.removeAttribute('style');
-  for (let i = 0; i < formStyleEl.length; i += 1) {
-    formStyleEl[i].removeAttribute('style');
-  }
+  formStyleElements.forEach((element) => element.removeAttribute('style'));
 
   // Remove all default Marketo stylesheets
   const { styleSheets } = document;
 
-  for (let i = 0; i < styleSheets.length; i += 1) {
-    const styleSheetId = styleSheets[i].ownerNode.getAttribute('id');
-    if (styleSheetId === 'mktoForms2BaseStyle' || styleSheetId === 'mktoForms2ThemeStyle' || formEl.contains(styleSheets[i].ownerNode)) {
-      styleSheets[i].disabled = true;
+  [...styleSheets].forEach((styleSheet) => {
+    const styleSheetId = styleSheet.ownerNode.getAttribute('id');
+    const ids = ['mktoForms2BaseStyle', 'mktoForms2ThemeStyle'];
+    if (ids.includes(styleSheetId) || formEl.contains(styleSheet.ownerNode)) {
+      styleSheet.disabled = true;
     }
-  }
+  });
 }
 
 /**
  * Marketo uses the same ids for the same fields. To allow multiple forms, we append a random
  * value to the default input ids
- * @param {Object} form
- * @returns {Void}
+ * @param {object} form
+ * @returns {void}
  */
 function fixFieldLabelAssociation(form) {
   const formEl = form.getFormElem()[0];
   const randomValue = `-${Date.now()}${Math.random()}`;
-  const labelEl = formEl.querySelectorAll('label[for]');
+  const labelElements = formEl.querySelectorAll('label[for]');
 
-  for (let i = 0; i < labelEl.length; i += 1) {
-    const forEl = formEl.querySelector(`[id='${labelEl[i].htmlFor}'],
-       [id='${labelEl[i].htmlFor}${randomValue}']`);
+  labelElements.forEach((labelElement) => {
+    const forEl = formEl.querySelector(`[id='${labelElement.htmlFor}'],
+       [id='${labelElement.htmlFor}${randomValue}']`);
     if (forEl) {
-      forEl.setAttribute('data-orig-id', labelEl[i].htmlFor);
-      forEl.id = forEl.id.indexOf(randomValue) === -1
-        ? forEl.id + randomValue
-        : forEl.id;
-      labelEl[i].htmlFor = forEl.id;
+      forEl.setAttribute('data-orig-id', labelElement.htmlFor);
+      forEl.id = forEl.id.includes(randomValue)
+        ? forEl.id
+        : forEl.id + randomValue;
+      labelElement.htmlFor = forEl.id;
     }
-  }
+  });
 }
 
 /**
    * By default all checkboxes and radio buttons are right aligned in Marketo Forms. This function
    * moves these elements to the left side.
-   * @param {Object} form
-   * @return {Void}
+   * @param {object} form
+   * @return {void}
    */
 function moveCheckboxesToTheLeft(form) {
   const formEl = form.getFormElem()[0];
-  const formRowEl = formEl.querySelectorAll('.mktoFormRow');
+  const formRowElements = formEl.querySelectorAll('.mktoFormRow');
 
-  for (let i = 0; i < formRowEl.length; i += 1) {
+  formRowElements.forEach((formRowElement) => {
     // Get all checkboxes and radio buttons within form row
-    const formCheckboxEl = formRowEl[i].querySelectorAll('input[type=checkbox], input[type=radio]');
-    const hasOnlyOneCheckbox = formCheckboxEl !== null && formCheckboxEl.length === 1;
+    const formCheckboxEl = formRowElement.querySelectorAll('input[type=checkbox], input[type=radio]');
+    const hasOnlyOneCheckbox = formCheckboxEl && formCheckboxEl.length === 1;
 
     // Check if there's only one of these elements in that row to ensure to only transform single
     // checkbox / radio button elements
     if (hasOnlyOneCheckbox) {
-      const formCheckboxLabel = formRowEl[i].querySelectorAll(`label[for="${formCheckboxEl[0].getAttribute('name')}"],
+      const formCheckboxLabel = formRowElement.querySelectorAll(`label[for="${formCheckboxEl[0].getAttribute('name')}"],
          label[for="${formCheckboxEl[0].getAttribute('id')}"]`);
 
-      // Check if second label element is empty which should be the case for all single checkbox /
-      // radio button elements
+      // Check if second label element is empty which should be the case for all single
+      // checkbox / radio button elements
       if (formCheckboxLabel[1].textContent === '') {
         formCheckboxLabel[1].innerHTML = formCheckboxLabel[0].innerHTML;
         formCheckboxLabel[0].innerHTML = '';
       }
     }
-  }
+  });
 }
 
 /**
  * Transform asterisk element into text in order to fix styling issues for rich-text
  * labels. The asterisks for non-required fields are removed.
- * @param {Object} form
- * @param {String} [pos='right'] 'right' or 'left'
- * @returns {Void}
+ * @param {object} form
+ * @param {string} [pos='right'] 'right' or 'left'
+ * @returns {void}
  */
-function adjustAsterisk(form, pos) {
+function adjustAsterisk(form, pos = 'right') {
   const formEl = form.getFormElem()[0];
-  const formFieldWrapEl = formEl.querySelectorAll('.mktoFieldWrap');
+  const formFieldWrapElements = formEl.querySelectorAll('.mktoFieldWrap');
   const asteriskPos = pos === 'left' ? 'left' : 'right';
-  for (let i = 0; i < formFieldWrapEl.length; i += 1) {
-    if (
-      formFieldWrapEl[i].getAttribute('data-asterisk-adjusted') !== 'true'
-    ) {
-      const isRequired = formFieldWrapEl[i].classList.contains('mktoRequiredField');
-      const asteriskEl = formFieldWrapEl[i].querySelector('.mktoAsterix');
+
+  formFieldWrapElements.forEach((formFieldWrapEl) => {
+    const isNotAdjusted = formFieldWrapEl.dataset.asteriskAdjusted !== 'true';
+    if (isNotAdjusted) {
+      const isRequired = formFieldWrapEl.classList.contains('mktoRequiredField');
+      const asteriskEl = formFieldWrapEl.querySelector('.mktoAsterix');
       if (asteriskEl) {
         const asteriskParentEl = asteriskEl.parentNode;
         asteriskParentEl.removeChild(asteriskEl);
@@ -333,17 +441,17 @@ function adjustAsterisk(form, pos) {
           asteriskParentEl.innerHTML = asteriskPos === 'left' ? `* ${labelHTML}` : `${labelHTML} *`;
         }
 
-        formFieldWrapEl[i].setAttribute('data-asterisk-adjusted', true);
+        formFieldWrapEl.dataset.asteriskAdjusted = true;
       }
     }
-  }
+  });
 }
 
 /**
  * Get closest parent element by selector
- * @param {Element} elem
- * @param {String} selector
- * @returns {Element|null}
+ * @param {element} el
+ * @param {string} selector
+ * @returns {element|null}
  */
 function getClosest(el, selector) {
   let elTemp = el;
@@ -355,22 +463,29 @@ function getClosest(el, selector) {
   return null;
 }
 
+/**
+ * Attach a Success Message at Flied elements
+ * @param {object} block
+ * @param {object} form
+ */
 function attachSuccessMessage(block, form) {
-  const fieldsetEl = form.getFormElem()[0].querySelectorAll('fieldset');
+  const fieldsetElements = form.getFormElem()[0].querySelectorAll('fieldset');
   let successMessage = false;
-  for (let i = 0; i < fieldsetEl.length; i += 1) {
-    const legendEl = fieldsetEl[i].querySelector('legend');
+
+  [...fieldsetElements].every((fieldsetElement) => {
+    const legendEl = fieldsetElement.querySelector('legend');
     if (legendEl.textContent === 'Success Message') {
-      const hasInputEl = fieldsetEl[i].querySelector('input, select, textarea') !== null;
-      const htmlTextEl = fieldsetEl[i].querySelector('.mktoHtmlText');
+      const hasInputEl = fieldsetElement.querySelector('input, select, textarea') !== null;
+      const htmlTextEl = fieldsetElement.querySelector('.mktoHtmlText');
       if (!hasInputEl && htmlTextEl) {
-        const rowEl = getClosest(fieldsetEl[i], '.mktoFormRow');
+        const rowEl = getClosest(fieldsetElement, '.mktoFormRow');
         rowEl.parentNode.removeChild(rowEl);
         successMessage = htmlTextEl.innerHTML;
-        break;
+        return false;
       }
     }
-  }
+    return true;
+  });
 
   if (successMessage) {
     form.onSuccess(() => {
@@ -403,12 +518,12 @@ export default async function decorate(block) {
     } else if (target.pathname.endsWith('.json')) {
       form.replaceWith(await createForm(form.href));
     }
-  } catch (e) {
+  } catch (error) {
     if (window.location.hostname.endsWith('.page')) {
-      block.innerHTML = `Invalid form configuration: ${e}`;
+      block.innerHTML = `Invalid form configuration: ${error}`;
     } else {
       block.innerHTML = '<!-- invalid form configuration -->';
     }
-    console.error(e); // eslint-disable-line no-console
+    console.error(error); // eslint-disable-line no-console
   }
 }

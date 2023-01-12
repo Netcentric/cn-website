@@ -177,6 +177,10 @@ header nav .nav-sections li span.icon.icon-chevron-right svg {
   background-color: var(--c-dark-plum);
 }
 
+:lang(de) .nav-search {
+  display: none;
+}
+
 header nav[aria-expanded='true'] .nav-search {
   display: initial;
 }

@@ -93,33 +93,28 @@ function getNavPath() {
 }
 
 /**
- * Handles the language switch
+ * Handles the language switch adding the same pathname to all languages
  * @private
  */
 function languageSwitch() {
   const header = document.querySelector('.header');
   const langSwitch = header.querySelector('.nav-tools ul');
-  const languages = {
-    en: langSwitch.children[0].firstElementChild,
-    de: langSwitch.children[1].firstElementChild,
-  };
-  const defaultLanguage = 'en';
-  const isHomepage = window.location.pathname.replace(document.documentElement.lang, '').length === 1;
+  const langLinks = langSwitch.querySelectorAll('li:not(:last-of-type) a');
 
-  Object.keys(languages).forEach((key) => {
-    if (key === document.documentElement.lang) {
-      languages[key].href = '#';
-      languages[key].style.textDecoration = 'underline';
-    } else if (isHomepage && key === defaultLanguage) {
-      languages[key].href = '/';
-    } else if (isHomepage && key !== defaultLanguage) {
-      languages[key].href = `/${key}`;
-    } else if (key === defaultLanguage) {
-      languages[key].href = window.location.pathname.replace(`/${document.documentElement.lang}`, '');
-    } else {
-      languages[key].href = `/${key}${window.location.pathname}`;
-    }
-  });
+  const defaultLanguage = 'en';
+  const currentLang = document.documentElement.lang;
+  const isInDefaultLang = currentLang === defaultLanguage;
+  const currentPathName = window.location.pathname;
+  const pathname = isInDefaultLang
+    ? currentPathName
+    : currentPathName.replace(`/${currentLang}`, '');
+  const isHomepage = currentPathName.replace(currentLang, '').length === 1;
+
+  if (!isHomepage) {
+    [...langLinks].forEach((link) => {
+      link.href += link.href.slice(-1) === '/' ? pathname.slice(1) : pathname;
+    });
+  }
 }
 
 /**

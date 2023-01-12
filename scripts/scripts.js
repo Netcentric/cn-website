@@ -216,7 +216,7 @@ function preDecorateMarketoForm(main) {
         && isMarketoFormUrl(new URL(a.href))
         && !findParent(a, (parent) => parent.classList.contains('form'));
     } catch (e) {
-      console.error('error while parsind form anchors', e);
+      console.error('error while parsing form anchors', e); // eslint-disable-line no-console
       return false;
     }
   }).forEach((a) => {

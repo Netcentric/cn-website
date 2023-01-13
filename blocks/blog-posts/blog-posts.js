@@ -7,6 +7,81 @@ const defaultAuthorName = 'Cognizant Netcentric';
 const defaultAuthorRole = '';
 const defaultAuthorImage = '/icons/nc.svg';
 
+function closePopup(el) {
+  el.classList.remove('languagepopup--open');
+}
+
+function proceedToPage(el) {
+  window.location.assign(el.dataset.link);
+}
+
+/**
+ * Creates the HTML for "the content is only in english" popup
+ * @returns {HTMLElement}
+ */
+export function createPopup(selector) {
+  const blogPostElement = document.querySelector(selector);
+  const container = document.createElement('div');
+
+  container.classList.add('languagepopup');
+  container.innerHTML = `
+  <div class="languagepopup__base" data-link="">
+    <div class="languagepopup__wrapper">
+      <article class="languagepopup__content">
+        <div class="languagepopup__close">
+          <span aria-label="Close" class="languagepopup__close-btn" tabindex=0></span>
+        </div>
+        <div class="languagepopup__message">
+          Dieser Inhalt ist nur auf Englisch verfügbar.Möchten Sie trotzdem weiterlesen?
+          <br/>
+        </div>
+        <div class="languagepopup__action">
+          <div class="languagepopup__proceed styled btn--green btn--solid align--center">
+            <button class="btn languagepopup__proceed-btn">
+              <span>Weiter auf Englisch &nbsp;></span>
+            </button>
+          </div>
+          <div>
+            <button type="button" class="languagepopup__goback">
+              <span><&nbsp; Zurück</span>
+            </button>
+          </div>
+        </div>
+      </article>
+    </div>
+  </div>`;
+
+  const basePopup = container.children[0];
+  const closeButton = container.querySelector('.languagepopup__close');
+  const backButton = container.querySelector('.languagepopup__goback');
+  const proceedButton = container.querySelector('.languagepopup__proceed-btn');
+
+  closeButton.addEventListener('click', () => closePopup(basePopup));
+  backButton.addEventListener('click', () => closePopup(basePopup));
+  proceedButton.addEventListener('click', () => proceedToPage(basePopup));
+  blogPostElement.appendChild(container);
+}
+
+/**
+ * Check if the blog link has a German version and show a popup if it hasn't
+ * @param {object} e event Object
+ */
+function checkAvailability(e) {
+  e.preventDefault();
+  const isTitle = e.target.classList.contains('teaser-description');
+  const hrefLink = isTitle && e.target.parentElement.href;
+  const hasGermanVersion = hrefLink.includes('/de');
+
+  if (!hasGermanVersion) {
+    // show Popup
+    const languagePopup = document.querySelector('.languagepopup__base');
+    languagePopup.dataset.link = hrefLink;
+    languagePopup.classList.add('languagepopup--open');
+  }
+}
+
+const checkStatus = (e) => checkAvailability(e);
+
 export function buildCard(card, large = false) {
   const {
     path, title, image, tags = '[]', profiles: authorProfile,
@@ -44,6 +119,11 @@ export function buildCard(card, large = false) {
   const pictureElement = createOptimizedPicture(image, `Image symbolising ${title}`, false, breakpoints);
   if (image && pictureElement) {
     cardElement.prepend(pictureElement);
+  }
+
+  if (document.documentElement.lang === 'de') {
+    const teaserLink = cardElement.querySelector('.teaser-link');
+    teaserLink.addEventListener('click', checkStatus);
   }
 
   return cardElement;
@@ -170,4 +250,6 @@ export default async function decorate(block) {
   buildCTASection(block, () => {
     loadMoreArticles();
   });
+
+  createPopup('.blog-posts');
 }

@@ -1,6 +1,6 @@
 import { readBlockConfig, decorateIcons, loadCSS } from '../../scripts/lib-franklin.js';
 import { addChevronToButtons } from '../../scripts/scripts.js';
-import { createCardsList, getArticles } from '../blog-posts/blog-posts.js';
+import { createCardsList, getArticles, createPopup } from '../blog-posts/blog-posts.js';
 
 const maxArticlesToShow = 3;
 
@@ -61,17 +61,22 @@ async function buildManualRelatedBlogs(block) {
   buildCTASection(block);
 }
 
-export default async function decorate(block) {
-  loadCSS('/blocks/blog-posts/blog-card.css');
-  // TODO improve variant handling - is this the final logic? Do we want a tag?
-  const variant = document.querySelector('body.blogpost') ? 'auto' : 'manual';
+function getVariants(variant) {
+  const defaultVariant = buildManualRelatedBlogs;
+  const variants = {
+    auto: buildAutoRelatedBlogs,
+    manual: defaultVariant,
+  };
 
-  switch (variant) {
-    case 'auto':
-      await buildAutoRelatedBlogs(block);
-      break;
-    case 'manual':
-    default:
-      await buildManualRelatedBlogs(block);
-  }
+  return variants[variant] ?? defaultVariant;
+}
+
+export default async function decorate(block) {
+  const variant = document.querySelector('body.blogpost') ? 'auto' : 'manual';
+  const buildVariant = getVariants(variant);
+
+  await buildVariant(block);
+
+  loadCSS('/blocks/blog-posts/blog-card.css');
+  createPopup('.related-blogs');
 }

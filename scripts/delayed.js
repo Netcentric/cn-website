@@ -49,6 +49,10 @@ function loadLiveUXRUM() {
   injectScript(src);
 }
 
+function loadSidekickExtension() {
+  injectScript('/scripts/sidekick.js');
+}
+
 class ScrollIndicator {
   constructor() {
     this.container = document.createElement('div');
@@ -78,6 +82,7 @@ class ScrollIndicator {
 decorateTwitterFeed();
 loadLaunch();
 loadLiveUXRUM();
+loadSidekickExtension();
 
 if (document.body.classList.contains('blogpost')) {
   const scrollIndicator = new ScrollIndicator();

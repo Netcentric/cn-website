@@ -5,6 +5,10 @@ indices:
     include:
       - '/**'
     exclude:
+      - '/nav'
+      - '/footer'
+      - '/de/nav'
+      - '/de/footer'
       - '/profiles/**'
       - '/drafts/**'
     target: /query-index.json
@@ -79,6 +83,8 @@ indices:
     exclude:
       - '/de/**'
       - '/de'
+      - '/nav'
+      - '/footer'
       - '/profiles/**'
       - '/drafts/**'
     target: /query-index-search.json
@@ -107,6 +113,8 @@ indices:
       - '/de/**'
     exclude:
       - '/de/drafts/**'
+      - '/de/nav'
+      - '/de/footer'
     target: /de/query-index-search.json
     properties:
       title:

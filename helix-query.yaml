@@ -105,6 +105,8 @@ indices:
     include:
       - '/de'
       - '/de/**'
+    exclude:
+      - '/de/drafts/**'
     target: /de/query-index-search.json
     properties:
       title:

@@ -1,0 +1,28 @@
+{
+  "searchApiEndpoints": {
+    "ingest": "https://search.netcentric.biz/ingest?path={{path}}",
+    "delete": "https://search.netcentric.biz/delete?path={{path}}"
+  },
+  "plugins": [
+    {
+      "id": "publish",
+      "title": "Publish",
+      "event": "cn-publish"
+    },
+    {
+      "id": "unpublish",
+      "title": "Unpublish",
+      "event": "cn-unpublish"
+    },
+    {
+      "id": "delete",
+      "title": "Delete",
+      "event": "cn-delete"
+    },
+    {
+      "id": "cn-search-update",
+      "title": "Update Search",
+      "event": "cn-search-update"
+    }
+  ]
+}

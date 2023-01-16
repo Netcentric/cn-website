@@ -6,17 +6,14 @@
   "plugins": [
     {
       "id": "publish",
-      "title": "Publish",
       "event": "cn-publish"
     },
     {
       "id": "unpublish",
-      "title": "Unpublish",
       "event": "cn-unpublish"
     },
     {
       "id": "delete",
-      "title": "Delete",
       "event": "cn-delete"
     },
     {

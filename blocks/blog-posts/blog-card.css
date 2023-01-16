@@ -1,3 +1,4 @@
+/* stylelint-disable selector-class-pattern */
 :root {
   --blog-card-padding: 20px;
 }
@@ -84,6 +85,114 @@
 .blog-cards-container .teaser picture img {
   aspect-ratio: 1200 / 628;
   object-fit: cover;
+}
+
+.languagepopup .btn {
+  font-size: 12px;
+  text-align: center;
+  font-weight: 700;
+  position: relative;
+  display: inline-block;
+  max-width: 100%;
+  height: 3em;
+  padding: 0 24px;
+  line-height: 36px;
+  border-radius: 36px;
+  border: thin solid #000;
+  color: #000;
+  text-transform: uppercase;
+}
+
+.languagepopup__base {
+  display: none;
+}
+
+.languagepopup__base.languagepopup--open {
+  display: block;
+}
+
+.languagepopup__wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: #0009;
+  z-index: 100;
+}
+
+.languagepopup__content {
+  background: var(--c-white);
+  width: 650px;
+  border-radius: 4px;
+  box-shadow: 0 3px 12px #0009;
+  text-align: center;
+  padding: 20px;
+  font-size: 30px;
+  color: var(--c-mid-plum);
+  font-weight: 400;
+}
+
+.languagepopup__close {
+  position: relative;
+  padding: 20px 0;
+}
+
+.languagepopup__close-btn {
+  display: block;
+  width: 35px;
+  height: 35px;
+  position: absolute;
+  right: 0;
+  top: 0;
+  border-radius: 50%;
+  border: 1px solid var(--c-black);
+  cursor: pointer;
+}
+
+.languagepopup__close-btn::after,
+.languagepopup__close-btn::before {
+  content: ' ';
+  position: absolute;
+  width: 18px;
+  height: 2px;
+  background: var(--c-black);
+  transform: rotate(45deg);
+  top: calc(50% - 1px);
+  left: calc(50% - 9px);
+}
+
+.languagepopup__close-btn::before {
+  transform: rotate(135deg);
+}
+
+.languagepopup__message {
+  line-height: 1.5;
+  margin-bottom: 40px;
+}
+
+.languagepopup__proceed-btn {
+  margin-bottom: 10px;
+}
+
+.languagepopup__goback {
+  font-size: 16px;
+  text-align: center;
+  font-weight: 700;
+  padding: 0 24px;
+  height: 36px;
+  line-height: 36px;
+  color: var(--c-black);
+  cursor: pointer;
+  border: none;
+}
+
+.languagepopup__goback span {
+  padding: 0 5px;
+  display: inline-block;
 }
 
 @media (min-width: 992px) {

@@ -61,6 +61,11 @@ async function buildManualRelatedBlogs(block) {
   buildCTASection(block);
 }
 
+/**
+ * Get a build mode and returns the proper build function
+ * @param {string} variant
+ * @returns {Function}
+ */
 function getVariants(variant) {
   const defaultVariant = buildManualRelatedBlogs;
   const variants = {

@@ -32,7 +32,7 @@ export function createPopup(selector) {
           <span aria-label="Close" class="languagepopup__close-btn" tabindex=0></span>
         </div>
         <div class="languagepopup__message">
-          Dieser Inhalt ist nur auf Englisch verfügbar.Möchten Sie trotzdem weiterlesen?
+          Dieser Inhalt ist nur auf Englisch verfügbar. Möchten Sie trotzdem weiterlesen?
           <br/>
         </div>
         <div class="languagepopup__action">
@@ -185,7 +185,6 @@ let selectedCategory = toClassName(new URLSearchParams(window.location.search).g
 
 function getCardFilter() {
   return selectedCategory === 'all-categories'
-    // TODO: Only articles with tags can show up now because there are some items that arent
     //  articles without tags
     ? (article) => JSON.parse(article.tags).length > 0
     : (article) => JSON.parse(article.tags)

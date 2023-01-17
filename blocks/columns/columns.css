@@ -216,6 +216,10 @@
         --column-fb-right: 33%;
     }
 
+    .columns.no-gap > div {
+        gap: 0;
+    }
+
     .columns.border-in-between > div > div:not(:last-of-type) {
         border-right: 2px solid rgba(0 0 0 / 10%);
         padding-right: 4.1667%;
@@ -223,9 +227,5 @@
 
     .columns.border-in-between > div > div:not(:first-of-type) {
         padding-left: 4.1667%;
-    }
-
-    .columns.no-gap > div {
-        gap: 0px;
     }
 }

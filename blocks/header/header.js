@@ -199,6 +199,22 @@ export default async function decorate(block) {
     addChevronToButtons(nav, '.nav-tools li:last-child a');
     decorateIcons(nav);
 
+    // Add alt attribute to the brand's logo
+    const navBrand = nav.querySelector('.nav-brand');
+    const iconContainer = navBrand.querySelector('.icon');
+    const observer = new MutationObserver((childList) => {
+      childList.forEach((change) => {
+        const icon = change.addedNodes[0];
+        const { tagName } = icon;
+        if (tagName === 'IMG') {
+          icon.alt = 'Netcentric Logo';
+          observer.disconnect();
+        }
+      });
+    });
+
+    observer.observe(iconContainer, { childList: true });
+
     // Add search form
     const searchIcon = navSearch.children[0].children[0].children[0];
     const searchForm = document.createElement('form');

@@ -204,11 +204,20 @@
         --column-fb-right: 75%;
     }
 
+    .columns.layout-15-85 {
+        --column-fb-left: 15%;
+        --column-fb-right: 85%;
+    }
+
     /* 3 columns */
     .columns.columns-3-cols {
         --column-fb-left: 33%;
         --column-fb-other: 33%;
         --column-fb-right: 33%;
+    }
+
+    .columns.no-gap > div {
+        gap: 0;
     }
 
     .columns.border-in-between > div > div:not(:last-of-type) {

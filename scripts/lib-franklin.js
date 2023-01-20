@@ -123,9 +123,10 @@ export function toCamelCase(name) {
   return toClassName(name).replace(/-([a-z])/g, (g) => g[1].toUpperCase());
 }
 
-const decorateIcon = (span, html) => {
+const decorateIcon = (span, html, alt = '') => {
   if (html.match(/<style/i)) {
     const img = document.createElement('img');
+    if (alt !== '') img.alt = alt;
     img.src = `data:image/svg+xml,${encodeURIComponent(html)}`;
     span.innerHTML = img.outerHTML;
   } else {
@@ -142,6 +143,7 @@ export async function decorateIcons(element = document) {
   const icons = [...element.querySelectorAll('span.icon:not(.icon-decorated, .icon-decorating)')];
 
   const symbols = {};
+  let title = '';
   await Promise.all(icons.map(async (span) => {
     if (span.classList.length < 2 || !span.classList[1].startsWith('icon-')) {
       return;
@@ -173,6 +175,11 @@ export async function decorateIcons(element = document) {
             .replace(/ height=".*?"/, '')
             .trim();
         }
+        if (symbols[iconName].includes('title')) {
+          const splitted = symbols[iconName].split('"');
+          const index = splitted.findIndex((el) => el.includes('title'));
+          title = splitted[index + 1];
+        }
       } catch (err) {
         // eslint-disable-next-line no-console
         console.error(err);
@@ -194,9 +201,13 @@ export async function decorateIcons(element = document) {
     span.classList.remove('icon-decorating');
     const iconName = span.classList.item(1).split('icon-')[1];
     if (symbols[iconName].startsWith('<svg ')) {
-      decorateIcon(span, symbols[iconName]);
+      decorateIcon(span, symbols[iconName], title);
     } else {
-      decorateIcon(span, `<svg xmlns="http://www.w3.org/2000/svg"><use href="#${iconName}"/></svg>`);
+      decorateIcon(
+        span,
+        `<svg xmlns="http://www.w3.org/2000/svg"><use href="#${iconName}"/></svg>`,
+        title,
+      );
     }
   });
 }

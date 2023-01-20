@@ -27,8 +27,9 @@ function setRatio(columnOne, columnTwo) {
  */
 export default function buildAutoBlocks() {
   const main = document.querySelector('main');
-  const columnOne = [...main.children][0];
-  const columnTwo = [...main.children][1];
+  const firstSectionIsHero = [...main.children][0].children[0].classList.contains('hero');
+  const columnOne = firstSectionIsHero ? [...main.children][1] : [...main.children][0];
+  const columnTwo = firstSectionIsHero ? [...main.children][2] : [...main.children][1];
   const newSection = document.createElement('section');
 
   const observer = new MutationObserver((list) => {

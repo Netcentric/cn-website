@@ -6,7 +6,7 @@ import { loadCSS } from '../../scripts/lib-franklin.js';
  * @param {HTMLElement} columnTwo - second column section
  */
 function setRatio(columnOne, columnTwo) {
-  const ratio = document.querySelector('meta[name="column-ratio"]').content;
+  const ratio = document.querySelector('meta[name="column-ratio"]')?.content;
   if (ratio) {
     const isDefault = ratio.includes('50');
     if (!isDefault) {

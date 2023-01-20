@@ -28,6 +28,15 @@ function setRatio(columnOne, columnTwo) {
 export default function buildAutoBlocks() {
   const main = document.querySelector('main');
   const firstSectionIsHero = [...main.children][0].children[0].classList.contains('hero');
+
+  // remove empty div sections
+  [...main.children].forEach((node) => {
+    const hasChildren = [...node.children].length > 0;
+    if (!hasChildren) {
+      node.remove();
+    }
+  });
+
   const columnOne = firstSectionIsHero ? [...main.children][1] : [...main.children][0];
   const columnTwo = firstSectionIsHero ? [...main.children][2] : [...main.children][1];
   const newSection = document.createElement('section');

@@ -235,7 +235,7 @@ async function buildAutoBlocks(main) {
   try {
     buildHeroBlock(main);
     const template = toClassName(getMetadata('template'));
-    const templates = ['blogpost'];
+    const templates = ['blogpost', 'two-columns'];
     if (templates.includes(template)) {
       const mod = await import(`../templates/${template}/${template}.js`);
       if (mod.default) {
@@ -268,9 +268,9 @@ export async function decorateMain(main) {
   // hopefully forward compatible button decoration
   decorateButtons(main);
   await fetchPlaceholders();
+  preDecorateMarketoForm(main);
   await buildAutoBlocks(main);
   decorateSections(main);
-  preDecorateMarketoForm(main);
   decorateBlocks(main);
   preDecorateEmbed(main);
 }

@@ -1,0 +1,38 @@
+.two-columns .section-wrapper {
+  display: flex;
+  width: var(--section-width);
+  flex-direction: column;
+  margin: 0 auto;
+}
+
+.two-columns .section-wrapper .section {
+  box-sizing: border-box;
+}
+
+.two-columns .section-wrapper > div > div {
+  width: 100%;
+}
+
+@media (min-width: 992px) {
+  :root {
+    --first-ratio: 50%;
+    --second-ratio: var(--first-ratio);
+  }
+
+  .two-columns .section-wrapper {
+    flex-direction: unset;
+  }
+
+  .two-columns .section-wrapper .section {
+    width: var(--first-ratio);
+    padding: 32px;
+  }
+
+  .two-columns .section-wrapper .section.first-column {
+    width: var(--first-ratio);
+  }
+
+  .two-columns .section-wrapper .section.second-column {
+    width: var(--second-ratio);
+  }
+}

@@ -13,6 +13,7 @@ import {
   loadBlocks,
   toClassName,
   getMetadata,
+  loadCSS,
 } from './lib-franklin.js';
 
 const LCP_BLOCKS = []; // add your LCP blocks to the list
@@ -275,10 +276,11 @@ export async function decorateMain(main) {
   preDecorateEmbed(main);
 }
 
+/**
+ * Lazy loads Gellix font from css file
+ */
 async function loadGellix() {
-  const gellix = new FontFace('Gellix', 'url("/fonts/gellix-regular_r.woff2")');
-  await gellix.load();
-  document.fonts.add(gellix);
+  await loadCSS('/styles/lazy-styles.css');
 }
 
 /**
@@ -308,8 +310,8 @@ async function loadEager(doc) {
       await waitForLCP(LCP_BLOCKS);
     } else {
       document.querySelector('body').classList.add('appear');
-      await loadGellix();
     }
+    await loadGellix();
   }
 }
 

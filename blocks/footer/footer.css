@@ -62,7 +62,7 @@ footer > div > div > div:first-child > ul > li:first-child {
 }
 
 /* netcentric logo */
-footer > div > div > div:nth-child(2) > p > a > picture > img {
+footer > div > div > div > p > a > picture > img {
   width: 150px;
   height: 40px;
 }
@@ -90,4 +90,38 @@ footer > div > div > div:last-child {
   font-weight: normal;
   text-align: right;
   margin-left: auto;
+}
+
+/* campaign template */
+
+.campaign footer > div > div > div:last-child > ul {
+  display: inline-flex;
+  padding-inline-start: 0;
+}
+
+.campaign footer > div > div > div {
+  display: flex;
+  width: 100%;
+}
+
+.campaign footer > div > div > div:last-child {
+  justify-content: center;
+}
+
+@media (min-width: 600px) {
+  .campaign footer > div > div > div {
+    width: 50%;
+  }
+}
+
+@media (min-width: 992px) {
+  .campaign footer > div > div > div:first-child {
+    order: 1;
+    margin-inline-start: -10%;
+  }
+
+  .campaign footer > div > div > div:last-child {
+    margin-left: unset;
+    transform: translateX(-10px);
+  }
 }

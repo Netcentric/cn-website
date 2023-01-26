@@ -185,6 +185,11 @@ header nav[aria-expanded='true'] .nav-search {
   display: initial;
 }
 
+/* campaign template */
+.campaign header nav {
+  justify-content: center;
+}
+
 @media (min-width: 992px)  {
   .nav-search {
     display: initial;

@@ -93,6 +93,10 @@ footer > div > div > div:last-child {
 }
 
 /* campaign template */
+/* stylelint-disable-next-line no-descending-specificity */
+.campaign footer > div > div {
+  align-items: center;
+}
 
 .campaign footer > div > div > div:last-child > ul {
   display: inline-flex;
@@ -118,6 +122,7 @@ footer > div > div > div:last-child {
   .campaign footer > div > div > div:first-child {
     order: 1;
     margin-inline-start: -10%;
+    z-index: 1;
   }
 
   .campaign footer > div > div > div:last-child {

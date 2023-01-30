@@ -16,7 +16,12 @@ const sleep = async (time = 1000) => new Promise((resolve) => {
   }, time);
 });
 
-const footerBlock = buildBlock('footer', [['Footer', '/test/blocks/footer/footer']]);
+const navMeta = document.createElement('meta');
+navMeta.setAttribute('name', 'footer');
+navMeta.setAttribute('content', 'https://main--helix-project-boilerplate--adobe.hlx.page/test/blocks/footer/footer');
+document.head.append(navMeta);
+
+const footerBlock = buildBlock('footer', [[]]);
 document.querySelector('footer').append(footerBlock);
 decorateBlock(footerBlock);
 await loadBlock(footerBlock);

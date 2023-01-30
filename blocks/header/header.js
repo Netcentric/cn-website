@@ -79,17 +79,22 @@ function reAttachEventListeners() {
   }
 }
 
-function getNavPath() {
+/**
+ * Get the head's Metadata passed by parameter to return the relative pathname
+ * @param {string} nav parameter in doc's metadata
+ * @returns {string} related url
+ */
+export function getNavPath(nav = 'nav') {
   try {
-    const navMeta = getMetadata('nav');
+    const navMeta = getMetadata(nav);
     if (navMeta) {
-      return new URL(navMeta).pathname;
+      return new URL(navMeta, window.location.origin).pathname;
     }
   } catch (e) {
     // eslint-disable-next-line no-console
-    console.error('error while loading navigaiton path', e);
+    console.error('error while loading navigation path', e);
   }
-  return '/nav';
+  return `/${nav}`;
 }
 
 /**
@@ -128,16 +133,23 @@ export default async function decorate(block) {
   const resp = await fetch(`${getLanguagePath()}${getNavPath()}.plain.html`);
   if (resp.ok) {
     const html = await resp.text();
+    const isCampaignTemplate = document.querySelector('meta[content="campaign"]');
 
     // decorate nav DOM
     const nav = document.createElement('nav');
     nav.innerHTML = html;
 
-    const classes = ['brand', 'sections', 'search', 'tools'];
+    const classes = isCampaignTemplate ? ['brand'] : ['brand', 'sections', 'search', 'tools'];
     classes.forEach((e, j) => {
       const section = nav.children[j];
       if (section) section.classList.add(`nav-${e}`);
     });
+
+    if (isCampaignTemplate) {
+      block.append(nav);
+      decorateIcons(nav);
+      return;
+    }
 
     const navSections = [...nav.children][1];
     const navSearch = [...nav.children][2];
@@ -237,7 +249,8 @@ export default async function decorate(block) {
     };
 
     const shouldResize = () => {
-      const resize = (window.innerWidth > mobileBreakpoint && globalWindowWidth <= mobileBreakpoint)
+      const resize = (window.innerWidth > mobileBreakpoint
+        && globalWindowWidth <= mobileBreakpoint)
         || (window.innerWidth < mobileBreakpoint && globalWindowWidth >= mobileBreakpoint);
       globalWindowWidth = window.innerWidth;
       return resize;

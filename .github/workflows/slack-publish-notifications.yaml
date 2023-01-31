@@ -43,5 +43,5 @@ jobs:
         # For posting a rich message using Block Kit
         payload: |
           {
-            "text": "Just published: https://www.netcentri.biz${{ steps.removeMd.outputs.replaced }}"
+            "text": "Just published: https://www.netcentric.biz${{ steps.removeMd.outputs.replaced }}"
           }

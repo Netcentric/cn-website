@@ -35,3 +35,4 @@ jobs:
       with:
         url: ${{ steps.ingestEndpoint.outputs.result }}
         method: 'POST'
+        timeout: 20000

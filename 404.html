@@ -13,6 +13,15 @@
   <script type="module">
     import { sampleRUM } from '/scripts/lib-franklin.js';
 
+    function addWPDataAttributes(matchedRow, main) {
+      if (!main) return;
+      Object.entries(matchedRow).forEach(([key, value]) => {
+        if (key.includes('wp')) {
+          main.setAttribute(`data-${key}`, value);
+        }
+      });
+    }
+
     window.addEventListener('load', async () => {
       if (document.referrer) {
         const { origin, pathname } = new URL(document.referrer);
@@ -29,29 +38,21 @@
       const resp = await fetch(`metadata.json`);
       if (resp.ok) {
         const json = await resp.json();
-        if (json && json.data) {
-          const matchedRow = json.data.find((row) => (row.URL === '404.html'));
-          if (matchedRow) {
-            const main = document.querySelector('main');
-            if (main) {
-              main.setAttribute('data-wp-version-name', matchedRow['wp-version-name']);
-              main.setAttribute('data-wp-page-type', matchedRow['wp-page-type']);
-              main.setAttribute('data-wp-http-status', matchedRow['wp-http-status']);
-              main.setAttribute('data-wp-version-traffic', matchedRow['wp-version-traffic']);
-              main.setAttribute('data-wp-page-cookie', matchedRow['wp-page-cookie']);
-            }
-          }
-        }
+        const matchedRow = json && json.data?.find((row) => (row.URL === '404.html'));
+        const main = matchedRow && document.querySelector('main');
+        addWPDataAttributes(matchedRow, main);
       }
       sampleRUM('404', { source: document.referrer, target: window.location.href });
     });
   </script>
   <link rel="stylesheet" href="/styles/styles.css">
+  <link rel="stylesheet" href="/blocks/social/social.css">
   <style>
     main.error {
       min-height: calc(100vh - var(--nav-height));
       display: flex;
-      align-items: center;
+      justify-content: center;
+      flex-wrap: wrap;
     }
 
     main.error .error-number {
@@ -61,6 +62,23 @@
     main.error .error-number text {
       font-family: var(--fixed-font-family);
     }
+
+    main .error-button a.button:hover {
+      color: var(--c-dark-plum);
+    }
+
+    main .error-subtitle {
+      color: var(--c-dark-gray);
+      font-size: 50px;
+    }
+
+    .separator-container {
+      padding: 0;
+    }
+
+    hr.separator {
+      border: var(--c-light-gray) 1px solid;
+    }
   </style>
   <link rel="stylesheet" href="/styles/lazy-styles.css">
 </head>
@@ -68,14 +86,83 @@
 <body>
   <header></header>
   <main class="error" data-wp-version-name="franklin" data-wp-http-status="404" data-wp-page-type="error">
-    <div class="section">
-      <svg viewBox="1 0 38 18" class="error-number">
-        <text x="0" y="17">404</text>
-      </svg>
-      <h2 class="error-message">Page Not Found</h2>
-      <p class="button-container">
-        <a href="/" class="button secondary error-button-home">Go home</a>
-      </p>
+
+    <div class="section" data-section-status="loaded">
+      <div class="default-content-wrapper">
+        <h2 class="error-title">
+          Page Not Found
+        </h2>
+        <h3 class="error-subtitle">
+          404
+        </h3>
+      </div>
+    </div>
+
+    <div class="separator-container">
+      <hr class="separator">
+    </div>
+
+    <div class="section" data-section-status="loaded">
+      <div class="default-content-wrapper">
+        <h4>Here are some helpful links instead:</h4>
+        <p class="button-container error-button">
+          <a href="/" title="Go back to our homepage" class="button">
+            Go back to our homepage
+          </a>
+        </p>
+        <p class="button-container error-button">
+          <a href="/insights" title="Read our latest insights" class="button">
+            Read our latest insights
+          </a>
+        </p>
+        <p class="button-container error-button">
+          <a href="/lets-talk" title="Get in touch with us" class="button">
+            Get in touch with us
+          </a>
+        </p>
+      </div>
+    </div>
+
+    <div class="section social-container" data-section-status="loaded">
+      <div class="social-wrapper">
+        <div class="social block" data-block-name="social" data-block-status="loaded">
+          <ul aria-label="Social Channels">
+            <li class="social-card-linkedin">
+              <a href="https://www.linkedin.com/company/CognizantNetcentric" title="linkedIn" class="" target="_blank">
+                <h2 id="linkedin">linkedIn</h2>
+                <p>Cognizant Netcentric</p>
+                <span class="icon icon-linkedin icon-decorated">
+                  <svg xmlns="http://www.w3.org/2000/svg">
+                    <use href="#linkedin"></use>
+                  </svg>
+                </span>
+              </a>
+            </li>
+            <li class="social-card-facebook">
+              <a href="https://www.facebook.com/CognizantNetcentric/" title="facebook" class="" target="_blank">
+                <h2 id="facebook">facebook</h2>
+                <p>Cognizant Netcentric</p>
+                <span class="icon icon-facebook icon-decorated">
+                  <svg xmlns="http://www.w3.org/2000/svg">
+                    <use href="#facebook"></use>
+                  </svg>
+                </span>
+              </a>
+            </li>
+            <li class="social-card-twitter">
+              <a href="https://twitter.com/netcentrichq" title="twitter" class="" target="_blank">
+                <h2 id="twitter">twitter</h2>
+                <p>Cognizant Netcentric</p>
+                <span class="icon icon-twitter icon-decorated">
+                  <svg xmlns="http://www.w3.org/2000/svg">
+                    <use href="#twitter"></use>
+                  </svg>
+                </span>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
     </div>
   </main>
   <footer></footer>

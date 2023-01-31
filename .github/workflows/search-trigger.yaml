@@ -16,16 +16,22 @@ jobs:
     if: github.event.client_payload.status == 200
     runs-on: ubuntu-latest
     steps:
+    - name: Remove .md extension
+      id: removeMd
+      uses: frabert/replace-string-action@v2
+      with:
+        pattern: '\.md$'
+        string: ${{ github.event.client_payload.path }}
+        replace-with: ''
     - name: Build ingest endpoint
       id: ingestEndpoint
       uses: bluwy/substitute-string-action@v1
       with:
         _input-text: ${{ vars.SEARCH_API_INGEST_PATTERN }}
         _format-key: '{{key}}'
-        path: ${{ github.event.client_payload.path }}
-    - run: echo ${{ steps.ingestEndpoint.outputs.result }}
-    # - name: Trigger Ingest
-    #   uses: fjogeleit/http-request-action@v1
-    #   with:
-    #     url: ${{ steps.ingestEndpoint.outputs.result }}
-    #     method: 'POST'
+        path: ${{ steps.removeMd.outputs.replaced }}
+    - name: Trigger ingest
+      uses: fjogeleit/http-request-action@v1
+      with:
+        url: ${{ steps.ingestEndpoint.outputs.result }}
+        method: 'POST'

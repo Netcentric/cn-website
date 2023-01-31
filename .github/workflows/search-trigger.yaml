@@ -9,23 +9,23 @@ jobs:
   debug:
     runs-on: ubuntu-latest
     steps:
-      - run: |
-        echo "Status: ${{ github.event.client_payload.status }}"
-        echo "Path: ${{ github.event.client_payload.path }}"
+    - run: |
+      echo "Status: ${{ github.event.client_payload.status }}"
+      echo "Path: ${{ github.event.client_payload.path }}"
   search-ingest:
     if: github.event.client_payload.status == 200
     runs-on: ubuntu-latest
     steps:
-      - name: Build ingest endpoint
-        id: ingestEndpoint
-        uses: bluwy/substitute-string-action@v1
-        with:
-          _input-text: ${{ env.SEARCH_API_INGEST_PATTERN }}
-          _format-key: '{{key}}'
-          path: ${{ github.event.client_payload.path }}
-      - run: echo ${{ steps.ingestEndpoint.outputs.result }}
-      # - name: Trigger Ingest
-      #   uses: fjogeleit/http-request-action@v1
-      #   with:
-      #     url: ${{ steps.ingestEndpoint.outputs.result }}
-      #     method: 'POST'
+    - name: Build ingest endpoint
+      id: ingestEndpoint
+      uses: bluwy/substitute-string-action@v1
+      with:
+        _input-text: ${{ env.SEARCH_API_INGEST_PATTERN }}
+        _format-key: '{{key}}'
+        path: ${{ github.event.client_payload.path }}
+    - run: echo ${{ steps.ingestEndpoint.outputs.result }}
+    # - name: Trigger Ingest
+    #   uses: fjogeleit/http-request-action@v1
+    #   with:
+    #     url: ${{ steps.ingestEndpoint.outputs.result }}
+    #     method: 'POST'

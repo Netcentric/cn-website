@@ -10,8 +10,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - run: |
-      echo "Status: ${{ github.event.client_payload.status }}"
-      echo "Path: ${{ github.event.client_payload.path }}"
+        echo "Status: ${{ github.event.client_payload.status }}"
+        echo "Path: ${{ github.event.client_payload.path }}"
   search-ingest:
     if: github.event.client_payload.status == 200
     runs-on: ubuntu-latest

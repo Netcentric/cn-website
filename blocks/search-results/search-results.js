@@ -48,22 +48,44 @@ class SearchResults {
   }
 
   showResults() {
-    let resultsText = window.placeholders?.default?.noResultsFor.replace('{0}', this.searchterm) || `No results for ${this.searchterm}`;
+    let resultsText = window.placeholders?.default?.noResultsFor.replace('{0}', `<span>${this.searchterm}</span>`)
+                      || `No results for <span>${this.searchterm}</span>`;
     let HTMLResults = `<h2 class="results-empty">${resultsText}</h2>`;
+    let hasResults = false;
 
     if (this.searchResults && this.searchResults.count > 0) {
-      resultsText = window.placeholders?.default?.resultsFor.replace('{0}', this.searchterm) || `Results for ${this.searchterm}:`;
+      resultsText = window.placeholders?.default?.resultsFor.replace('{0}', `<span>${this.searchterm}</span>`)
+                    || `Results for <span>${this.searchterm}</span>:`;
       HTMLResults = `<h2>${resultsText}</h2>`;
+      // add toggle search below
+      HTMLResults += `
+        <div class="toggle">
+          <label class="switch">
+            <input type="checkbox">
+            <span class="slider round"></span>
+          </label>
+          <span>Highlight term</span>
+        </div>
+      `;
+      hasResults = true;
 
       this.searchResults.items.forEach((result) => {
         HTMLResults += `
-          <h3 class="results-title"><a class="results-link" href="${result.path}">${result.title}</a></h3>
-          <p class="results-text">${result.snippet}</p>
+        <h3 class="results-title"><a class="results-link" href="${result.path}">${result.title}</a></h3>
+        <p class="results-text">${result.snippet}</p>
         `;
       });
     }
 
     this.element.innerHTML = HTMLResults;
+
+    if (hasResults) {
+      const toggle = this.element.querySelector('.toggle input');
+      const emphasizedTerms = this.element.querySelectorAll('em');
+      toggle.addEventListener('click', () => {
+        emphasizedTerms.forEach((term) => term.classList.toggle('highlighted'));
+      });
+    }
   }
 
   static getSearchTerm() {

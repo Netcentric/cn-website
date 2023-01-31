@@ -20,7 +20,7 @@ jobs:
       id: ingestEndpoint
       uses: bluwy/substitute-string-action@v1
       with:
-        _input-text: ${{ env.SEARCH_API_INGEST_PATTERN }}
+        _input-text: ${{ vars.SEARCH_API_INGEST_PATTERN }}
         _format-key: '{{key}}'
         path: ${{ github.event.client_payload.path }}
     - run: echo ${{ steps.ingestEndpoint.outputs.result }}

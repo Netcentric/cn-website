@@ -502,7 +502,7 @@ export default async function decorate(block) {
     const target = new URL(form?.href);
     if (isMarketoFormUrl(target)) {
       loadCSS('/blocks/form/form-marketo.css');
-      const [, formId] = target.hash.split('#/mktForm/');
+      const [, formId] = target.hash.split(/\/mkt[Ff]orm\//);
       const munchkinId = new URLSearchParams(target.search).get('munchkinId');
       const cname = marketoCnames[munchkinId];
       block.innerHTML = `<form id="mktoForm_${formId}"></form>`;

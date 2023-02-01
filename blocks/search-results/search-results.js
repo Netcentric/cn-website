@@ -9,7 +9,7 @@ class SearchResults {
 
     if (this.searchterm) {
       this.element.innerHTML = '<div class="results-loading"></div>';
-      this.searchterm.trim();
+      this.searchterm = this.searchterm.trim();
       this.getResults();
     }
   }
@@ -48,14 +48,15 @@ class SearchResults {
   }
 
   showResults() {
-    let resultsText = window.placeholders?.default?.noResultsFor.replace('{0}', `<span>${this.searchterm}</span>`)
-                      || `No results for <span>${this.searchterm}</span>`;
+    const encodedSearchTerm = SearchResults.htmlEncode(this.searchterm);
+    let resultsText = window.placeholders?.default?.noResultsFor.replace('{0}', `<span>${encodedSearchTerm}</span>`)
+                      || `No results for <span>${encodedSearchTerm}</span>`;
     let HTMLResults = `<h2 class="results-empty">${resultsText}</h2>`;
     let hasResults = false;
 
     if (this.searchResults && this.searchResults.count > 0) {
-      resultsText = window.placeholders?.default?.resultsFor.replace('{0}', `<span>${this.searchterm}</span>`)
-                    || `Results for <span>${this.searchterm}</span>:`;
+      resultsText = window.placeholders?.default?.resultsFor.replace('{0}', `<span>${encodedSearchTerm}</span>`)
+                    || `Results for <span>${encodedSearchTerm}</span>:`;
       HTMLResults = `<h2>${resultsText}</h2>`;
       // add toggle search below
       HTMLResults += `
@@ -93,6 +94,12 @@ class SearchResults {
     const params = new URLSearchParams(url.search);
 
     return params.get('terms');
+  }
+
+  static htmlEncode(input) {
+    const textArea = document.createElement('textarea');
+    textArea.innerText = input;
+    return textArea.innerHTML.split('<br>').join('\n');
   }
 }
 

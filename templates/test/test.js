@@ -5,9 +5,12 @@
 function addTestButtons() {
   return `
   <div className="buttons-container">
-  <button type="button" id="small">small</button>
-  <button type="button" id="medium">medium</button>
-  <button type="button" id="current">current</button>
+  <button type="button" id="small">Small</button>
+  <button type="button" id="medium">Medium</button>
+  <button type="button" id="current">Current</button>
+  <button type="button" id="blogpost">Blogpost</button>
+  <button type="button" id="simple">Simple Hero content</button>
+  <button type="button" id="complete">Complete Hero content</button>
   </div>
   `;
 }
@@ -15,12 +18,30 @@ function addTestButtons() {
 function addListeners(buttons, main) {
   const container = buttons.children[0];
   const heroBlock = main.querySelector('.hero.block');
+  const heroContent = heroBlock.children[0].children[0];
+  const title = heroContent.querySelector('h1');
+  const subTitle = heroContent.querySelector('p');
+  const ctaBtn = heroContent.querySelector('.button-container');
+  const defaultTitleText = title.innerText;
+  const simpleTitle = 'Blogs & Insights';
+  const { body } = document;
   container.addEventListener('click', (e) => {
     const { id } = e.target;
     const classes = ['small', 'medium'];
     heroBlock.classList.remove(...classes);
-    if (id !== 'current') {
+    body.classList.remove('blogpost');
+    if (classes.includes(id)) {
       heroBlock.classList.add(id);
+    } else if (id === 'blogpost') {
+      body.classList.add(id);
+    } else if (id === 'simple') {
+      title.innerText = simpleTitle;
+      subTitle.style.display = 'none';
+      ctaBtn.style.display = 'none';
+    } else if (id === 'complete') {
+      title.innerText = defaultTitleText;
+      subTitle.style.display = 'inherit';
+      ctaBtn.style.display = 'inherit';
     }
   });
 }

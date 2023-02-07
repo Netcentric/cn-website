@@ -31,6 +31,10 @@ main .hero.medium {
   padding: 30px 32px;
 }
 
+main .hero.fit-content {
+  min-height: fit-content;
+}
+
 main .hero h1 {
   max-width: 1200px;
   color: inherit;

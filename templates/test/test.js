@@ -11,6 +11,7 @@ function addTestButtons() {
   <button type="button" id="blogpost">Blogpost</button>
   <button type="button" id="simple">Simple Hero content</button>
   <button type="button" id="complete">Complete Hero content</button>
+  <button type="button" id="fit-content">Fit the content</button>
   </div>
   `;
 }
@@ -28,8 +29,14 @@ function addListeners(buttons, main) {
   container.addEventListener('click', (e) => {
     const { id } = e.target;
     const classes = ['small', 'medium'];
-    heroBlock.classList.remove(...classes);
-    body.classList.remove('blogpost');
+    if (id !== 'fit-content') {
+      heroBlock.classList.remove(...classes);
+      body.classList.remove('blogpost');
+    } else {
+      const { classList } = heroBlock;
+      heroBlock.classList.toggle('fit-content');
+      e.target.style.backgroundColor = classList.contains('fit-content') ? 'gold' : 'inherit';
+    }
     if (classes.includes(id)) {
       heroBlock.classList.add(id);
     } else if (id === 'blogpost') {

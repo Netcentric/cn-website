@@ -39,8 +39,6 @@ function triggerSearchUpdate(event) {
 }
 
 function initSidekickExtension(sk) {
-  sk.addEventListener('custom:cn-unpublish', triggerSearchDelete);
-  sk.addEventListener('custom:cn-delete', triggerSearchDelete);
   sk.addEventListener('custom:cn-search-update', triggerSearchUpdate);
 }
 

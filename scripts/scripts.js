@@ -15,6 +15,7 @@ import {
   getMetadata,
   loadCSS,
 } from './lib-franklin.js';
+import TEMPLATE_LIST from '../templates/config.js';
 
 const LCP_BLOCKS = []; // add your LCP blocks to the list
 window.hlx.RUM_GENERATION = 'project-1'; // add your RUM generation information here
@@ -34,39 +35,67 @@ export function addChevronToButtons(element, selector = 'a.button') {
 }
 
 /**
+ * Check button type and return the right classList to be added to the anchor tag, if needed
+ * @param {HTMLElement} up Anchor tag parent Element
+ * @returns {({string, HTMLElement} | null)} {string, HTMLElement} or null
+ */
+function setButtonClassName(up) {
+  const twoUp = up.parentElement;
+  const buttonTags = {
+    P: 'P',
+    DIV: 'DIV',
+    STRONG: 'STRONG',
+    EM: 'EM',
+  };
+  const upLength = up.childNodes.length;
+  const twoUpLength = twoUp.childNodes.length;
+  const isButton = upLength === 1 && buttonTags[up.tagName] !== undefined;
+  const isInPTag = twoUpLength === 1 && twoUp.tagName === buttonTags.P;
+  const isPrimary = isButton && up.tagName === buttonTags.STRONG && isInPTag;
+  const isSecondary = isButton && up.tagName === buttonTags.EM && isInPTag;
+
+  if (isPrimary) { // primary CTA button link
+    return { classList: 'button primary', el: twoUp };
+  }
+
+  if (isSecondary) { // secondary CTA button link
+    return { classList: 'button secondary', el: twoUp };
+  }
+
+  if (isButton) { // default navigational link
+    return { classList: 'button', el: up };
+  }
+
+  return null;
+}
+
+/**
  * decorates paragraphs containing a single link as buttons with classes and
  * chevron icon.
  * @param {Element} element container element
  */
 function decorateButtons(element) {
   element.querySelectorAll('a').forEach((a) => {
-    if (a.href !== a.textContent) {
-      const up = a.parentElement;
-      const twoup = up.parentElement;
-      const threeUp = twoup.parentElement;
+    if (a.href === a.textContent) return;
+    const up = a.parentElement;
+    const threeUp = up.parentElement.parentElement;
 
-      if (!a.querySelector('img') && !threeUp.classList.contains('fixed-social-media')) {
-        a.title = a.title || a.textContent.trim();
-        if (up.childNodes.length === 1 && (up.tagName === 'P' || up.tagName === 'DIV')) {
-          a.className = 'button'; // default navigational link
-          up.classList.add('button-container');
-        }
-        if (up.childNodes.length === 1 && up.tagName === 'STRONG'
-          && twoup.childNodes.length === 1 && twoup.tagName === 'P') {
-          a.className = 'button primary'; // primary CTA button link
-          twoup.classList.add('button-container');
-        }
-        if (up.childNodes.length === 1 && up.tagName === 'EM'
-          && twoup.childNodes.length === 1 && twoup.tagName === 'P') {
-          a.className = 'button secondary'; // secondary CTA button link
-          twoup.classList.add('button-container');
-        }
-        addChevronToButtons(up);
-      }
+    if (a.querySelector('img') || threeUp.classList.contains('fixed-social-media')) return;
+    a.title = a.title || a.textContent.trim();
+
+    if (setButtonClassName(up)) {
+      const { classList, el } = setButtonClassName(up);
+      a.className = classList;
+      el.classList.add('button-container');
+      addChevronToButtons(up);
     }
   });
 }
 
+/**
+ * Build the Hero block depends if the block is present or not in the document
+ * @param {HTMLElement} main
+ */
 function buildHeroBlock(main) {
   /* 1. If there is an explicit hero block, add it to its own section, so it can be full-width */
   const heroBlock = main.querySelector('.hero');
@@ -91,18 +120,14 @@ function buildHeroBlock(main) {
     subtitle = h1Sibling;
   }
 
-  if (h1 && picture) {
-    const section = document.createElement('div');
-    const hr = document.createElement('hr');
-    section.append(buildBlock('hero', { elems: [hr, h1, subtitle, picture] }));
-    main.prepend(section);
-    return;
-  }
-
-  /* 3. If there is only a h1, build a block out of the h1 */
   if (h1) {
     const section = document.createElement('div');
-    section.append(buildBlock('hero', { elems: [h1] }));
+    let elems = [h1]; /* 3. If there is only a h1, build a block out of the h1 */
+    if (picture) {
+      const hr = document.createElement('hr');
+      elems = [hr, h1, subtitle, picture];
+    }
+    section.append(buildBlock('hero', { elems }));
     main.prepend(section);
   }
 }
@@ -119,31 +144,38 @@ export function createIcon(name) {
   return icon;
 }
 
+/**
+ * Creates an Embed Media element in a iframe
+ * @param {HTMLAnchorElement} a
+ * @param {string} vendor
+ * @returns {HTMLDivElement} the embedded element
+ */
 function createEmbedIFrame(a, vendor) {
   const div = document.createElement('div');
   div.classList.add(`${vendor}-base`);
   const id = a.pathname.split('/').pop();
 
-  let source;
-  let className;
-  let allow;
-  if (vendor === 'youtube') {
-    source = `https://www.youtube.com/embed/${id}`;
-    className = 'youtube-player';
-    allow = 'encrypted-media; accelerometer; gyroscope; picture-in-picture';
-  } else if (vendor === 'spotify') {
-    source = `https://open.spotify.com/embed/episode/${id}`;
-    className = 'spotify-player';
-    allow = 'autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture';
-  } else if (vendor === 'wistia') {
-    source = `https://fast.wistia.net/embed/iframe/${id}`;
-    className = 'wistia-player';
-    allow = 'autoplay; clipboard-write; encrypted-media; fullscreen;';
-  }
+  const vendors = {
+    youtube: {
+      source: `https://www.youtube.com/embed/${id}`,
+      className: 'youtube-player',
+      allow: 'encrypted-media; accelerometer; gyroscope; picture-in-picture',
+    },
+    spotify: {
+      source: `https://open.spotify.com/embed/episode/${id}`,
+      className: 'spotify-player',
+      allow: 'autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture',
+    },
+    wistia: {
+      source: `https://fast.wistia.net/embed/iframe/${id}`,
+      className: 'wistia-player',
+      allow: 'autoplay; clipboard-write; encrypted-media; fullscreen;',
+    },
+  };
+  const { source, className, allow } = vendors[vendor];
 
-  div.innerHTML = `<iframe data-src="${source}" 
+  div.innerHTML = `<iframe data-src="${source}"
         class="${className}"
-        allowfullscreen  
         allow="${allow}"
         style="display: none"
         loading="auto">
@@ -153,13 +185,27 @@ function createEmbedIFrame(a, vendor) {
   return div;
 }
 
+/**
+ * Checks if the anchor element is a media-type link based on the string passed by parameter
+ * @param {HTMLAnchorElement} a HTMLAnchorElement
+ * @param {string} type vendor type
+ * @returns {boolean} true | false
+ */
+function isMediaLink(a, type) {
+  return a.href.includes(type) && encodeURI(a.textContent.trim()).indexOf(a.href) !== -1;
+}
+
+/**
+ * Prepare en Embed Element to be parsed by the decoration phase
+ * @param {HTMLElement} main Main Element tag
+ */
 function preDecorateEmbed(main) {
   const lazyEmbeds = [];
 
-  const anchors = main.getElementsByTagName('a');
-  const youTubeAnchors = Array.from(anchors).filter((a) => a.href.includes('youtu') && encodeURI(a.textContent.trim()).indexOf(a.href) !== -1);
-  const spotifyAnchors = Array.from(anchors).filter((a) => a.href.includes('spotify') && encodeURI(a.textContent.trim()).indexOf(a.href) !== -1);
-  const wistiaAnchors = Array.from(anchors).filter((a) => a.href.includes('wistia') && encodeURI(a.textContent.trim()).indexOf(a.href) !== -1);
+  const anchors = [...main.getElementsByTagName('a')];
+  const youTubeAnchors = anchors.filter((a) => isMediaLink(a, 'youtu'));
+  const spotifyAnchors = anchors.filter((a) => isMediaLink(a, 'spotify'));
+  const wistiaAnchors = anchors.filter((a) => isMediaLink(a, 'wistia'));
 
   youTubeAnchors.forEach((a) => {
     lazyEmbeds.push(createEmbedIFrame(a, 'youtube'));
@@ -196,10 +242,22 @@ function preDecorateEmbed(main) {
   }
 }
 
+/**
+ * Check if the url is a Marketo one
+ * @param {URL} url - url to check
+ * @returns {boolean} true | false
+ */
 export function isMarketoFormUrl(url) {
   return url.hostname === 'engage-lon.marketo.com';
 }
 
+/**
+ * Check if an HTMLElement has a parentElement or not and
+ * returns it from having it based on the callback
+ * @param {HTMLElement} element - the HTMLElement to check
+ * @param {Function} callback - recursive call to itself
+ * @returns {(HTMLElement | Function | null)} te parentElement, this function itself or null
+ */
 function findParent(element, callback) {
   if (!element.parentElement) {
     return null;
@@ -210,6 +268,10 @@ function findParent(element, callback) {
   return findParent(element.parentElement, callback);
 }
 
+/**
+ * Prepare the HTMLAnchorElement container to convert it to be a HTMLFormElement
+ * @param {HTMLElement} main
+ */
 function preDecorateMarketoForm(main) {
   [...main.getElementsByTagName('a')].filter((a) => {
     try {
@@ -236,7 +298,7 @@ async function buildAutoBlocks(main) {
   try {
     buildHeroBlock(main);
     const template = toClassName(getMetadata('template'));
-    const templates = ['blogpost', 'two-columns'];
+    const templates = TEMPLATE_LIST;
     if (templates.includes(template)) {
       const mod = await import(`../templates/${template}/${template}.js`);
       if (mod.default) {
@@ -251,7 +313,7 @@ async function buildAutoBlocks(main) {
 
 /**
  * Instruments the main element with document metadata for LiveUX tracking
- * @param {*} main The main element
+ * @param {HTMLElement} main The main element
  */
 function instrumentMain(main) {
   [...document.head.children]

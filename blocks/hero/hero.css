@@ -18,7 +18,7 @@ main .hero-container {
 main .hero {
   position: relative;
   padding: 60px 32px;
-  min-height: 300px;
+  min-height: fit-content;
 }
 
 main .hero.small {
@@ -31,8 +31,9 @@ main .hero.medium {
   padding: 30px 32px;
 }
 
-main .hero.fit-content {
-  min-height: fit-content;
+main .hero.large {
+  min-height: 300px;
+  padding: 60px 32px;
 }
 
 main .hero h1 {
@@ -132,7 +133,8 @@ body.blogpost main .hero p {
     flex-direction: row;
   }
 
-  main .hero {
+  main .hero,
+  main .hero.large {
     padding: 60px 0;
   }
 

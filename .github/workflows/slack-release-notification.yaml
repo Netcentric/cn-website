@@ -1,0 +1,34 @@
+name: Slack Release Notification
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  checkType:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Find last merge
+      run: echo "last_merge=$(git log --pretty='%H' --merges -1)" >> $GITHUB_ENV
+    outputs:
+      last_merge: ${{ env.last_merge }}
+  mergeCommit:
+    runs-on: ubuntu-latest
+    needs: checkType
+    # if: ${{ needs.checkType.outputs.last_merge }} == env.GITHUB_SHA
+    steps:
+    - name: debug
+      run: |
+        echo ${{ env.last_merge }}
+        echo ${{ needs.checkType.outputs.last_merge }}
+    # the following action is based on a workflow created by Andreas Haller, contact for permissions, the workflow file to import can be found under tools/slack
+    # - name: Notify Slack
+    #   uses: slackapi/slack-github-action@v1.23.0
+    #   env:
+    #     SLACK_WEBHOOK_URL: ${{ secrets.SLACK_NOTIFICATION_WEBHOOK }}
+    #   with:
+    #     payload: |
+    #       {
+    #         "text": "New code version released."
+    #       }

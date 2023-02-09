@@ -60,8 +60,12 @@ jobs:
     - name: get commit messages
       run: |
         previous_merge=$(git log --pretty="%h" -1 --merges --skip=1 --first-parent)
+        echo $previous_merge
         second_parent=$(git log --pretty="%h" -1 ${{ needs.checkType.outputs.last_merge }}^2)
-        echo "commit_messages=\"$(git log --pretty='%h (%an, %ae): %s' --no-merges $previous_merge..$second_parent)\"" >> $GITHUB_ENV
+        echo $second_parent
+        commit_messages=$(git log --pretty='%h (%an, %ae): %s' --no-merges $previous_merge..$second_parent)
+        echo $commit_messages
+        echo "commit_messages=\"$commit_messages\"" >> $GITHUB_ENV
     - name: debug
       run: |
         echo ${{ env.commit_messages }}

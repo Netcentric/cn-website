@@ -34,7 +34,7 @@ jobs:
     - name: debug
       run: |
         echo ${{ env.commit_message }}
-    the following action is based on a workflow created by Andreas Haller, contact for permissions, the workflow file to import can be found under tools/slack
+    # the following action is based on a workflow created by Andreas Haller, contact for permissions, the workflow file to import can be found under tools/slack
     - name: Notify Slack
       uses: slackapi/slack-github-action@v1.23.0
       env:

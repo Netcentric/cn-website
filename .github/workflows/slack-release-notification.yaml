@@ -42,12 +42,12 @@ jobs:
       with:
         payload: |
           {
-            "text": "Direct commit to main: \n ${{ env.commit_message }}"
+            "text": ":exclamation: Direct commit to main: \n${{ env.commit_message }}"
           }
   mergeCommit:
     runs-on: ubuntu-latest
     needs: checkType
-    if: needs.checkType.outputs.last_merge == needs.checkType.outputs.current_commit
+    #if: needs.checkType.outputs.last_merge == needs.checkType.outputs.current_commit
     steps:
     - name: Checkout
       uses: actions/checkout@v3
@@ -73,17 +73,5 @@ jobs:
     #   with:
     #     payload: |
     #       {
-    #         "text": "New code version released."
+    #         "text": ":merge: New code version released."
     #       }
-  test0:
-    runs-on: ubuntu-latest
-    if: false
-    steps:
-    - name: test step
-      run: echo "running"
-  test1:
-    runs-on: ubuntu-latest
-    if: true
-    steps:
-    - name: test step
-      run: echo "running"

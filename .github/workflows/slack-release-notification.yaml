@@ -9,6 +9,9 @@ jobs:
   checkType:
     runs-on: ubuntu-latest
     steps:
+    - uses: actions/checkout@v3
+      with:
+        fetch-depth: 0
     - name: Find last merge
       run: echo "last_merge=$(git log --pretty='%H' --merges -1)" >> $GITHUB_ENV
     outputs:

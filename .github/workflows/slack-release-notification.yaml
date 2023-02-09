@@ -30,7 +30,9 @@ jobs:
       with:
         fetch-depth: 0
     - name: get commit message
-      run: echo "commit_message=$(git log --pretty='%h (%an, %ae): %s' -1)" >> $GITHUB_ENV
+      run: |
+        commit_message=$(git log --pretty='%h (%an, %ae): %s' -1)
+        echo "commit_message=$commit_message" >> $GITHUB_ENV
     - name: debug
       run: |
         echo ${{ env.commit_message }}
@@ -65,11 +67,11 @@ jobs:
         echo $second_parent
         commit_messages=$(git log --pretty='%h (%an, %ae): %s' --no-merges $previous_merge..$second_parent)
         echo $commit_messages
-        echo "commit_messages=\"${commit_messages/$'\n'/'\n'}\"" >> $GITHUB_ENV
+        echo "commit_messages=${commit_messages/$'\n'/'\n'}" >> $GITHUB_ENV
     - name: debug
       run: |
         echo ${{ env.commit_messages }}
-    the following action is based on a workflow created by Andreas Haller, contact for permissions, the workflow file to import can be found under tools/slack
+    # the following action is based on a workflow created by Andreas Haller, contact for permissions, the workflow file to import can be found under tools/slack
     - name: Notify Slack
       uses: slackapi/slack-github-action@v1.23.0
       env:

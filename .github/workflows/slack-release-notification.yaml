@@ -16,7 +16,7 @@ jobs:
     - name: Find last merge
       run: |
         echo "current_commit=$(git log --pretty='%H' -1)" >> $GITHUB_ENV
-        echo "last_merge=$(git log --pretty='%H' --merges -1)" >> $GITHUB_ENV
+        echo "last_merge=$(git log --pretty='%H' --merges -1 --first-parent)" >> $GITHUB_ENV
     outputs:
       last_merge: ${{ env.last_merge }}
       current_commit: ${{ env.current_commit }}
@@ -34,16 +34,17 @@ jobs:
     - name: debug
       run: |
         echo ${{ env.commit_message }}
-    # the following action is based on a workflow created by Andreas Haller, contact for permissions, the workflow file to import can be found under tools/slack
-    # - name: Notify Slack
-    #   uses: slackapi/slack-github-action@v1.23.0
-    #   env:
-    #     SLACK_WEBHOOK_URL: ${{ secrets.SLACK_NOTIFICATION_WEBHOOK }}
-    #   with:
-    #     payload: |
-    #       {
-    #         "text": "Direct commit to main: ${{ env.commit_message }}"
-    #       }
+    the following action is based on a workflow created by Andreas Haller, contact for permissions, the workflow file to import can be found under tools/slack
+    - name: Notify Slack
+      uses: slackapi/slack-github-action@v1.23.0
+      env:
+        SLACK_WEBHOOK_URL: ${{ secrets.SLACK_NOTIFICATION_WEBHOOK_TEST }}
+      with:
+        payload: |
+          {
+            "text": "Direct commit to main: |
+               ${{ env.commit_message }}"
+          }
   mergeCommit:
     runs-on: ubuntu-latest
     needs: checkType
@@ -57,6 +58,14 @@ jobs:
       run: |
         echo ${{ needs.checkType.outputs.last_merge }}
         echo ${{ needs.checkType.outputs.current_commit }}
+    - name: get commit messages
+      run: |
+        previous_merge=$(git log --pretty="%h" -1 --merges --skip=1 --first-parent)
+        second_parent=$(git log --pretty="%h" -1 ${{ needs.checkType.outputs.last_merge }}^2)
+        echo "commit_messages=$(git log --pretty='%h (%an, %ae): %s' --no-merges $previous_merge..$second_parent)" >> $GITHUB_ENV
+    - name: debug
+      run: |
+        echo ${{ env.commit_messages }}
     # the following action is based on a workflow created by Andreas Haller, contact for permissions, the workflow file to import can be found under tools/slack
     # - name: Notify Slack
     #   uses: slackapi/slack-github-action@v1.23.0
@@ -67,3 +76,15 @@ jobs:
     #       {
     #         "text": "New code version released."
     #       }
+  test0:
+    runs-on: ubuntu-latest
+    if: false
+    steps:
+    - name: test step
+      run: echo "running"
+  test1:
+    runs-on: ubuntu-latest
+    if: true
+    steps:
+    - name: test step
+      run: echo "running"

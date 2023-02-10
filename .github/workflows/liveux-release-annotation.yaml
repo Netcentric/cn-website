@@ -1,4 +1,4 @@
-name: Slack Release Notification
+name: LiveUX Release Annotation
 
 on:
   push:
@@ -31,7 +31,7 @@ jobs:
         fetch-depth: 0
     - name: get commit message
       run: |
-        message=$(git log --pretty=':exclamation: direct commit to main %h by %an (%ae) - %s %b' -1)
+        message=$(git log --pretty='%h - %s %b' -1)
         echo "$message"
         echo 'message<<EOF' >> $GITHUB_ENV
         echo "$message" >> $GITHUB_ENV
@@ -53,26 +53,26 @@ jobs:
         echo $previous_merge
         second_parent=$(git log --pretty="%h" -1 ${{ needs.checkType.outputs.last_merge }}^2)
         echo $second_parent
-        message=$(git log --pretty='-> %h by %an (%ae) - %s %b' --no-merges $previous_merge..$second_parent)
+        message=$(git log --pretty='-> %h - %s %b' --no-merges $previous_merge..$second_parent)
         echo "$message"
         echo 'message<<EOF' >> $GITHUB_ENV
-        echo ':merge: new code version released:' >> $GITHUB_ENV
         echo "$message" >> $GITHUB_ENV
         echo 'EOF' >> $GITHUB_ENV
     outputs:
       message: ${{ env.message }}
-  slack:
+  liveux-annotation:
     runs-on: ubuntu-latest
     needs: [directCommit, mergeCommit]
     if: ${{ !failure() }}
     steps:
-    # the following action is based on a workflow created by Andreas Haller, contact for permissions, the workflow file to import can be found under tools/slack
-    - name: Notify Slack
-      uses: slackapi/slack-github-action@v1.23.0
-      env:
-        SLACK_WEBHOOK_URL: ${{ secrets.SLACK_NOTIFICATION_WEBHOOK }}
+    - name: Get current timestamp
+      id: timestamp
+      run: echo "current_timestamp=$(date +"%Y-%m-%dT%H:%M:%S%z")" >> $GITHUB_ENV
+    - name: liveux annotation API
+      uses: fjogeleit/http-request-action@v1
       with:
-        payload: |
-          {
-            "text": ${{ toJson(needs.directCommit.outputs.message || needs.mergeCommit.outputs.message) }}
-          }
+        url: 'https://api.liveux.cnwebperformance.biz/indices/webperf-netcentric/domains/www.netcentric.biz/annotations'
+        method: 'POST'
+        timeout: 20000
+        customHeaders: '{"Content-Type": "application/json", "Authorization: Basic ${{ secrets.LIVEUX_API_KEY }}"}'
+        data: '{"timestamp": "${{ env.current_timestamp }}", "text": ${{ toJson(needs.directCommit.outputs.message || needs.mergeCommit.outputs.message) }}, "source": "deployment"}'

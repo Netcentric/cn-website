@@ -1,0 +1,78 @@
+name: LiveUX Release Annotation
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  checkType:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v3
+      with:
+        fetch-depth: 0
+    - name: Find last merge
+      run: |
+        echo "current_commit=$(git log --pretty='%H' -1)" >> $GITHUB_ENV
+        echo "last_merge=$(git log --pretty='%H' --merges -1 --first-parent)" >> $GITHUB_ENV
+    outputs:
+      last_merge: ${{ env.last_merge }}
+      current_commit: ${{ env.current_commit }}
+  directCommit:
+    runs-on: ubuntu-latest
+    needs: checkType
+    if: needs.checkType.outputs.last_merge != needs.checkType.outputs.current_commit
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v3
+      with:
+        fetch-depth: 0
+    - name: get commit message
+      run: |
+        message=$(git log --pretty='%h - %s %b' -1)
+        echo "$message"
+        echo 'message<<EOF' >> $GITHUB_ENV
+        echo "$message" >> $GITHUB_ENV
+        echo 'EOF' >> $GITHUB_ENV
+    outputs:
+      message: ${{ env.message }}
+  mergeCommit:
+    runs-on: ubuntu-latest
+    needs: checkType
+    if: needs.checkType.outputs.last_merge == needs.checkType.outputs.current_commit
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v3
+      with:
+        fetch-depth: 0
+    - name: get commit messages
+      run: |
+        previous_merge=$(git log --pretty="%h" -1 --merges --skip=1 --first-parent)
+        echo $previous_merge
+        second_parent=$(git log --pretty="%h" -1 ${{ needs.checkType.outputs.last_merge }}^2)
+        echo $second_parent
+        message=$(git log --pretty='-> %h - %s %b' --no-merges $previous_merge..$second_parent)
+        echo "$message"
+        echo 'message<<EOF' >> $GITHUB_ENV
+        echo "$message" >> $GITHUB_ENV
+        echo 'EOF' >> $GITHUB_ENV
+    outputs:
+      message: ${{ env.message }}
+  liveux-annotation:
+    runs-on: ubuntu-latest
+    needs: [directCommit, mergeCommit]
+    if: ${{ !failure() }}
+    steps:
+    - name: Get current timestamp
+      id: timestamp
+      run: echo "current_timestamp=$(date +"%Y-%m-%dT%H:%M:%S%z")" >> $GITHUB_ENV
+    - name: liveux annotation API
+      uses: fjogeleit/http-request-action@v1
+      with:
+        url: 'https://api.liveux.cnwebperformance.biz/indices/webperf-netcentric/domains/www.netcentric.biz/annotations'
+        method: 'POST'
+        timeout: 20000
+        customHeaders: '{"Content-Type": "application/json", "Authorization: Basic ${{ secrets.LIVEUX_API_KEY }}"}'
+        data: '{"timestamp": "${{ env.current_timestamp }}", "text": ${{ toJson(needs.directCommit.outputs.message || needs.mergeCommit.outputs.message) }}, "source": "deployment"}'

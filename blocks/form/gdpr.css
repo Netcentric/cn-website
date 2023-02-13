@@ -63,11 +63,11 @@
   padding-block-end: 1rem;
 }
 
-.section:has(.empty-section.feedback) {
+.section:has(.feedback) {
   display: none;
 }
 
-.section:has(.empty-section.feedback.show) {
+.section:has(.feedback.show) {
   display: inherit;
 }
 

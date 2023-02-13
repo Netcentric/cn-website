@@ -1,21 +1,33 @@
 const apiClass = 'apiKey';
-const feedbackClass = 'feedback';
 const inputApi = document.getElementById(apiClass);
+const main = document.querySelector('main');
 const formBlock = document.querySelector('.gdpr');
-const feedback = document.querySelector('.feedback');
-const fbWrapper = feedback.children[0];
-const fbContainer = fbWrapper.children[0];
 const form = formBlock.querySelector('form');
 const inputs = form.querySelectorAll('input');
 const ticket2Link = '/ticket2link?ticket=';
 const urlProd = 'https://api.netcentric.biz/gdpr';
 const urlBase = urlProd;
 
+// Fill API key if it is saved in localStorage
 const savedApiKey = localStorage.getItem(apiClass);
 inputApi.value = savedApiKey ?? '';
 
-fbWrapper.classList.add(`${feedbackClass}-wrapper`);
-fbContainer.classList.add(`${feedbackClass}-container`);
+// Set up Feedback section
+const section = document.createElement('div');
+const SWrapper = document.createElement('div');
+const feedback = document.createElement('div');
+const fbWrapper = document.createElement('div');
+const fbContainer = document.createElement('div');
+section.classList.add('section', 'section-feedback-container');
+SWrapper.classList.add('section-feedback-wrapper');
+feedback.classList.add('feedback');
+fbWrapper.classList.add('feedback-wrapper');
+fbContainer.classList.add('feedback-container');
+main.appendChild(section);
+section.appendChild(SWrapper);
+SWrapper.appendChild(feedback);
+feedback.appendChild(fbWrapper);
+fbWrapper.appendChild(fbContainer);
 
 /**
  * Add an error message to an input field in a form

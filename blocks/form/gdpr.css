@@ -1,0 +1,91 @@
+.gdpr form input {
+  max-width: 100%;
+  width: 100%;
+}
+
+.gdpr form label {
+  font-size: var(--body-font-size-s);
+}
+
+.gdpr form {
+  width: 100%;
+}
+
+.gdpr .button-container {
+  display: flex;
+}
+
+.feedback button.button,
+.gdpr form button.button {
+  background-color: var(--c-dark-plum);
+  color: var(--c-light-teal);
+  border-width: thin;
+  border-style: solid;
+  border-color: var(--c-dark-plum);
+  border-image: initial;
+  border-radius: 36px;
+  font-size: 12px;
+  text-align: center;
+  font-weight: 700;
+  position: relative;
+  display: inline-block;
+  max-width: 100%;
+  line-height: 36px;
+  text-transform: uppercase;
+  padding: 0 24px;
+}
+
+.gdpr form input.error {
+  border-color: var(--c-highlight-red);
+  background-color: #f004;
+}
+
+.gdpr form input.error:focus-visible {
+  outline: 1px solid var(--c-highlight-red);
+}
+
+.gdpr form .error-message {
+  color: var(--c-highlight-red);
+}
+
+.feedback .feedback-wrapper {
+  display: flex;
+  justify-content: center;
+}
+
+.feedback .feedback-container {
+  background-color: var(--c-light-gray);
+  border-radius: 5%;
+  padding: 1rem;
+}
+
+.feedback .feedback-container p {
+  padding-block-end: 1rem;
+}
+
+.section:has(.feedback) {
+  display: none;
+}
+
+.section:has(.feedback.show) {
+  display: inherit;
+}
+
+@media (min-width: 600px) {
+  .gdpr form {
+    padding-inline: 5rem;
+  }
+}
+
+@media (min-width: 992px) {
+  .gdpr form {
+    padding-inline: 10rem;
+    width: var(--section-width);
+  }
+}
+
+@media (min-width: 1200px) {
+  .gdpr form {
+    padding-inline: 15rem;
+  }
+}

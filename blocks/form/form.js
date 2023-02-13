@@ -9,7 +9,7 @@ import { isMarketoFormUrl } from '../../scripts/scripts.js';
  * @returns {HTMLScriptElement} HTMLScriptElement
  */
 const loadScript = (url, callback, type) => {
-  const head = document.querySelector('head');
+  const { head } = document;
   const script = document.createElement('script');
   script.src = url;
   if (type) {
@@ -76,11 +76,17 @@ async function submitForm(form) {
  * @returns {HTMLButtonElement} HTMLButtonElement
  */
 function createButton(fd) {
-  const { Type: type, Label: text, Extra: redirectTo } = fd;
+  const {
+    Type: type,
+    Label: text,
+    Extra: redirectTo,
+    Options,
+  } = fd;
   const button = document.createElement('button');
+  const isGDPRForm = Options === 'gdpr';
   button.textContent = text;
   button.classList.add('button');
-  if (type === 'submit') {
+  if (type === 'submit' && !isGDPRForm) {
     button.addEventListener('click', async (event) => {
       const form = button.closest('form');
       if (form.checkValidity()) {
@@ -517,13 +523,15 @@ export default async function decorate(block) {
       });
     } else if (target.pathname.endsWith('.json')) {
       form.replaceWith(await createForm(form.href));
+      if (block.classList.contains('gdpr')) {
+        await import('./gdpr.js');
+        loadCSS('/blocks/form/gdpr.css');
+      }
     }
   } catch (error) {
-    if (window.location.hostname.endsWith('.page')) {
-      block.innerHTML = `Invalid form configuration: ${error}`;
-    } else {
-      block.innerHTML = '<!-- invalid form configuration -->';
-    }
+    block.innerHTML = window.location.hostname.endsWith('.page')
+      ? `Invalid form configuration: ${error}`
+      : '<!-- invalid form configuration -->';
     console.error(error); // eslint-disable-line no-console
   }
 }

@@ -83,7 +83,7 @@ function createButton(fd) {
     Options,
   } = fd;
   const button = document.createElement('button');
-  const isGDPRForm = Options && Options === 'gdpr';
+  const isGDPRForm = Options === 'gdpr';
   button.textContent = text;
   button.classList.add('button');
   if (type === 'submit' && !isGDPRForm) {

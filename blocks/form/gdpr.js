@@ -18,24 +18,6 @@ fbWrapper.classList.add(`${feedbackClass}-wrapper`);
 fbContainer.classList.add(`${feedbackClass}-container`);
 
 /**
- * Add a CSS class to an HTMLElement
- * @param {HTMLElement} el Element to add the className
- * @param {string} className
- */
-function addClass(el, className) {
-  el.classList.add(className);
-}
-
-/**
- * Remove a CSS class from an HTMLElement
- * @param {HTMLElement} el Element to remove the className
- * @param {string} className
- */
-function removeClass(el, className) {
-  el.classList.remove(className);
-}
-
-/**
  * Add an error message to an input field in a form
  * @param {HTMLElement} el HTMLElement
  * @param {string} text text to show as error
@@ -45,7 +27,7 @@ function showErrorMessage(el, text) {
   const hasMessage = wrapper.querySelector('.error-message');
   if (!hasMessage) {
     const message = document.createElement('p');
-    addClass(message, 'error-message');
+    message.classList.add('error-message');
     message.innerText = text;
     wrapper.appendChild(message);
   }
@@ -69,10 +51,10 @@ function checkErrorMessage(e) {
   const input = e.target;
   const errorClass = 'error';
   if (input.value.trim().length < 1) {
-    addClass(input, errorClass);
+    input.classList.add(errorClass);
     showErrorMessage(input, 'This field is required');
   } else {
-    removeClass(input, errorClass);
+    input.classList.remove(errorClass);
     hideErrorMessage(input);
   }
 }
@@ -92,9 +74,9 @@ function showFeedbackMessage(message) {
   // A close button to hide the message
   close.onclick = () => {
     fbContainer.innerHTML = '';
-    removeClass(feedback, 'show');
+    feedback.classList.remove('show');
   };
-  addClass(close, 'button');
+  close.classList.add('button');
   fbContainer.innerHTML = '';
   fbContainer.append(title, text, close);
 }
@@ -133,7 +115,7 @@ async function fetchForm(result) {
     }
   } catch (error) {
     // Show a message below the form, in the feedback section
-    addClass(feedback, 'show');
+    feedback.classList.add('show');
     showFeedbackMessage(error);
 
     // eslint-disable-next-line no-console

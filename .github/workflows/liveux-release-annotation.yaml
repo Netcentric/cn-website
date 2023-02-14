@@ -51,9 +51,13 @@ jobs:
       run: |
         previous_merge=$(git log --pretty="%h" -1 --merges --skip=1 --first-parent)
         echo $previous_merge
-        second_parent=$(git log --pretty="%h" -1 ${{ needs.checkType.outputs.last_merge }}^2)
-        echo $second_parent
-        message=$(git log --pretty='-> %h - %s %b' --no-merges $previous_merge..$second_parent)
+        message=$(git log --pretty="-> %h - %s %b" --no-merges $previous_merge..${{ needs.checkType.outputs.last_merge }})
+        echo "$message"
+        direct_commits=$(git log --pretty="%h" --no-merges --first-parent $previous_merge..${{ needs.checkType.outputs.last_merge }})
+        while IFS= read -r direct_commit; do
+          echo "$direct_commit"
+          message=$(echo "$message" | grep -v $direct_commit)
+        done <<< "$direct_commits"
         echo "$message"
         echo 'message<<EOF' >> $GITHUB_ENV
         echo "$message" >> $GITHUB_ENV

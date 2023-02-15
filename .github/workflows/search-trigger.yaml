@@ -34,7 +34,7 @@ jobs:
     - name: Trigger search API
       uses: fjogeleit/http-request-action@v1
       with:
-        url: https://mock.codes/500
+        url: ${{ steps.searchEndpoint.outputs.replaced }}
         method: 'POST'
         timeout: 20000
         ignoreStatusCodes: '404'

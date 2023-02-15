@@ -78,5 +78,5 @@ jobs:
         url: 'https://api.liveux.cnwebperformance.biz/indices/webperf-netcentric/domains/www.netcentric.biz/annotations'
         method: 'POST'
         timeout: 20000
-        customHeaders: '{"Content-Type": "application/json", "Authorization: Basic ${{ secrets.LIVEUX_API_KEY }}"}'
+        customHeaders: '{"Content-Type": "application/json", "Authorization": "Basic ${{ secrets.LIVEUX_API_KEY }}"}'
         data: '{"timestamp": "${{ env.current_timestamp }}", "text": ${{ toJson(needs.directCommit.outputs.message || needs.mergeCommit.outputs.message) }}, "source": "deployment"}'

@@ -71,7 +71,7 @@ jobs:
     steps:
     - name: Get current timestamp
       id: timestamp
-      run: echo "current_timestamp=$(date +"%Y-%m-%dT%H:%M:%S%z")" >> $GITHUB_ENV
+      run: echo "current_timestamp=$(date -Is)" >> $GITHUB_ENV
     - name: liveux annotation API
       uses: fjogeleit/http-request-action@v1
       with:

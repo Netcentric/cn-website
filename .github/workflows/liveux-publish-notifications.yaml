@@ -29,10 +29,10 @@ jobs:
     - name: liveux annotation API
       uses: fjogeleit/http-request-action@v1
       env:
-        url: https://www.netcentric.biz${{ toJson(endsWith(github.event.client_payload.path, '.json') && github.event.client_payload.path || steps.removeMd.outputs.replaced) }}
+        url: https://www.netcentric.biz${{ endsWith(github.event.client_payload.path, '.json') && github.event.client_payload.path || steps.removeMd.outputs.replaced }}
       with:
         url: 'https://api.liveux.cnwebperformance.biz/indices/webperf-netcentric/domains/www.netcentric.biz/annotations'
         method: 'POST'
         timeout: 20000
         customHeaders: '{"Content-Type": "application/json", "Authorization": "Basic ${{ secrets.LIVEUX_API_KEY }}"}'
-        data: '{"timestamp": "${{ env.current_timestamp }}", "text": "publication", "source": "content", "url": ${{ env.url }}}'
+        data: '{"timestamp": "${{ env.current_timestamp }}", "text": "publication", "source": "content", "url": ${{ toJson(env.url) }}}'

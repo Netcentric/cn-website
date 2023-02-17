@@ -31,7 +31,7 @@ jobs:
       env:
         url: https://www.netcentric.biz${{ endsWith(github.event.client_payload.path, '.json') && github.event.client_payload.path || steps.removeMd.outputs.replaced }}
       with:
-        url: 'https://api.liveux.cnwebperformance.biz/indices/webperf-netcentric/domains/www.netcentric.biz/annotations'
+        url: 'https://api.liveux.cnwebperformance.biz/indices/webperf-netcentric/domains/www.netcentric.biz/urls/annotations'
         method: 'POST'
         timeout: 20000
         customHeaders: '{"Content-Type": "application/json", "Authorization": "Basic ${{ secrets.LIVEUX_API_KEY }}"}'

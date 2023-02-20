@@ -309,6 +309,10 @@ button:disabled:hover {
   cursor: unset;
 }
 
+.btn-center p.button-container {
+  text-align: center;
+}
+
 main a.button > .icon-chevron-right,
 main a.button > .icon-chevron-right svg {
   width: 12px;

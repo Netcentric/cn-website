@@ -1,0 +1,38 @@
+name: LiveUX Publish Annotation
+
+on: 
+  repository_dispatch:
+    types:
+      - resource-published
+
+jobs:
+  debug:
+    runs-on: ubuntu-latest
+    steps:
+    - run: |
+        echo "Status: ${{ github.event.client_payload.status }}"
+        echo "Path: ${{ github.event.client_payload.path }}"
+  liveux-annotation:
+    if: github.event.client_payload.status == 200 || github.event.client_payload.status == 204
+    runs-on: ubuntu-latest
+    steps:
+    - name: Remove .md extension
+      id: removeMd
+      uses: frabert/replace-string-action@v2
+      with:
+        pattern: '\.md$'
+        string: ${{ github.event.client_payload.path }}
+        replace-with: ''
+    - name: Get current timestamp
+      id: timestamp
+      run: echo "current_timestamp=$(date -Is)" >> $GITHUB_ENV
+    - name: liveux annotation API
+      uses: fjogeleit/http-request-action@v1
+      env:
+        url: https://www.netcentric.biz${{ endsWith(github.event.client_payload.path, '.json') && github.event.client_payload.path || steps.removeMd.outputs.replaced }}
+      with:
+        url: 'https://api.liveux.cnwebperformance.biz/indices/webperf-netcentric/domains/www.netcentric.biz/urls/annotations'
+        method: 'POST'
+        timeout: 20000
+        customHeaders: '{"Content-Type": "application/json", "Authorization": "Basic ${{ secrets.LIVEUX_API_KEY }}"}'
+        data: '{"timestamp": "${{ env.current_timestamp }}", "text": "publication", "source": "content", "url": ${{ toJson(env.url) }}}'

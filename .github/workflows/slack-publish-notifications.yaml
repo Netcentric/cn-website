@@ -4,6 +4,7 @@ on:
   repository_dispatch:
     types:
       - resource-published
+      - resource-unpublished
 
 jobs:
   debug:
@@ -13,7 +14,7 @@ jobs:
         echo "Status: ${{ github.event.client_payload.status }}"
         echo "Path: ${{ github.event.client_payload.path }}"
   slack-notification:
-    if: github.event.client_payload.status == 200
+    if: github.event.client_payload.status == 200 || github.event.client_payload.status == 204
     runs-on: ubuntu-latest
     steps:
     - name: Remove .md extension
@@ -23,25 +24,13 @@ jobs:
         pattern: '\.md$'
         string: ${{ github.event.client_payload.path }}
         replace-with: ''
-    - name: Notify Slack (JSON)
-      if: ${{ endsWith(github.event.client_payload.path, '.json') }}
+    # the following action is based on a workflow created by Andreas Haller, contact for permissions, the workflow file to import can be found under tools/slack
+    - name: Notify Slack
       uses: slackapi/slack-github-action@v1.23.0
       env:
         SLACK_WEBHOOK_URL: ${{ secrets.SLACK_NOTIFICATION_WEBHOOK }}
       with:
-        # For posting a rich message using Block Kit
         payload: |
           {
-            "text": "Just published: `${{ github.event.client_payload.path }}`"
-          }
-    - name: Notify Slack (Markdown)
-      if: ${{ endsWith(github.event.client_payload.path, '.md') }}
-      uses: slackapi/slack-github-action@v1.23.0
-      env:
-        SLACK_WEBHOOK_URL: ${{ secrets.SLACK_NOTIFICATION_WEBHOOK }}
-      with:
-        # For posting a rich message using Block Kit
-        payload: |
-          {
-            "text": "Just published: https://www.netcentric.biz${{ steps.removeMd.outputs.replaced }}"
+            "text": "Just ${{ github.event.client_payload.status == 200 && 'published: https://www.netcentric.biz' || 'unpublished: ' }}${{ endsWith(github.event.client_payload.path, '.json') && github.event.client_payload.path || steps.removeMd.outputs.replaced }}"
           }

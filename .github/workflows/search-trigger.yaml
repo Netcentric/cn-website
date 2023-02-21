@@ -38,3 +38,17 @@ jobs:
         method: 'POST'
         timeout: 20000
         ignoreStatusCodes: '404'
+  failure-notification:
+    runs-on: ubuntu-latest
+    needs: search-ingest
+    if: failure()
+    steps: 
+    - name: Notify Slack
+      uses: slackapi/slack-github-action@v1.23.0
+      env:
+        SLACK_WEBHOOK_URL: ${{ secrets.SLACK_NOTIFICATION_SEARCH_WEBHOOK }}
+      with:
+        payload: |
+          {
+            "text": ":exclamation: Search ingest failed: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+          }

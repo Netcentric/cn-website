@@ -139,19 +139,20 @@
     color: var(--c-dark-plum);
 }
 
+/* Rainbow:  darker-plum, dark-plum, dark-blue  */
 .columns.rainbow > div > div:nth-of-type(3n),
 .columns.rainbow-reverse > div > div:nth-of-type(3n + 1) {
-    background-color: var(--c-mid-blue);
+    background-color: var(--c-dark-blue);
 }
 
 .columns.rainbow > div > div:nth-child(3n + 1),
 .columns.rainbow-reverse > div > div:nth-of-type(3n) {
-    background-color: var(--c-mid-plum);
+    background-color: var(--c-darker-plum);
 }
 
 .columns.rainbow > div > div:nth-child(3n + 2),
 .columns.rainbow-reverse > div > div:nth-of-type(3n + 2) {
-    background-color: var(--c-dark-blue);
+    background-color: var(--c-dark-plum);
 }
 
 @media (min-width: 600px) {

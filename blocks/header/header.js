@@ -122,6 +122,13 @@ function languageSwitch() {
   }
 }
 
+function getCurrentSearchTerm() {
+  const url = new URL(window.location.href);
+  const params = new URLSearchParams(url.search);
+
+  return params.get('terms');
+}
+
 /**
  * decorates the header, mainly the nav
  * @param {Element} block The header block element
@@ -212,27 +219,43 @@ export default async function decorate(block) {
     decorateIcons(nav);
 
     // Add search form
-    const searchIcon = navSearch.children[0].children[0].children[0];
+    const searchIcon = navSearch.querySelector('.icon');
+    const searchTarget = navSearch.querySelector('a[href]')?.getAttribute('href') || '/search';
     const searchForm = document.createElement('form');
     searchForm.classList.add('search-form');
-    searchForm.setAttribute('action', '/search');
-    navSearch.replaceChild(searchForm, navSearch.children[0]);
-    const searchElement = [...navSearch.children][0];
-    searchElement.innerHTML = `
-      <input type="text" class="search-input" id="search" value="" placeholder="${window.placeholders?.default?.search || 'Search'}" />
-      <button type="submit" class="search-submit"></button>
-    `;
-    const button = searchElement.children[1];
-    button.appendChild(searchIcon);
-    searchElement.addEventListener('submit', (e) => {
+    searchForm.setAttribute('action', searchTarget);
+    const searchInput = document.createElement('input');
+    searchInput.type = 'text';
+    searchInput.className = 'search-input';
+    const setSearchInputValue = () => { searchInput.value = searchTarget === window.location.pathname ? getCurrentSearchTerm() : ''; };
+    setSearchInputValue();
+    searchInput.placeholder = window.placeholders?.default?.search || 'Search';
+    searchInput.addEventListener('click', () => searchInput.select());
+    window.addEventListener('popstate', () => setSearchInputValue());
+    searchForm.appendChild(searchInput);
+    const searchButton = document.createElement('button');
+    searchButton.type = 'submit';
+    searchButton.className = 'search-submit';
+    searchButton.appendChild(searchIcon);
+    searchForm.appendChild(searchButton);
+    searchForm.addEventListener('submit', (e) => {
       e.preventDefault();
       const { value } = e.target[0];
+      if (!value) {
+        return;
+      }
       const url = new URL(e.target.action);
       const params = new URLSearchParams(url.search);
       params.set('terms', value);
       url.search = params;
-      window.open(url.href, '_self');
+      if (window.location.pathname === url.pathname) {
+        window.history.pushState({}, '', url);
+        window.dispatchEvent(new CustomEvent('cn:search'));
+      } else {
+        window.open(url.href, '_self');
+      }
     });
+    navSearch.replaceChildren(searchForm);
 
     // mobile language selector
     const langToggleButton = document.createElement('button');

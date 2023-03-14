@@ -2,15 +2,21 @@ class SearchResults {
   constructor(element, options) {
     this.element = element;
     this.options = options;
+
+    window.addEventListener('cn:search', () => this.init());
+    window.addEventListener('popstate', () => this.init());
   }
 
   init() {
-    this.searchterm = SearchResults.getSearchTerm();
+    const newSearchTerm = SearchResults.getSearchTerm();
+    if (this.searchterm !== newSearchTerm) {
+      this.searchterm = newSearchTerm;
 
-    if (this.searchterm) {
-      this.element.innerHTML = '<div class="results-loading"></div>';
-      this.searchterm = this.searchterm.trim();
-      this.getResults();
+      if (this.searchterm) {
+        this.element.innerHTML = '<div class="results-loading"></div>';
+        this.searchterm = this.searchterm.trim();
+        this.getResults();
+      }
     }
   }
 

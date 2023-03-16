@@ -4,10 +4,14 @@ class SearchResults {
   constructor(element, options) {
     this.element = element;
     this.options = options;
+
+    window.addEventListener('cn:search', () => this.init());
+    window.addEventListener('popstate', () => this.init());
   }
 
   init() {
-    this.searchterm = SearchResults.getSearchTerm();
+    const newSearchTerm = SearchResults.getSearchTerm();
+    this.searchterm = newSearchTerm;
 
     if (this.searchterm) {
       this.element.innerHTML = '<div class="results-loading"></div>';

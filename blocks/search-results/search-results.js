@@ -60,7 +60,7 @@ class SearchResults {
     } else if (this.searchResults.count === 0) {
       const resultsText = window.placeholders?.default?.noResultsFor.replace('{0}', `<span>${encodedSearchTerm}</span>`)
                       || `No results for <span>${encodedSearchTerm}</span>`;
-      resultSnippet = resultSnippet(resultsText);
+      resultSnippet = noResultsTemplate(resultsText);
     } else {
       const resultsText = window.placeholders?.default?.resultsFor.replace('{0}', `<span>${encodedSearchTerm}</span>`)
                     || `Results for <span>${encodedSearchTerm}</span>:`;

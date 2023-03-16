@@ -9,14 +9,12 @@ class SearchResults {
 
   init() {
     const newSearchTerm = SearchResults.getSearchTerm();
-    if (this.searchterm !== newSearchTerm) {
-      this.searchterm = newSearchTerm;
+    this.searchterm = newSearchTerm;
 
-      if (this.searchterm) {
-        this.element.innerHTML = '<div class="results-loading"></div>';
-        this.searchterm = this.searchterm.trim();
-        this.getResults();
-      }
+    if (this.searchterm) {
+      this.element.innerHTML = '<div class="results-loading"></div>';
+      this.searchterm = this.searchterm.trim();
+      this.getResults();
     }
   }
 

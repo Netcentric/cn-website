@@ -225,7 +225,7 @@ export default async function decorate(block) {
     searchForm.classList.add('search-form');
     searchForm.setAttribute('action', searchTarget);
     const searchInput = document.createElement('input');
-    searchInput.type = 'text';
+    searchInput.type = 'search';
     searchInput.className = 'search-input';
     const setSearchInputValue = () => { searchInput.value = searchTarget === window.location.pathname ? getCurrentSearchTerm() : ''; };
     setSearchInputValue();
@@ -249,7 +249,9 @@ export default async function decorate(block) {
       params.set('terms', value);
       url.search = params;
       if (window.location.pathname === url.pathname) {
-        window.history.pushState({}, '', url);
+        if (getCurrentSearchTerm() !== value) {
+          window.history.pushState({}, '', url);
+        }
         window.dispatchEvent(new CustomEvent('cn:search'));
       } else {
         window.open(url.href, '_self');

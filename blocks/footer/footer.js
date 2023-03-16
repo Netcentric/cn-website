@@ -1,5 +1,4 @@
-import { decorateIcons, getLanguagePath } from '../../scripts/lib-franklin.js';
-import { getNavPath } from '../header/header.js';
+import { decorateIcons, getLanguagePath, getNavPath } from '../../scripts/lib-franklin.js';
 
 /**
  * loads and decorates the footer

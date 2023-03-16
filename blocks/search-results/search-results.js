@@ -1,3 +1,5 @@
+const noResultsTemplate = (text) => `<h2 class="results-empty">${text}</h2>`;
+
 class SearchResults {
   constructor(element, options) {
     this.element = element;
@@ -43,23 +45,28 @@ class SearchResults {
         this.showResults();
       })
       .catch(() => {
+        this.searchResults = null;
         this.showResults();
       });
   }
 
   showResults() {
     const encodedSearchTerm = SearchResults.htmlEncode(this.searchterm);
-    let resultsText = window.placeholders?.default?.noResultsFor.replace('{0}', `<span>${encodedSearchTerm}</span>`)
-                      || `No results for <span>${encodedSearchTerm}</span>`;
-    let HTMLResults = `<h2 class="results-empty">${resultsText}</h2>`;
+    let resultSnippet = noResultsTemplate('Error while processing results');
     let hasResults = false;
 
-    if (this.searchResults && this.searchResults.count > 0) {
-      resultsText = window.placeholders?.default?.resultsFor.replace('{0}', `<span>${encodedSearchTerm}</span>`)
+    if (!this.searchResults) {
+      resultSnippet = noResultsTemplate(window.placeholders?.default?.searchError || 'Oops, something went wrong, please try again later.');
+    } else if (this.searchResults.count === 0) {
+      const resultsText = window.placeholders?.default?.noResultsFor.replace('{0}', `<span>${encodedSearchTerm}</span>`)
+                      || `No results for <span>${encodedSearchTerm}</span>`;
+      resultSnippet = noResultsTemplate(resultsText);
+    } else {
+      const resultsText = window.placeholders?.default?.resultsFor.replace('{0}', `<span>${encodedSearchTerm}</span>`)
                     || `Results for <span>${encodedSearchTerm}</span>:`;
-      HTMLResults = `<h2>${resultsText}</h2>`;
+      resultSnippet = `<h2>${resultsText}</h2>`;
       // add toggle search below
-      HTMLResults += `
+      resultSnippet += `
         <div class="toggle">
           <label class="switch">
             <input type="checkbox">
@@ -71,14 +78,14 @@ class SearchResults {
       hasResults = true;
 
       this.searchResults.items.forEach((result) => {
-        HTMLResults += `
+        resultSnippet += `
         <h3 class="results-title"><a class="results-link" href="${result.path}">${result.title}</a></h3>
         <p class="results-text">${result.snippet}</p>
         `;
       });
     }
 
-    this.element.innerHTML = HTMLResults;
+    this.element.innerHTML = resultSnippet;
 
     if (hasResults) {
       const toggle = this.element.querySelector('.toggle input');

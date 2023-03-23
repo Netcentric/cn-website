@@ -125,6 +125,12 @@ header nav .nav-sections {
   position: relative;
 }
 
+@media (max-width: 600px) {
+  header nav .nav-sections {
+    top:10%;
+  }
+}
+
 header nav .nav-sections .nav-drop-ul-wrapper {
   display: inline;
 }
@@ -173,8 +179,16 @@ header nav .nav-sections li span.icon.icon-chevron-right svg {
   width: 100%;
   padding-left: 1.5em;
   padding-right: 1.5em;
-  padding-bottom: 2em;
+  padding-bottom: 1em;
   background-color: var(--c-dark-plum);
+}
+
+@media (max-width: 600px) {
+  .nav-search {
+    position: fixed;
+    margin-top: -52em;
+    top: 58em;
+  }
 }
 
 :lang(de) .nav-search {

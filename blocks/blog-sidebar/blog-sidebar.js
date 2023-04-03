@@ -59,6 +59,11 @@ export default async function decorate(block) {
   const shareText = getMetaContent('twitter:title');
   const shareSource = 'netcentric.biz';
 
+  const buildUrl = (base, params) => {
+    const url = new URL(base);
+    Object.entries(params).forEach(([k, v]) => url.searchParams.set(k, v));
+    return url.toString();
+  };
   block.innerHTML = `
 <div class="authorprofile">
   <div class="image">
@@ -73,10 +78,10 @@ export default async function decorate(block) {
 <div class="share">
   <p>${window.placeholders?.default?.share || 'SHARE'}</p>
   <div>
-    <a href="http://www.facebook.com/share.php?u=${pageURL}"><span class="icon icon-facebook"></span></a>
-    <a href="http://www.twitter.com/share?url=${pageURL}&text=${shareText}"><span class="icon icon-twitter"></span></a>
-    <a href="http://www.linkedin.com/shareArticle?mini=true&url=${pageURL}&title=${shareText}&source=${shareSource}"><span class="icon icon-linkedin"></span></a>
-    <a href="mailto:?subject=${shareText}&body=${pageURL}"><span class="icon icon-email"></span></a>
+    <a href="${buildUrl('http://www.facebook.com/share.php', { u: pageURL })}"><span class="icon icon-facebook"></span></a>
+    <a href="${buildUrl('http://www.twitter.com/share', { url: pageURL, text: shareText })}"><span class="icon icon-twitter"></span></a>
+    <a href="${buildUrl('http://www.linkedin.com/shareArticle?mini=true', { url: pageURL, title: shareText, source: shareSource })}"><span class="icon icon-linkedin"></span></a>
+    <a href="${buildUrl('mailto:', { subject: shareText, body: pageURL }).replaceAll('+', '%20')}"><span class="icon icon-email"></span></a>
   </div>
 </div>
   `;

@@ -528,8 +528,8 @@ export default async function decorate(block) {
         loadCSS('/blocks/form/gdpr.css');
       }
       else if (block.classList.contains('gdpr-confirmation')) {
-        await import('./gdpr-confirmation.js');
-        loadCSS('/blocks/form/gdpr.css');
+        await import('./gdpr-confirmation.js'); // calling confirmation js
+        loadCSS('/blocks/form/gdpr.css'); 
       }
     }
   } catch (error) {

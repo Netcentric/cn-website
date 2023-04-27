@@ -8,3 +8,21 @@ main .embed {
 main .embed > div {
     display: block;
 }
+
+.embed-offerings-div {
+    left: 0; 
+    width: 100%; 
+    height: 0; 
+    position: relative; 
+    padding: 47% 0;
+}
+
+.embed-offerings-iframe{
+    border: 0; 
+    top: 0; 
+    left: 0; 
+    width: 100%; 
+    height: 100%; 
+    position: absolute; 
+    overflow: visible;
+}

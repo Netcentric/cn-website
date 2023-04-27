@@ -9,7 +9,7 @@ main .embed > div {
     display: block;
 }
 
-.embed-offerings-div {
+.embed-offerings-wrapper {
     left: 0; 
     width: 100%; 
     height: 0; 
@@ -17,7 +17,7 @@ main .embed > div {
     padding: 47% 0;
 }
 
-.embed-offerings-iframe{
+.embed-offerings-content {
     border: 0; 
     top: 0; 
     left: 0; 

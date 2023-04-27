@@ -5,8 +5,8 @@ const getDefaultEmbed = (url) => `<div style="left: 0; width: 100%; height: 0; p
     </div>`;
 
 const embedOfferings = (url) => {
-  const embedHTML = `<div class="embed-offerings-div">
-    <iframe src="${url.href}" class="embed-offerings-iframe" allowfullscreen=""
+  const embedHTML = `<div class="embed-offerings-wrapper">
+    <iframe src="${url.href}" class="embed-offerings-content" allowfullscreen=""
       scrolling="yes" allow="encrypted-media" title="Content from ${url.hostname}" loading="lazy">
     </iframe>
   </div>`;

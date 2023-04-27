@@ -5,7 +5,7 @@ const urlBase = urlProd;
 /**
  * get url parameters
  */
-const urlParams = new URL('https://www.netcentric.biz/legal/gdpr/confirmation.html?data=12JBYvkhK7wL6e3VKb6797jN7oAHMVI2eafHoe8eEdo%3D&init=tLyDuutMdlPcIvcm').searchParams;
+const urlParams = new URLSearchParams(window.location.search);
 const paramdata = urlParams.get('data');
 const paraminit = urlParams.get('init');
 
@@ -41,4 +41,4 @@ async function acceptresult() {
     );
   }
 }
-acceptresult.call();
+document.getElementsByClassName("form__btn")[0].addEventListener("submit", acceptresult);

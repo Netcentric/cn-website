@@ -41,4 +41,4 @@ async function acceptresult() {
     );
   }
 }
-document.getElementsByClassName("form__btn")[0].addEventListener("submit", acceptresult);
+document.getElementsByClassName('form__btn')[0].addEventListener('submit', acceptresult);

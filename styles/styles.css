@@ -508,14 +508,14 @@ main .section.dark-plum button.primary:focus {
 
 main .section.light-blue {
   background-color: var(--c-light-blue);
-  color: var(--bg-text-dark-blue);
+  color: var(--bg-text-light-blue);
 }
 
 main .section.light-blue h2,
 main .section.light-blue h3,
 main .section.light-blue h4,
 main .section.light-blue h5 {
-  color: var(--bg-text-dark-blue);
+  color: var(--bg-text-light-blue);
 }
 
 main .section.mid-blue {

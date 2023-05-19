@@ -524,10 +524,10 @@ export default async function decorate(block) {
     } else if (target.pathname.endsWith('.json')) {
       form.replaceWith(await createForm(form.href));
       if (block.classList.contains('gdpr')) {
-        await import('./gdpr.js');
+        await import('./gdpr-encrypt.js');
         loadCSS('/blocks/form/gdpr.css');
       } else if (block.classList.contains('gdpr-confirmation')) {
-        await import('./gdpr-confirmation.js'); // calling confirmation js
+        await import('./gdpr-confirmation.js');
         loadCSS('/blocks/form/gdpr.css');
       }
     }

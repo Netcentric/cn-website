@@ -1,3 +1,5 @@
+const formBlock = document.querySelector('.gdpr-confirmation');
+const form = formBlock.querySelector('form');
 const accept = '/accept';
 const urlProd = 'https://api.netcentric.biz/gdpr';
 const urlBase = urlProd;
@@ -5,9 +7,19 @@ const urlBase = urlProd;
 /**
  * get url parameters
  */
+const CurUrl = window.location.href;
 const urlParams = new URLSearchParams(window.location.search);
 const paramdata = urlParams.get('data');
 const paraminit = urlParams.get('init');
+
+function hasQueryParams() {
+  return CurUrl.toString().includes('?');
+}
+
+if (!hasQueryParams(CurUrl)) {
+  const btn = document.querySelector('.button');
+  btn.setAttribute('disabled', '');
+}
 
 /**
  * Send a query to the GDPR API and save the apiKey to localStorage for further calls
@@ -41,4 +53,8 @@ async function acceptresult() {
     );
   }
 }
-document.getElementsByClassName('form__btn')[0].addEventListener('submit', acceptresult);
+
+form.onsubmit = async (e) => {
+  e.preventDefault();
+  await acceptresult();
+};

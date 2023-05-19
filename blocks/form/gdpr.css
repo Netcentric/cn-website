@@ -71,6 +71,11 @@
   display: inherit;
 }
 
+.gdpr-confirmation form label {
+  font-size: var(--body-font-size-m);
+  line-height: 1.9 !important;
+}
+
 @media (min-width: 600px) {
   .gdpr form {
     padding-inline: 5rem;

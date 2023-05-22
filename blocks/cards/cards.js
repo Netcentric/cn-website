@@ -1,5 +1,20 @@
 import { createOptimizedPicture } from '../../scripts/lib-franklin.js';
 
+const supportedBackgroundColors = [
+  'dark-teal',
+  'mid-teal',
+  'light-teal',
+  'dark-blue',
+  'light-blue',
+  'mid-blue',
+  'dark-plum',
+  'light-plum',
+  'mid-plum',
+  'light-gray',
+  'mid-gray',
+  'dark-gray',
+];
+
 function getImageWidth(block) {
   if (block.matches('.icon-with-text')) {
     // scaling the images down to the actual size makes them blury
@@ -16,8 +31,14 @@ export default function decorate(block) {
     const li = document.createElement('li');
     li.innerHTML = row.innerHTML;
     [...li.children].forEach((div) => {
-      if (div.children.length === 1 && div.querySelector('picture')) div.className = 'cards-card-image';
-      else div.className = 'cards-card-body';
+      if (supportedBackgroundColors.indexOf(div.textContent) >= 0) {
+        li.removeChild(div);
+        li.classList.add(`cards-card-bg-${div.textContent}`);
+      } else if (div.children.length === 1 && div.querySelector('picture')) {
+        div.className = 'cards-card-image';
+      } else {
+        div.className = 'cards-card-body';
+      }
     });
     ul.append(li);
   });

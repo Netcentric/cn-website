@@ -147,6 +147,13 @@
     }
 }
 
+@media (max-width: 600px) {
+  .cards-solidcolors > ul > li {
+        padding: 28px !important;
+        height: 380px !important;
+    }
+}
+
 @media (min-width: 750px) {
     /* cards-solidcolors side-by-side */
     .cards-solidcolors.side-by-side > ul > li > .cards-solidcolors-card-body {
@@ -230,7 +237,7 @@
   color: var(--c-dark-plum);
 }
 
-/* solidcolors */
+/* solidcolors backgrounds variations */
 .cards-solidcolors .dark-teal {
     background-color: var(--c-dark-teal);
 }
@@ -278,10 +285,4 @@
   .cards-solidcolors .dark-grey{
     background-color: var(--c-dark-gray);
   }
-
-  .config-hidden {
-    display: none;
-  }
-
-
   

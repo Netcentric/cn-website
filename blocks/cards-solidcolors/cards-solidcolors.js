@@ -25,10 +25,11 @@ export default function decorate(block) {
       div.className = 'cards-solidcolors-card-body';
       if (div.innerHTML === 'style') {
         div.parentNode.className = 'config-hidden';
-        div.parentNode.innerHTML = '';
       }
     });
     ul.append(li);
+    const configHidden = ul.querySelector('.config-hidden');
+    if (configHidden) configHidden.remove();
   });
   block.textContent = '';
   block.append(ul);

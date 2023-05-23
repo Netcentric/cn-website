@@ -504,6 +504,33 @@ function attachSuccessMessage(block, form) {
 
 export default async function decorate(block) {
   const form = block.querySelector('a[href]');
+  if (block.classList.contains('gdpr-confirmation')) {
+    const confirmationForm = document.createElement('form');
+    const configlIst = [];
+    [...block.children].forEach((row) => {
+      console.log(row.children[1].textContent);
+      configlIst.push(row.children[1].textContent);
+    });
+    block.textContent = '';
+    /* creates a check box */
+    const checkbox = document.createElement("input");
+    checkbox.setAttribute("type", "checkbox");
+    checkbox.setAttribute("required", "true");
+    checkbox.setAttribute("name", "confirm");
+    const label = document.createElement("label");
+    label.setAttribute("for", "confirm");
+    label.innerHTML = 'I acknowledge that I have received and agree to the Privacy policy';
+    /* creates a button */
+    const btn = document.createElement('button'); 
+    var btnText = document.createTextNode("I Agree");
+    btn.className = 'button';
+    btn.appendChild(btnText);
+    confirmationForm.method = "POST";
+    confirmationForm.append(checkbox,label,btn);
+    block.append(confirmationForm);
+    await import('./gdpr-confirmation.js');
+    loadCSS('/blocks/form/gdpr.css');
+  }
   try {
     const target = new URL(form?.href);
     if (isMarketoFormUrl(target)) {
@@ -526,10 +553,7 @@ export default async function decorate(block) {
       if (block.classList.contains('gdpr')) {
         await import('./gdpr-encrypt.js');
         loadCSS('/blocks/form/gdpr.css');
-      } else if (block.classList.contains('gdpr-confirmation')) {
-        await import('./gdpr-confirmation.js');
-        loadCSS('/blocks/form/gdpr.css');
-      }
+      } 
     }
   } catch (error) {
     block.innerHTML = window.location.hostname.endsWith('.page')

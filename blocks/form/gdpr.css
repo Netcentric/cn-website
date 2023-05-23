@@ -73,7 +73,17 @@
 
 .gdpr-confirmation form label {
   font-size: var(--body-font-size-m);
-  line-height: 1.9 !important;
+  display: inline;
+  margin-left: 10px;
+}
+
+.gdpr-confirmation form input[type=checkbox] {
+  width: auto;
+  display: inline;
+}
+
+.gdpr-confirmation form .button {
+  display: block;
 }
 
 @media (min-width: 600px) {

@@ -20,7 +20,6 @@ function getImageWidth(block) {
     // scaling the images down to the actual size makes them blury
     return 150;
   }
-
   return 750;
 }
 

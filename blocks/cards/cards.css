@@ -142,6 +142,8 @@
     padding: 0;
     position: relative;
     list-style: none;
+    height: 500px;
+    display: block;
 }
 
 .cards.icon-with-text > ul > li {
@@ -267,6 +269,13 @@
         margin-top: 180px;
     }
 }
+
+@media (max-width: 600px) {
+    .cards.side-by-side > ul > li {
+          height: 380px;
+      }
+  }
+  
 
 @media (min-width: 750px) {
     .cards.icon-with-text > ul {
@@ -470,3 +479,4 @@
   .cards-card-bg-dark-grey{
     background-color: var(--c-dark-gray);
   }
+

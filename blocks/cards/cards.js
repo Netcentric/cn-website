@@ -17,7 +17,7 @@ const supportedBackgroundColors = [
 
 function getImageWidth(block) {
   if (block.matches('.icon-with-text')) {
-    // scaling the images down to the actual size makes them blury
+    // scaling all the images down to the actual size makes them blury
     return 150;
   }
   return 750;

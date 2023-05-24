@@ -70,7 +70,8 @@
 .section:has(.feedback.show) {
   display: inherit;
 }
-
+ 
+/* GDPR confirmation */
 .gdpr-confirmation form label {
   font-size: var(--body-font-size-m);
   display: inline;

@@ -6,7 +6,7 @@ const supportedBackgroundColors = [
   'light-teal',
   'dark-blue',
   'light-blue',
-  'mid-blue',
+  'midnight-blue',
   'dark-plum',
   'light-plum',
   'mid-plum',

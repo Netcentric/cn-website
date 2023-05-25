@@ -431,6 +431,10 @@
   color: var(--c-dark-plum);
 }
 
+:root {
+    --c-midnight-blue: #000048;
+}
+
 /* background colors */
 .cards-card-bg-dark-teal {
     background-color: var(--c-dark-teal);
@@ -452,8 +456,8 @@
     background-color: var(--c-light-blue);
   }
   
-  .cards-card-bg-mid-blue {
-    background-color: var(--c-mid-blue);
+  .cards-card-bg-midnight-blue {
+    background-color: var(--c-midnight-blue);
   }
   
   .cards-card-bg-dark-plum {

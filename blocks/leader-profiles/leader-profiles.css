@@ -59,11 +59,12 @@
 
 @media screen and (min-width: 992px) {
   .leader-profiles>ul {
-    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr;
   }
 
   .leader-profiles>ul>li {
     position: relative;
+    margin-top: 25px;
   }
 
   .leader-profiles .leader-profile-image {
@@ -73,7 +74,7 @@
   .leader-profiles .leader-profile-heading {
     background: linear-gradient(transparent, rgba(0 0 0 / 70%));
     height: 56px;
-    position: absolute;
+    position: relative;
     bottom: 16px;
     color: #fff;
     padding: 22px 20px;
@@ -81,6 +82,5 @@
     width: calc(100% - (2 * 20px));
     display: flex;
     flex-direction: column;
-    justify-content: flex-end;
   }
 }

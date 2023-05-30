@@ -1,7 +1,6 @@
 import { loadCSS } from '../../scripts/lib-franklin.js';
 import { isMarketoFormUrl } from '../../scripts/scripts.js';
-
-export const configlIst = [];
+import { createConfirmForm } from './gdpr-confirmation.js';
 
 /**
  * Add a script element to the document's head
@@ -507,35 +506,9 @@ function attachSuccessMessage(block, form) {
 export default async function decorate(block) {
   const form = block.querySelector('a[href]');
   if (block.classList.contains('gdpr-confirmation')) {
-    const confirmationForm = document.createElement('form');
-    [...block.children].forEach((row) => {
-      configlIst.push(row.children[1].textContent);
-    });
-    block.textContent = '';
-    /* creates a check box */
-    const checkbox = document.createElement('input');
-    checkbox.setAttribute('type', 'checkbox');
-    checkbox.setAttribute('required', 'true');
-    checkbox.setAttribute('name', 'confirm');
-    const label = document.createElement('label');
-    label.setAttribute('for', 'confirm');
-    // eslint-disable-next-line prefer-destructuring
-    label.innerHTML = configlIst[3];
-    /* creates a button */
-    const btn = document.createElement('button');
-    const btnText = document.createTextNode(configlIst[2]);
-    btn.className = 'button';
-    btn.appendChild(btnText);
-    confirmationForm.method = 'POST';
-    confirmationForm.append(checkbox, label, btn);
-    block.append(confirmationForm);
-    // eslint-disable-next-line import/no-cycle
-    const confirmSubmit = await import('./gdpr-confirmation.js');
+    await import('./gdpr-confirmation.js');
     loadCSS('/blocks/form/gdpr.css');
-    confirmationForm.onsubmit = async (e) => {
-      e.preventDefault();
-      confirmSubmit.acceptresult();
-    };
+    createConfirmForm(block);
   }
   try {
     const target = new URL(form?.href);

@@ -72,13 +72,13 @@
 }
  
 /* GDPR confirmation */
-.gdpr-confirmation form label {
+.gdpr-confirmation form .confirm-label {
   font-size: var(--body-font-size-m);
   display: inline;
   margin-left: 10px;
 }
 
-.gdpr-confirmation form input[type=checkbox] {
+.gdpr-confirmation form .confirmation-checkbox {
   width: auto;
   display: inline;
 }

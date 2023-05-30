@@ -39,7 +39,7 @@ export async function acceptresult(accept, urlProd, secondConfig) {
   }
 }
 
-export function createConfirmForm(block) {
+export default function decorate(block) {
   const confirmationForm = document.createElement('form');
   const configlIst = [];
   [...block.children].forEach((row) => {

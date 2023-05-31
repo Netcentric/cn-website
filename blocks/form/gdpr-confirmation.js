@@ -42,7 +42,6 @@ async function acceptResult(accept, urlProd, sucessRedirect, block) {
   }
 }
 
-export default function decorate(block) {
 /* eslint-disable import/prefer-default-export */
 export function createConfirmForm(block) {
   const confirmationForm = document.createElement('form');

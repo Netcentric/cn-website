@@ -1,5 +1,6 @@
 import { loadCSS } from '../../scripts/lib-franklin.js';
 import { isMarketoFormUrl } from '../../scripts/scripts.js';
+import { createConfirmForm } from './gdpr-confirmation.js';
 
 /**
  * Add a script element to the document's head
@@ -503,14 +504,13 @@ function attachSuccessMessage(block, form) {
 }
 
 export default async function decorate(block) {
+  const form = block.querySelector('a[href]');
+  if (block.classList.contains('gdpr-confirmation')) {
+    await import('./gdpr-confirmation.js');
+    loadCSS('/blocks/form/gdpr.css');
+    createConfirmForm(block);
+  }
   try {
-    if (block.classList.contains('gdpr-confirmation')) {
-      const confirmation = await import('./gdpr-confirmation.js');
-      loadCSS('/blocks/form/gdpr.css');
-      confirmation.default(block);
-      return;
-    }
-    const form = block.querySelector('a[href]');
     const target = new URL(form?.href);
     if (isMarketoFormUrl(target)) {
       loadCSS('/blocks/form/form-marketo.css');

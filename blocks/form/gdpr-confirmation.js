@@ -36,10 +36,9 @@ async function acceptResult(accept, urlProd, sucessRedirect, block) {
     span.innerHTML = 'x';
     span.className = 'closeerror';
     divError.appendChild(span);
-    span.addEventListener("click", closeError);
-    function closeError() {
+    span.addEventListener('click', () => {
       divError.style.display = 'none';
-    }
+    });
   }
 }
 /* eslint-disable import/prefer-default-export */

@@ -87,6 +87,22 @@
   display: block;
 }
 
+.diverror {
+  width: 100%;
+  height: auto;
+  background: #d3d3d3;
+  color: #000;
+  padding: 10px;
+  margin-top: 20px;
+}
+
+.closeerror {
+   float:right;
+   font-size: 22px;
+   margin-top: -7px;
+   cursor:pointer;
+}
+
 @media (min-width: 600px) {
   .gdpr form {
     padding-inline: 5rem;

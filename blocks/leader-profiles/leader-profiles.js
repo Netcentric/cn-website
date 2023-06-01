@@ -6,7 +6,7 @@ const viewportWidth = Math.max(document.documentElement.clientWidth || 0, window
 
 function getImageWidth() {
   if (viewportWidth >= 992) {
-    return 262; // 4 columns
+    return 292; // 4 columns
   }
   if (viewportWidth >= 600) {
     return 380; // 2 columns
@@ -74,6 +74,11 @@ export default function decorate(block) {
         className = 'leader-profile-image';
       } else {
         className = 'leader-profile-body';
+        const downloadBtn = document.createElement('button');
+        downloadBtn.innerText = 'Download paper for more insights >';
+        downloadBtn.className = 'button';
+        downloadBtn.target = '_blank';
+        div.append(downloadBtn);
         div.querySelectorAll('.icon').forEach((icon) => {
           icon.closest('a').target = '_blank';
           icon.closest('ul').classList.add('leader-profile-social-icons');

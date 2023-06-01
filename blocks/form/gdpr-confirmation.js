@@ -43,7 +43,7 @@ async function acceptResult(accept, urlProd, sucessRedirect, block) {
 }
 
 /* eslint-disable import/prefer-default-export */
-export function createConfirmForm(block) {
+export default function decorate(block) {
   const confirmationForm = document.createElement('form');
   const configlIst = [];
   const configlIstNames = [];

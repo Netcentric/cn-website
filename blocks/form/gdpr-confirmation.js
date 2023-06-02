@@ -44,17 +44,10 @@ async function acceptResult(accept, urlProd, sucessRedirect, block) {
   }
 }
 
-/* eslint-disable import/prefer-default-export */
 export default function decorate(block) {
   const confirmationForm = document.createElement('form');
   const config = readBlockConfig(block);
-  const configlIst = Object.values(config);
-  const configlIstNames = Object.keys(config);
-  const indexBaseurl = configlIstNames.indexOf('api-base-url');
-  const indexSuccessRedirect = configlIstNames.indexOf('success-redirect');
-  const sucessRedirect = configlIst[indexSuccessRedirect];
-  const indexButtonLabel = configlIstNames.indexOf('button-label');
-  const indexCheckboxText = configlIstNames.indexOf('checkbox-text');
+  const sucessRedirect = config['success-redirect'];
   block.textContent = '';
   // creates a check box
   const checkbox = document.createElement('input');
@@ -64,12 +57,12 @@ export default function decorate(block) {
   checkbox.className = 'confirmation-checkbox';
   const label = document.createElement('label');
   label.setAttribute('for', 'confirm');
-  label.innerHTML = configlIst[indexCheckboxText];
+  label.innerHTML = config['checkbox-text'];
   label.className = 'confirm-label';
   // creates a button
   const btn = document.createElement('button');
-  btn.innerText = configlIst[indexButtonLabel];
-  btn.className = 'button';
+  btn.innerText = config['button-label'];
+  btn.className = 'button confirm-btn';
   confirmationForm.method = 'POST';
   confirmationForm.append(checkbox, label, btn);
   block.append(confirmationForm);
@@ -79,7 +72,7 @@ export default function decorate(block) {
   }
   // API Variables
   const accept = '/accept';
-  const urlProd = configlIst[indexBaseurl];
+  const urlProd = config['api-base-url'];
   confirmationForm.onsubmit = async (e) => {
     e.preventDefault();
     acceptResult(accept, urlProd, sucessRedirect, block);

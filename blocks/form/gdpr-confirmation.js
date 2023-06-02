@@ -1,3 +1,5 @@
+import { readBlockConfig } from '../../scripts/lib-franklin.js';
+
 function hasQueryParams() {
   return !!window.location.search;
 }
@@ -29,12 +31,12 @@ async function acceptResult(accept, urlProd, sucessRedirect, block) {
     }
   } catch (error) {
     const divError = document.createElement('div');
-    divError.className = 'diverror';
-    divError.innerHTML = 'Something went wrong. Try again';
+    divError.className = 'div-error';
+    divError.innerHTML = 'Something went wrong. Please try again.';
     block.appendChild(divError);
     const span = document.createElement('span');
     span.innerHTML = 'x';
-    span.className = 'closeerror';
+    span.className = 'close-error';
     divError.appendChild(span);
     span.addEventListener('click', () => {
       divError.style.display = 'none';
@@ -45,19 +47,14 @@ async function acceptResult(accept, urlProd, sucessRedirect, block) {
 /* eslint-disable import/prefer-default-export */
 export default function decorate(block) {
   const confirmationForm = document.createElement('form');
-  const configlIst = [];
-  const configlIstNames = [];
-  [...block.children].forEach((row) => {
-    configlIst.push(row.children[1].textContent);
-    [row].forEach((div) => {
-      configlIstNames.push(div.children[0].textContent);
-    });
-  });
-  const indexBaseurl = configlIstNames.indexOf('API base URL');
-  const indexSuccessRedirect = configlIstNames.indexOf('Success Redirect');
+  const config = readBlockConfig(block);
+  const configlIst = Object.values(config);
+  const configlIstNames = Object.keys(config);
+  const indexBaseurl = configlIstNames.indexOf('api-base-url');
+  const indexSuccessRedirect = configlIstNames.indexOf('success-redirect');
   const sucessRedirect = configlIst[indexSuccessRedirect];
-  const indexButtonLabel = configlIstNames.indexOf('Button Label');
-  const indexCheckboxText = configlIstNames.indexOf('Checkbox Text');
+  const indexButtonLabel = configlIstNames.indexOf('button-label');
+  const indexCheckboxText = configlIstNames.indexOf('checkbox-text');
   block.textContent = '';
   // creates a check box
   const checkbox = document.createElement('input');

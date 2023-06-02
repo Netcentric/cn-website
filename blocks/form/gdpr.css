@@ -87,7 +87,7 @@
   display: block;
 }
 
-.diverror {
+.div-error {
   width: 100%;
   height: auto;
   background: #d3d3d3;
@@ -96,11 +96,11 @@
   margin-top: 20px;
 }
 
-.closeerror {
-   float:right;
+.close-error {
+   float: right;
    font-size: 22px;
    margin-top: -7px;
-   cursor:pointer;
+   cursor: pointer;
 }
 
 @media (min-width: 600px) {

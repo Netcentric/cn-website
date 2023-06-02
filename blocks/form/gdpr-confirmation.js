@@ -31,7 +31,7 @@ async function acceptResult(accept, urlProd, sucessRedirect, block) {
     }
   } catch (error) {
     const divError = document.createElement('div');
-    divError.className = 'div-error';
+    divError.className = 'error';
     divError.innerHTML = 'Something went wrong. Please try again.';
     block.appendChild(divError);
     const span = document.createElement('span');
@@ -41,6 +41,13 @@ async function acceptResult(accept, urlProd, sucessRedirect, block) {
     span.addEventListener('click', () => {
       divError.style.display = 'none';
     });
+
+    // eslint-disable-next-line no-console
+    console.error(
+      `%cError sending the data: %c${error}`,
+      'color:#f88; background-color:#290002',
+      'color:white; background-color:#290002',
+    );
   }
 }
 

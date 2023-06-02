@@ -87,7 +87,7 @@
   display: block;
 }
 
-.div-error {
+.gdpr-confirmation .error {
   width: 100%;
   height: auto;
   background: #d3d3d3;
@@ -96,7 +96,7 @@
   margin-top: 20px;
 }
 
-.close-error {
+.gdpr-confirmation .close-error {
    float: right;
    font-size: 22px;
    margin-top: -7px;

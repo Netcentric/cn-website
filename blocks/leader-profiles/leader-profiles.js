@@ -74,14 +74,16 @@ export default function decorate(block) {
         className = 'leader-profile-image';
       } else {
         className = 'leader-profile-body';
-        const downloadBtn = document.createElement('button');
-        downloadBtn.innerText = 'Download paper for more insights >';
-        downloadBtn.className = 'button';
-        downloadBtn.target = '_blank';
-        div.append(downloadBtn);
         div.querySelectorAll('.icon').forEach((icon) => {
           icon.closest('a').target = '_blank';
           icon.closest('ul').classList.add('leader-profile-social-icons');
+        });
+        const link = div.querySelectorAll('a');
+        link.forEach((linkElement) => {
+          if (linkElement.children.length === 0) {
+            linkElement.className = 'button primary';
+            linkElement.target = '_blank';
+          }
         });
       }
       blockHtml += `<div class="${className}">${div.innerHTML}</div>`;

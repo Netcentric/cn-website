@@ -3,7 +3,7 @@
   margin: 0;
   padding: 0;
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr;
 }
 
 .leader-profiles>ul>li {
@@ -29,7 +29,7 @@
 }
 
 .leader-profiles .leader-profile-heading>* {
-  font-size: 14px;
+  font-size: 26px;
   letter-spacing: -0.5px;
   line-height: 1em;
   margin: 0;
@@ -37,7 +37,7 @@
 }
 
 .leader-profiles .leader-profile-heading .icon-chevron-right {
-  font-size: 9px;
+  font-size: 18px;
   display: inline-block;
   width: 1em;
   height: 1em;
@@ -68,7 +68,7 @@
   }
 
   .leader-profiles .leader-profile-image {
-    height: auto;
+    height: 30em;
   }
 
   .leader-profiles .leader-profile-heading {
@@ -89,7 +89,7 @@
     border-radius: 16px;
     font-weight: 300;
     text-transform: uppercase;
-    padding: 8px 35px;
+    margin-top: 10px;
     border: none;
   }
 }

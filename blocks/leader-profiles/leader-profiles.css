@@ -3,7 +3,7 @@
   margin: 0;
   padding: 0;
   display: grid;
-  grid-template-columns: 1fr;
+  grid-template-columns: 1fr 1fr;
 }
 
 .leader-profiles>ul>li {
@@ -29,7 +29,7 @@
 }
 
 .leader-profiles .leader-profile-heading>* {
-  font-size: 26px;
+  font-size: 14px;
   letter-spacing: -0.5px;
   line-height: 1em;
   margin: 0;
@@ -37,7 +37,7 @@
 }
 
 .leader-profiles .leader-profile-heading .icon-chevron-right {
-  font-size: 18px;
+  font-size: 9px;
   display: inline-block;
   width: 1em;
   height: 1em;
@@ -57,39 +57,64 @@
   display: none;
 }
 
+@media (max-width: 600px) {
+  .leader-profiles.block-option>ul {
+    grid-template-columns: 1fr;
+    }
+}
+
 @media screen and (min-width: 992px) {
   .leader-profiles>ul {
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
   }
 
   .leader-profiles>ul>li {
     position: relative;
-    padding: 0;
   }
 
   .leader-profiles .leader-profile-image {
-    height: 30em;
+    height: 100%;
   }
 
   .leader-profiles .leader-profile-heading {
-    position: relative;
-    color: #000;
+    background: linear-gradient(transparent, rgba(0 0 0 / 70%));
+    height: 56px;
+    position: absolute;
+    bottom: 16px;
+    color: #fff;
     padding: 22px 20px;
     margin: 0;
     width: calc(100% - (2 * 20px));
     display: flex;
     flex-direction: column;
+    justify-content: flex-end;
   }
 
-  .leader-profiles-flyout>div .button {
-    cursor: pointer;
-    background: var(--c-dark-plum);
-    border-color: var(--c-dark-plum);
-    color: white;
-    border-radius: 16px;
-    font-weight: 300;
-    text-transform: uppercase;
-    margin-top: 10px;
-    border: none;
+  /*  leader profile with 2 col */
+  .leader-profiles.block-option>ul {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .leader-profiles.block-option>ul>li {
+    padding: 0;
+  }
+
+  .leader-profiles.block-option .leader-profile-image {
+    height: 30em;
+  }
+
+  .leader-profiles.block-option .leader-profile-heading {
+    position: relative;
+    color: #000;
+    background: none;
+    top: -4px;
+  }
+
+  .leader-profiles.block-option .leader-profile-heading>* {
+    font-size: 26px;
+  }
+
+  .leader-profiles.block-option .leader-profile-heading .icon-chevron-right {
+    font-size: 18px;
   }
 }

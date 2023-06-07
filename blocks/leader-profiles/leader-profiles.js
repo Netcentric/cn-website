@@ -78,13 +78,15 @@ export default function decorate(block) {
           icon.closest('a').target = '_blank';
           icon.closest('ul').classList.add('leader-profile-social-icons');
         });
-        const link = div.querySelectorAll('a');
-        link.forEach((linkElement) => {
-          if (linkElement.children.length === 0) {
-            linkElement.className = 'button primary';
-            linkElement.target = '_blank';
-          }
-        });
+        if (block.matches('.block-option')) {
+          const link = div.querySelectorAll('a');
+          link.forEach((linkElement) => {
+            if (linkElement.children.length === 0) {
+              linkElement.className = 'button primary';
+              linkElement.target = '_blank';
+            }
+          });
+        }
       }
       blockHtml += `<div class="${className}">${div.innerHTML}</div>`;
     });

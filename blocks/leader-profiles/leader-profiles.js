@@ -78,7 +78,7 @@ export default function decorate(block) {
           icon.closest('a').target = '_blank';
           icon.closest('ul').classList.add('leader-profile-social-icons');
         });
-        if (block.matches('.block-option')) {
+        if (block.matches('.ion')) {
           const link = div.querySelectorAll('a');
           link.forEach((linkElement) => {
             if (linkElement.children.length === 0) {

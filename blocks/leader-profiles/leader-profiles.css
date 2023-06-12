@@ -58,7 +58,7 @@
 }
 
 @media (max-width: 600px) {
-  .leader-profiles.block-option>ul {
+  .leader-profiles.ion>ul {
     grid-template-columns: 1fr;
     }
 }
@@ -91,30 +91,30 @@
   }
 
   /*  leader profile with 2 col */
-  .leader-profiles.block-option>ul {
+  .leader-profiles.ion>ul {
     grid-template-columns: 1fr 1fr;
   }
 
-  .leader-profiles.block-option>ul>li {
+  .leader-profiles.ion>ul>li {
     padding: 0;
   }
 
-  .leader-profiles.block-option .leader-profile-image {
+  .leader-profiles.ion .leader-profile-image {
     height: 30em;
   }
 
-  .leader-profiles.block-option .leader-profile-heading {
+  .leader-profiles.ion .leader-profile-heading {
     position: relative;
     color: #000;
     background: none;
     top: -4px;
   }
 
-  .leader-profiles.block-option .leader-profile-heading>* {
+  .leader-profiles.ion .leader-profile-heading>* {
     font-size: 26px;
   }
 
-  .leader-profiles.block-option .leader-profile-heading .icon-chevron-right {
+  .leader-profiles.ion .leader-profile-heading .icon-chevron-right {
     font-size: 18px;
   }
 }

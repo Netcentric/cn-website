@@ -503,8 +503,14 @@ function attachSuccessMessage(block, form) {
 }
 
 export default async function decorate(block) {
-  const form = block.querySelector('a[href]');
   try {
+    if (block.classList.contains('gdpr-confirmation')) {
+      const confirmation = await import('./gdpr-confirmation.js');
+      loadCSS('/blocks/form/gdpr.css');
+      confirmation.default(block);
+      return;
+    }
+    const form = block.querySelector('a[href]');
     const target = new URL(form?.href);
     if (isMarketoFormUrl(target)) {
       loadCSS('/blocks/form/form-marketo.css');
@@ -523,8 +529,8 @@ export default async function decorate(block) {
       });
     } else if (target.pathname.endsWith('.json')) {
       form.replaceWith(await createForm(form.href));
-      if (block.classList.contains('gdpr')) {
-        await import('./gdpr.js');
+      if (block.classList.contains('gdpr-encrypt')) {
+        await import('./gdpr-encrypt.js');
         loadCSS('/blocks/form/gdpr.css');
       }
     }

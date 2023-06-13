@@ -1,0 +1,69 @@
+.flip-cards--wrap {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 30px;
+}
+
+@media (max-width: 799px) {
+    .flip-cards--wrap {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (min-width: 800px) {
+    .flip-cards--wrap {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+.flip-cards-item {
+    display: grid;
+    grid-template-areas: 'box';
+    border: 1px solid var(--c-dark-plum);
+}
+
+.flip-cards-item:hover .flip-cards--hover {
+    z-index: 1;
+    visibility: visible;
+    opacity: 1;
+}
+
+.flip-cards-item:hover .flip-cards--default {
+    opacity: 0;
+}
+
+.flip-cards--default,
+.flip-cards--hover {
+    grid-area: box;
+    transition: 0.3s ease-in-out opacity;
+}
+
+.flip-cards--default {
+    display: grid;
+    align-items: center;
+    background-color: var(--c-dark-plum);
+    text-align: center;
+    padding: 0 30px;
+}
+
+.flip-cards--default,
+.flip-cards--default * {
+    color: #fff
+}
+
+.flip-cards--hover {
+    visibility: hidden;
+    opacity: 0;
+    padding: 35px;
+}
+
+.flip-cards--hover,
+.flip-cards--hover *:not(a) {
+    color: var(--c-dark-plum);
+}
+
+.flip-cards--hover ul {
+    list-style-type: disc;
+}

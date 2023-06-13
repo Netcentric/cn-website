@@ -50,12 +50,12 @@
 }
 
 .flip-cards-hover,
-.flip-cards-hover *:not(a) {
+.flip-cards-hover * {
     color: var(--c-dark-plum);
 }
 
 .flip-cards-hover a {
-    color: var(--c-dark-blue);
+    --c-black: var(--c-dark-plum);
 }
 
 .flip-cards-hover ul {

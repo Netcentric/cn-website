@@ -1,5 +1,3 @@
-import { decorateIcons } from '../../scripts/lib-franklin.js';
-
 export default async function decorate(block) {
   const accordionItems = block.querySelectorAll(':scope > div > div');
   accordionItems.forEach((accordionItem) => {
@@ -27,7 +25,6 @@ export default async function decorate(block) {
     newItem.appendChild(content);
 
     newItem.classList.add('accordion-item');
-    decorateIcons(newItem);
 
     accordionItem.replaceWith(newItem);
   });
@@ -39,10 +36,16 @@ export default async function decorate(block) {
       const wasOpen = trigger.parentElement.hasAttribute(openAttribute);
 
       triggers.forEach((_trigger) => {
+        const getDetailsBtn = _trigger.children[1];
+        getDetailsBtn.className = 'details-button';
+        getDetailsBtn.innerText = 'Details';
         _trigger.parentElement.removeAttribute('aria-expanded');
       });
 
       if (!wasOpen) {
+        const closeBtn = trigger.children[1];
+        closeBtn.className = 'close-button';
+        closeBtn.innerText = 'close';
         trigger.parentElement.setAttribute('aria-expanded', '');
       }
     });

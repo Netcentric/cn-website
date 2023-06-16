@@ -1,5 +1,5 @@
 const apiKeyStoreName = 'gdpr-api-key';
-const encryptEndpoint = 'https://api.netcentric.biz/gdpr/ticket2link';
+const encryptEndpoint = 'https://api.netcentric.biz/gdpr/encrypt';
 
 function resetResults(resultElements) {
   resultElements.forEach((p) => {

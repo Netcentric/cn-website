@@ -235,6 +235,10 @@ function createLabel(fd) {
   return label;
 }
 
+function addExtraFormData(fd) {
+  fd.form.dataset[fd.Field] = fd.Extra;
+}
+
 /**
  * Show or hide each form field depending of its rule in a none Marketo form
  * @param {object} form
@@ -274,6 +278,7 @@ function getFieldFunctionsByType(type) {
     'text-area': [createLabel, createTextArea],
     button: [createButton],
     submit: [createButton],
+    data: [addExtraFormData],
   };
 
   return fieldType[type] ?? defaultFieldType;
@@ -293,15 +298,21 @@ async function createForm(formURL) {
   [form.dataset.action] = pathname.split('.json');
   json.data.forEach((fd) => {
     // fd stands for field data
+    fd.form = form;
     const type = fd.Type || 'text';
     const { Style: theme, Rules: fieldRules } = fd;
-    const fieldWrapper = document.createElement('div');
     const style = theme ? ` form-${theme}` : '';
     const fieldClass = `form-${type}-wrapper${style}`;
+    const fieldWrapper = document.createElement('div');
     fieldWrapper.className = fieldClass;
     fieldWrapper.classList.add('field-wrapper');
 
-    getFieldFunctionsByType(type).forEach((createField) => fieldWrapper.append(createField(fd)));
+    getFieldFunctionsByType(type).forEach((createField) => {
+      const field = createField(fd);
+      if (field) {
+        fieldWrapper.append(field);
+      }
+    });
 
     if (fieldRules) {
       try {
@@ -311,7 +322,9 @@ async function createForm(formURL) {
         console.warn(`Invalid Rule ${fieldRules}: ${error}`);
       }
     }
-    form.append(fieldWrapper);
+    if (fieldWrapper.children.length > 0) {
+      form.append(fieldWrapper);
+    }
   });
   form.addEventListener('change', () => applyRules(form, rules));
   applyRules(form, rules);

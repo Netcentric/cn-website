@@ -23,15 +23,18 @@ async function encrypt(apiKey, ticket) {
   const endpoint = new URL(encryptEndpoint);
   endpoint.searchParams.set('ticket', ticket);
   const options = {
-    method: 'GET',
-    headers: { 'x-api-key': apiKey },
+    method: 'POST',
+    headers: {
+      'x-api-key': apiKey,
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ ticket }),
   };
-  const response = await fetch(endpoint, options);
+  const response = await fetch(encryptEndpoint, options);
   if (!response.ok) {
     throw new Error('Network error.');
   }
-  const data = await response.text();
-  return new URL(data); // exception is thrown if the url is not valid
+  return response.json();
 }
 
 export default function decorate(form) {
@@ -67,9 +70,14 @@ export default function decorate(form) {
       resetResults([errorElement, successElement]);
       if (form.checkValidity()) {
         e.preventDefault();
-        const link = await encrypt(inputApiKey.value.trim(), inputTicket.value.trim());
+        const data = await encrypt(inputApiKey.value.trim(), inputTicket.value.trim());
+        const link = new URL(form.dataset.confirmationPage);
+        link.protocol = window.location.protocol;
+        link.host = window.location.host;
+        link.searchParams.set('init', data.init);
+        link.searchParams.set('data', data.data);
         showResult(successElement, '');
-        successElement.innerHTML = `Right click to copy link: <a href="${link.toString}">Confirmation link</a>`;
+        successElement.innerHTML = `Right click to copy link: <a href="${link.toString()}">${link.toString()}</a>`;
       }
     } catch (error) {
       showResult(errorElement, error);

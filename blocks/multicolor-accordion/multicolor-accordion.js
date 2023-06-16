@@ -1,17 +1,31 @@
+function setLabel(label, btnText, btn) {
+  btn.className = 'btn details-button';
+  if (label === 'Button Label') {
+    btn.innerText = btnText;
+  } else {
+    btn.innerText = 'Details';
+  }
+}
+
 export default async function decorate(block) {
-  const accordionItems = block.querySelectorAll(':scope > div > div');
+  const accordionItems = block.querySelectorAll(':scope > div');
   accordionItems.forEach((accordionItem) => {
     const nodes = accordionItem.children;
 
+    const buttonLabelRow = [...block.lastElementChild.children];
+    const btnLabel = buttonLabelRow[0].textContent;
+    const btnLabelText = buttonLabelRow[1].textContent;
+    buttonLabelRow[0].className = 'config-hidden';
+
     const titleText = nodes[0];
-    const rest = Array.prototype.slice.call(nodes, 1);
+    const rest = [].slice.call(nodes, 1);
 
     const titleDiv = document.createElement('div');
     const detailsBtn = document.createElement('button');
-    detailsBtn.innerText = 'Details';
-    detailsBtn.className = 'details-button';
-    titleDiv.append(titleText, detailsBtn);
 
+    setLabel(btnLabel, btnLabelText, detailsBtn);
+
+    titleDiv.append(titleText, detailsBtn);
     titleDiv.classList.add('accordion-trigger');
 
     const content = document.createElement('div');
@@ -27,27 +41,21 @@ export default async function decorate(block) {
     newItem.classList.add('accordion-item');
 
     accordionItem.replaceWith(newItem);
-  });
 
-  const triggers = block.querySelectorAll('.accordion-trigger');
-  triggers.forEach((trigger) => {
-    trigger.addEventListener('click', () => {
+    titleDiv.addEventListener('click', () => {
       const openAttribute = 'aria-expanded';
-      const wasOpen = trigger.parentElement.hasAttribute(openAttribute);
-
-      triggers.forEach((_trigger) => {
-        const getDetailsBtn = _trigger.children[1];
-        getDetailsBtn.className = 'details-button';
-        getDetailsBtn.innerText = 'Details';
-        _trigger.parentElement.removeAttribute('aria-expanded');
-      });
+      const wasOpen = titleDiv.parentElement.hasAttribute(openAttribute);
+      titleDiv.parentElement.toggleAttribute(openAttribute);
 
       if (!wasOpen) {
-        const closeBtn = trigger.children[1];
-        closeBtn.className = 'close-button';
+        const closeBtn = titleDiv.children[1];
+        closeBtn.className = 'btn close-button';
         closeBtn.innerText = 'close';
-        trigger.parentElement.setAttribute('aria-expanded', '');
+      } else {
+        setLabel(btnLabel, btnLabelText, detailsBtn);
       }
     });
   });
+  const configHidden = block.querySelector('.config-hidden');
+  configHidden.parentElement.remove();
 }

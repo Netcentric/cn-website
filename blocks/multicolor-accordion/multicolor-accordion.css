@@ -22,9 +22,7 @@
     background: var(--c-dark-blue);
   }
 
-.accordion-trigger .details-button {
-    background: var(--c-light-teal);
-    color: var(--c-dark-plum);
+  .accordion-trigger .btn {
     border-radius: 16px;
     font-weight: 600;
     text-transform: uppercase;
@@ -34,6 +32,12 @@
     font-size: 15px;
     border: 1px solid var(--c-light-teal);
     transition: 0.5s;
+    margin-left: auto;
+  }
+
+.accordion-trigger .details-button {
+    background: var(--c-light-teal);
+    color: var(--c-dark-plum);
   }
 
 .accordion-trigger .details-button:hover {
@@ -43,16 +47,8 @@
   }
 
   .accordion-trigger .close-button {
-    border: 1px solid var(--c-light-teal);
     background: none;
     color: var(--c-light-teal);
-    border-radius: 16px;
-    font-weight: 600;
-    text-transform: uppercase;
-    padding: 8px 0;
-    cursor: pointer;
-    width: 9%;
-    font-size: 15px;
   }
 
 .accordion-trigger > p {

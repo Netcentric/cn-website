@@ -31,7 +31,7 @@ async function acceptResult(accept, urlProd, sucessRedirect, block, submitButton
       throw message;
     }
   } catch (error) {
-    [...block.querySelectorAll('.error')].forEach((div) => div.remove());
+    block.querySelectorAll('.error').forEach((div) => div.remove());
     const divError = document.createElement('div');
     divError.className = 'error';
     divError.innerHTML = 'Something went wrong. Please try again.';

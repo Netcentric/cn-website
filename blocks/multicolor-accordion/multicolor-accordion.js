@@ -2,7 +2,7 @@ let accordionItemOpen = null;
 const openAttribute = 'aria-expanded';
 const hiddenAttribute = 'aria-hidden';
 const btnOpen = `${window.placeholders?.default?.Details || 'Details'}`;
-const closenewBtn = `${window.placeholders?.default?.Close || 'Close'}`;
+const btnClose = `${window.placeholders?.default?.Close || 'Close'}`;
 
 function getOpenAccordian(buttonWrapper) {
   accordionItemOpen = buttonWrapper;
@@ -10,9 +10,9 @@ function getOpenAccordian(buttonWrapper) {
   buttonWrapper.parentElement.setAttribute(hiddenAttribute, false);
   const panel = buttonWrapper.nextElementSibling;
   panel.style.maxHeight = `${panel.scrollHeight}px`;
-  const closeBtn = accordionItemOpen.children[1];
-  closeBtn.className = 'btn close-button';
-  closeBtn.innerText = closenewBtn;
+  const openAccordianBtn = accordionItemOpen.children[1];
+  openAccordianBtn.className = 'btn close-button';
+  openAccordianBtn.innerText = btnClose;
 }
 
 function toggleAccordian(buttonWrapper) {

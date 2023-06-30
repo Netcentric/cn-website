@@ -52,6 +52,7 @@ function getAccordianItems(accordionItems) {
     newItem.classList.add('accordion-item');
     content.id = `panel${index + 1}`;
     accordionItem.replaceWith(newItem);
+
     buttonWrapper.addEventListener('click', toggleAccordian(buttonWrapper, content));
   });
 }

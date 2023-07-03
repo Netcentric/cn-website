@@ -1,6 +1,7 @@
 .accordion-item {
     padding: 0 16px;
     margin: 0 0 20px;
+    list-style: none;
 }
 
 .accordion-trigger {
@@ -15,11 +16,11 @@
     border: none;
 }
 
-.multicolor-accordion>div:nth-child(odd) { 
+.multicolor-accordion> ul:nth-child(odd) { 
   background: var(--c-dark-plum);
 }
 
-.multicolor-accordion>div:nth-child(even) { 
+.multicolor-accordion > ul:nth-child(even) { 
     background: var(--c-dark-blue);
 }
 

@@ -109,4 +109,8 @@
     .expanding-cards-wrap {
         flex-direction: column;
     }
+
+    .expanding-cards-text {
+        width: 50%;
+    }
 }

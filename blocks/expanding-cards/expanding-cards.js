@@ -12,10 +12,27 @@ function debounce(func) {
 
 class ExpandingCards {
   timer = null;
+
   indexCurrentCardOpen = null;
 
   constructor(block) {
-    this.decorate(block);
+    this.block = block;
+
+    this.wrap = document.createElement('ul');
+    this.wrap.classList.add('expanding-cards-wrap');
+
+    this.nav = document.createElement('ul');
+    this.nav.classList.add('expanding-cards-nav');
+
+    this.parentElement = this.block.parentElement;
+
+    this.cards = [];
+    this.cardsText = [];
+    this.navItems = [];
+  }
+
+  init() {
+    this.decorate();
 
     this.addEvents();
 
@@ -25,40 +42,22 @@ class ExpandingCards {
   setCurrentCardOpen(value) {
     if (this.indexCurrentCardOpen !== null) {
       this.cards[this.indexCurrentCardOpen].classList.remove('expanding-cards-item-active');
-      this.navItems[this.indexCurrentCardOpen].classList.remove('expanding-cards-navItem-active');
+      this.navItems[this.indexCurrentCardOpen].classList.remove('expanding-cards-nav-item-active');
     }
 
     this.cards[value].classList.add('expanding-cards-item-active');
-    this.navItems[value].classList.add('expanding-cards-navItem-active');
+    this.navItems[value].classList.add('expanding-cards-nav-item-active');
 
     this.indexCurrentCardOpen = value;
   }
 
-  createWrap() {
-    this.wrap = document.createElement('ul');
-    this.wrap.classList.add('expanding-cards-wrap');
+  decorate() {
+    this.processBlock();
+    this.addWrapNavToDOM();
   }
 
-  createNav() {
-    this.nav = document.createElement('ul');
-    this.nav.classList.add('expanding-cards-nav');
-  }
-
-  decorate(block) {
-    this.createWrap();
-    this.createNav();
-
-    this.processBlock(block);
-
-    this.addWrapNavToDOM(block);
-  }
-
-  processBlock(block) {
-    this.cards = [];
-    this.cardsText = [];
-    this.navItems = [];
-
-    [...block.children].forEach((row, index) => {
+  processBlock() {
+    [...this.block.children].forEach((row, index) => {
       const [card, cardText] = this.createCard(row.children, index);
       this.wrap.append(card);
       this.cards.push(card);
@@ -70,11 +69,10 @@ class ExpandingCards {
     });
   }
 
-  addWrapNavToDOM(block) {
-    this.parentElement = block.parentElement;
+  addWrapNavToDOM() {
     this.parentElement.append(this.wrap, this.nav);
 
-    block.remove();
+    this.block.remove();
 
     this.setCurrentCardOpen(0);
 
@@ -86,7 +84,7 @@ class ExpandingCards {
   }
 
   updateTextWidth(index) {
-    this.cardsText[index].style.maxWidth = this.openCardWidth / 2 + 'px';
+    this.cardsText[index].style.width = `${this.openCardWidth / 2}px`;
   }
 
   createCard([image, content, text], index) {
@@ -107,14 +105,14 @@ class ExpandingCards {
 
   createNavItem(index) {
     const li = document.createElement('li');
-    li.classList.add('expanding-cards-navItem');
+    li.classList.add('expanding-cards-nav-item');
 
     const button = document.createElement('button');
     button.datasetJumpTo = index;
     button.innerHTML = `<span class="visuallyhidden">${index + 1}</span>`;
     button.addEventListener('click', (event) => {
-      const index = parseInt(event.currentTarget.datasetJumpTo, 10);
-      this.jumpToCard(index);
+      const i = parseInt(event.currentTarget.datasetJumpTo, 10);
+      this.jumpToCard(i);
     });
 
     li.append(button);
@@ -171,5 +169,6 @@ class ExpandingCards {
 }
 
 export default function decorate(block) {
-  new ExpandingCards(block);
+  const cards = new ExpandingCards(block);
+  cards.init();
 }

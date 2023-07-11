@@ -70,11 +70,10 @@ class ExpandingCards {
   }
 
   addWrapNavToDOM() {
+    this.setCurrentCardOpen(0);
     this.parentElement.append(this.wrap, this.nav);
 
     this.block.remove();
-
-    this.setCurrentCardOpen(0);
 
     // wait a frame to read the correct width
     requestAnimationFrame(() => {

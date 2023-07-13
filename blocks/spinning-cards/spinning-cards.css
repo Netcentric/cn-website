@@ -51,7 +51,11 @@
   color: var(--c-dark-plum);
   transform: rotateY(180deg);
   font-size: 14px;
-  padding-top: 65px;
+  padding-left: 15px;
+  padding-right: 15px;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
 }
 
 .spinning-cards-front img {

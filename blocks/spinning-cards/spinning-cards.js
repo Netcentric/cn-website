@@ -1,9 +1,5 @@
 import { createOptimizedPicture } from '../../scripts/lib-franklin.js';
 
-function getImageWidth() {
-  return 150;
-}
-
 export default function decorate(block) {
   const ul = document.createElement('ul');
   ul.classList.add('spinning-cards-grid');
@@ -12,7 +8,7 @@ export default function decorate(block) {
     const [profilePicture, title, content] = row.children;
 
     ul.querySelectorAll('img').forEach((img) => {
-      const width = getImageWidth();
+      const width = 150;
       if (width !== img.width) {
         const optimizedPicture = createOptimizedPicture(img.src, img.alt, false, [{ width }]);
         const optimizedImg = optimizedPicture.querySelector('img');

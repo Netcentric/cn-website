@@ -32,8 +32,7 @@ function toggleAccordian(buttonWrapper, content) {
   getOpenAccordian(buttonWrapper, content);
 }
 
-function getAccordianItems(accordionItem, index) {
-  const ul = document.createElement('ul');
+function getAccordianItems(ul, accordionItem, index) {
   const [title, content] = accordionItem.children;
   const buttonWrapper = document.createElement('button');
   const span = document.createElement('span');
@@ -56,5 +55,6 @@ function getAccordianItems(accordionItem, index) {
 }
 
 export default async function decorate(block) {
-  [...block.children].forEach(getAccordianItems);
+  const ul = document.createElement('ul');
+  [...block.children].forEach(getAccordianItems.bind(null, ul));
 }

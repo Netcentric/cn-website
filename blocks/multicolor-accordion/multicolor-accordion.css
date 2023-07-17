@@ -16,11 +16,11 @@
     border: none;
 }
 
-.multicolor-accordion> ul:nth-child(odd) { 
+.multicolor-accordion> ul>li:nth-child(odd) { 
   background: var(--c-dark-plum);
 }
 
-.multicolor-accordion > ul:nth-child(even) { 
+.multicolor-accordion > ul>li:nth-child(even) { 
     background: var(--c-dark-blue);
 }
 

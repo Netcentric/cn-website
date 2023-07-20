@@ -16,6 +16,9 @@ function injectScript(src) {
 
     script.src = src;
     script.setAttribute('async', 'true');
+    if (src.startsWith('http')) {
+      script.crossOrigin = 'anonymous';
+    }
     head.append(script);
     window.scriptsLoaded.push(src);
   }

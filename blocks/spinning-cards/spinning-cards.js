@@ -21,15 +21,18 @@ export default function decorate(block) {
     innerDiv.classList.add('spinning-cards-inner');
     const divFront = document.createElement('div');
     divFront.innerHTML = profilePicture.innerHTML + title.innerHTML;
-
     divFront.classList.add('spinning-cards-front');
     content.classList.add('spinning-cards-back');
+    const shortContent = content.innerText.substr(0, 350);
+    if (content.innerText.length > 350) {
+      content.innerHTML = `${shortContent}...`;
+    } else {
+      content.innerHTML = shortContent;
+    }
     innerDiv.append(divFront, content);
-
     const li = document.createElement('li');
     li.classList.add('spinning-cards-item');
     li.append(innerDiv);
-
     ul.append(li);
   });
   block.innerHTML = ul.outerHTML;

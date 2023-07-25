@@ -7,16 +7,6 @@ export default function decorate(block) {
   [...block.children].forEach((row) => {
     const [profilePicture, title, content] = row.children;
 
-    ul.querySelectorAll('img').forEach((img) => {
-      const width = 150;
-      if (width !== img.width) {
-        const optimizedPicture = createOptimizedPicture(img.src, img.alt, false, [{ width }]);
-        const optimizedImg = optimizedPicture.querySelector('img');
-        optimizedImg.width = width;
-        optimizedImg.height = img.height * (width / img.width);
-        img.closest('picture').replaceWith(optimizedPicture);
-      }
-    });
     const innerDiv = document.createElement('div');
     innerDiv.classList.add('spinning-cards-inner');
     const divFront = document.createElement('div');
@@ -34,6 +24,16 @@ export default function decorate(block) {
     li.classList.add('spinning-cards-item');
     li.append(innerDiv);
     ul.append(li);
+  });
+  ul.querySelectorAll('img').forEach((img) => {
+    const width = 150;
+    if (width !== img.width) {
+      const optimizedPicture = createOptimizedPicture(img.src, img.alt, false, [{ width }]);
+      const optimizedImg = optimizedPicture.querySelector('img');
+      optimizedImg.width = width;
+      optimizedImg.height = img.height * (width / img.width);
+      img.closest('picture').replaceWith(optimizedPicture);
+    }
   });
   block.innerHTML = ul.outerHTML;
 }

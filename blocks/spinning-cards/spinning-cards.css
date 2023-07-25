@@ -7,7 +7,6 @@
 }
 
 .spinning-cards-item {
-  width: auto;
   height: 250px;
   perspective: 1000px;
   list-style: none;
@@ -39,12 +38,11 @@
 .spinning-cards-front {
   background-color: var(--c-dark-plum);
   color: var(--c-white);
-  border: 1px solid  var(--c-dark-plum);
 }
 
 .spinning-cards-front h4 {
   color: var(--c-white);
-  line-height: 0.2;
+  margin: 12px 0 -11px;
 }
 
 .spinning-cards-back {
@@ -73,4 +71,3 @@
     margin-top: 35px;
   }
 }
-

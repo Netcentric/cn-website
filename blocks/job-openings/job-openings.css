@@ -1,6 +1,11 @@
-.job-openings-wrapper {
+main .section.job-openings-container {
+  padding: 0;
+}
+
+main .section.job-openings-container .job-openings-wrapper {
   border-top: 2px solid rgba(0 0 0 / 10%);
   min-height: 100%;
+  width: 100%;
 }
 
 .embed-job-openings {

@@ -7,7 +7,7 @@ sampleRUM('cwv');
 // add more delayed functionality here
 const main = document.querySelector('main');
 
-function injectScript(src) {
+function injectScript(src, crossOrigin = '') {
   window.scriptsLoaded = window.scriptsLoaded || [];
 
   if (window.scriptsLoaded.indexOf(src)) {
@@ -16,6 +16,9 @@ function injectScript(src) {
 
     script.src = src;
     script.setAttribute('async', 'true');
+    if (['anonymous', 'use-credentials'].includes(crossOrigin)) {
+      script.crossOrigin = crossOrigin;
+    }
     head.append(script);
     window.scriptsLoaded.push(src);
   }
@@ -46,7 +49,7 @@ function loadLaunch() {
 
 function loadLiveUXRUM() {
   const src = 'https://liveux.cnwebperformance.biz/collector/collector.min.js?id=webperf-netcentric';
-  injectScript(src);
+  injectScript(src, 'anonymous');
 }
 
 function loadSidekickExtension() {

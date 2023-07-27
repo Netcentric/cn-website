@@ -8,20 +8,34 @@ function createPopup(modalWrapper) {
   formHeadline.innerText = 'Fill the form to unlock all the chapters';
   const firstName = document.createElement('input');
   firstName.placeholder = 'First Name';
+  firstName.name = 'fname';
   const lastName = document.createElement('input');
   lastName.placeholder = 'Last Name';
+  lastName.name = 'lname';
   const company = document.createElement('input');
   company.placeholder = 'Company';
+  company.name = 'company';
   const email = document.createElement('input');
   email.placeholder = 'Email Address';
-  const btn = document.createElement('btn');
+  const fieldArray = [firstName, lastName, company, email];
+  fieldArray.forEach((fields) => {
+    fields.setAttribute('type', 'text');
+    fields.setAttribute('required', 'true');
+  });
+  const btn = document.createElement('button');
   btn.innerText = 'Submit';
   btn.className = 'button';
+  btn.setAttribute('type', 'submit');
   form.append(formHeadline, firstName, lastName, company, email, btn);
   modalContent.append(closeSpan, form);
   modalWrapper.append(modalContent);
   closeSpan.addEventListener('click', () => {
     modalWrapper.style.display = 'none';
+  });
+  window.addEventListener('click', (event) => {
+    if (event.target === modalWrapper) {
+      modalWrapper.style.display = 'none';
+    }
   });
 }
 
@@ -56,5 +70,6 @@ export default function decorate(block) {
     ul.append(li);
   });
   createPopup(modalWrapper);
+  block.textContent = '';
   block.append(ul, modalWrapper);
 }

@@ -32,8 +32,7 @@ function toggleAccordian(buttonWrapper, content) {
   getOpenAccordian(buttonWrapper, content);
 }
 
-function getAccordianItems(ul, accordionItem, index) {
-  const [title, content] = accordionItem.children;
+function createButton(title, index, newItem, content) {
   const buttonWrapper = document.createElement('button');
   const span = document.createElement('span');
   span.className = 'btn details-button';
@@ -42,19 +41,25 @@ function getAccordianItems(ul, accordionItem, index) {
   buttonWrapper.classList.add('accordion-trigger');
   buttonWrapper.setAttribute(openAttribute, false);
   buttonWrapper.setAttribute('aria-controls', `panel${index + 1}`);
+  newItem.append(buttonWrapper, content);
+
+  buttonWrapper.addEventListener('click', () => toggleAccordian(buttonWrapper, content));
+}
+
+function getAccordianItems(ul, accordionItem, index) {
+  const [title, content] = accordionItem.children;
   content.className = 'accordion-content';
   content.setAttribute(hiddenAttribute, true);
   const newItem = document.createElement('li');
-  newItem.append(buttonWrapper, content);
+  createButton(title, index, newItem, content);
   newItem.classList.add('accordion-item');
   content.id = `panel${index + 1}`;
   ul.append(newItem);
   accordionItem.replaceWith(ul);
-
-  buttonWrapper.addEventListener('click', () => toggleAccordian(buttonWrapper, content));
 }
 
 export default async function decorate(block) {
   const ul = document.createElement('ul');
   [...block.children].forEach(getAccordianItems.bind(null, ul));
+  // block.innerHTML = ul.outerHTML;
 }

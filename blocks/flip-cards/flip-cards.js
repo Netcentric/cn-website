@@ -8,13 +8,6 @@ export default function decorate(block) {
     defaultState.classList.add('flip-cards-default');
     hoverState.classList.add('flip-cards-hover');
 
-    hoverState.querySelectorAll('li a').forEach((link) => {
-      const chevron = document.createElement('span');
-      chevron.classList.add('icon', 'icon-chevron-right');
-      link.classList.add('button');
-      link.append(chevron);
-    });
-
     const li = document.createElement('li');
     li.classList.add('flip-cards-item');
     li.append(defaultState, hoverState);

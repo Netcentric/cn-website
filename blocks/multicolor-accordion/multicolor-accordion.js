@@ -61,5 +61,4 @@ function getAccordianItems(ul, accordionItem, index) {
 export default async function decorate(block) {
   const ul = document.createElement('ul');
   [...block.children].forEach(getAccordianItems.bind(null, ul));
-  // block.innerHTML = ul.outerHTML;
 }

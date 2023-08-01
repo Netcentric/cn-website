@@ -30,6 +30,7 @@
     padding-right: 15px;
     opacity: 0;
     transition: opacity 0.6s;
+    box-sizing: border-box;
 }
 
 .expanding-cards-item {

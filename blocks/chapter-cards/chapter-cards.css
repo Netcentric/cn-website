@@ -25,7 +25,7 @@
 }
 
 .chapter-cards-item:hover * {
-    background: var(--c-mid-teal);
+    background: var(--c-light-teal);
     color: var(--c-dark-plum);
     transition: 0.3s ease-in-out;
 }
@@ -53,57 +53,7 @@
    fill: currentcolor;
 }
 
-.icon-plus,.icon-lock,.icon-close {
+.icon-plus {
     float: right;
     cursor: pointer;
-}
-
-.icon-close {
-    margin-top: -18px;
-}
-
-.modal {
-    display: none; 
-    position: fixed;
-    z-index: 1;
-    padding-top: 100px; 
-    left: 0;
-    top: 0;
-    width: 100%; 
-    height: 100%;
-    overflow: auto; 
-    background-color: var(--c-black); 
-    background-color: var(--c-lightbox-bg);
-    transition: all .3s linear 0s;
-}
-  
-.modal-content {
-    background-color: var(--c-white);
-    margin: auto;
-    padding: 20px;
-    border: none;
-    width: 15%;
-}
-
-input::placeholder {
-    font-size: 14px;
-}
-
-.modal h5 {
-    text-align: center;
-    font-weight: bold;
-}
-
-.modal .button {
-    background: var(--c-dark-teal);
-    color: var(--c-dark-plum);
-    padding: 10px;
-    border-radius: 10px;
-    width: 30%;
-    cursor: pointer;
-    display: block;
-    text-align: center;
-    margin: auto;
-    font-weight: bold;
-    border: none;
 }

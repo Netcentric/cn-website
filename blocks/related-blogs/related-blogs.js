@@ -17,7 +17,7 @@ function buildCTASection(parent, checkBtnLink, count) {
   if (checkBtnLink && count > 1) {
     buttonRow.innerHTML = `<a href="${checkBtnLink}" class="button secondary">${window.placeholders?.default?.blogOverview || 'Blog Overview'}</a>`;
   } else {
-    buttonRow.innerHTML = `<a href="/insights" class="button secondary">${window.placeholders?.default?.blogOverview || 'Blog Overview'}</a>`;
+    buttonRow.innerHTML = `<a href="/insights/blog" class="button secondary">${window.placeholders?.default?.blogOverview || 'Blog Overview'}</a>`;
   }
   addChevronToButtons(buttonRow);
   decorateIcons(buttonRow);

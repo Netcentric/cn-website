@@ -1,26 +1,32 @@
-.accordion-item {
-    padding: 0 16px;
-    margin: 0 0 20px;
+.multicolor-accordion-wrap {
     list-style: none;
+}
+
+.accordion-item {
+    margin: 0 0 20px;
 }
 
 .accordion-trigger {
     display: flex;
     align-items: center;
+    justify-content: space-between;
     cursor: pointer;
-    height: 80px;
-    font-size: 34px;
     width: 100%;
-    color: var(--c-white);
-    font-weight: 700;
     border: none;
+    padding: 23px 16px;
 }
 
-.multicolor-accordion> ul>li:nth-child(odd) { 
+.accordion-trigger div {
+    font-size: 34px;
+    color: var(--c-white);
+    font-weight: 700;
+}
+
+.multicolor-accordion-wrap > li:nth-child(odd) {
   background: var(--c-dark-plum);
 }
 
-.multicolor-accordion > ul>li:nth-child(even) { 
+.multicolor-accordion-wrap > li:nth-child(even) {
     background: var(--c-dark-blue);
 }
 
@@ -28,13 +34,12 @@
     border-radius: 16px;
     font-weight: 600;
     text-transform: uppercase;
-    padding: 8px;
+    padding: 8px 24px;
+    min-width: 56px;
     cursor: pointer;
-    width: 8%;
     font-size: 15px;
     border: 1px solid var(--c-light-teal);
-    transition: 0.5s;
-    margin-left: auto;
+    transition: background-color 0.5s, color 0.5s;
 }
 
 .accordion-trigger .details-button {
@@ -42,34 +47,25 @@
     color: var(--c-dark-plum);
 }
 
-.accordion-trigger .details-button:hover {
-    border: 1px solid var(--c-light-teal);
-    background: none;
+.accordion-trigger .details-button:hover,
+.accordion-trigger .details-button-open {
+    background: transparent;
     color: var(--c-light-teal);
-}
-
-.accordion-trigger .close-button {
-    background: none;
-    color: var(--c-light-teal);
-}
-
-.accordion-trigger > p {
-    display: inline-flex;
-    width: calc(100% - 40px);
 }
 
 .accordion-content {
-    transition: max-height 0.3333s;
-    max-height: 0;
+    transition: height 0.3s;
+    height: 0;
     overflow: hidden;
     color: var(--c-white);
+    padding: 0 16px;
 }
 
 @media (max-width: 600px) {
     .accordion-trigger {
        font-size: 25px;
     }
-    
+
     .accordion-trigger .btn {
         display: none;
     }

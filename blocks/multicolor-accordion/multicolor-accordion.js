@@ -1,64 +1,80 @@
-let accordionItemOpen = null;
-const openAttribute = 'aria-expanded';
-const hiddenAttribute = 'aria-hidden';
 const btnTextOpen = `${window.placeholders?.default?.Details || 'Details'}`;
 const btnTextClose = `${window.placeholders?.default?.Close || 'Close'}`;
 
-function getOpenAccordian(buttonWrapper, content) {
-  accordionItemOpen = buttonWrapper;
-  buttonWrapper.setAttribute(openAttribute, true);
-  content.setAttribute(hiddenAttribute, false);
-  const panel = buttonWrapper.nextElementSibling;
-  panel.style.maxHeight = `${panel.scrollHeight}px`;
-  const openAccordianBtn = accordionItemOpen.children[1];
-  openAccordianBtn.className = 'btn close-button';
-  openAccordianBtn.innerText = btnTextClose;
-}
-
-function toggleAccordian(buttonWrapper, content) {
-  if (accordionItemOpen) {
-    const panelClosed = accordionItemOpen.nextElementSibling;
-    panelClosed.style.maxHeight = null;
-    accordionItemOpen.setAttribute(openAttribute, false);
-    content.setAttribute(hiddenAttribute, true);
-    const btn = accordionItemOpen.querySelector('.btn');
-    btn.className = 'btn details-button';
-    btn.innerText = btnTextOpen;
-  }
-  if (accordionItemOpen === buttonWrapper) {
-    accordionItemOpen = null;
-    return;
-  }
-  getOpenAccordian(buttonWrapper, content);
-}
-
-function createButton(title, index, newItem, content) {
-  const buttonWrapper = document.createElement('button');
-  const span = document.createElement('span');
-  span.className = 'btn details-button';
+function closePrevItem(item) {
+  const button = item.previousElementSibling;
+  button.setAttribute('aria-expanded', false);
+  const [, span] = button.children;
   span.innerText = btnTextOpen;
-  buttonWrapper.append(title, span);
-  buttonWrapper.classList.add('accordion-trigger');
-  buttonWrapper.setAttribute(openAttribute, false);
-  buttonWrapper.setAttribute('aria-controls', `panel${index + 1}`);
-  newItem.append(buttonWrapper, content);
+  span.classList.remove('details-button-open');
 
-  buttonWrapper.addEventListener('click', () => toggleAccordian(buttonWrapper, content));
+  item.setAttribute('aria-hidden', true);
+  item.style.height = null;
 }
 
-function getAccordianItems(ul, accordionItem, index) {
-  const [title, content] = accordionItem.children;
-  content.className = 'accordion-content';
-  content.setAttribute(hiddenAttribute, true);
-  const newItem = document.createElement('li');
-  createButton(title, index, newItem, content);
-  newItem.classList.add('accordion-item');
-  content.id = `panel${index + 1}`;
-  ul.append(newItem);
-  accordionItem.replaceWith(ul);
+function openCurrentItem(item, button) {
+  item.setAttribute('aria-hidden', false);
+  item.style.height = `${item.scrollHeight}px`;
+
+  button.setAttribute('aria-expanded', true);
+  const [, span] = button.children;
+  span.innerText = btnTextClose;
+  span.classList.add('details-button-open');
+}
+
+function toggleAccordian(event) {
+  const button = event.currentTarget;
+
+  const openedItem = button.closest('ul').querySelector('.accordion-content[aria-hidden="false"]');
+
+  if (openedItem) {
+    closePrevItem(openedItem);
+  }
+
+  const itemToOpen = button.nextElementSibling;
+
+  if (openedItem !== itemToOpen) {
+    openCurrentItem(itemToOpen, button);
+  }
+}
+
+function createDetailsButton(title, index) {
+  const span = document.createElement('span');
+  span.classList.add('btn', 'details-button');
+  span.innerText = btnTextOpen;
+
+  const button = document.createElement('button');
+  button.classList.add('accordion-trigger');
+  button.setAttribute('aria-expanded', false);
+  button.setAttribute('aria-controls', `panel-${index}`);
+  button.append(title, span);
+  button.addEventListener('click', toggleAccordian);
+
+  return button;
+}
+
+function createAccordianItems({ children }, index) {
+  const [title, content] = children;
+
+  const button = createDetailsButton(title, index);
+
+  content.classList.add('accordion-content');
+  content.setAttribute('aria-hidden', true);
+  content.id = `panel-${index}`;
+
+  const li = document.createElement('li');
+  li.classList.add('accordion-item');
+  li.append(button, content);
+
+  return li;
 }
 
 export default async function decorate(block) {
   const ul = document.createElement('ul');
-  [...block.children].forEach(getAccordianItems.bind(null, ul));
+  ul.classList.add('multicolor-accordion-wrap');
+
+  const items = [...block.children].map(createAccordianItems);
+  ul.append(...items);
+
+  block.replaceWith(ul);
 }

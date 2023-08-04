@@ -18,10 +18,7 @@
 }
 
 .chapter-cards-item {
-    display: grid;
-    grid-template-areas: 'box';
     background: var(--c-dark-plum);
-    height: 260px;
 }
 
 .chapter-cards-item:hover * {
@@ -55,5 +52,4 @@
 
 .icon-plus {
     float: right;
-    cursor: pointer;
 }

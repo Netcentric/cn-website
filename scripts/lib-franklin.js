@@ -597,6 +597,27 @@ export function loadFooter(footer) {
 }
 
 /**
+ * Create an element with the given tag and classes.
+ * @param {string} tagName the html tag itself.
+ * @param {string[]|string} classes array of classes or one class as string to add.
+ * @param {object} props any other attributes to add to the element as object. Optional.
+ * @returns the element
+ */
+export function createElement(tagName, classes, props = {}) {
+  const element = document.createElement(tagName);
+  if (classes) {
+    const classesArray = (typeof classes === 'string') ? [classes] : classes;
+    element.classList.add(...classesArray);
+  }
+  if (Object.keys(props).length > 0) {
+    Object.keys(props).forEach((propName) => {
+      element.setAttribute(propName, props[propName]);
+    });
+  }
+  return element;
+}
+
+/**
  * init block utils
  */
 

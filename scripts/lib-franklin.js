@@ -605,15 +605,19 @@ export function loadFooter(footer) {
  */
 export function createElement(tagName, classes, props = {}) {
   const element = document.createElement(tagName);
+  const propsObjectKeys = Object.keys(props);
+
   if (classes) {
     const classesArray = (typeof classes === 'string') ? [classes] : classes;
     element.classList.add(...classesArray);
   }
-  if (Object.keys(props).length > 0) {
-    Object.keys(props).forEach((propName) => {
+
+  if (propsObjectKeys.length > 0) {
+    propsObjectKeys.forEach((propName) => {
       element.setAttribute(propName, props[propName]);
     });
   }
+
   return element;
 }
 

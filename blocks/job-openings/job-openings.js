@@ -1,4 +1,4 @@
-const iframe = '<iframe src="https://www.careers-page.com/netcentric?mode=preview" class="embed-job-openings" style="width:100%; height:2500px; border:none;" scrolling="no"></iframe>';
+const iframe = '<iframe src="https://www.careers-page.com/netcentric" class="embed-job-openings" style="width:100%; height:2500px; border:none;" scrolling="no"></iframe>';
 
 function resizeIframeToFitContent(target) {
   try {

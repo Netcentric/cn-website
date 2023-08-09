@@ -1,5 +1,7 @@
 .multicolor-accordion-wrap {
     list-style: none;
+    padding: 0;
+    margin: 0;
 }
 
 .accordion-item {
@@ -62,11 +64,15 @@
 }
 
 @media (max-width: 600px) {
-    .accordion-trigger {
-       font-size: 25px;
+    .accordion-trigger div {
+       font-size: 20px;
     }
 
     .accordion-trigger .btn {
         display: none;
+    }
+
+    .accordion-trigger {
+        padding: 23px 7px;
     }
 }

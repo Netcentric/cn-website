@@ -61,6 +61,9 @@ function createAccordianItems({ children }, index) {
   content.classList.add('accordion-content');
   content.setAttribute('aria-hidden', true);
   content.id = `panel-${index}`;
+  content.querySelectorAll('a').forEach((link) => {
+    link.target = '_blank';
+  });
 
   const li = document.createElement('li');
   li.classList.add('accordion-item');

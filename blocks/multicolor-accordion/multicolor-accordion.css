@@ -1,0 +1,78 @@
+.multicolor-accordion-wrap {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.accordion-item {
+    margin: 0 0 20px;
+}
+
+.accordion-trigger {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    cursor: pointer;
+    width: 100%;
+    border: none;
+    padding: 23px 16px;
+}
+
+.accordion-trigger div {
+    font-size: 34px;
+    color: var(--c-white);
+    font-weight: 700;
+}
+
+.multicolor-accordion-wrap > li:nth-child(odd) {
+  background: var(--c-dark-plum);
+}
+
+.multicolor-accordion-wrap > li:nth-child(even) {
+    background: var(--c-dark-blue);
+}
+
+.accordion-trigger .btn {
+    border-radius: 16px;
+    font-weight: 600;
+    text-transform: uppercase;
+    padding: 8px 24px;
+    min-width: 56px;
+    cursor: pointer;
+    font-size: 15px;
+    border: 1px solid var(--c-light-teal);
+    transition: background-color 0.5s, color 0.5s;
+}
+
+.accordion-trigger .details-button {
+    background: var(--c-light-teal);
+    color: var(--c-dark-plum);
+}
+
+.accordion-trigger .details-button:hover,
+.accordion-trigger .details-button-open {
+    background: transparent;
+    color: var(--c-light-teal);
+}
+
+.accordion-content {
+    transition: height 0.3s;
+    height: 0;
+    overflow: hidden;
+    color: var(--c-white);
+    padding: 0 16px;
+}
+
+@media (max-width: 600px) {
+    .accordion-trigger div {
+       font-size: 20px;
+    }
+
+    .accordion-trigger .btn {
+        display: none;
+    }
+
+    .accordion-trigger {
+        padding: 23px 7px;
+    }
+}

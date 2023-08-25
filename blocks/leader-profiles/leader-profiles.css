@@ -19,7 +19,6 @@
 
 .leader-profiles .leader-profile-image img {
   display: block;
-  object-fit: cover;
   height: 100%;
 }
 
@@ -100,7 +99,7 @@
   }
 
   .leader-profiles.ion .leader-profile-image {
-    height: 30em;
+    height: 500px;
   }
 
   .leader-profiles.ion .leader-profile-heading {

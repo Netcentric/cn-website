@@ -4,6 +4,17 @@
     margin: 0;
 }
 
+.multicolor-accordion-wrap a.button.primary {
+  border: 1px solid var(--c-light-teal);
+  background: var(--c-light-teal);
+  color: var(--c-dark-plum);
+}
+
+.multicolor-accordion-wrap a.button.primary:hover {
+  background: transparent;
+  color: var(--c-light-teal);
+}
+
 .accordion-item {
     margin: 0 0 20px;
 }

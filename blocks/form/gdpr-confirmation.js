@@ -41,7 +41,7 @@ async function acceptResult(accept, urlProd, sucessRedirect, block, submitButton
     span.className = 'close-error';
     divError.appendChild(span);
     span.addEventListener('click', () => {
-      divError.style.display = 'none';
+      divError.classList.add('hidden');
     });
 
     // eslint-disable-next-line no-console

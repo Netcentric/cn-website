@@ -1,26 +1,12 @@
-const getDefaultEmbed = (url) => `<div style="left: 0; width: 100%; height: 0; position: relative; padding-bottom: 40.75%">
-      <iframe src="${url.href}" style="border: 0; top: 0; left: 0; width: 100%; height: 100%; position: absolute; overflow: visible;" allowfullscreen=""
+const getDefaultEmbed = (url, additionalWrapperClass = false) => `<div class="embed-wrapper ${additionalWrapperClass ? ` embed-${additionalWrapperClass}-wrapper` : ''}">
+      <iframe src="${url.href}" class="embed-content" allowfullscreen=""
         scrolling="yes" allow="encrypted-media" title="Content from ${url.hostname}" loading="lazy">
       </iframe>
     </div>`;
 
-const embedOfferings = (url) => {
-  const embedHTML = `<div class="embed-offerings-wrapper">
-    <iframe src="${url.href}" class="embed-offerings-content" allowfullscreen=""
-      scrolling="yes" allow="encrypted-media" title="Content from ${url.hostname}" loading="lazy">
-    </iframe>
-  </div>`;
-  return embedHTML;
-};
+const embedOfferings = (url) => getDefaultEmbed(url, 'offerings');
 
-const embedDiversity = (url) => {
-  const embedHTML = `<div style="left: 0; width: 100%; height: 0; position: relative; padding-bottom: 42.75%;">
-      <iframe src="${url.href}" style="border: 0; top: 0; left: 0; width: 100%; height: 100%; position: absolute; overflow: visible;" allowfullscreen=""
-        scrolling="yes" allow="encrypted-media" title="Content from ${url.hostname}" loading="lazy">
-      </iframe>
-    </div>`;
-  return embedHTML;
-};
+const embedDiversity = (url) => getDefaultEmbed(url, 'diversity');
 
 const loadEmbed = (block, link) => {
   if (block.classList.contains('embed-is-loaded')) {

@@ -9,20 +9,28 @@ main .embed > div {
     display: block;
 }
 
-.embed-offerings-wrapper {
+.embed-default-wrapper {
     left: 0; 
     width: 100%; 
     height: 0; 
     position: relative; 
+    padding-bottom: 40.75%;
+}
+
+.embed-content {
+    border: 0;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    overflow: visible;
+}
+
+.embed-offerings-wrapper {
     padding: 47% 0;
 }
 
-.embed-offerings-content {
-    border: 0; 
-    top: 0; 
-    left: 0; 
-    width: 100%; 
-    height: 100%; 
-    position: absolute; 
-    overflow: visible;
+.embed-diversity-wrapper {
+    padding-bottom: 42.75%;
 }

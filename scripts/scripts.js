@@ -143,10 +143,9 @@ function createEmbedIFrame(a, vendor) {
   }
 
   div.innerHTML = `<iframe data-src="${source}" 
-        class="${className}"
+        class="hidden ${className}"
         allowfullscreen  
         allow="${allow}"
-        style="display: none"
         loading="auto">
     </iframe>`;
 
@@ -179,7 +178,7 @@ function preDecorateEmbed(main) {
         if (embed.isIntersecting) {
           const iframe = embed.target.firstChild;
           iframe.src = iframe.dataset.src;
-          iframe.style.display = iframe.style.display === 'none' ? '' : 'none';
+          iframe.classList.toggle('hidden');
           lazyEmbedObserver.unobserve(embed.target);
         }
       });
@@ -192,7 +191,7 @@ function preDecorateEmbed(main) {
     lazyEmbeds.forEach((embed) => {
       const iframe = embed.querySelector('iframe');
       iframe.src = iframe.dataset.src;
-      iframe.style.display = iframe.style.display === 'none' ? '' : 'none';
+      iframe.classList.toggle('hidden');
     });
   }
 }

@@ -231,6 +231,10 @@ pre {
   overflow: scroll;
 }
 
+.hidden {
+  display: none;
+}
+
 /* buttons */
 a.button:any-link,
 button {

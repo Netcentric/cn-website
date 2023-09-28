@@ -190,7 +190,7 @@ export async function decorateIcons(element = document) {
   let svgSprite = document.getElementById('franklin-svg-sprite');
   if (!svgSprite) {
     const div = document.createElement('div');
-    div.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" id="franklin-svg-sprite" style="display: none">${Object.values(symbols).join('\n')}</svg>`;
+    div.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" id="franklin-svg-sprite" class="hidden">${Object.values(symbols).join('\n')}</svg>`;
     svgSprite = div.firstElementChild;
     document.body.prepend(div.firstElementChild);
   } else {

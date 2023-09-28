@@ -657,3 +657,48 @@ main .section.text-white {
   white-space: nowrap;
   width: 1px;
 }
+
+/* logo svg */
+.nc-svg .cls-1{
+  fill:#2e308e;
+}
+
+.nc-svg .cls-2{
+  fill:#fff;
+}
+
+.netcentric-logo-svg .cls-1 {
+  fill:none;
+}
+
+.netcentric-logo-svg .cls-2 {
+  clip-path:url(#clip-path);
+}
+
+.netcentric-logo-svg .cls-3 {
+  fill:#000048;
+}
+
+.netcentric-logo-svg .cls-4, .netcentric-logo-svg .cls-5, .netcentric-logo-svg .cls-6, .netcentric-logo-svg .cls-7 {
+  fill-rule:evenodd;
+}
+
+.netcentric-logo-svg .cls-4 {
+  fill:url(#linear-gradient);
+}
+
+.netcentric-logo-svg .cls-5 {
+  fill:url(#linear-gradient-2);
+}
+
+.netcentric-logo-svg .cls-6 {
+  fill:url(#linear-gradient-3);
+}
+
+.netcentric-logo-svg .cls-7 {
+  fill:url(#linear-gradient-4);
+}
+
+.netcentric-logo-svg .cls-8 {
+  fill:#2e308e;
+}

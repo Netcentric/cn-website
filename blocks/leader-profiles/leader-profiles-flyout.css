@@ -50,11 +50,6 @@
   margin: 0;
 }
 
-.leader-profiles-flyout .leader-profile-heading>*:first-child::after {
-  display: inline-block;
-  content: ',';
-}
-
 .leader-profiles-flyout .leader-profile-heading .icon {
   display: none;
 }

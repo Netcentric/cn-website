@@ -317,6 +317,66 @@ export function readBlockConfig(block) {
 }
 
 /**
+ * adds animation on metadata level
+ */
+export function addAnimation() {
+  const addClass = (elem, className) => {
+    elem.classList.add(className);
+  };
+
+  const animationTypeMeta = getMetadata('animation');
+
+  const elementsToAnimate = document.querySelectorAll('h1, h2, h3, h4, h5, h6, a, img');
+
+  const applyAnimation = (entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting && entry.intersectionRatio >= 0.3) {
+        switch (animationTypeMeta) {
+          case 'up':
+            addClass(entry.target, 'animated-up');
+            break;
+          case 'down':
+            addClass(entry.target, 'animated-down');
+            break;
+          case 'left':
+            addClass(entry.target, 'animated-left');
+            break;
+          case 'right':
+            addClass(entry.target, 'animated-right');
+            break;
+          default:
+            break;
+        }
+        // eslint-disable-next-line no-use-before-define
+        observer.unobserve(entry.target); // Stop observing once animation is applied
+      }
+    });
+  };
+
+  const observer = new IntersectionObserver(applyAnimation, { threshold: 0.3 });
+
+  elementsToAnimate.forEach((element) => {
+    observer.observe(element);
+  });
+
+  // Observe the body for changes
+  const bodyObserver = new MutationObserver(() => {
+    elementsToAnimate.forEach((element) => {
+      observer.observe(element);
+    });
+  });
+
+  bodyObserver.observe(document.body, { childList: true, subtree: true });
+
+  // Observe the window for scrolling
+  window.addEventListener('scroll', () => {
+    elementsToAnimate.forEach((element) => {
+      observer.observe(element);
+    });
+  });
+}
+
+/**
  * Decorates all sections in a container element.
  * @param {Element} $main The container element
  */
@@ -650,6 +710,8 @@ function init() {
   window.addEventListener('error', (event) => {
     sampleRUM('error', { source: event.filename, target: event.lineno });
   });
+
+  addAnimation();
 }
 
 init();

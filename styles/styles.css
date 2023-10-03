@@ -653,3 +653,99 @@ main .section.text-white {
   white-space: nowrap;
   width: 1px;
 }
+
+/* animations */
+
+@keyframes fade-in {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes animated-up {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes animated-down {
+  0% {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes animated-right {
+  0% {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes animated-left {
+  0% {
+    opacity: 0;
+    transform: translateX(20px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* animations written on metadata level */
+
+.animated-up {
+  animation: animated-up 0.5s ease-in-out forwards;
+}
+
+.animated-down {
+  animation: animated-down 0.5s ease-in-out forwards;
+}
+
+.animated-right {
+  animation: animated-right 0.5s ease-in-out forwards;
+}
+
+.animated-left {
+  animation: animated-left 0.5s ease-in-out forwards;
+}
+
+/* animations written on section-metadata level */
+
+ .section-animated-up {
+  animation: animated-up 0.5s ease-in-out forwards;
+}
+
+  .section-animated-down {
+  animation: animated-down 0.5s ease-in-out forwards;
+}
+
+ .section-animated-right {
+  animation: animated-right 0.5s ease-in-out forwards;
+}
+
+ .section-animated-left {
+  animation: animated-left 0.5s ease-in-out forwards;
+}

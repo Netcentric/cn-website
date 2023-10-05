@@ -621,6 +621,13 @@ export function createElement(tagName, classes, props = {}) {
   return element;
 }
 
+function getMetaContent(metadataName) {
+  return document
+    .querySelector(`meta[name="${metadataName}"]`)
+    .getAttribute('content');
+}
+
+
 /**
  * init block utils
  */

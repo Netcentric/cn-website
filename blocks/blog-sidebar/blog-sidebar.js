@@ -1,8 +1,5 @@
 import { createOptimizedPicture } from '../../scripts/lib-franklin.js';
-
-const defaultAuthorName = 'Cognizant Netcentric';
-const defaultAuthorRole = '';
-const defaultAuthorImage = '/icons/nc.svg';
+import getAuthors from '../../scripts/authors.js';
 
 function getLang() {
   return document
@@ -17,7 +14,6 @@ function getMetaContent(metadataName) {
 }
 
 export default async function decorate(block) {
-  const authors = getMetaContent('authors').split(',');
   const date = new Date(getMetaContent('publishdate'));
 
   // TODO when we have blog articles in German we'll need to get the language
@@ -31,23 +27,11 @@ export default async function decorate(block) {
     },
   ).toUpperCase();
 
-  // TODO cache and share with related-blogs?
-  const response = await fetch('/profiles/query-index.json');
-  const json = await response.json();
-  if (!response.ok) {
-    // eslint-disable-next-line no-console
-    console.log('error loading profile blog', response);
-    return;
-  }
-
-  // eslint-disable-next-line max-len
-  const authorInfos = authors.map((author) => json.data.find((element) => element.name.trim() === author.trim()));
-
   let authorHTML = '';
-
-  authorInfos.forEach((authorInfo) => {
-    const authorImageAlt = `Picture of ${authorInfo?.name ?? defaultAuthorName}`;
-    let authorImageHTML = `<img src="${authorInfo?.image ?? defaultAuthorImage}" alt="${authorImageAlt}" />`;
+  const authors = await getAuthors();
+  authors.forEach((authorInfo) => {
+    const authorImageAlt = `Picture of ${authorInfo.name}`;
+    let authorImageHTML = `<img src="${authorInfo.image}" alt="${authorImageAlt}" />`;
     if (authorInfo?.image) {
       authorImageHTML = createOptimizedPicture(
         authorInfo.image,
@@ -62,8 +46,8 @@ export default async function decorate(block) {
           ${authorImageHTML}
         </div>
         <div class="info">
-          <p class="name">${authorInfo?.name ?? defaultAuthorName}</p>
-          <p class="role">${authorInfo?.role ?? defaultAuthorRole}</p>
+          <p class="name">${authorInfo.name}</p>
+          <p class="role">${authorInfo.role}</p>
         </div>
       </div>
     `;

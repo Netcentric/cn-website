@@ -632,8 +632,8 @@ function getCookie(name) {
  */
 
 function init() {
-  window.dataLayer = window.dataLayer || {};
-  window.dataLayer.cspNonce = getCookie('csp-nonce');
+  window.adobeDataLayer = window.adobeDataLayer || [];
+  window.adobeDataLayer.cspNonce = getCookie('csp-nonce');
 
   window.hlx = window.hlx || {};
   window.hlx.codeBasePath = '';

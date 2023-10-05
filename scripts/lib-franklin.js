@@ -620,11 +620,21 @@ export function createElement(tagName, classes, props = {}) {
 
   return element;
 }
+
+function getCookie(name) {
+  const value = `; ${document.cookie}`;
+  const parts = value.split(`; ${name}=`);
+  if (parts.length === 2) return parts.pop().split(';').shift();
+}
+
 /**
  * init block utils
  */
 
 function init() {
+  window.dataLayer = window.dataLayer || {};
+  window.dataLayer.cspNonce = getCookie('csp-nonce');
+
   window.hlx = window.hlx || {};
   window.hlx.codeBasePath = '';
 

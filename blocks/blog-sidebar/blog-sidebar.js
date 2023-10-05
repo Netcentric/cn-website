@@ -17,7 +17,7 @@ function getMetaContent(metadataName) {
 }
 
 export default async function decorate(block) {
-  const authors = getMetaContent('authors');
+  const authors = getMetaContent('authors').split(',');
   const date = new Date(getMetaContent('publishdate'));
 
   // TODO when we have blog articles in German we'll need to get the language
@@ -40,18 +40,34 @@ export default async function decorate(block) {
     return;
   }
 
-  const authorInfo = json.data.find((element) => element.name === authors);
+  // eslint-disable-next-line max-len
+  const authorInfos = authors.map((author) => json.data.find((element) => element.name.trim() === author.trim()));
 
-  const authorImageAlt = `Picture of ${authorInfo?.name ?? defaultAuthorName}`;
-  let authorImageHTML = `<img src="${authorInfo?.image ?? defaultAuthorImage}" alt="${authorImageAlt}" />`;
-  if (authorInfo?.image) {
-    authorImageHTML = createOptimizedPicture(
-      authorInfo.image,
-      authorImageAlt,
-      false,
-      [{ width: 70 }],
-    ).outerHTML;
-  }
+  let authorHTML = '';
+
+  authorInfos.forEach((authorInfo) => {
+    const authorImageAlt = `Picture of ${authorInfo?.name ?? defaultAuthorName}`;
+    let authorImageHTML = `<img src="${authorInfo?.image ?? defaultAuthorImage}" alt="${authorImageAlt}" />`;
+    if (authorInfo?.image) {
+      authorImageHTML = createOptimizedPicture(
+        authorInfo.image,
+        authorImageAlt,
+        false,
+        [{ width: 70 }],
+      ).outerHTML;
+    }
+    authorHTML += `
+      <div class="authorprofile">
+        <div class="image">
+          ${authorImageHTML}
+        </div>
+        <div class="info">
+          <p class="name">${authorInfo?.name ?? defaultAuthorName}</p>
+          <p class="role">${authorInfo?.role ?? defaultAuthorRole}</p>
+        </div>
+      </div>
+    `;
+  });
 
   const pageURL = window.location.href;
   // TODO is twitter title good enough?
@@ -65,15 +81,7 @@ export default async function decorate(block) {
     block.querySelector(`.share a.${clazz}`).href = urlPostProcess(url.toString());
   };
   block.innerHTML = `
-<div class="authorprofile">
-  <div class="image">
-    ${authorImageHTML}
-  </div>
-  <div class="info">
-    <p class="name" >${authorInfo?.name ?? defaultAuthorName}</p>
-    <p class="role">${authorInfo?.role ?? defaultAuthorRole}</p>
-  </div>
-</div>
+  ${authorHTML} 
 <div class="date">${printableDate}</div>
 <div class="share">
   <p>${window.placeholders?.default?.share || 'SHARE'}</p>

@@ -9,9 +9,11 @@ const iframeHTML = `
 
 function resizeIframeToFitContent(target) {
   try {
-    target.style.height = `${target.contentWindow.document.body.scrollHeight}px`;
+    requestAnimationFrame(() => {
+      target.style.height = `${target.contentWindow.document.body.scrollHeight}px`;
+    });
   } catch (error) {
-    // Handle error (if required)
+    console.error('Could not resize iframe:', error);
   }
 }
 
@@ -26,15 +28,13 @@ function setIframeHeightBasedOnViewport(iframeElement) {
   }
 
   if (iframeElement.style.height !== newHeight) {
-    iframeElement.style.height = newHeight;
+    requestAnimationFrame(() => {
+      iframeElement.style.height = newHeight;
+    });
   }
 }
 
-export default function decorate(block) {
-  block.innerHTML = iframeHTML;
-
-  const iframeElement = block.querySelector('iframe');
-
+function init(block, iframeElement) {
   setIframeHeightBasedOnViewport(iframeElement);
 
   iframeElement.addEventListener('load', (event) => {
@@ -48,4 +48,18 @@ export default function decorate(block) {
       setIframeHeightBasedOnViewport(iframeElement);
     }, 200);
   });
+}
+
+export default function decorate(block) {
+  block.innerHTML = iframeHTML;
+  const iframeElement = block.querySelector('iframe');
+
+  const observer = new IntersectionObserver((entries) => {
+    if (entries[0].isIntersecting) {
+      init(block, iframeElement);
+      observer.disconnect(); // stop observing once initialized
+    }
+  });
+
+  observer.observe(block);
 }

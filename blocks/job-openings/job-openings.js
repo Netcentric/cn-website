@@ -1,20 +1,32 @@
-const iframeHTML = '<iframe src="https://www.careers-page.com/netcentric" class="embed-job-openings" style="width:100%; border:none;" scrolling="no"></iframe>';
+const iframeHTML = `
+  <iframe src="https://www.careers-page.com/netcentric" 
+          class="embed-job-openings" 
+          style="width:100%; border:none;" 
+          scrolling="no"
+          loading="lazy">
+  </iframe>
+`;
 
 function resizeIframeToFitContent(target) {
   try {
     target.style.height = `${target.contentWindow.document.body.scrollHeight}px`;
-    // eslint-disable-next-line no-empty
-  } catch (error) {}
+  } catch (error) {
+    // Handle error (if required)
+  }
 }
 
 function setIframeHeightBasedOnViewport(iframeElement) {
   const width = window.innerWidth;
-  if (width <= 768) { // Mobile
-    iframeElement.style.height = '5000px';
-  } else if (width <= 1024) { // Tablet
-    iframeElement.style.height = '4200px';
-  } else { // Desktop
-    iframeElement.style.height = '2300px';
+  let newHeight = '2300px';
+
+  if (width <= 768) {
+    newHeight = '5000px';
+  } else if (width <= 1024) {
+    newHeight = '4200px';
+  }
+
+  if (iframeElement.style.height !== newHeight) {
+    iframeElement.style.height = newHeight;
   }
 }
 
@@ -29,7 +41,11 @@ export default function decorate(block) {
     resizeIframeToFitContent(event.target);
   });
 
+  let resizeTimer;
   window.addEventListener('resize', () => {
-    setIframeHeightBasedOnViewport(iframeElement);
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(() => {
+      setIframeHeightBasedOnViewport(iframeElement);
+    }, 200);
   });
 }

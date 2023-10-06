@@ -4,9 +4,14 @@ import { addChevronToButtons } from '../../scripts/scripts.js';
 let focusedElement;
 const viewportWidth = Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0);
 
-function getImageWidth() {
+function getImageWidth(block) {
+  if (block.matches('.ion')) {
+    if (viewportWidth >= 992) {
+      return 600; // 4 columns
+    }
+  }
   if (viewportWidth >= 992) {
-    return 262; // 4 columns
+    return 292; // 4 columns
   }
   if (viewportWidth >= 600) {
     return 380; // 2 columns
@@ -78,6 +83,15 @@ export default function decorate(block) {
           icon.closest('a').target = '_blank';
           icon.closest('ul').classList.add('leader-profile-social-icons');
         });
+        if (block.matches('.ion')) {
+          const link = div.querySelectorAll('a');
+          link.forEach((linkElement) => {
+            if (linkElement.children.length === 0) {
+              linkElement.className = 'button primary';
+              linkElement.target = '_blank';
+            }
+          });
+        }
       }
       blockHtml += `<div class="${className}">${div.innerHTML}</div>`;
     });
@@ -86,7 +100,7 @@ export default function decorate(block) {
   blockHtml += '</ul>';
   const ul = document.createRange().createContextualFragment(blockHtml);
   ul.querySelectorAll('img').forEach((img) => {
-    const width = getImageWidth();
+    const width = getImageWidth(block);
     const optimizedPicture = createOptimizedPicture(img.src, img.alt, false, [{ width }]);
     const optimizedImg = optimizedPicture.querySelector('img');
     optimizedImg.width = width; // 1:1 aspect ratio

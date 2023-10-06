@@ -11,10 +11,14 @@ function buildHeadline(parent, tagConf) {
   parent.appendChild(head4);
 }
 
-function buildCTASection(parent) {
+function buildCTASection(parent, checkBtnLink, count) {
   const buttonRow = document.createElement('div');
   buttonRow.classList.add('related-button-row');
-  buttonRow.innerHTML = `<a href="/insights" class="button secondary">${window.placeholders?.default?.blogOverview || 'Blog Overview'}</a>`;
+  if (checkBtnLink && count > 1) {
+    buttonRow.innerHTML = `<a href="${checkBtnLink}" class="button secondary">${window.placeholders?.default?.blogOverview || 'Blog Overview'}</a>`;
+  } else {
+    buttonRow.innerHTML = `<a href="/insights/blog" class="button secondary">${window.placeholders?.default?.blogOverview || 'Blog Overview'}</a>`;
+  }
   addChevronToButtons(buttonRow);
   decorateIcons(buttonRow);
   parent.append(buttonRow);
@@ -45,6 +49,10 @@ async function buildManualRelatedBlogs(block) {
   const configuredPaths = [...block.querySelectorAll(':scope > div > div > a')]
     .map((anchor) => new URL(anchor.href).pathname);
 
+  const count = block.querySelectorAll(':scope > div > div').length;
+  const blogOverviewBtnRow = block.lastElementChild.children;
+  const checkBtnLink = blogOverviewBtnRow[0].innerText;
+
   block.innerHTML = ''; // reset
 
   // create container
@@ -58,7 +66,7 @@ async function buildManualRelatedBlogs(block) {
   createCardsList(outerDiv, relatedArticles);
 
   block.append(outerDiv);
-  buildCTASection(block);
+  buildCTASection(block, checkBtnLink, count);
 }
 
 /**
@@ -72,7 +80,6 @@ function getVariants(variant) {
     auto: buildAutoRelatedBlogs,
     manual: defaultVariant,
   };
-
   return variants[variant] ?? defaultVariant;
 }
 

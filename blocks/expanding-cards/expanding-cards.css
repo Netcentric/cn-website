@@ -1,0 +1,121 @@
+.expanding-cards-wrapper * {
+    color: var(--c-white)
+}
+
+.expanding-cards-wrapper ul {
+    list-style: none;
+    padding: 0;
+    display: flex;
+}
+
+.expanding-cards-wrap {
+    margin: 0;
+    gap: 30px;
+}
+
+.expanding-cards-content h6 {
+    margin-top: 0;
+    margin-left: 15px;
+    font-size: 0.625rem;
+    text-transform: uppercase;
+}
+
+.expanding-cards-content h2 {
+    font-size: 1.6rem;
+    margin-left: 15px;
+}
+
+.expanding-cards-text {
+    padding-left: 15px;
+    padding-right: 15px;
+    opacity: 0;
+    transition: opacity 0.6s;
+    box-sizing: border-box;
+}
+
+.expanding-cards-item {
+    position: relative;
+    cursor: pointer;
+    flex: 1 1 100%;
+    transition: flex-basis 0.5s;
+    padding: 10px 0 70px;
+}
+
+.expanding-cards-item:nth-child(1) {
+    background-color: var(--c-midnight-blue);
+}
+
+.expanding-cards-item:nth-child(2) {
+    background-color: var(--c-dark-plum);
+}
+
+.expanding-cards-item:nth-child(3) {
+    background-color: var(--c-dark-blue);
+}
+
+.expanding-cards-content {
+    position: relative;
+    z-index: 1;
+}
+
+.expanding-cards-image {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    overflow: hidden;
+    position: absolute;
+    right: 0;
+    top: 0;
+    opacity: 0;
+    transition: opacity 0.6s;
+    pointer-events: none;
+    z-index: 0;
+}
+
+.expanding-cards-nav {
+    justify-content: center;
+    gap: 5px;
+    line-height: 0;
+    margin: 30px 0 0;
+}
+
+.expanding-cards-nav-item button {
+    width: 10px;
+    height: 10px;
+    background-color: var(--c-mid-gray);
+    border: 2px solid var(--c-mid-gray);
+    border-radius: 50%;
+    display: flex;
+    padding: 0;
+}
+
+@media (min-width: 800px) {
+    .expanding-cards-item-active {
+        flex-basis: 200%;
+    }
+}
+
+.expanding-cards-item-active .expanding-cards-image,
+.expanding-cards-item-active .expanding-cards-text {
+    opacity: 1;
+}
+
+.expanding-cards-nav-item-active button {
+    background: transparent;
+    border-color: var(--c-black);
+}
+
+@media (max-width: 799px) {
+    .expanding-cards-wrap {
+        flex-direction: column;
+    }
+
+    .expanding-cards-text {
+        max-width: calc(50% - 15px);
+    }
+
+    .expanding-cards-image {
+        max-width: 50%;
+    }
+}

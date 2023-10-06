@@ -330,7 +330,6 @@ export async function decorateMain(main) {
   instrumentMain(main);
   // hopefully forward compatible button decoration
   decorateButtons(main);
-  await fetchPlaceholders();
   preDecorateMarketoForm(main);
   await buildAutoBlocks(main);
   decorateSections(main);
@@ -365,6 +364,8 @@ function setPageLanguage() {
 async function loadEager(doc) {
   setPageLanguage();
   decorateTemplateAndTheme();
+  await fetchPlaceholders();
+  loadHeader(doc.querySelector('header'));
   const main = doc.querySelector('main');
   if (main) {
     await decorateMain(main);
@@ -405,7 +406,6 @@ async function loadLazy(doc) {
   const element = hash ? main.querySelector(hash) : false;
   if (hash && element) element.scrollIntoView();
 
-  loadHeader(doc.querySelector('header'));
   loadFooter(doc.querySelector('footer'));
 
   addFavIcon(`${window.hlx.codeBasePath}/icons/favicon.ico`);

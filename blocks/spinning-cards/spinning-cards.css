@@ -1,0 +1,73 @@
+.spinning-cards-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 30px;
+  margin: 0;
+  padding: 0;
+}
+
+.spinning-cards-item {
+  height: 250px;
+  perspective: 1000px;
+  list-style: none;
+  margin-top: 20px;
+}
+
+.spinning-cards-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  transition: transform 0.6s;
+  transform-style: preserve-3d;
+  border: 1px solid  var(--c-dark-plum);
+}
+
+.spinning-cards-item:hover .spinning-cards-inner {
+  transform: rotateY(180deg);
+}
+
+.spinning-cards-front,
+.spinning-cards-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+}
+
+.spinning-cards-front {
+  background-color: var(--c-dark-plum);
+  color: var(--c-white);
+}
+
+.spinning-cards-front h4 {
+  color: var(--c-white);
+  margin: 12px 0 -11px;
+}
+
+.spinning-cards-back {
+  color: var(--c-dark-plum);
+  transform: rotateY(180deg);
+  font-size: 14px;
+  padding-left: 15px;
+  padding-right: 15px;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+}
+
+.spinning-cards-front img {
+  border-radius: 50%;
+  width: 150px;
+  margin-top: -35px;
+}
+
+@media (max-width: 768px) {
+  .spinning-cards-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .spinning-cards-item {
+    margin-top: 35px;
+  }
+}

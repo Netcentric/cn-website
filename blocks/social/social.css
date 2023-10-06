@@ -44,6 +44,10 @@
     margin: -1px;
 }
 
+.social>ul>li>a:hover h2 {
+  color: var(--bg-color);
+}
+
 .social>ul>li>a>* {
     margin: 0;
     padding: 0;

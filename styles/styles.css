@@ -99,7 +99,8 @@
   --background-color: var(--c-white);
   --overlay-background-color: #eee;
   --highlight-background-color: #ccc;
-  --text-color: var(--c-black);
+  --text-color: var(--c-dark-gray);
+  --input-color: var(--c-black);
   --heading-color: var(--c-dark-plum);
 
   /* fonts */
@@ -337,13 +338,13 @@ main input {
   padding: 0.75rem 0.6rem;
   border-radius: 0.25rem;
   box-sizing: border-box;
-  border: 1px solid var(--text-color);
-  color: var(--text-color);
+  border: 1px solid var(--input-color);
+  color: var(--input-color);
   background-color: var(--background-color);
 }
 
 main input:hover {
-  border: 1px solid var(--text-color);
+  border: 1px solid var(--input-color);
 }
 
 main .section {
@@ -508,14 +509,14 @@ main .section.dark-plum button.primary:focus {
 
 main .section.light-blue {
   background-color: var(--c-light-blue);
-  color: var(--bg-text-dark-blue);
+  color: var(--bg-text-light-blue);
 }
 
 main .section.light-blue h2,
 main .section.light-blue h3,
 main .section.light-blue h4,
 main .section.light-blue h5 {
-  color: var(--bg-text-dark-blue);
+  color: var(--bg-text-light-blue);
 }
 
 main .section.mid-blue {

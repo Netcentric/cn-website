@@ -1,0 +1,55 @@
+.chapter-cards-wrap {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+}
+
+@media (max-width: 799px) {
+    .chapter-cards-wrap {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (min-width: 800px) {
+    .chapter-cards-wrap {
+        grid-template-columns: 1fr 1fr 1fr;
+    }
+}
+
+.chapter-cards-item {
+    background: var(--c-dark-plum);
+}
+
+.chapter-cards-item:hover * {
+    background: var(--c-light-teal);
+    color: var(--c-dark-plum);
+    transition: 0.3s ease-in-out;
+}
+
+.chapter-cards-name {
+    font-size: var(--heading-font-size-m);
+    color: var(--c-white);
+    padding: 20px 0 0 20px;
+    height: 145px;
+}
+
+.chapter-cards-title {
+   background: var(--c-mid-teal);
+   color: var(--c-dark-plum);
+   font-size: 18px;
+   font-weight: 600;
+   text-transform: uppercase;
+   padding: 20px 0 0 20px;
+   height: 80px;
+}
+
+.chapter-cards svg {
+   width: 38px;
+   height: 38px;
+   fill: currentcolor;
+}
+
+.icon-plus {
+    float: right;
+}

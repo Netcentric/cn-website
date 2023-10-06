@@ -17,6 +17,9 @@ jobs:
     if: (github.event.client_payload.status == 200 || github.event.client_payload.status == 204) && endsWith(github.event.client_payload.path, '.md')
     runs-on: ubuntu-latest
     steps:
+    - name: Sleep for 90 seconds assuming query-index-search.json will be updated before
+      run: sleep 90s
+      shell: bash
     - name: Remove .md extension
       id: removeMd
       uses: frabert/replace-string-action@v2

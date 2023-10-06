@@ -237,4 +237,8 @@
     .columns.border-in-between > div > div:not(:first-of-type) {
         padding-left: 4.1667%;
     }
+
+    .text-center {
+      text-align: center;
+    }
 }

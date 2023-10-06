@@ -50,11 +50,6 @@
   margin: 0;
 }
 
-.leader-profiles-flyout .leader-profile-heading>*:first-child::after {
-  display: inline-block;
-  content: ',';
-}
-
 .leader-profiles-flyout .leader-profile-heading .icon {
   display: none;
 }
@@ -115,6 +110,18 @@
   .leader-profiles-flyout .icon-close {
     right: 10px;
     top: 53px;
+  }
+
+  .leader-profiles-flyout>div .button {
+    cursor: pointer;
+    background: var(--c-dark-plum);
+    border-color: var(--c-dark-plum);
+    color: white;
+    border-radius: 16px;
+    font-weight: 300;
+    text-transform: uppercase;
+    margin-top: 10px;
+    border: none;
   }
 }
 

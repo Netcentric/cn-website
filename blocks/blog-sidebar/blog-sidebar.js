@@ -59,6 +59,11 @@ export default async function decorate(block) {
   const shareText = getMetaContent('twitter:title');
   const shareSource = 'netcentric.biz';
 
+  const setShareUrl = (clazz, base, params, urlPostProcess = (url) => url) => {
+    const url = new URL(base);
+    Object.entries(params).forEach(([k, v]) => url.searchParams.set(k, v));
+    block.querySelector(`.share a.${clazz}`).href = urlPostProcess(url.toString());
+  };
   block.innerHTML = `
 <div class="authorprofile">
   <div class="image">
@@ -73,13 +78,17 @@ export default async function decorate(block) {
 <div class="share">
   <p>${window.placeholders?.default?.share || 'SHARE'}</p>
   <div>
-    <a href="http://www.facebook.com/share.php?u=${pageURL}"><span class="icon icon-facebook"></span></a>
-    <a href="http://www.twitter.com/share?url=${pageURL}&text=${shareText}"><span class="icon icon-twitter"></span></a>
-    <a href="http://www.linkedin.com/shareArticle?mini=true&url=${pageURL}&title=${shareText}&source=${shareSource}"><span class="icon icon-linkedin"></span></a>
-    <a href="mailto:?subject=${shareText}&body=${pageURL}"><span class="icon icon-email"></span></a>
+    <a class="facebook"><span class="icon icon-facebook"></span></a>
+    <a class="twitter"><span class="icon icon-twitter"></span></a>
+    <a class="linkedin"><span class="icon icon-linkedin"></span></a>
+    <a class="mail"><span class="icon icon-email"></span></a>
   </div>
 </div>
   `;
+  setShareUrl('facebook', 'http://www.facebook.com/share.php', { u: pageURL });
+  setShareUrl('twitter', 'http://www.twitter.com/share', { url: pageURL, text: shareText });
+  setShareUrl('linkedin', 'http://www.linkedin.com/shareArticle?mini=true', { url: pageURL, title: shareText, source: shareSource });
+  setShareUrl('mail', 'mailto:', { subject: shareText, body: pageURL }, (url) => url.replaceAll('+', '%20'));
   const imageElement = block.querySelector('.authorprofile .image img');
   imageElement.setAttribute('width', 70);
   imageElement.setAttribute('height', 70);

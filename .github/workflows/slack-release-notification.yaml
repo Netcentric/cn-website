@@ -55,8 +55,10 @@ jobs:
         echo "$message"
         direct_commits=$(git log --pretty="%h" --no-merges --first-parent $previous_merge..${{ needs.checkType.outputs.last_merge }})
         while IFS= read -r direct_commit; do
-          echo "$direct_commit"
-          message=$(echo "$message" | grep -v $direct_commit)
+          if [[ ! -z "$direct_commit" ]]; then
+            echo "$direct_commit"
+            message=$(echo "$message" | grep -v $direct_commit)
+          fi
         done <<< "$direct_commits"
         echo "$message"
         echo 'message<<EOF' >> $GITHUB_ENV

@@ -1,22 +1,18 @@
-const iframeElement = document.createElement('iframe');
-iframeElement.src = 'https://www.careers-page.com/netcentric';
-iframeElement.className = 'embed-job-openings';
+const iframe = '<iframe src="https://www.careers-page.com/netcentric" class="embed-job-openings" style="width:100%; height:2500px; border:none;" scrolling="no"></iframe>';
 
 function resizeIframeToFitContent(target) {
   try {
     target.style.height = `${target.contentWindow.document.body.scrollHeight}px`;
-  } catch (error) {
-    console.error('Could not resize iframe:', error);
-  }
+    // eslint-disable-next-line no-empty
+  } catch (error) {}
 }
 
 export default function decorate(block) {
-  const fragment = document.createDocumentFragment();
-  fragment.appendChild(iframeElement);
+  block.innerHTML = iframe;
+
+  const iframeElement = block.querySelector('iframe');
 
   iframeElement.addEventListener('load', (event) => {
     resizeIframeToFitContent(event.target);
   });
-
-  block.appendChild(fragment);
 }

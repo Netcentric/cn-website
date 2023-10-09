@@ -124,6 +124,8 @@ ul.authorprofile-socialnetworks {
 }
 
 .blogpost .blogfooter-authorprofile {
+  display: flex;
+  justify-content: space-around;
   margin: 24px 0;
 }
 

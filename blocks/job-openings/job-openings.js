@@ -1,68 +1,72 @@
 const iframeSrc = 'https://www.careers-page.com/netcentric';
 let iframeElement = null;
-let resizing = false;
+let resizeTimeout;
 
 function resizeIframeToFitContent() {
   if (iframeElement) {
-    iframeElement.style.height = `${iframeElement.contentWindow.document.body.scrollHeight}px`;
+    const newHeight = `${iframeElement.contentWindow.document.body.scrollHeight}px`;
+    if (iframeElement.style.height !== newHeight) {
+      iframeElement.style.height = newHeight;
+    }
   }
 }
 
 function setIframeHeightBasedOnViewport() {
+  if (!iframeElement) return;
+
   const width = window.innerWidth;
-  let newHeight = '2300px';
+  let newHeight;
 
   if (width <= 768) {
     newHeight = '5000px';
   } else if (width <= 1024) {
     newHeight = '4200px';
+  } else {
+    newHeight = '2300px';
   }
 
-  if (iframeElement && iframeElement.style.height !== newHeight) {
+  if (iframeElement.style.height !== newHeight) {
     iframeElement.style.height = newHeight;
   }
 }
 
+function onWindowResize() {
+  clearTimeout(resizeTimeout);
+  resizeTimeout = setTimeout(() => {
+    setIframeHeightBasedOnViewport();
+  }, 100);
+}
+
 function initIframe(block) {
-  const iframe = document.createElement('iframe');
-  iframe.src = iframeSrc;
-  iframe.classList.add('embed-job-openings');
+  if (iframeElement) return;
 
-  // Set an explicit width for the iframe
-  iframe.style.cssText = 'width:100%; height:0; border:none;';
+  iframeElement = document.createElement('iframe');
+  iframeElement.src = iframeSrc;
+  iframeElement.classList.add('embed-job-openings');
+  iframeElement.style.cssText = 'width:100%; height:0; border:none;';
+  iframeElement.scrolling = 'no';
+  iframeElement.loading = 'lazy';
+  block.appendChild(iframeElement);
 
-  iframe.scrolling = 'no';
-  iframe.loading = 'lazy';
-  block.appendChild(iframe);
-  iframeElement = iframe;
-
-  iframeElement.addEventListener('load', () => {
-    resizeIframeToFitContent();
-  });
+  iframeElement.addEventListener('load', resizeIframeToFitContent);
 
   setIframeHeightBasedOnViewport();
 }
 
 export default function decorate(block) {
-  if ('IntersectionObserver' in window) {
-    const observer = new IntersectionObserver((entries) => {
-      if (entries[0].isIntersecting) {
-        initIframe(block);
-        observer.disconnect();
-      }
-    });
-    observer.observe(block);
-  } else {
-    initIframe(block);
-  }
+  const observerOptions = {
+    rootMargin: '0px',
+    threshold: 0.2,
+  };
 
-  window.addEventListener('resize', () => {
-    if (!resizing) {
-      resizing = true;
-      requestAnimationFrame(() => {
-        setIframeHeightBasedOnViewport();
-        resizing = false;
-      });
+  const observer = new IntersectionObserver((entries) => {
+    if (entries[0].isIntersecting) {
+      initIframe(block);
+      observer.disconnect();
     }
-  });
+  }, observerOptions);
+
+  observer.observe(block);
+
+  window.addEventListener('resize', onWindowResize);
 }

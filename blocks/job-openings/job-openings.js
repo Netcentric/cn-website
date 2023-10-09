@@ -27,7 +27,10 @@ function initIframe(block) {
   const iframe = document.createElement('iframe');
   iframe.src = iframeSrc;
   iframe.classList.add('embed-job-openings');
-  iframe.style.cssText = 'width:100%; border:none;';
+
+  // Set an explicit width for the iframe
+  iframe.style.cssText = 'width:100%; height:0; border:none;';
+
   iframe.scrolling = 'no';
   iframe.loading = 'lazy';
   block.appendChild(iframe);

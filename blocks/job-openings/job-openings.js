@@ -1,20 +1,10 @@
-const debounce = (func, wait) => {
-  let timeout;
-  return (...args) => {
-    clearTimeout(timeout);
-    timeout = setTimeout(() => func.apply(this, args), wait);
-  };
-};
-
+const iframeSrc = 'https://www.careers-page.com/netcentric';
 let iframeElement = null;
+let resizing = false;
 
-function resizeIframeToFitContent(target) {
-  try {
-    requestAnimationFrame(() => {
-      target.style.height = `${target.contentWindow.document.body.scrollHeight}px`;
-    });
-  } catch (error) {
-    console.error('Could not resize iframe:', error);
+function resizeIframeToFitContent() {
+  if (iframeElement) {
+    iframeElement.style.height = `${iframeElement.contentWindow.document.body.scrollHeight}px`;
   }
 }
 
@@ -29,34 +19,28 @@ function setIframeHeightBasedOnViewport() {
   }
 
   if (iframeElement && iframeElement.style.height !== newHeight) {
-    requestAnimationFrame(() => {
-      iframeElement.style.height = newHeight;
-    });
+    iframeElement.style.height = newHeight;
   }
 }
 
 function initIframe(block) {
-  block.innerHTML = `
-    <iframe src="https://www.careers-page.com/netcentric" 
-            class="embed-job-openings" 
-            style="width:100%; border:none;" 
-            scrolling="no"
-            loading="lazy">
-    </iframe>
-  `;
+  const iframe = document.createElement('iframe');
+  iframe.src = iframeSrc;
+  iframe.classList.add('embed-job-openings');
+  iframe.style.cssText = 'width:100%; border:none;';
+  iframe.scrolling = 'no';
+  iframe.loading = 'lazy';
+  block.appendChild(iframe);
+  iframeElement = iframe;
 
-  iframeElement = block.querySelector('iframe');
-
-  iframeElement.addEventListener('load', (event) => {
-    resizeIframeToFitContent(event.target);
+  iframeElement.addEventListener('load', () => {
+    resizeIframeToFitContent();
   });
 
   setIframeHeightBasedOnViewport();
 }
 
 export default function decorate(block) {
-  const debouncedResize = debounce(setIframeHeightBasedOnViewport, 200);
-
   if ('IntersectionObserver' in window) {
     const observer = new IntersectionObserver((entries) => {
       if (entries[0].isIntersecting) {
@@ -69,5 +53,13 @@ export default function decorate(block) {
     initIframe(block);
   }
 
-  window.addEventListener('resize', debouncedResize);
+  window.addEventListener('resize', () => {
+    if (!resizing) {
+      resizing = true;
+      requestAnimationFrame(() => {
+        setIframeHeightBasedOnViewport();
+        resizing = false;
+      });
+    }
+  });
 }

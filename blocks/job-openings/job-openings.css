@@ -10,6 +10,12 @@ main .section.job-openings-container .job-openings-wrapper {
 
 .embed-job-openings {
   width: 100%;
-  height: 100vh;
+  height: 5500px;
   border: none;
+}
+
+@media (min-width: 769px) {
+  .embed-job-openings {
+    height: 2500px;
+  }
 }

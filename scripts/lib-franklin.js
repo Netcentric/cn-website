@@ -620,7 +620,6 @@ export function createElement(tagName, classes, props = {}) {
 
   return element;
 }
-
 /**
  * init block utils
  */

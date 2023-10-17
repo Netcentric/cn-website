@@ -7,6 +7,16 @@ const defaultAuthorName = 'Cognizant Netcentric';
 const defaultAuthorRole = '';
 const defaultAuthorImage = '/icons/nc.svg';
 
+let profilesCache = null;
+
+async function fetchProfiles() {
+  if (!profilesCache) {
+    const response = await fetch('/profiles/query-index.json');
+    profilesCache = await response.json();
+  }
+  return profilesCache;
+}
+
 function closePopup(el) {
   el.classList.remove('languagepopup--open');
 }
@@ -151,11 +161,9 @@ export function createCardsList(parent, cards = []) {
 }
 
 export async function joinArticlesWithProfiles(articles) {
-  const response = await fetch('/profiles/query-index.json');
-  const json = await response.json();
-
+  const profilesData = await fetchProfiles();
   Object.values(articles).forEach((value) => {
-    value.profiles = json.data.find((profile) => profile.name === value.authors) ?? {};
+    value.profiles = profilesData.data.find((profile) => profile.name === value.authors) || {};
   });
 
   return articles;

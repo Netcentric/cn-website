@@ -324,7 +324,7 @@ export function addAnimation() {
     elem.classList.add(className);
   };
 
-  const animationTypeMeta = getMetadata('animation');
+  const animationTypeMeta = getMetadata('animated');
 
   const elementsToAnimate = document.querySelectorAll('h1, h2, h3, h4, h5, h6, a, img');
 

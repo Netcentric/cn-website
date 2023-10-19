@@ -732,20 +732,7 @@ main .section.text-white {
   animation: animated-left 0.5s ease-in-out forwards;
 }
 
-/* animations written on section-metadata level */
-
- .section-animated-up {
-  animation: animated-up 0.5s ease-in-out forwards;
+.animated-none {
+  animation: none;
 }
 
-  .section-animated-down {
-  animation: animated-down 0.5s ease-in-out forwards;
-}
-
- .section-animated-right {
-  animation: animated-right 0.5s ease-in-out forwards;
-}
-
- .section-animated-left {
-  animation: animated-left 0.5s ease-in-out forwards;
-}

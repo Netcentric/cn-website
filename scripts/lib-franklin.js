@@ -319,35 +319,18 @@ export function readBlockConfig(block) {
 /**
  * adds animation on metadata level
  */
-export function addAnimation() {
+export function addAnimation(animationTypeMeta, root) {
   const addClass = (elem, className) => {
     elem.classList.add(className);
   };
 
-  const animationTypeMeta = getMetadata('animated');
+  const elementsToAnimate = root.querySelectorAll('h1, h2, h3, h4, h5, h6, a, img');
 
-  const elementsToAnimate = document.querySelectorAll('h1, h2, h3, h4, h5, h6, a, img');
-
-  const applyAnimation = (entries) => {
+  const applyAnimation = (entries, observer) => {
     entries.forEach((entry) => {
       if (entry.isIntersecting && entry.intersectionRatio >= 0.3) {
-        switch (animationTypeMeta) {
-          case 'up':
-            addClass(entry.target, 'animated-up');
-            break;
-          case 'down':
-            addClass(entry.target, 'animated-down');
-            break;
-          case 'left':
-            addClass(entry.target, 'animated-left');
-            break;
-          case 'right':
-            addClass(entry.target, 'animated-right');
-            break;
-          default:
-            break;
-        }
-        // eslint-disable-next-line no-use-before-define
+        addClass(entry.target, `animated-${animationTypeMeta}`);
+
         observer.unobserve(entry.target); // Stop observing once animation is applied
       }
     });
@@ -405,6 +388,8 @@ export function decorateSections(main) {
         if (key === 'style') {
           const styles = meta.style.split(',').map((style) => toClassName(style.trim()));
           styles.forEach((style) => section.classList.add(style));
+        } else if (key === 'animated') {
+          addAnimation(meta[key], section);
         } else {
           section.dataset[toCamelCase(key)] = meta[key];
         }
@@ -711,7 +696,7 @@ function init() {
     sampleRUM('error', { source: event.filename, target: event.lineno });
   });
 
-  addAnimation();
+  addAnimation(getMetadata('animated'), document);
 }
 
 init();

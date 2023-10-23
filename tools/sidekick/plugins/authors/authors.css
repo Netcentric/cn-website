@@ -1,0 +1,17 @@
+:root {
+  --swc-menu-width: 100%;
+}
+
+.container {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+sp-menu {
+  height: 100%;
+}
+
+.author-id {
+  opacity: 0.5;
+}

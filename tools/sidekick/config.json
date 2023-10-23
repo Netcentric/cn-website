@@ -1,6 +1,6 @@
 {
   "project": "CN Web",
-  "host": "401-franklin-sidekick-library--cn-website--Netcentric.hlx.page/",
+  "host": "main--cn-website--netcentric.hlx.page/",
   "searchApiEndpoints": {
     "ingest": "https://search.netcentric.biz/ingest?path={{path}}",
     "delete": "https://search.netcentric.biz/delete?path={{path}}"

@@ -317,6 +317,49 @@ export function readBlockConfig(block) {
 }
 
 /**
+ * adds animation on metadata level
+ */
+export function addAnimation(animationTypeMeta, root) {
+  const addClass = (elem, className) => {
+    elem.classList.add(className);
+  };
+
+  const elementsToAnimate = root.querySelectorAll('h1, h2, h3, h4, h5, h6, a, img');
+
+  const applyAnimation = (entries, observer) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting && entry.intersectionRatio >= 0.3) {
+        addClass(entry.target, `animated-${animationTypeMeta}`);
+
+        observer.unobserve(entry.target); // Stop observing once animation is applied
+      }
+    });
+  };
+
+  const observer = new IntersectionObserver(applyAnimation, { threshold: 0.3 });
+
+  elementsToAnimate.forEach((element) => {
+    observer.observe(element);
+  });
+
+  // Observe the body for changes
+  const bodyObserver = new MutationObserver(() => {
+    elementsToAnimate.forEach((element) => {
+      observer.observe(element);
+    });
+  });
+
+  bodyObserver.observe(document.body, { childList: true, subtree: true });
+
+  // Observe the window for scrolling
+  window.addEventListener('scroll', () => {
+    elementsToAnimate.forEach((element) => {
+      observer.observe(element);
+    });
+  });
+}
+
+/**
  * Decorates all sections in a container element.
  * @param {Element} $main The container element
  */
@@ -345,6 +388,8 @@ export function decorateSections(main) {
         if (key === 'style') {
           const styles = meta.style.split(',').map((style) => toClassName(style.trim()));
           styles.forEach((style) => section.classList.add(style));
+        } else if (key === 'animated') {
+          addAnimation(meta[key], section);
         } else {
           section.dataset[toCamelCase(key)] = meta[key];
         }
@@ -649,6 +694,8 @@ function init() {
   window.addEventListener('error', (event) => {
     sampleRUM('error', { source: event.filename, target: event.lineno });
   });
+
+  addAnimation(getMetadata('animated'), document);
 }
 
 init();

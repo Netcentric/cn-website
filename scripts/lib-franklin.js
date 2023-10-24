@@ -99,7 +99,8 @@ export function loadCSS(href, callback) {
  */
 export function getMetadata(name) {
   const attr = name && name.includes(':') ? 'property' : 'name';
-  const meta = [...document.head.querySelectorAll(`meta[${attr}="${name}"]`)].map((m) => m.content).join(', ');
+  const meta = [...document.head.querySelectorAll(`meta[${attr}="${name}"]`)]
+    .map((m) => m.content).join(', ');
   return meta || '';
 }
 
@@ -114,7 +115,7 @@ export function toClassName(name) {
     : '';
 }
 
-/*
+/**
  * Sanitizes a name for use as a js property name.
  * @param {string} name The unsanitized name
  * @returns {string} The camelCased name
@@ -123,6 +124,46 @@ export function toCamelCase(name) {
   return toClassName(name).replace(/-([a-z])/g, (g) => g[1].toUpperCase());
 }
 
+/**
+ * Sanitize the svg text code
+ * @param {string} svg - raw svg code
+ * @param {string} iconName
+ * @returns {string} sanitized svg string
+ */
+function cleanSVG(svg, iconName) {
+  if (svg.match(/<style/i)) {
+    return svg
+      .replace(/<\?.*\?>\n/, '') // remove <?…?> xml header
+      .trim();
+  }
+  return svg
+    .replace(/<\?.*\?>\n/, '') // remove <?…?> xml header
+    .replace('<svg ', `<symbol id="${iconName}"`)
+    .replace('</svg>', '</symbol>')
+    .replace(/ xmlns=".*?"/, '') // remove redundant namespace definitions
+    .replace(/ xmlns:xlink=".*?"/, '')
+    .replace(/ width=".*?"/, '') // remove hard-coded size so wrapping .icon can override it
+    .replace(/ height=".*?"/, '')
+    .trim();
+}
+
+/**
+ * Get the title from the svg
+ * @param {string} svg - svg text
+ * @returns {string} title text
+ */
+function getTitle(svg) {
+  const splitted = svg.split('"');
+  const index = splitted.findIndex((el) => el.includes('title'));
+  return splitted[index + 1];
+}
+
+/**
+ * Prepare an Icon to be inserted in a span element
+ * @param {HTMLSpanElement} span - the parent element
+ * @param {Element} html - the icon element
+ * @param {string} alt - alt text to be added to a HTMLImageElement
+ */
 const decorateIcon = (span, html, alt = '') => {
   if (html.match(/<style/i)) {
     const img = document.createElement('img');
@@ -149,48 +190,32 @@ export async function decorateIcons(element = document) {
       return;
     }
     const iconName = span.classList.item(1).split('icon-')[1];
-    if (!symbols[iconName]) {
-      symbols[iconName] = true;
-      span.classList.add('icon-decorating');
-      try {
-        const response = await fetch(`${window.hlx.codeBasePath}/icons/${iconName}.svg`);
-        if (!response.ok) {
-          // eslint-disable-next-line no-console
-          console.warn('Icon not found:', iconName);
-          return;
-        }
-        const svg = await response.text();
-        if (svg.match(/<style/i)) {
-          symbols[iconName] = svg
-            .replace(/<\?.*\?>\n/, '') // remove <?…?> xml header
-            .trim();
-        } else {
-          symbols[iconName] = svg
-            .replace(/<\?.*\?>\n/, '') // remove <?…?> xml header
-            .replace('<svg ', `<symbol id="${iconName}"`)
-            .replace('</svg>', '</symbol>')
-            .replace(/ xmlns=".*?"/, '') // remove redundant namespace definitions
-            .replace(/ xmlns:xlink=".*?"/, '')
-            .replace(/ width=".*?"/, '') // remove hard-coded size so wrapping .icon can override it
-            .replace(/ height=".*?"/, '')
-            .trim();
-        }
-        if (symbols[iconName].includes('title')) {
-          const splitted = symbols[iconName].split('"');
-          const index = splitted.findIndex((el) => el.includes('title'));
-          title = splitted[index + 1];
-        }
-      } catch (err) {
+    if (symbols[iconName]) return;
+    symbols[iconName] = true;
+    span.classList.add('icon-decorating');
+
+    try {
+      const response = await fetch(`${window.hlx.codeBasePath}/icons/${iconName}.svg`);
+      if (!response.ok) {
         // eslint-disable-next-line no-console
-        console.error(err);
+        console.warn('Icon not found:', iconName);
+        return;
       }
+      const svg = await response.text();
+      symbols[iconName] = cleanSVG(svg, iconName);
+      title = symbols[iconName].includes('title') ? getTitle(symbols[iconName]) : title;
+    } catch (err) {
+      // eslint-disable-next-line no-console
+      console.error(err);
     }
   }));
 
   let svgSprite = document.getElementById('franklin-svg-sprite');
   if (!svgSprite) {
     const div = document.createElement('div');
-    div.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" id="franklin-svg-sprite" style="display: none">${Object.values(symbols).join('\n')}</svg>`;
+    div.innerHTML = `
+      <svg xmlns="http://www.w3.org/2000/svg" id="franklin-svg-sprite" style="display: none">
+      ${Object.values(symbols).join('\n')}</svg>`;
     svgSprite = div.firstElementChild;
     document.body.prepend(div.firstElementChild);
   } else {
@@ -200,15 +225,10 @@ export async function decorateIcons(element = document) {
   icons.forEach((span) => {
     span.classList.remove('icon-decorating');
     const iconName = span.classList.item(1).split('icon-')[1];
-    if (symbols[iconName].startsWith('<svg ')) {
-      decorateIcon(span, symbols[iconName], title);
-    } else {
-      decorateIcon(
-        span,
-        `<svg xmlns="http://www.w3.org/2000/svg"><use href="#${iconName}"/></svg>`,
-        title,
-      );
-    }
+    const symbol = symbols[iconName].startsWith('<svg ')
+      ? symbols[iconName]
+      : `<svg xmlns="http://www.w3.org/2000/svg"><use href="#${iconName}"/></svg>`;
+    decorateIcon(span, symbol, title);
   });
 }
 
@@ -216,7 +236,30 @@ export async function decorateIcons(element = document) {
  * @returns language path portion for the current URL to be used to build language specific URLs
  */
 export function getLanguagePath() {
-  return window.location.pathname === '/de' || window.location.pathname.startsWith('/de/') ? '/de' : '';
+  const { pathname } = window.location;
+  return pathname === '/de' || pathname.startsWith('/de/') ? '/de' : '';
+}
+
+/**
+ * Get the placeholders data from the docs to be used as translation
+ * @param {string} prefix
+ * @param {string} languagePath
+ */
+async function getPlaceholders(prefix, languagePath) {
+  const url = `${prefix === 'default' ? '' : prefix}${languagePath}/placeholders.json`;
+  window.placeholders[prefix] = {};
+  try {
+    const response = await fetch(url);
+    const json = await response.json();
+    const placeholders = {};
+    json.data.forEach((placeholder) => {
+      placeholders[toCamelCase(placeholder.Key)] = placeholder.Text;
+    });
+    window.placeholders[prefix] = placeholders;
+  } catch (error) {
+    // eslint-disable-next-line no-console
+    console.log('%cGet placeholders fail:', 'color:red', error);
+  }
 }
 
 /**
@@ -229,30 +272,8 @@ export async function fetchPlaceholders(prefix = 'default') {
   const languagePath = getLanguagePath();
 
   if (!loaded) {
-    window.placeholders[`${prefix}-loaded`] = new Promise((resolve, reject) => {
-      try {
-        fetch(`${prefix === 'default' ? '' : prefix}${languagePath}/placeholders.json`)
-          .then((resp) => resp.json())
-          .then((json) => {
-            const placeholders = {};
-            json.data.forEach((placeholder) => {
-              placeholders[toCamelCase(placeholder.Key)] = placeholder.Text;
-            });
-            window.placeholders[prefix] = placeholders;
-            resolve();
-          })
-          .catch(() => {
-            window.placeholders[prefix] = {};
-            resolve();
-          });
-      } catch (error) {
-        // error loading placeholders
-        window.placeholders[prefix] = {};
-        reject();
-      }
-    });
+    await getPlaceholders(prefix, languagePath);
   }
-  await window.placeholders[`${prefix}-loaded`];
   return window.placeholders[prefix];
 }
 
@@ -274,6 +295,28 @@ export function decorateBlock(block) {
 }
 
 /**
+ * Get the value of a certain column in a Block row
+ * @param {Element} col column 1st Element
+ * @param {Element} row row div block
+ * @returns
+ */
+function getRowValue(col, row) {
+  if (col.querySelector('a')) {
+    const as = [...col.querySelectorAll('a')];
+    return as.length === 1 ? as[0].href : as.map((a) => a.href);
+  }
+  if (col.querySelector('img')) {
+    const imgs = [...col.querySelectorAll('img')];
+    return imgs.length === 1 ? imgs[0].src : imgs.map((img) => img.src);
+  }
+  if (col.querySelector('p')) {
+    const ps = [...col.querySelectorAll('p')];
+    return ps.length === 1 ? ps[0].textContent : ps.map((p) => p.textContent);
+  }
+  return row.children[1].textContent;
+}
+
+/**
  * Extracts the config from a block.
  * @param {Element} block The block element
  * @returns {object} The block config
@@ -281,39 +324,40 @@ export function decorateBlock(block) {
 export function readBlockConfig(block) {
   const config = {};
   block.querySelectorAll(':scope>div').forEach((row) => {
-    if (row.children) {
-      const cols = [...row.children];
-      if (cols[1]) {
-        const col = cols[1];
-        const name = toClassName(cols[0].textContent);
-        let value = '';
-        if (col.querySelector('a')) {
-          const as = [...col.querySelectorAll('a')];
-          if (as.length === 1) {
-            value = as[0].href;
-          } else {
-            value = as.map((a) => a.href);
-          }
-        } else if (col.querySelector('img')) {
-          const imgs = [...col.querySelectorAll('img')];
-          if (imgs.length === 1) {
-            value = imgs[0].src;
-          } else {
-            value = imgs.map((img) => img.src);
-          }
-        } else if (col.querySelector('p')) {
-          const ps = [...col.querySelectorAll('p')];
-          if (ps.length === 1) {
-            value = ps[0].textContent;
-          } else {
-            value = ps.map((p) => p.textContent);
-          }
-        } else value = row.children[1].textContent;
-        config[name] = value;
-      }
-    }
+    if (!row.children) return;
+    const cols = [...row.children];
+    if (!cols[1]) return;
+    const col = cols[1];
+    const name = toClassName(cols[0].textContent);
+    config[name] = getRowValue(col, row) || '';
   });
   return config;
+}
+
+function addWrappers(section) {
+  const wrappers = [];
+  let defaultContent = false;
+  [...section.children].forEach((e) => {
+    if (e.tagName === 'DIV' || !defaultContent) {
+      const wrapper = document.createElement('div');
+      wrappers.push(wrapper);
+      defaultContent = e.tagName !== 'DIV';
+      if (defaultContent) wrapper.classList.add('default-content-wrapper');
+    }
+    wrappers[wrappers.length - 1].append(e);
+  });
+  return wrappers;
+}
+
+function createMetaObject(meta, section) {
+  Object.keys(meta).forEach((key) => {
+    if (key === 'style') {
+      const styles = meta.style.split(',').map((style) => toClassName(style.trim()));
+      styles.forEach((style) => section.classList.add(style));
+    } else {
+      section.dataset[toCamelCase(key)] = meta[key];
+    }
+  });
 }
 
 /**
@@ -322,35 +366,16 @@ export function readBlockConfig(block) {
  */
 export function decorateSections(main) {
   main.querySelectorAll(':scope > div').forEach((section) => {
-    const wrappers = [];
-    let defaultContent = false;
-    [...section.children].forEach((e) => {
-      if (e.tagName === 'DIV' || !defaultContent) {
-        const wrapper = document.createElement('div');
-        wrappers.push(wrapper);
-        defaultContent = e.tagName !== 'DIV';
-        if (defaultContent) wrapper.classList.add('default-content-wrapper');
-      }
-      wrappers[wrappers.length - 1].append(e);
-    });
+    const wrappers = addWrappers(section);
     wrappers.forEach((wrapper) => section.append(wrapper));
     section.classList.add('section');
     section.setAttribute('data-section-status', 'initialized');
 
     /* process section metadata */
     const sectionMeta = section.querySelector('div.section-metadata');
-    if (sectionMeta) {
-      const meta = readBlockConfig(sectionMeta);
-      Object.keys(meta).forEach((key) => {
-        if (key === 'style') {
-          const styles = meta.style.split(',').map((style) => toClassName(style.trim()));
-          styles.forEach((style) => section.classList.add(style));
-        } else {
-          section.dataset[toCamelCase(key)] = meta[key];
-        }
-      });
-      sectionMeta.parentNode.remove();
-    }
+    if (!sectionMeta) return;
+    const meta = readBlockConfig(sectionMeta);
+    createMetaObject(meta, section);
   });
 }
 

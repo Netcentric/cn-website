@@ -1,5 +1,4 @@
 {
-  "project": "CN Web",
   "host": "main--cn-website--netcentric.hlx.page/",
   "searchApiEndpoints": {
     "ingest": "https://search.netcentric.biz/ingest?path={{path}}",
@@ -10,6 +9,14 @@
       "id": "cn-search-update",
       "title": "Update Search",
       "event": "cn-search-update",
+      "environments": ["edit"],
+      "url": "/tools/sidekick/library.html",
+      "includePaths": ["**.docx**"]
+    },
+    {
+      "id": "cn-franklin-library",
+      "title": "Franklin Library",
+      "event": "cn-franklin-library",
       "environments": ["edit"],
       "url": "/tools/sidekick/library.html",
       "includePaths": ["**.docx**"]

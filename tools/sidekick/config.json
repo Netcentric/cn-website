@@ -7,10 +7,7 @@
     {
       "id": "cn-search-update",
       "title": "Update Search",
-      "event": "cn-search-update",
-      "environments": ["edit"],
-      "url": "/tools/sidekick/library.html",
-      "includePaths": ["**.docx**"]
+      "event": "cn-search-update"
     },
     {
       "id": "cn-franklin-library",

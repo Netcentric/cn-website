@@ -1,18 +1,9 @@
 {
-  "host": "main--cn-website--netcentric.hlx.page/",
   "searchApiEndpoints": {
     "ingest": "https://search.netcentric.biz/ingest?path={{path}}",
     "delete": "https://search.netcentric.biz/delete?path={{path}}"
   },
   "plugins": [
-    {
-      "id": "cn-search-update",
-      "title": "Update Search",
-      "event": "cn-search-update",
-      "environments": ["edit"],
-      "url": "/tools/sidekick/library.html",
-      "includePaths": ["**.docx**"]
-    },
     {
       "id": "cn-franklin-library",
       "title": "Franklin Library",

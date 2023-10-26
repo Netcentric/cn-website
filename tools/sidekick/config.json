@@ -5,6 +5,14 @@
   },
   "plugins": [
     {
+      "id": "cn-search-update",
+      "title": "Update Search",
+      "event": "cn-search-update",
+      "environments": ["edit"],
+      "url": "/tools/sidekick/library.html",
+      "includePaths": ["**.docx**"]
+    },
+    {
       "id": "cn-franklin-library",
       "title": "Franklin Library",
       "event": "cn-franklin-library",

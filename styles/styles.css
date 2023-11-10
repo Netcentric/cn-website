@@ -242,7 +242,7 @@ button {
   font-size: var(--button-font-size-default);
   line-height: 1;
   cursor: pointer;
-  color: var(--c-black);
+  color: var(--c-dark-gray);
   background-color: transparent;
   margin: 0;
   white-space: nowrap;
@@ -318,7 +318,7 @@ main a.button > .icon-chevron-right,
 main a.button > .icon-chevron-right svg {
   width: 12px;
   height: 12px;
-  fill: currentcolor;
+  fill: var(--c-dark-gray);
 }
 
 span.icon {

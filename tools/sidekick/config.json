@@ -8,6 +8,13 @@
       "id": "cn-search-update",
       "title": "Update Search",
       "event": "cn-search-update"
+    },
+    {
+      "id": "library",
+      "title": "Library",
+      "environments": ["edit"],
+      "url": "/tools/sidekick/library.html",
+      "includePaths": ["**.docx**"]
     }
   ]
 }

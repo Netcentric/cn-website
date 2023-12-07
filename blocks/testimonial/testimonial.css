@@ -56,7 +56,7 @@
 }
 
 
-@media (min-width: 992px) {
+@media (min-width: 900px) {
   .testimonial ul {
     flex-direction: row;
   }

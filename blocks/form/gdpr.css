@@ -62,7 +62,7 @@
   }
 }
 
-@media (min-width: 992px) {
+@media (min-width: 900px) {
   .gdpr form {
     padding-inline: 10rem;
     width: var(--section-width);

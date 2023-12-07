@@ -1,4 +1,4 @@
-.leader-profiles>ul {
+.leader-profiles > ul {
   list-style: none;
   margin: 0;
   padding: 0;
@@ -6,7 +6,7 @@
   grid-template-columns: 1fr 1fr;
 }
 
-.leader-profiles>ul>li {
+.leader-profiles > ul > li {
   margin: 0 16px;
   padding: 16px 0;
   cursor: pointer;
@@ -56,18 +56,22 @@
   display: none;
 }
 
-@media (max-width: 600px) {
-  .leader-profiles.ion>ul {
-    grid-template-columns: 1fr;
-    }
+.leader-profiles.ion > ul {
+  grid-template-columns: 1fr;
 }
 
-@media screen and (min-width: 992px) {
-  .leader-profiles>ul {
+@media (min-width: 600px) {
+  .leader-profiles.ion > ul {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (min-width: 900px) {
+  .leader-profiles > ul {
     grid-template-columns: 1fr 1fr 1fr 1fr;
   }
 
-  .leader-profiles>ul>li {
+  .leader-profiles > ul > li {
     position: relative;
   }
 
@@ -89,12 +93,7 @@
     justify-content: flex-end;
   }
 
-  /*  leader profile with 2 col */
-  .leader-profiles.ion>ul {
-    grid-template-columns: 1fr 1fr;
-  }
-
-  .leader-profiles.ion>ul>li {
+  .leader-profiles.ion > ul > li {
     padding: 0;
   }
 

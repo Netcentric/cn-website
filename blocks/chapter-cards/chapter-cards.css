@@ -3,15 +3,10 @@
     margin: 0;
     padding: 0;
     display: grid;
+    grid-template-columns: 1fr;
 }
 
-@media (max-width: 799px) {
-    .chapter-cards-wrap {
-        grid-template-columns: 1fr;
-    }
-}
-
-@media (min-width: 800px) {
+@media (min-width: 900px) {
     .chapter-cards-wrap {
         grid-template-columns: 1fr 1fr 1fr;
     }

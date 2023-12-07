@@ -1,6 +1,6 @@
 .spinning-cards-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: 1fr;
   gap: 30px;
   margin: 0;
   padding: 0;
@@ -10,7 +10,7 @@
   height: 250px;
   perspective: 1000px;
   list-style: none;
-  margin-top: 20px;
+  margin-top: 35px;
 }
 
 .spinning-cards-inner {
@@ -62,12 +62,12 @@
   margin-top: -35px;
 }
 
-@media (max-width: 768px) {
+@media (min-width: 900px) {
   .spinning-cards-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: 1fr 1fr 1fr;
   }
 
   .spinning-cards-item {
-    margin-top: 35px;
+    margin-top: 20px;
   }
 }

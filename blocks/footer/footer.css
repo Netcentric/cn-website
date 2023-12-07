@@ -42,17 +42,18 @@ footer > div > div > div:first-child {
 footer > div > div > div:first-child > ul {
   padding-inline-start: 0;
   padding-inline-end: 50px;
+  min-width: calc(100% - 50px);
 }
 
-@media(max-width: 600px) {
+@media(min-width: 600px) {
   footer > div > div > div:first-child > ul {
-    min-width: calc(100% - 50px);
+    min-width: 40%;
   }
 }
 
-@media(min-width: 600px) and (max-width: 900px) {
+@media(min-width: 992px) {
   footer > div > div > div:first-child > ul {
-    min-width: 40%;
+    min-width: unset;
   }
 }
 
@@ -118,7 +119,7 @@ footer > div > div > div:last-child {
   }
 }
 
-@media (min-width: 992px) {
+@media (min-width: 900px) {
   .campaign footer > div > div > div:first-child {
     order: 1;
     margin-inline-start: -10%;

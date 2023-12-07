@@ -195,7 +195,7 @@
   display: inline-block;
 }
 
-@media (min-width: 992px) {
+@media (min-width: 900px) {
   .blog-cards-container h2.teaser-description {
     min-height: 100px;
   }

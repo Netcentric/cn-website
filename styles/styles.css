@@ -398,7 +398,7 @@ main .columns-wrapper img {
   width: auto;
 }
 
-@media (min-width: 992px) {
+@media (min-width: 900px) {
   :root {
     /* font sizes */
     --heading-font-size-xxl: 60px;

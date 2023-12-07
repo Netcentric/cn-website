@@ -122,7 +122,7 @@ body.blogpost main .hero p {
   color: var(--text-color);
 }
 
-@media (min-width: 992px) {
+@media (min-width: 900px) {
   main .hero a.button {
     width: unset;
   }

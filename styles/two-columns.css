@@ -13,7 +13,7 @@
   width: 100%;
 }
 
-@media (min-width: 992px) {
+@media (min-width: 900px) {
   :root {
     --first-ratio: 50%;
     --second-ratio: var(--first-ratio);

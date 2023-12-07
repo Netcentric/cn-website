@@ -89,7 +89,7 @@
   cursor: pointer;
 }
 
-@media screen and (min-width: 992px) {
+@media (min-width: 900px) {
   .leader-profiles-flyout>div>* {
     max-width: 600px;
   }
@@ -125,7 +125,7 @@
   }
 }
 
-@media screen and (min-width: 1360px) {
+@media (min-width: 1200px) {
   .leader-profiles-flyout .icon-close {
     right: unset;
     left: 597px;

@@ -78,7 +78,7 @@
   }
 }
 
-@media (min-width: 992px) {
+@media (min-width: 900px) {
   .blog-posts ul.related-list {
     grid-template-columns: repeat(3, 1fr);
   }

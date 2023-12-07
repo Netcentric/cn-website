@@ -287,7 +287,7 @@ export default function decorate(block) {
             elementsPerSlide: 2,
             responsiveWidth: 'fluid',
           },
-          992: {
+          900: {
             elementsPerSlide: 6,
             responsiveWidth: 'static',
           },

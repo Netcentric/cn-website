@@ -10,9 +10,8 @@
       "event": "cn-search-update"
     },
     {
-      "id": "cn-franklin-library",
-      "title": "Franklin Library",
-      "event": "cn-franklin-library",
+      "id": "library",
+      "title": "Library",
       "environments": ["edit"],
       "url": "/tools/sidekick/library.html",
       "includePaths": ["**.docx**"]

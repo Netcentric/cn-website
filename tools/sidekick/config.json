@@ -10,11 +10,12 @@
       "event": "cn-search-update"
     },
     {
-      "id": "library",
-      "title": "Library",
+      "id": "block-library",
+      "title": "Block Library",
       "environments": ["edit"],
-      "url": "/tools/sidekick/library.html",
-      "includePaths": ["**.docx**"]
+      "url": "/tools/sidekick/block-library.html",
+      "excludePaths": ["**"],
+      "includePaths": ["**.docx**", "/document/**"]
     }
   ]
 }

@@ -242,7 +242,7 @@ button {
   font-size: var(--button-font-size-default);
   line-height: 1;
   cursor: pointer;
-  color: var(--c-black);
+  color: var(--c-dark-gray);
   background-color: transparent;
   margin: 0;
   white-space: nowrap;
@@ -318,7 +318,7 @@ main a.button > .icon-chevron-right,
 main a.button > .icon-chevron-right svg {
   width: 12px;
   height: 12px;
-  fill: currentcolor;
+  fill: var(--c-dark-gray);
 }
 
 span.icon {
@@ -653,3 +653,86 @@ main .section.text-white {
   white-space: nowrap;
   width: 1px;
 }
+
+/* animations */
+
+@keyframes fade-in {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes animated-up {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes animated-down {
+  0% {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes animated-right {
+  0% {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes animated-left {
+  0% {
+    opacity: 0;
+    transform: translateX(20px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* animations written on metadata level */
+
+.animated-up {
+  animation: animated-up 0.5s ease-in-out forwards;
+}
+
+.animated-down {
+  animation: animated-down 0.5s ease-in-out forwards;
+}
+
+.animated-right {
+  animation: animated-right 0.5s ease-in-out forwards;
+}
+
+.animated-left {
+  animation: animated-left 0.5s ease-in-out forwards;
+}
+
+.animated-none {
+  animation: none;
+}
+

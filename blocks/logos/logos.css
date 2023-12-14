@@ -28,7 +28,7 @@
   width: 50%;
 }
 
-@media (min-width: 992px) {
+@media (min-width: 900px) {
   .slider-element {
     width: 16.6%;;
   }

@@ -43,7 +43,7 @@
   width: 42px;
 }
 
-@media (min-width: 992px) {
+@media (min-width: 900px) {
   :root {
     --blog-sidebar-margin-width: calc((100vw - var(--section-width)) / 2);
   }

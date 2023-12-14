@@ -26,11 +26,11 @@
     cursor: pointer;
     width: 100%;
     border: none;
-    padding: 23px 16px;
+    padding: 23px 7px;
 }
 
 .accordion-trigger div {
-    font-size: 34px;
+    font-size: 20px;
     color: var(--c-white);
     font-weight: 700;
 }
@@ -53,6 +53,7 @@
     font-size: 15px;
     border: 1px solid var(--c-light-teal);
     transition: background-color 0.5s, color 0.5s;
+    display: none;
 }
 
 .accordion-trigger .details-button {
@@ -74,16 +75,16 @@
     padding: 0 16px;
 }
 
-@media (max-width: 600px) {
+@media (min-width: 600px) {
     .accordion-trigger div {
-       font-size: 20px;
+        font-size: 34px;
     }
 
     .accordion-trigger .btn {
-        display: none;
+        display: unset;
     }
 
     .accordion-trigger {
-        padding: 23px 7px;
+        padding: 23px 16px;
     }
 }

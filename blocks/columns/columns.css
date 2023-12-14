@@ -165,7 +165,7 @@
     }
 }
 
-@media (min-width: 992px) {
+@media (min-width: 900px) {
     .columns {
         --column-fb-left: 50%;
         --column-fb-other: 0%;

@@ -2,7 +2,7 @@
   display: none;
 }
 
-@media (min-width: 992px) {
+@media (min-width: 900px) {
   .fixed-social-media-wrapper {
     display: flex;
     top: 0;

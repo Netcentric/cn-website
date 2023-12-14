@@ -4,15 +4,10 @@
     padding: 0;
     display: grid;
     gap: 30px;
+    grid-template-columns: 1fr;
 }
 
-@media (max-width: 799px) {
-    .flip-cards-wrap {
-        grid-template-columns: 1fr;
-    }
-}
-
-@media (min-width: 800px) {
+@media (min-width: 900px) {
     .flip-cards-wrap {
         grid-template-columns: 1fr 1fr;
     }

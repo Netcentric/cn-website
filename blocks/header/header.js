@@ -1,7 +1,7 @@
 import { decorateIcons, getMetadata, getLanguagePath } from '../../scripts/lib-franklin.js';
 import { addChevronToButtons } from '../../scripts/scripts.js';
 
-const mobileBreakpoint = 992;
+const mobileBreakpoint = 900;
 let globalWindowWidth = window.innerWidth;
 
 /**

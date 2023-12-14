@@ -49,7 +49,7 @@ body.blogpost .related-blogs-container a.button.secondary:hover {
   border-color: #77bad7;
 }
 
-@media (min-width: 992px) {
+@media (min-width: 900px) {
   .related-blogs-container .related-list-item {
     width: 30%;
   }

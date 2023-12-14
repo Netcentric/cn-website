@@ -6,11 +6,11 @@ const viewportWidth = Math.max(document.documentElement.clientWidth || 0, window
 
 function getImageWidth(block) {
   if (block.matches('.ion')) {
-    if (viewportWidth >= 992) {
+    if (viewportWidth >= 900) {
       return 600; // 4 columns
     }
   }
-  if (viewportWidth >= 992) {
+  if (viewportWidth >= 900) {
     return 292; // 4 columns
   }
   if (viewportWidth >= 600) {

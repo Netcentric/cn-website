@@ -123,11 +123,12 @@ header nav .nav-sections {
   background-color: var(--overlay-color);
   flex: 1 1 auto;
   position: relative;
+  top: 10%;
 }
 
-@media (max-width: 600px) {
+@media (min-width: 600px) {
   header nav .nav-sections {
-    top:10%;
+    top: unset;
   }
 }
 
@@ -181,13 +182,16 @@ header nav .nav-sections li span.icon.icon-chevron-right svg {
   padding-right: 1.5em;
   padding-bottom: 1em;
   background-color: var(--c-dark-plum);
+  position: fixed;
+  margin-top: -52em;
+  top: 58em;
 }
 
-@media (max-width: 600px) {
+@media (min-width: 600px) {
   .nav-search {
-    position: fixed;
-    margin-top: -52em;
-    top: 58em;
+    position: unset;
+    margin-top: unset;
+    top: unset;
   }
 }
 
@@ -204,7 +208,7 @@ header nav[aria-expanded='true'] .nav-search {
   justify-content: center;
 }
 
-@media (min-width: 992px)  {
+@media (min-width: 900px)  {
   .nav-search {
     display: initial;
     padding-left: 0;
@@ -370,7 +374,7 @@ header nav .nav-sections ul > li.nav-drop[aria-expanded='true'] > .nav-drop-ul-w
 }
 
 /* desktop nav styles */
-@media (min-width: 992px)  {
+@media (min-width: 900px)  {
   body:has(header nav li.nav-drop[aria-expanded='true']) {
     overflow: hidden;
   }

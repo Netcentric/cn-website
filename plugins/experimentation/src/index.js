@@ -661,9 +661,7 @@ function adjustedRumSamplingRate(checkpoint, options, context) {
 }
 
 export async function loadEager(document, options, context) {
-  console.log(1);
   context.sampleRUM.always.on('audiences', adjustedRumSamplingRate('audiences', options, context));
-  console.log(2);
   context.sampleRUM.always.on('campaign', adjustedRumSamplingRate('campaign', options, context));
   context.sampleRUM.always.on('experiment', adjustedRumSamplingRate('experiment', options, context));
   let res = await runCampaign(document, options, context);

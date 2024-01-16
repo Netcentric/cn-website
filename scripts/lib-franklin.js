@@ -69,7 +69,7 @@ export function sampleRUM(checkpoint, data = {}) {
       };
       sendPing(data);
       if (sampleRUM.cases[checkpoint]) { sampleRUM.cases[checkpoint](); }
-      if (sampleRUM.always[checkpoint]) { sampleRUM.always[checkpoint](data); }
+      
     }
   } catch (error) {
     // something went wrong
@@ -525,6 +525,8 @@ export async function loadBlock(block) {
       console.log(`failed to load block ${blockName}`, error);
     }
     block.dataset.blockStatus = 'loaded';
+    const event = new CustomEvent('block-loaded', { detail: { block, blockName } });
+    document.body.dispatchEvent(event);
   }
 }
 

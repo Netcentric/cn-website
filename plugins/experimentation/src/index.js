@@ -577,6 +577,7 @@ export async function serveAudience(document, options, context) {
   }
 }
 
+window.hlx.patchBlockConfig = [];
 window.hlx.patchBlockConfig.push((config) => {
   const { experiment } = window.hlx;
 

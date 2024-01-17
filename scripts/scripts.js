@@ -14,7 +14,7 @@ import {
   toClassName,
   getMetadata,
   loadCSS,
-  toCamelCase
+  toCamelCase,
 } from './lib-franklin.js';
 import TEMPLATE_LIST from '../templates/config.js';
 
@@ -399,7 +399,6 @@ async function loadLazy(doc) {
     const { loadLazy: runLazy } = await import('../plugins/experimentation/src/index.js');
     await runLazy(document, { audiences: AUDIENCES }, pluginContext);
   }
-
 }
 
 /**

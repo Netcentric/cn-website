@@ -237,6 +237,7 @@ export default async function decorate(block) {
     searchButton.type = 'submit';
     searchButton.className = 'search-submit';
     searchButton.appendChild(searchIcon);
+    searchButton.setAttribute('aria-label', window.placeholders?.default?.search || 'Search');
     searchForm.appendChild(searchButton);
     searchForm.addEventListener('submit', (e) => {
       e.preventDefault();

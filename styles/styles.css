@@ -133,10 +133,6 @@
   --nav-height: 72px;
 }
 
-header {
-  background-color: red;
-}
-
 body {
   font-size: var(--body-font-size-m);
   letter-spacing: normal;

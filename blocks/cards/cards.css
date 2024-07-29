@@ -293,14 +293,12 @@
     }
 
     .cards.teaser.background > ul > li > div:nth-last-child(2) {
-        width: 45%;
         float: none;
         width: auto;
         margin-top: 0;
     }
 
     .cards.teaser.background > ul > li > div:last-child {
-        width: 45%;
         float: none;
         width: auto;
         margin-top: 0;

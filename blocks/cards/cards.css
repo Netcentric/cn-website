@@ -276,14 +276,6 @@
         grid-template-columns: 1fr 1fr;
     }
 
-    .cards.teaser.background > ul > li > div:nth-last-child(2) {
-        width: 45%;
-    }
-
-    .cards.teaser.background > ul > li > div:last-child {
-        width: 45%;
-    }
-
     .cards.teaser > ul > li {
         display: grid;
         grid-gap: 30px;
@@ -301,12 +293,14 @@
     }
 
     .cards.teaser.background > ul > li > div:nth-last-child(2) {
+        width: 45%;
         float: none;
         width: auto;
         margin-top: 0;
     }
 
     .cards.teaser.background > ul > li > div:last-child {
+        width: 45%;
         float: none;
         width: auto;
         margin-top: 0;

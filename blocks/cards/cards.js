@@ -27,7 +27,7 @@ export default function decorate(block) {
   /* change to ul, li */
   const ul = document.createElement('ul');
   [...block.children].forEach((row) => {
-    const linkName = row.querySelector('h5 a').getAttribute('title');
+    const linkName = row.querySelector('h5 a')?.getAttribute('title');
     const li = document.createElement('li');
     li.innerHTML = row.innerHTML;
     [...li.children].forEach((div) => {
@@ -36,7 +36,7 @@ export default function decorate(block) {
         li.classList.add(`cards-card-bg-${div.textContent}`);
       } else if (div.children.length === 1 && div.querySelector('picture')) {
         div.className = 'cards-card-image';
-        div.querySelector('a').setAttribute('title', linkName);
+        linkName && div.querySelector('a').setAttribute('title', linkName);
       } else {
         div.className = 'cards-card-body';
       }

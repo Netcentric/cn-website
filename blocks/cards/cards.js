@@ -37,7 +37,7 @@ export default function decorate(block) {
       } else if (div.children.length === 1 && div.querySelector('picture')) {
         div.className = 'cards-card-image';
         if (linkName) {
-          div.querySelector('a').setAttribute('title', linkName);
+          div.querySelector('a')?.setAttribute('title', linkName);
         }
       } else {
         div.className = 'cards-card-body';

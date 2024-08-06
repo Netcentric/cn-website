@@ -40,6 +40,7 @@
   --c-mid-blue: #6aa2dc;
   --c-mid-plum: #7373d8;
   --c-mid-gray: #97999b;
+  --c-mid-darkblue: #2f78c4;
   --c-midnight-blue: #000048; /* cognizant color */
   --c-mid-teal: #26efe9;
   --c-red: #b81f2d;
@@ -47,9 +48,9 @@
   --c-white: #fff;
 
   /* social colors */
-  --twitter: #1d9bf0;
-  --facebook: #3b5998;
-  --linked-in: #007bb5;
+  --twitter: #2f78c4;
+  --facebook: #2e308e;
+  --linked-in: #000048;
   --git: #24292e;
   --rss: #f26522;
   --youtube: #c4302b;
@@ -520,7 +521,7 @@ main .section.light-blue h5 {
 }
 
 main .section.mid-blue {
-  background-color: var(--c-mid-blue);
+  background-color: var(--c-mid-darkblue);
   color: var(--bg-text-mid-blue);
 }
 

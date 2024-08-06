@@ -20,6 +20,7 @@
 .leader-profiles .leader-profile-image img {
   display: block;
   height: 100%;
+  object-fit: cover;
 }
 
 .leader-profiles .leader-profile-heading {

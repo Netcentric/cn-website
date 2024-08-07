@@ -159,6 +159,7 @@ async function fetchAndSetIframeTitle(urlVendor, iframe) {
     const data = await response.json();
     iframe.setAttribute('title', data.title);
   } catch (error) {
+    // eslint-disable-next-line vars-on-top
     console.error('Error:', error);
   }
 }
@@ -182,7 +183,7 @@ function createEmbedIFrame(a, vendor) {
     source = `https://open.spotify.com/embed/episode/${id}`;
     className = 'spotify-player';
     allow = 'autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture';
-    urlVendor = `https://open.spotify.com/oembed?url=https://open.spotify.com/episode/78DmMlPuBgkPzziPKx8oko`;
+    urlVendor = 'https://open.spotify.com/oembed?url=https://open.spotify.com/episode/78DmMlPuBgkPzziPKx8oko';
   } else if (vendor === 'wistia') {
     source = `https://fast.wistia.net/embed/iframe/${id}`;
     className = 'wistia-player';

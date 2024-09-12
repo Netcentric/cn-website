@@ -3,5 +3,5 @@ Please always provide the [GitHub issue(s)](../issues) your PR is for, as well a
 Fix #<gh-issue-id>
 
 Test URLs:
-- Before: https://main--cn-website--netcentric.hlx.page/
-- After: https://<branch>--cn-website--netcentric.hlx.page/
+- Before: https://main--cn-website--netcentric.aem.live/
+- After: https://<branch>--cn-website--netcentric.aem.live/

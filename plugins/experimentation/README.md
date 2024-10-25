@@ -141,7 +141,7 @@ runEager.call(document, {
   // (prod environments do not get the pill overlay)
   prodHost: 'www.my-website.com',
   // if you have several, or need more complex logic to toggle pill overlay, you can use
-  isProd: () => window.location.hostname.endsWith('hlx.page')
+  isProd: () => window.location.hostname.endsWith('aem.page')
     || window.location.hostname === ('localhost'),
 
   /* Generic properties */

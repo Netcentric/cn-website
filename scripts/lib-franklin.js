@@ -51,7 +51,7 @@ export function sampleRUM(checkpoint, data = {}) {
       const sendPing = (pdata = data) => {
         // eslint-disable-next-line object-curly-newline, max-len, no-use-before-define
         const body = JSON.stringify({ weight, id, referer: window.location.href, generation: window.hlx.RUM_GENERATION, checkpoint, ...data });
-        const url = `https://rum.hlx.page/.rum/${weight}`;
+        const url = `https://rum.aem.page/.rum/${weight}`;
         // eslint-disable-next-line no-unused-expressions
         navigator.sendBeacon(url, body);
         // eslint-disable-next-line no-console
@@ -62,7 +62,7 @@ export function sampleRUM(checkpoint, data = {}) {
         lazy: () => {
           // use classic script to avoid CORS issues
           const script = document.createElement('script');
-          script.src = 'https://rum.hlx.page/.rum/@adobe/helix-rum-enhancer@^1/src/index.js';
+          script.src = 'https://rum.aem.page/.rum/@adobe/helix-rum-enhancer@^1/src/index.js';
           document.head.appendChild(script);
           return true;
         },

@@ -678,7 +678,7 @@ export async function loadLazy(document, options, context) {
     ...DEFAULT_OPTIONS,
     ...(options || {}),
   };
-  if (window.location.hostname.endsWith('hlx.page')
+  if (window.location.hostname.endsWith('aem.page')
     || window.location.hostname === ('localhost')
     || (typeof options.isProd === 'function' && !options.isProd())
     || (options.prodHost && options.prodHost !== window.location.origin)) {

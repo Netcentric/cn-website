@@ -47,11 +47,6 @@ function loadLaunch() {
   injectScript(src);
 }
 
-function loadLiveUXRUM() {
-  const src = 'https://liveux.cnwebperformance.biz/collector/collector.min.js?id=webperf-netcentric';
-  injectScript(src, 'anonymous');
-}
-
 function loadSidekickExtension() {
   injectScript('/scripts/sidekick.js');
 }
@@ -84,7 +79,6 @@ class ScrollIndicator {
 
 decorateTwitterFeed();
 loadLaunch();
-loadLiveUXRUM();
 loadSidekickExtension();
 
 if (document.body.classList.contains('blogpost')) {

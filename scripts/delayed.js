@@ -38,10 +38,14 @@ function decorateTwitterFeed() {
   });
 }
 
+function isProd() {
+  return window.location.host === 'www.netcentric.biz';
+}
+
 function loadLaunch() {
   window.adobeDataLayer = window.adobeDataLayer || [];
 
-  const src = window.location.host === 'www.netcentric.biz'
+  const src = isProd()
     ? 'https://assets.adobedtm.com/2d725b839720/bfa5096a0ae6/launch-f793edd9423d.min.js'
     : 'https://assets.adobedtm.com/2d725b839720/bfa5096a0ae6/launch-2033de7801fe-staging.min.js';
   injectScript(src);
@@ -77,7 +81,48 @@ class ScrollIndicator {
   }
 }
 
+async function waitForOneTrust() {
+  if (!isProd()) { return Promise.resolve(); }
+  return new Promise((resolve, reject) => {
+    let oneTrustPollCounter = 0;
+    const pollOneTrustObject = setInterval(() => {
+      if (window.OneTrust) {
+        resolve();
+        clearInterval(pollOneTrustObject); // Stop polling once detected
+      }
+      oneTrustPollCounter += 1;
+      if (oneTrustPollCounter >= 50) {
+        // eslint-disable-next-line no-console
+        console.warn('OneTrust object not found after 5 seconds. Exiting polling.');
+        clearInterval(pollOneTrustObject);
+        reject();
+      }
+    }, 100);
+  });
+}
+
+function cleanupHistory(history) {
+  const threshold = new Date(Date.now() - 1000 * 60 * 60 * 24 /* one day */).toISOString();
+  return history.filter((tag) => tag.time > threshold
+    && !history.some((otherTag) => otherTag.tag === tag.tag && otherTag.time > tag.time));
+}
+
+async function initTagCollector() {
+  await waitForOneTrust();
+  if (isProd() && !window.OnetrustActiveGroups.indexOf(',C0004,')) {
+    // eslint-disable-next-line no-console
+    console.debug('Tag collector disabled.');
+    return;
+  }
+  const tags = [...document.head.querySelectorAll('meta[property="article:tag"]')].map((tag) => ({ time: new Date().toISOString(), tag: tag.content }));
+  const history = cleanupHistory([...JSON.parse(localStorage.getItem('user.history') || '[]'), ...tags]);
+  localStorage.setItem('user.history', JSON.stringify(history));
+  // eslint-disable-next-line no-console
+  console.debug('Tag collector enabled.', localStorage.getItem('user.history'));
+}
+
 decorateTwitterFeed();
+initTagCollector();
 loadLaunch();
 loadSidekickExtension();
 

@@ -2,6 +2,7 @@ import { readBlockConfig, decorateIcons, loadCSS } from '../../scripts/lib-frank
 import { addChevronToButtons } from '../../scripts/scripts.js';
 import { createCardsList, getArticles, createPopup } from '../blog-posts/blog-posts.js';
 
+const searchEndpoint = 'https://search.netcentric.biz/search';
 const maxArticlesToShow = 3;
 
 function buildHeadline(parent, tagConf) {
@@ -24,24 +25,24 @@ function buildCTASection(parent, checkBtnLink, count) {
   parent.append(buttonRow);
 }
 
-async function buildAutoRelatedBlogs(block) {
+function reset(block) {
+  block.innerHTML = '<div class="related-container"></div>';
+  return block.querySelector('.related-container');
+}
+
+async function buildAutoRelatedBlogs(block, config) {
   // get the tag to be fetched
-  const { tag } = readBlockConfig(block);
+  const { tag } = config;
 
-  block.innerHTML = ''; // reset
-
-  // create container
-  const outerDiv = document.createElement('div');
-  outerDiv.classList.add('related-container');
+  const container = reset(block);
 
   // headline
-  buildHeadline(outerDiv, tag);
+  buildHeadline(container, tag);
 
   // list of cards
   const relatedArticles = await getArticles((item) => item.tags.includes(tag), maxArticlesToShow);
-  createCardsList(outerDiv, relatedArticles);
+  createCardsList(container, relatedArticles);
 
-  block.append(outerDiv);
   buildCTASection(block);
 }
 
@@ -53,41 +54,71 @@ async function buildManualRelatedBlogs(block) {
   const blogOverviewBtnRow = block.lastElementChild.children;
   const checkBtnLink = blogOverviewBtnRow[0].innerText;
 
-  block.innerHTML = ''; // reset
-
-  // create container
-  const outerDiv = document.createElement('div');
-  outerDiv.classList.add('related-container');
+  const container = reset(block);
 
   const relatedArticles = await getArticles(
     (item) => configuredPaths.includes(item.path),
     maxArticlesToShow,
   );
-  createCardsList(outerDiv, relatedArticles);
+  createCardsList(container, relatedArticles);
 
-  block.append(outerDiv);
+  block.append(container);
   buildCTASection(block, checkBtnLink, count);
+}
+
+async function queryPosts(block, config) {
+  const container = reset(block);
+  const response = await fetch(config.endpoint || searchEndpoint, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      query: `
+      query ($q: String, $l: Int) {search(q: $q, limit: $l) {
+          items {
+            path
+          }
+        }
+      }
+    `,
+      variables: {
+        l: maxArticlesToShow,
+        q: `${config.query}
+
+last visited topics: ${JSON.parse(localStorage.getItem('user.history') || '[]').sort((a, b) => new Date(b.time) - new Date(a.time)).map((tag) => tag.tag).join(', ')}`,
+      },
+    }),
+  });
+  const result = await response.json();
+  const paths = result.data.search.items.map((item) => item.path);
+  const relatedArticles = await getArticles(
+    (item) => paths.includes(item.path),
+    maxArticlesToShow,
+  );
+  createCardsList(container, relatedArticles);
 }
 
 /**
  * Get a build mode and returns the proper build function
- * @param {string} variant
+ * @param {object} config
  * @returns {Function}
  */
-function getVariants(variant) {
-  const defaultVariant = buildManualRelatedBlogs;
-  const variants = {
-    auto: buildAutoRelatedBlogs,
-    manual: defaultVariant,
-  };
-  return variants[variant] ?? defaultVariant;
+function getMode(config) {
+  if (config.tag) {
+    return buildAutoRelatedBlogs;
+  }
+  if (config.query) {
+    return queryPosts;
+  }
+  return buildManualRelatedBlogs;
 }
 
 export default async function decorate(block) {
-  const variant = document.querySelector('body.blogpost') ? 'auto' : 'manual';
-  const buildVariant = getVariants(variant);
+  const config = readBlockConfig(block);
+  const buildVariant = getMode(config);
 
-  await buildVariant(block);
+  await buildVariant(block, config);
 
   loadCSS('/blocks/blog-posts/blog-card.css');
   createPopup('.related-blogs');

@@ -85,8 +85,7 @@ async function queryPosts(block, config) {
       variables: {
         l: maxArticlesToShow,
         q: `${config.query}
-
-last visited topics: ${JSON.parse(localStorage.getItem('user.history') || '[]').sort((a, b) => new Date(b.time) - new Date(a.time)).map((tag) => tag.tag).join(', ')}`,
+        ${JSON.parse(localStorage.getItem('user.history') || '[]').sort((a, b) => new Date(b.time) - new Date(a.time)).map((tag) => tag.tag).join(', ')}`,
       },
     }),
   });

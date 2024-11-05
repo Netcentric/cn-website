@@ -84,7 +84,7 @@ class SearchResults {
       this.searchResults.items.forEach((result) => {
         resultSnippet += `
         <h3 class="results-title"><a class="results-link" href="${result.path}">${result.title}</a></h3>
-        <p class="results-text">${result.snippet}</p>
+        <p class="results-text">${result.snippet || result.title}</p>
         `;
       });
     }

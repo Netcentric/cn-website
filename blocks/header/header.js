@@ -1,5 +1,6 @@
 import { decorateIcons, getMetadata, getLanguagePath } from '../../scripts/lib-franklin.js';
 import { addChevronToButtons } from '../../scripts/scripts.js';
+import initLogIn from '../../scripts/login.js';
 
 const mobileBreakpoint = 900;
 let globalWindowWidth = window.innerWidth;
@@ -105,6 +106,8 @@ function languageSwitch() {
   const header = document.querySelector('.header');
   const langSwitch = header.querySelector('.nav-tools ul');
   const langLinks = langSwitch.querySelectorAll('li:not(:last-of-type) a');
+
+  initLogIn(langSwitch.querySelector('li:last-of-type a'));
 
   const defaultLanguage = 'en';
   const currentLang = document.documentElement.lang;

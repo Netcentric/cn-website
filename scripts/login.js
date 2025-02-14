@@ -12,8 +12,52 @@ function getCookie(cookieStartName) {
   return '';
 }
 
+function resetForm(form) {
+  const inputs = form.querySelectorAll('input');
+  inputs.forEach((input) => {
+    input.value = '';
+  });
+}
+
+function resetValidationErrors(form) {
+  const errorMessages = form.querySelectorAll('.error-message');
+  const inputs = form.querySelectorAll('input');
+
+  errorMessages.forEach((errorMessage) => {
+    errorMessage.remove();
+  });
+  inputs.forEach((input) => {
+    input.classList.remove('error');
+  });
+}
+
 function validateForm(form) {
-  return true;
+  const inputs = form.querySelectorAll('input');
+  let isValid = true;
+  resetValidationErrors(form);
+
+  inputs.forEach((input) => {
+    const errorMessage = document.createElement('span');
+    input.before(errorMessage);
+
+    if (input.required && !input.value) {
+      errorMessage.textContent = 'This field is required';
+      errorMessage.className = 'error-message';
+      isValid = false;
+      input.classList.add('error');
+    }
+    if (input.dataset.validate === 'email') {
+      const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailPattern.test(input.value)) {
+        errorMessage.textContent = 'Please enter a valid email address';
+        errorMessage.className = 'error-message';
+        isValid = false;
+        input.classList.add('error');
+      }
+    }
+  });
+
+  return isValid;
 }
 
 function createDialog() {
@@ -22,11 +66,13 @@ function createDialog() {
   dialog.innerHTML = `
     <form name="loginForm">
       <div class="login-dialog-content">
-        <label for="email">Email</label>
-        <input type="text" name="email" data-validate="email" required>
-        <label for="password">Password</label>
-        <input type="password" name="password" required>
-        <button type="submit">Log In</button>   
+        <div class="form-wrapper">
+          <label for="email">Email</label>
+          <input type="text" name="email" data-validate="email" required>
+          <label for="password">Password</label>
+          <input type="password" name="password" required>
+          <button type="submit">Log In</button>   
+        </div>
       </div>  
     </form>
 `;
@@ -62,6 +108,7 @@ export default function initLogIn(button) {
       removeUserCookie()
       setUpButtonText(button);
     } else {
+      resetForm(document.forms.loginForm);
       dialog.showModal();
     }
   });
@@ -69,6 +116,7 @@ export default function initLogIn(button) {
   dialog.addEventListener('click', (e) => {
     if (e.target === dialog) {
       dialog.close();
+      resetValidationErrors(document.forms.loginForm);
     }
   });
 

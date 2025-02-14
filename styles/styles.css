@@ -751,6 +751,23 @@ main .section.text-white {
     padding: 40px;
   }
 
+  .form-wrapper {
+    position: relative;
+  }
+
+  input {
+    &.error {
+        border: 1px solid var(--c-error);
+    }
+  }
+  .error-message {
+    color: var(--c-error);
+    font-size: 14px;
+    margin-top: 5px;
+    position: absolute;
+    right: 0;
+  }
+
   input,
   button {
     box-sizing: border-box;

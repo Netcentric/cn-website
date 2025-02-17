@@ -107,6 +107,7 @@ export default function initLogIn(button) {
     if (userLoggedIn) {
       removeUserCookie()
       setUpButtonText(button);
+      window.location.reload();
     } else {
       resetForm(document.forms.loginForm);
       dialog.showModal();
@@ -130,6 +131,7 @@ export default function initLogIn(button) {
       setUserCookie(email);
       setUpButtonText(button);
       dialog.close();
+      window.location.reload();
     }
   });
 }

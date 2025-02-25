@@ -86,6 +86,7 @@ function setUpButtonText(button) {
 
 function setUserCookie(data) {
   document.cookie = `ncUser=${data}`;
+  document.cookie = 'userchanged=true';
   userLoggedIn = true;
 }
 

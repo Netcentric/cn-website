@@ -1,0 +1,28 @@
+.personalization-cbe {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-column-gap: 20px;
+    margin-top: 20px;
+
+    > *:first-child {
+        grid-column: span 2;
+    }
+
+    > *:not(:first-child) {
+        grid-column: span 1;
+    }
+
+    > *:only-child {
+        grid-column: span 2;
+    }
+
+    @media (min-width: 600px) {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .cbe-offer {
+        border: 1px solid #2f78c4;
+        padding: 20px;
+        margin-block-end: 20px;
+    }
+}

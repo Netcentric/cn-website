@@ -16,6 +16,11 @@ function createCardOffer(offer) {
   return offerElement;
 }
 
+function handleOffers(block, offer) {
+  const cardOffer = createCardOffer(offer);
+  block.append(cardOffer);
+}
+
 export default function decorate(block) {
   const content = block.textContent.trim();
   const editedContent = content.replace('Personalization Card:', '').trim();
@@ -23,8 +28,13 @@ export default function decorate(block) {
   const data = JSON.parse(editedContent);
   block.children[0].remove();
   data.forEach((offer) => {
-    const cardOffer = createCardOffer(offer);
-    block.append(cardOffer);
+    if (Array.isArray(offer.content)) {
+      offer.forEach((subOffer) => {
+        handleOffers(block, subOffer);
+      });
+    } else {
+      handleOffers(block, offer);
+    }
   });
   block.append(content);
 }

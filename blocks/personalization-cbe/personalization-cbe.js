@@ -16,6 +16,11 @@ function createCbeOffer(offer) {
   return offerElement;
 }
 
+function handleOffers(block, offer) {
+  const cbeOffer = createCbeOffer(offer);
+  block.append(cbeOffer);
+}
+
 export default function decorate(block) {
   const content = block.textContent.trim();
   const editedContent = content.replace('Personalization CBE:', '').trim();
@@ -23,8 +28,13 @@ export default function decorate(block) {
   const data = JSON.parse(editedContent);
   block.children[0].remove();
   data.forEach((offer) => {
-    const cbeOffer = createCbeOffer(offer);
-    block.append(cbeOffer);
+    if (Array.isArray(offer.content)) {
+      offer.forEach((subOffer) => {
+        handleOffers(block, subOffer);
+      });
+    } else {
+      handleOffers(block, offer);
+    }
   });
   block.append(content);
 }

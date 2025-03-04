@@ -16,6 +16,11 @@ function createEdOffer(offer) {
   return offerElement;
 }
 
+function handleOffers(block, offer) {
+  const edOffer = createEdOffer(offer);
+  block.append(edOffer);
+}
+
 export default function decorate(block) {
   const content = block.textContent.trim();
   const editedContent = content.replace('Personalization ED:', '').trim();
@@ -23,8 +28,13 @@ export default function decorate(block) {
   const data = JSON.parse(editedContent);
   block.children[0].remove();
   data.forEach((offer) => {
-    const edOffer = createEdOffer(offer);
-    block.append(edOffer);
+    if (Array.isArray(offer.content)) {
+      offer.forEach((subOffer) => {
+        handleOffers(block, subOffer);
+      });
+    } else {
+      handleOffers(block, offer);
+    }
   });
   block.append(content);
 }

@@ -1,11 +1,5 @@
 async function handleHardReload(url) {
-  await fetch(url, {
-    headers: {
-      Pragma: 'no-cache',
-      Expires: '-1',
-      'Cache-Control': 'no-cache',
-    },
-  });
+  await fetch(url+ '?nocache=' + Math.random()*1e5|0);
   window.location.href = url;
   // This is to ensure reload with url's having '#'
   window.location.reload();

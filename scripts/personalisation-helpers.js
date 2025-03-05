@@ -1,8 +1,5 @@
 async function handleHardReload(url) {
-  await fetch(url+ '?nocache=' + Math.random()*1e5|0);
-  window.location.href = url;
-  // This is to ensure reload with url's having '#'
-  window.location.reload();
+  window.location.href = url + '?nocache=' + Math.random()*1e5;
 }
 
 function isValidJSON(str) {

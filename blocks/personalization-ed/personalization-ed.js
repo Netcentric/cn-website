@@ -11,7 +11,7 @@ function createEdOffer(offer) {
   const offerElement = document.createElement('div');
   offerElement.classList.add('ed-offer');
   offerElement.innerHTML = `
-    <h2>${offer.content?.content}</h2>
+    <h2>${offer.content}</h2>
   `;
   return offerElement;
 }
@@ -29,11 +29,11 @@ export default function decorate(block) {
   block.children[0].remove();
   data.forEach((offer) => {
     if (Array.isArray(offer.content)) {
-      offer.forEach((subOffer) => {
+      offer.content.forEach((subOffer) => {
         handleOffers(block, subOffer);
       });
     } else {
-      handleOffers(block, offer);
+      handleOffers(block, offer.content);
     }
   });
   block.append(content);

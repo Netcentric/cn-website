@@ -1,11 +1,4 @@
-function isValidJSON(str) {
-  try {
-    JSON.parse(str);
-    return true;
-  } catch (e) {
-    return false;
-  }
-}
+import { isValidJSON } from '../../scripts/personalisation-helpers.js';
 
 function createCbeOffer(offer) {
   const offerElement = document.createElement('div');

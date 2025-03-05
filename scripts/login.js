@@ -1,3 +1,5 @@
+import { handleHardReload } from './personalisation-helpers.js';
+
 let userLoggedIn = false;
 
 function getCookie(cookieStartName) {
@@ -108,7 +110,7 @@ export default function initLogIn(button) {
     if (userLoggedIn) {
       removeUserCookie()
       setUpButtonText(button);
-      window.location.reload();
+      handleHardReload(window.location.href);
     } else {
       resetForm(document.forms.loginForm);
       dialog.showModal();
@@ -132,7 +134,7 @@ export default function initLogIn(button) {
       setUserCookie(email);
       setUpButtonText(button);
       dialog.close();
-      window.location.reload();
+      handleHardReload(window.location.href);
     }
   });
 }

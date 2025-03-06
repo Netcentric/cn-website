@@ -11,7 +11,17 @@ function isValidJSON(str) {
   }
 }
 
+function getImageURL(imageUrl) {
+  const validHosts = ['www.netcentric.biz', 'rockstar.moment-innovation.com']
+  const url = new URL(imageUrl);
+  if (validHosts.includes(url.hostname)) {
+    return url.pathname;
+  }
+  return imageUrl;
+}
+
 export {
   handleHardReload,
-  isValidJSON
+  isValidJSON,
+  getImageURL
 }

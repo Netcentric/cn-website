@@ -1,9 +1,11 @@
-import { isValidJSON } from '../../scripts/personalisation-helpers.js';
+import { isValidJSON, getImageURL } from '../../scripts/personalisation-helpers.js';
 
 function createEdOffer(offer) {
   const offerElement = document.createElement('div');
+  const imageSrc = offer.imageURL ? getImageURL(offer.imageURL) : '/insights/2023/12/media_1db1f637bcc9a28245d76086f2d141781cbcc080d.png?width=2000&format=webply&optimize=medium';
   offerElement.classList.add('ed-offer');
   offerElement.innerHTML = `
+    <img src="${imageSrc}" alt="${offer.offerName}" />
     <h2>${offer.content}</h2>
   `;
   return offerElement;
@@ -29,5 +31,5 @@ export default function decorate(block) {
       handleOffers(block, offer.content);
     }
   });
-  block.append(content);
+  // block.append(content);
 }

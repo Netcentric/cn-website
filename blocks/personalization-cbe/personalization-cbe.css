@@ -1,11 +1,19 @@
 .personalization-cbe {
     display: grid;
     grid-template-columns: 1fr;
-    grid-column-gap: 20px;
-    margin-top: 20px;
+    column-gap: 20px;
+    row-gap: 40px;
+    margin-block-end: 80px;
 
     > *:first-child {
         grid-column: span 2;
+        display: flex;
+        column-gap: 20px;
+        align-items: center;
+
+        img {
+            width: calc(50% - 10px);
+        }
     }
 
     > *:not(:first-child) {
@@ -21,8 +29,8 @@
     }
 
     .cbe-offer {
-        border: 1px solid #2f78c4;
-        padding: 20px;
-        margin-block-end: 20px;
+        h2 {
+            margin-block: 0;
+        }
     }
 }

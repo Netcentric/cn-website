@@ -7,12 +7,28 @@
 
     > *:first-child {
         grid-column: span 2;
-        display: flex;
-        column-gap: 20px;
-        align-items: center;
 
-        img {
-            width: calc(50% - 10px);
+        .img-wrap {
+            position: relative;
+        }
+
+        .img-mask {
+            position: absolute;
+            top: 0;
+            left: auto;
+            width: 100%;
+            height: 100%;
+            background-color: #000;
+            opacity: 0.5;
+        }
+
+        h2 {
+            width: 50%;
+            position: absolute;
+            top: 50%;
+            z-index: 2;
+            left: 20px;
+            color: #fff;
         }
     }
 
@@ -29,8 +45,14 @@
     }
 
     .ed-offer {
+        position: relative;
+
         h2 {
             margin-block: 0;
         }
+    }
+
+    img {
+        display: block;
     }
 }

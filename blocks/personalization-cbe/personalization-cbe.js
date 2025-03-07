@@ -5,7 +5,10 @@ function createCbeOffer(offer) {
   const imageSrc = offer.imageURL ? getImageURL(offer.imageURL) : '/insights/2023/12/media_1db1f637bcc9a28245d76086f2d141781cbcc080d.png?width=2000&format=webply&optimize=medium';
   offerElement.classList.add('cbe-offer');
   offerElement.innerHTML = `
-    <img src="${imageSrc}" alt="${offer.offerName}" />
+    <div class="img-wrapper">
+        <img src="${imageSrc}" alt="${offer.offerName}" />
+        <div class="img-mask"></div>
+    </div>
     <h2>${offer.content}</h2>
   `;
   return offerElement;

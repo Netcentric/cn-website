@@ -4,7 +4,7 @@ function createCardOffer(offer) {
   const offerElement = document.createElement('div');
   offerElement.classList.add('card-offer');
   offerElement.innerHTML = `
-    <h2>${offer.body?.content}</h2>
+    <h2>${offer.body?.text}</h2>
   `;
   return offerElement;
 }

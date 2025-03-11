@@ -26,7 +26,10 @@ function handleOffers(block, offer) {
 export default function decorate(block) {
   const content = block.textContent.trim();
   const editedContent = content.replace('Personalization ED:', '').trim();
-  if(!isValidJSON(editedContent)) return;
+  if (!isValidJSON(editedContent)) {
+    block.parentElement.remove();
+    return;
+  }
   const data = JSON.parse(editedContent);
   block.children[0].remove();
   data.forEach((offer) => {
@@ -38,5 +41,4 @@ export default function decorate(block) {
       handleOffers(block, offer.content);
     }
   });
-  // block.append(content);
 }

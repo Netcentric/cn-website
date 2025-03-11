@@ -806,3 +806,16 @@ main .section.text-white {
     cursor: pointer;
   }
 }
+
+.icon-netcentric-logo.personalized {
+  width: 110px !important;
+  height: 110px !important;
+  overflow: hidden;
+  border-radius: 50%;
+
+  img {
+    object-fit: cover;
+    height: 100%;
+    width: 100% ;
+  }
+}

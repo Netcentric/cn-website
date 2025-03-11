@@ -1,4 +1,4 @@
-import { handleHardReload } from './personalisation-helpers.js';
+import { handleHardReload, getImageURL } from './personalisation-helpers.js';
 
 let userLoggedIn = false;
 
@@ -82,34 +82,45 @@ function createDialog() {
   return dialog;
 }
 
-function setUpButtonText(button) {
-  button.textContent = userLoggedIn ? 'Log Out' : 'Log In';
+function setUpButtonTextAndLogo(button, logo) {
+  const firstName = window.personalizationData.content?.firstName ? `${window.personalizationData.content.firstName},` : '';
+  const imageSrc = window.personalizationData.content?.profileImageURL ? window.personalizationData.content.profileImageURL : '';
+  button.textContent = userLoggedIn ? `${firstName} Log Out` : 'Log In';
+  if (imageSrc) {
+    setTimeout(() => {
+      logo.classList.add('personalized');
+      logo.innerHTML = `<img src="${getImageURL(imageSrc)}" />`;
+    },100);
+  }
 }
 
 function setUserCookie(data) {
   document.cookie = `ncUser=${data}`;
-  document.cookie = 'userchanged=true';
   userLoggedIn = true;
 }
 
 function removeUserCookie() {
   document.cookie = 'ncUser=; expires=Thu, 01 Jan 1970 00:00:00 UTC;';
+  window.personalizationData = {};
   userLoggedIn = false;
 }
 
 export default function initLogIn(button) {
   const dialog = createDialog();
   const submitButton = dialog.querySelector('button');
+  const logo = document.querySelector('.icon-netcentric-logo');
+  window.personalizationData = window.personalizationData || {};
   userLoggedIn = getCookie('ncUser');
-  setUpButtonText(button);
+  setUpButtonTextAndLogo(button, logo);
   button.href = '#';
 
   button.addEventListener('click', (e) => {
     e.preventDefault();
 
     if (userLoggedIn) {
-      removeUserCookie()
-      setUpButtonText(button);
+      document.cookie = 'userchanged=true';
+      removeUserCookie();
+      setUpButtonTextAndLogo(button, logo);
       handleHardReload(window.location.href);
     } else {
       resetForm(document.forms.loginForm);
@@ -132,7 +143,7 @@ export default function initLogIn(button) {
 
     if (isValid) {
       setUserCookie(email);
-      setUpButtonText(button);
+      setUpButtonTextAndLogo(button, logo);
       dialog.close();
       handleHardReload(window.location.href);
     }

@@ -1,27 +1,4 @@
-import { isValidJSON, getImageURL } from '../../scripts/personalisation-helpers.js';
-
-function createCbeOffer(offer) {
-  const offerElement = document.createElement('div');
-  const imageSrc = offer.imageURL ? getImageURL(offer.imageURL) : '/insights/2023/12/media_1db1f637bcc9a28245d76086f2d141781cbcc080d.png?width=2000&format=webply&optimize=medium';
-  const subject = offer.subject ? `<p>${offer.subject}</p>` : '';
-  offerElement.classList.add('cbe-offer');
-  offerElement.innerHTML = `
-    <div class="img-wrapper">
-        <img src="${imageSrc}" alt="${offer.offerName}" />
-        <div class="img-mask"></div>
-    </div>
-    <div class="offer-details">
-      ${subject}
-      <h2>${offer.text}</h2>
-    </div>
-  `;
-  return offerElement;
-}
-
-function handleOffers(block, offer) {
-  const cbeOffer = createCbeOffer(offer);
-  block.append(cbeOffer);
-}
+import { isValidJSON } from '../../scripts/personalisation-helpers.js';
 
 export default function decorate(block) {
   const content = block.textContent.trim();
@@ -29,14 +6,6 @@ export default function decorate(block) {
   if(!isValidJSON(editedContent)) return;
   const data = JSON.parse(editedContent);
   block.children[0].remove();
-  data.forEach((offer) => {
-    if (Array.isArray(offer.content)) {
-      offer.content.forEach((subOffer) => {
-        handleOffers(block, subOffer);
-      });
-    } else {
-      handleOffers(block, offer.content);
-    }
-  });
-  // block.append(content);
+  window.personalizationData = {...data[0]};
+  console.log(data)
 }

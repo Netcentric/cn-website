@@ -142,6 +142,7 @@ export default function initLogIn(button) {
     const isValid = validateForm(form);
 
     if (isValid) {
+      document.cookie = 'userchanged=; expires=Thu, 01 Jan 1970 00:00:00 UTC;';
       setUserCookie(email);
       setUpButtonTextAndLogo(button, logo);
       dialog.close();

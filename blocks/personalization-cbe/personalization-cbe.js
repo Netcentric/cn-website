@@ -10,5 +10,4 @@ export default function decorate(block) {
   const data = JSON.parse(editedContent);
   block.children[0].remove();
   window.personalizationData = {...data[0]};
-  console.log(data)
 }

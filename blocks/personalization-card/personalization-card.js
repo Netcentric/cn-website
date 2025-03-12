@@ -3,13 +3,11 @@ import { loadCSS } from '../../scripts/lib-franklin.js';
 
 function createCardOffer(offer) {
   const offerElement = document.createElement('div');
-  offerElement.classList.add('hero-container');
+  offerElement.classList.add('card-offer');
   offerElement.innerHTML = `
-    <div class="hero-wrapper">
         <h2>${offer.title?.content}</h2>
         <p>${offer.body?.content}</p>
-        <a href="#">${offer.buttons?.text?.content}</a>
-    </div>
+        <a href="#">${offer.buttons[0]?.text?.content}</a>
   `;
   return offerElement;
 }
@@ -29,6 +27,7 @@ export default function decorate(block) {
   loadCSS('/blocks/hero/hero.css');
   const data = JSON.parse(editedContent);
   block.children[0].remove();
+  console.log(data)
   data.forEach((offer) => {
     if (Array.isArray(offer.content)) {
       offer.content.forEach((subOffer) => {
@@ -38,5 +37,4 @@ export default function decorate(block) {
       handleOffers(block, offer.content);
     }
   });
-  block.append(content);
 }

@@ -1,7 +1,17 @@
 .personalization-card {
+    width: var(--section-width);
+    margin: 0 auto;
+    padding: 60px 0;
+
     h2,
     p,
     a {
         color: #fff !important;
     }
+}
+
+.personalization-card-wrapper {
+    background-color: var(--c-dark-plum);
+    margin-inline: 0 !important;
+    width: 100% !important;
 }

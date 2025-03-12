@@ -1,10 +1,15 @@
 import { isValidJSON } from '../../scripts/personalisation-helpers.js';
+import { loadCSS } from '../../scripts/lib-franklin.js';
 
 function createCardOffer(offer) {
   const offerElement = document.createElement('div');
-  offerElement.classList.add('card-offer');
+  offerElement.classList.add('hero-container');
   offerElement.innerHTML = `
-    <h2>${offer.body?.text}</h2>
+    <div class="hero-wrapper">
+        <h2>${offer.title?.content}</h2>
+        <p>${offer.body?.content}</p>
+        <a href="#">${offer.buttons?.text?.content}</a>
+    </div>
   `;
   return offerElement;
 }
@@ -21,6 +26,7 @@ export default function decorate(block) {
     block.parentElement.remove();
     return;
   }
+  loadCSS('/blocks/hero/hero.css');
   const data = JSON.parse(editedContent);
   block.children[0].remove();
   data.forEach((offer) => {

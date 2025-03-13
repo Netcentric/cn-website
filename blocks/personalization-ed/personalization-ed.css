@@ -32,7 +32,6 @@
             }
 
             .offer-details {
-                width: 65%;
                 position: absolute;
                 top: 40%;
                 z-index: 2;
@@ -43,6 +42,12 @@
                 color: #fff;
                 font-weight: bold;
                 text-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+            }
+        }
+
+        @media (min-width: 1200px) {
+            .offer-details {
+                width: 65%;
             }
         }
     }

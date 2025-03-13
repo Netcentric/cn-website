@@ -4,6 +4,7 @@ function createEdOffer(offer) {
   const offerElement = document.createElement('div');
   const imageSrc = offer.imageURL ? getImageURL(offer.imageURL) : '/insights/2023/12/media_1db1f637bcc9a28245d76086f2d141781cbcc080d.png?width=2000&format=webply&optimize=medium';
   const subject = offer.subject ? `<p>${offer.subject}</p>` : '';
+  const button = offer.buttonText ? `<p class="button-container"><a href="#" class="button primary">${offer.buttonText}</a></p>` : '';
   offerElement.classList.add('ed-offer');
   offerElement.innerHTML = `
     <div class="img-wrapper">
@@ -13,6 +14,7 @@ function createEdOffer(offer) {
     <div class="offer-details">
       ${subject}
       <h2>${offer.text}</h2>
+      ${button}
     </div>
   `;
   return offerElement;

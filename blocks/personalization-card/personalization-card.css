@@ -1,12 +1,27 @@
 .personalization-card {
     width: var(--section-width);
     margin: 0 auto;
-    padding: 60px 0;
+    padding: 28px 0;
+    margin-block-end: 30px;
 
-    h2,
-    p,
-    a {
-        color: #fff !important;
+    .card-offer {
+        padding-inline: 20px;
+
+        @media (min-width: 900px) {
+            display: flex;
+            column-gap: 20px;
+        }
+    }
+
+    img {
+        @media (min-width: 900px) {
+            width: 40%;
+        }
+    }
+
+    h1 {
+        color: inherit;
+        margin-block: 0;
     }
 }
 
@@ -14,4 +29,8 @@
     background-color: var(--c-dark-plum);
     margin-inline: 0 !important;
     width: 100% !important;
+}
+
+.personalization-card-container {
+    padding: 0 !important;
 }

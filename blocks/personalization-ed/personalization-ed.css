@@ -11,11 +11,11 @@
         }
 
         h2 {
-            font-size: 48px;
+            font-size: 38px;
         }
 
         p {
-            font-size: 24px;
+            font-size: 30px;
         }
 
         @media (min-width: 900px) {

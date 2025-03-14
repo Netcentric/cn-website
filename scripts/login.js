@@ -82,16 +82,9 @@ function createDialog() {
   return dialog;
 }
 
-function setUpButtonTextAndLogo(button, logo) {
+function setUpButtonText(button) {
   const firstName = window.personalizationData.content?.firstName ? `${window.personalizationData.content.firstName},` : '';
-  const imageSrc = window.personalizationData.content?.profileImageURL ? window.personalizationData.content.profileImageURL : '';
   button.textContent = userLoggedIn ? `${firstName} Log Out` : 'Log In';
-  if (imageSrc) {
-    setTimeout(() => {
-      logo.classList.add('personalized');
-      logo.innerHTML = `<img src="${getImageURL(imageSrc)}" />`;
-    },100);
-  }
 }
 
 function setUserCookie(data) {
@@ -111,7 +104,7 @@ export default function initLogIn(button) {
   const logo = document.querySelector('.icon-netcentric-logo');
   window.personalizationData = window.personalizationData || {};
   userLoggedIn = getCookie('ncUser');
-  setUpButtonTextAndLogo(button, logo);
+  setUpButtonText(button);
   button.href = '#';
 
   button.addEventListener('click', (e) => {
@@ -120,7 +113,7 @@ export default function initLogIn(button) {
     if (userLoggedIn) {
       document.cookie = 'userchanged=true';
       removeUserCookie();
-      setUpButtonTextAndLogo(button, logo);
+      setUpButtonText(button);
       handleHardReload(window.location.href);
     } else {
       resetForm(document.forms.loginForm);
@@ -144,7 +137,7 @@ export default function initLogIn(button) {
     if (isValid) {
       document.cookie = 'userchanged=; expires=Thu, 01 Jan 1970 00:00:00 UTC;';
       setUserCookie(email);
-      setUpButtonTextAndLogo(button, logo);
+      setUpButtonText(button);
       dialog.close();
       handleHardReload(window.location.href);
     }

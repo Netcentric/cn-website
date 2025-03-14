@@ -148,7 +148,7 @@ export default async function decorate(block) {
 
     // decorate nav DOM
     const nav = document.createElement('nav');
-    if (window.personalizationData.content?.profileImageURL) {
+    if (window.personalizationData?.content?.profileImageURL) {
       const classes = 'icon icon-netcentric-logo icon-decorated personalized';
       const url = getImageURL(window.personalizationData.content.profileImageURL);
       const altText = window.personalizationData.content?.firstName || 'Netcentric logo';

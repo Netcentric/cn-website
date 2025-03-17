@@ -749,6 +749,10 @@ main .section.text-white {
 
   .login-dialog-content {
     padding: 40px;
+
+    @media (min-width: 900px) {
+      max-width: 600px;
+    }
   }
 
   .form-wrapper {

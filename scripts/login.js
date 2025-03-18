@@ -1,18 +1,6 @@
-import { handleHardReload } from './personalisation-helpers.js';
+import { handleHardReload, getCookie } from './personalisation-helpers.js';
 
 let userLoggedIn = false;
-
-function getCookie(cookieStartName) {
-  const decodedCookie = decodeURIComponent(document.cookie);
-  const ca = decodedCookie.split(';');
-  for (let i = 0; i < ca.length; i++) {
-    const c = ca[i].trim();
-    if (c.startsWith(cookieStartName)) {
-      return c.substring(c.indexOf('=') + 1);
-    }
-  }
-  return '';
-}
 
 function resetForm(form) {
   const inputs = form.querySelectorAll('input');
@@ -204,6 +192,8 @@ function createSignInButton(button) {
           <input type="text" name="email" data-validate="email" required>
           <label for="password">Password</label>
           <input type="password" name="password" required>
+          <input type="checkbox" name="consent" required>
+          <label for="consent">I have read the <a href="https://www.netcentric.biz/legal/privacy">privacy policy</a> and agree to it.</label>
           <button type="submit">Sign In</button>   
         </div>
       </div>  

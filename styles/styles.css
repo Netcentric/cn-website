@@ -772,7 +772,7 @@ main .section.text-white {
     right: 0;
   }
 
-  input,
+  input:not([type='checkbox']),
   button {
     box-sizing: border-box;
     font-size: 16px;

@@ -20,8 +20,21 @@ function getImageURL(imageUrl) {
   return imageUrl;
 }
 
+function getCookie(cookieStartName) {
+  const decodedCookie = decodeURIComponent(document.cookie);
+  const ca = decodedCookie.split(';');
+  for (let i = 0; i < ca.length; i++) {
+    const c = ca[i].trim();
+    if (c.startsWith(cookieStartName)) {
+      return c.substring(c.indexOf('=') + 1);
+    }
+  }
+  return '';
+}
+
 export {
   handleHardReload,
   isValidJSON,
-  getImageURL
+  getImageURL,
+  getCookie
 }

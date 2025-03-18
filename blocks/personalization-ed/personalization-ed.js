@@ -9,8 +9,8 @@ function createEdOffer(offer, index) {
   const button = offer.buttonText ? `<p class="button-container"><a href="#" class="button primary">${offer.buttonText}</a></p>` : '';
   const isAutenticated = getCookie('ncUser');
   const imgMask = isAutenticated ? '<div class="img-mask"></div>' : '';
-  const imageLoading = !isAutenticated && index === 1 ? 'eager' : 'lazy';
-  const offerPicture = createOptimizedPicture(imageSrc, offer.offerName, imageLoading, [{ media: '(min-width: 900px)', width: '2000' }, { width: '1200' }]);
+  const imageLoading = !isAutenticated && index === 0;
+  const offerPicture = createOptimizedPicture(imageSrc, offer.offerName, imageLoading, [{ media: '(min-width: 900px)', width: '2000' }, { width: '1000' }]);
   offerElement.classList.add('ed-offer');
   offerElement.innerHTML = `
     <div class="img-wrapper">

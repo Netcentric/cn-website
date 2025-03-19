@@ -173,7 +173,7 @@ function createSignInButton(button) {
   if (userLoggedIn) return;
   const signInButton = document.createElement('a');
   signInButton.href = '#';
-  signInButton.textContent = 'Sign In';
+  signInButton.textContent = 'Sign Up';
   button.parentElement.append(signInButton);
 
   const dialog = document.createElement('dialog');
@@ -188,6 +188,13 @@ function createSignInButton(button) {
           <input type="text" name="lastName" required>
           <label for="company">Company</label>
           <input type="text" name="company" required>
+          <div>
+            <label for="role">Role</label>
+            <div>
+              <input type="checkbox" name="consent">
+              <label for="consent">Jobseeker</label>
+            </div>
+          </div>
           <label for="email">Email</label>
           <input type="text" name="email" data-validate="email" required>
           <label for="password">Password</label>

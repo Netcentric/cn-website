@@ -757,6 +757,10 @@ main .section.text-white {
 
   .form-wrapper {
     position: relative;
+
+    > div {
+      margin-bottom: 20px;
+    }
   }
 
   input {

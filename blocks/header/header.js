@@ -1,5 +1,7 @@
 import { decorateIcons, getMetadata, getLanguagePath } from '../../scripts/lib-franklin.js';
 import { addChevronToButtons } from '../../scripts/scripts.js';
+import initLogIn from '../../scripts/login.js';
+import { getImageURL } from '../../scripts/personalisation-helpers.js';
 
 const mobileBreakpoint = 900;
 let globalWindowWidth = window.innerWidth;
@@ -106,6 +108,8 @@ function languageSwitch() {
   const langSwitch = header.querySelector('.nav-tools ul');
   const langLinks = langSwitch.querySelectorAll('li:not(:last-of-type) a');
 
+  initLogIn(langSwitch.querySelector('li:last-of-type a'));
+
   const defaultLanguage = 'en';
   const currentLang = document.documentElement.lang;
   const isInDefaultLang = currentLang === defaultLanguage;
@@ -139,12 +143,23 @@ export default async function decorate(block) {
   // fetch nav content
   const resp = await fetch(`${getLanguagePath()}${getNavPath()}.plain.html`);
   if (resp.ok) {
-    const html = await resp.text();
+    let html = await resp.text();
     const isCampaignTemplate = document.querySelector('meta[content="campaign"]');
 
     // decorate nav DOM
     const nav = document.createElement('nav');
+    if (window.personalizationData?.content?.profileImageURL) {
+      const classes = 'icon icon-netcentric-logo icon-decorated personalized';
+      const url = getImageURL(window.personalizationData.content.profileImageURL);
+      const altText = window.personalizationData.content?.firstName || 'Netcentric logo';
+      html = html.replace('<span class="icon icon-netcentric-logo"></span>', `
+        <span class="icon icon-netcentric-logo icon-decorated personalized">
+            <img src="${url}" alt="${altText}" class="${classes}" />
+        </span>
+      `);
+    }
     nav.innerHTML = html;
+
 
     const classes = isCampaignTemplate ? ['brand'] : ['brand', 'sections', 'search', 'tools'];
     classes.forEach((e, j) => {

@@ -7,7 +7,7 @@ const getEmbedURL = () => {
   const urlParams = new URLSearchParams(window.location.search);
   const jobId = urlParams.get('jobId');
 
-  if (jobId) {
+  if (jobId && /^[A-Z0-9]{8}$/.test(jobId)) {
     const url = new URL(`/netcentric/job/${jobId}`, baseUrl);
     return url.href;
   }

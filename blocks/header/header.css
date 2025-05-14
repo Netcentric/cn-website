@@ -243,18 +243,21 @@ header nav[aria-expanded='true'] .nav-search {
 .search-form .search-input {
   border-top-left-radius: 0.3em;
   border-bottom-left-radius: 0.3em;
+  border-inline-end: none;
   flex-grow: 2;
 }
 
 .search-form :where(input, button) {
   border-width: thin;
   border-color: var(--c-dark-plum);
+  border-style: solid
 }
 
 /* stylelint-disable-next-line no-descending-specificity */
 .nav-search svg {
   height: 1em;
   width: 1em;
+  vertical-align: top;
 }
 
 /* tools */

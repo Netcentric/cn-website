@@ -3,6 +3,7 @@ coverage/*
 logs/*
 node_modules/*
 .idea/*
+.vscode/*
 
 helix-importer-ui
 .cache

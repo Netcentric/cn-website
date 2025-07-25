@@ -57,7 +57,7 @@ body:not(.blogpost) main .hero a:any-link {
 }
 
 body:not(.blogpost) main .hero a:any-link:hover {
-  border: 1px solid var(--c-white);
+  border: 1px solid var(--c-dark-plum);
   background: var(--c-dark-plum);
   color: var(--c-white);
 }

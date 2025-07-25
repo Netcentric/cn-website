@@ -12,7 +12,7 @@ main .hero-container > div {
 main .hero-container {
   padding: 0;
   background-color: var(--c-dark-plum);
-  color: var(--c-light-teal);
+  color: var(--c-white);
 }
 
 main .hero {

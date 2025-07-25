@@ -2,6 +2,7 @@ footer {
   background-color: var(--c-dark-mid-plum);
   font-size: var(--body-font-size-m);
   color: white;
+  margin-top: auto;
 }
 
 .footer {

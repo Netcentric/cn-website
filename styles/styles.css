@@ -134,6 +134,13 @@
   --nav-height: 72px;
 }
 
+html,
+body {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
 body {
   font-size: var(--body-font-size-m);
   letter-spacing: normal;
@@ -149,7 +156,7 @@ body {
 }
 
 body.appear {
-  display: unset;
+  display: inherit;
 }
 
 header {

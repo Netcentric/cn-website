@@ -1,7 +1,7 @@
 footer {
-  background-color: var(--c-dark-mid-plum);
+  background-color: var(--c-dark-plum);
   font-size: var(--body-font-size-m);
-  color: white;
+  color: var(--c-white);
 }
 
 .footer {
@@ -15,7 +15,7 @@ footer {
 }
 
 .footer a {
-  color: white;
+  color: var(--c-white);
   text-decoration: none;
 }
 
@@ -81,7 +81,7 @@ footer .icon svg {
   font-size: 46px;
   height: 1em;
   width: 1em;
-  fill: currentcolor;
+  fill: var(--c-white);
   display: inline-block;
 }
 

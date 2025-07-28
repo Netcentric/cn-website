@@ -62,6 +62,22 @@ body:not(.blogpost) main .hero a:any-link:hover {
   color: var(--c-light-teal);
 }
 
+body:not(.blogpost) main .hero a.button.primary svg {
+  fill: var(--c-dark-plum);
+}
+
+body:not(.blogpost) main .hero a.button.secondary svg {
+  fill: var(--c-white);
+}
+
+body:not(.blogpost) main .hero a.button.primary:hover svg {
+  fill: var(--c-white);
+}
+
+body:not(.blogpost) main .hero a.button.secondary:hover svg {
+  fill: var(--c-dark-plum);
+}
+
 main .hero img {
   object-fit: cover;
   width: 100%;

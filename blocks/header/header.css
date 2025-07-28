@@ -225,7 +225,7 @@ header nav[aria-expanded='true'] .nav-search {
 
 .search-form .search-submit {
   background-color: var(--c-dark-plum);
-  color: var(--c-light-teal);
+  color: var(--c-white);
   height: 1.8em;
   width: 1.8em;
   display: flex;
@@ -284,11 +284,6 @@ header nav .nav-sections li a {
   margin: 0 8px;
   -webkit-font-smoothing :antialiased;
   border-bottom: 3px solid transparent;
-}
-
-header nav .nav-sections li a:hover {
-  border-bottom: 3px solid #fff;
-  text-decoration: none;
 }
 
 header nav[aria-expanded='true'] .nav-tools ul {
@@ -461,7 +456,7 @@ header nav .nav-sections ul > li.nav-drop[aria-expanded='true'] > .nav-drop-ul-w
     border-color: var(--c-dark-plum);
     padding: 12px 0;
     margin: 0 8px;
-    color: var(--c-dark-plum);
+    color: var(--c-white);
     font-size: 12px;
     font-weight: 700;
     text-align: left;
@@ -469,8 +464,9 @@ header nav .nav-sections ul > li.nav-drop[aria-expanded='true'] > .nav-drop-ul-w
     text-transform: uppercase;
   }
 
-  header nav .nav-sections li a:hover {
-    border-bottom: 3px solid #fff;
+  header nav .nav-sections li a:hover,
+  header nav .nav-sections li a:focus {
+    border-bottom: 3px solid var(--c-white);
     text-decoration: none;
   }
 
@@ -499,7 +495,7 @@ header nav .nav-sections ul > li.nav-drop[aria-expanded='true'] > .nav-drop-ul-w
   header nav .nav-sections > ul > li.nav-drop > a {
     padding: 12px 0;
     margin: 0 8px;
-    color: var(--c-dark-plum);
+    color: var(--c-white);
     font-size: 12px;
     font-weight: 700;
     text-align: left;
@@ -514,10 +510,10 @@ header nav .nav-sections ul > li.nav-drop[aria-expanded='true'] > .nav-drop-ul-w
   /* Let's talk button */
   header nav .nav-tools > ul > li:last-of-type > a {
     background-color:var(--c-dark-plum);
-    color: var(--c-light-teal);
+    color: var(--c-white);
     border-width: thin;
     border-style: solid;
-    border-color:var(--c-dark-plum);
+    border-color: var(--c-white);
     border-image: initial;
     border-radius: 36px;
     font-size: 12px;
@@ -546,16 +542,12 @@ header nav .nav-sections ul > li.nav-drop[aria-expanded='true'] > .nav-drop-ul-w
     fill: currentcolor;
   }
 
-  header nav .nav-tools > ul > li:last-of-type > a:hover {
+  header nav .nav-tools > ul > li:last-of-type > a:hover,
+  header nav .nav-tools > ul > li:last-of-type > a:focus {
     border: 1px solid var(--c-dark-plum);
-    background: none;
+    background: var(--c-white);
     color: var(--c-dark-plum);
   }
-
-   header nav .nav-sections > ul > li.nav-drop > a:hover {
-    border-bottom: 3px solid var(--c-dark-plum);
-    text-decoration: none;
-   }
 
   /* First level nav */
   header nav .nav-sections ul {

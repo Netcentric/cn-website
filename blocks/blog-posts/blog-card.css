@@ -14,7 +14,7 @@
 .blog-cards-container .related-list-item {
   background-color: var(--c-white);
   padding: 10px var(--blog-card-padding);
-  border: 0;
+  border: 1px solid var(--c-dark-plum);
   max-width: 450px;
 }
 
@@ -80,6 +80,7 @@
   font-size: var(--body-font-size-s);
   text-transform: uppercase;
   font-weight: 700;
+  color: var(--c-dark-plum);
 }
 
 .blog-cards-container .teaser picture img {

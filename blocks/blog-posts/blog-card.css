@@ -27,11 +27,14 @@
   color: var(--c-dark-plum);
   font-weight: 400;
   line-height: 1.25em;
+  margin-inline: 10px;
 }
 
 .blog-cards-container .authorprofile-container {
   padding-bottom: 35px;
   color: var(--text-color);
+  margin-inline-start: 10px;
+
 }
 
 .blog-cards-container .authorprofile-info {
@@ -81,6 +84,7 @@
   text-transform: uppercase;
   font-weight: 700;
   color: var(--c-dark-plum);
+  margin-inline-start: 5px;
 }
 
 .blog-cards-container .teaser picture img {

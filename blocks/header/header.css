@@ -157,7 +157,7 @@ header nav[aria-expanded='true'] .nav-sections li {
   font-size: 16px;
   font-weight: 400;
   height: 1.5em;
-  color: white;
+  color: var(--c-white);
 }
 
 header nav .nav-sections span.close-menu-arrow svg {
@@ -168,7 +168,7 @@ header nav .nav-sections li span.icon.icon-chevron-right,
 header nav .nav-sections li span.icon.icon-chevron-right svg {
   width: 16px;
   height: 16px;
-  fill: white;
+  fill: var(--c-white);
   cursor: pointer;
 }
 
@@ -279,7 +279,7 @@ header nav[aria-expanded='true'] .nav-tools li {
 }
 
 header nav .nav-sections li a {
-  color: #fff;
+  color: var(--c-white);
   padding: 5px 0;
   margin: 0 8px;
   -webkit-font-smoothing :antialiased;
@@ -297,7 +297,7 @@ header nav[aria-expanded='true'] .nav-tools ul::before {
   width: 8px;
   height: 8px;
   transform: rotate(45deg);
-  background: #fff;
+  background: var(--c-white);
   bottom: -3px;
   top: auto;
   right: 27px;
@@ -327,7 +327,7 @@ header nav[aria-expanded='true'] .nav-tools[aria-expanded='true'] > ul {
   display: flex;
   position: absolute;
   bottom: 40px;
-  background: white;
+  background: var(--c-white);
 }
 
 header nav[aria-expanded='true'] .nav-tools button.lang-toggle {
@@ -344,8 +344,8 @@ header nav[aria-expanded='true'] .nav-tools button.lang-toggle::after {
   display: block;
   width: 8px;
   height: 8px;
-  border-left: 3px solid white;
-  border-top: 3px solid white;
+  border-left: 3px solid var(--c-white);
+  border-top: 3px solid var(--c-white);
   transform: rotate(-135deg);
   transition: transform 300ms;
 }
@@ -605,7 +605,7 @@ header nav .nav-sections ul > li.nav-drop[aria-expanded='true'] > .nav-drop-ul-w
     left: 40%;
     height: 100%;
     top: 0;
-    border-left: 3px solid white;
+    border-left: 3px solid var(--c-white);
     padding-left: 30px;
     padding-top: 50px;
     box-sizing: border-box;

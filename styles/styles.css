@@ -101,7 +101,7 @@
   --overlay-background-color: #eee;
   --highlight-background-color: #ccc;
   --text-color: var(--c-dark-gray);
-  --input-color: var(--c-black);
+  --input-color: var(--c-dark-plum);
   --heading-color: var(--c-dark-plum);
 
   /* fonts */
@@ -140,7 +140,7 @@ body {
   margin: 0;
   font-family: var(--body-font-family);
   line-height: 1.5;
-  color: var(--text-color);
+  color: var(--c-dark-plum);
   background-color: var(--background-color);
   display: none;
   -webkit-font-smoothing: antialiased;
@@ -244,7 +244,7 @@ button {
   font-size: var(--button-font-size-default);
   line-height: 1;
   cursor: pointer;
-  color: var(--c-dark-gray);
+  color: var(--c-dark-plum);
   background-color: transparent;
   margin: 0;
   white-space: nowrap;
@@ -265,7 +265,7 @@ button.secondary {
   line-height: 36px;
   height: 3em;
   border-radius: 36px;
-  border: thin solid var(--c-black);
+  border: thin solid var(--c-dark-plum);
 }
 
 a.button:hover,
@@ -321,7 +321,7 @@ main a.button > .icon-chevron-right,
 main a.button > .icon-chevron-right svg {
   width: 12px;
   height: 12px;
-  fill: var(--c-dark-gray);
+  fill: var(--c-dark-plum);
 }
 
 a.button.primary > .icon-chevron-right svg,

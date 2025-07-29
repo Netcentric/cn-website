@@ -498,7 +498,7 @@ main .section.dark-plum h2,
 main .section.dark-plum h3,
 main .section.dark-plum h4,
 main .section.dark-plum h5 {
-  color: var(--bg-text-dark-plum);
+  color: var(--c-white);
 }
 
 main .section.dark-plum a,
@@ -508,9 +508,14 @@ main .section.dark-plum button {
 
 main .section.dark-plum a.button.primary,
 main .section.dark-plum button.primary {
-  background-color: var(--c-light-teal);
-  border: thin solid var(--c-light-teal);
+  background-color: var(--c-white);
+  border: thin solid var(--c-white);
   color: var(--c-dark-plum);
+}
+
+main .section.dark-plum a.button.primary svg,
+main .section.dark-plum button.primary svg{
+  fill: var(--c-dark-plum);
 }
 
 main .section.dark-plum a.button.primary:hover,
@@ -519,7 +524,16 @@ main .section.dark-plum button.primary:hover,
 main .section.dark-plum button.primary:focus {
   opacity: 1;
   background-color: transparent;
-  color: var(--c-light-teal);
+  color: var(--c-white);
+}
+
+main .section.dark-plum a.button.primary:hover svg,
+main .section.dark-plum a.button.primary:focus svg,
+main .section.dark-plum button.primary:hover svg,
+main .section.dark-plum button.primary:focus svg {
+  opacity: 1;
+  background-color: transparent;
+  fill: var(--c-white);
 }
 
 main .section.light-blue {

@@ -99,19 +99,19 @@
 }
 
 .cards.teaser.background > ul > li > div:first-child {
-    background-color: rgb(46 48 142);
+    background-color: var(--c-dark-plum);
 }
 
 .cards.teaser.background > ul > li > div:nth-last-child(2) {
-    background-color: rgb(133 160 249);
+    background-color: var(--c-dark-plum);
 }
 
 .cards.teaser.background > ul > li > div:last-child {
-    background-color: rgb(47 120 196);
+    background-color: var(--c-dark-plum);
 }
 
 .cards.teaser.icons > ul > li > div:first-child {
-    background-color: #2e308e;
+    background-color: var(--c-dark-plum);
 }
 
 .cards.teaser.icons > ul > li > div:nth-last-child(2) {

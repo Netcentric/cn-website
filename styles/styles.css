@@ -317,6 +317,7 @@ button:disabled:hover {
 }
 
 
+/* stylelint-disable no-descending-specificity */
 button:hover > .icon-chevron-right svg,
 button:focus > .icon-chevron-right svg,
 a.button:hover > .icon-chevron-right svg,
@@ -349,6 +350,12 @@ a.button.secondary > .icon-chevron-right svg,
 div:not(.hero-container) a.button.primary > .icon-chevron-right svg{
   fill: var(--c-white);
 }
+
+main .section.dark-plum button.primary svg,
+main .section.dark-plum a.button.primary svg{
+  fill: var(--c-dark-plum);
+}
+/* stylelint-enable no-descending-specificity */
 
 span.icon {
   display: inline-block;
@@ -525,11 +532,6 @@ main .section.dark-plum button.primary {
   background-color: var(--c-white);
   border: thin solid var(--c-white);
   color: var(--c-dark-plum);
-}
-
-main .section.dark-plum button.primary svg,
-main .section.dark-plum a.button.primary svg{
-  fill: var(--c-dark-plum);
 }
 
 main .section.dark-plum a.button.primary:hover svg,

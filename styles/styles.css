@@ -342,10 +342,8 @@ div:not(.hero-container) a.button.primary:focus > .icon-chevron-right svg {
   fill: var(--c-dark-plum);
 }
 
-button primary:hover > .icon-chevron-right svg,
-button primary:focus > .icon-chevron-right svg,
-a.button:hover > .icon-chevron-right svg,
-a.button:focus > .icon-chevron-right svg {
+button primary a.button:hover > .icon-chevron-right svg,
+button primary a.button:focus > .icon-chevron-right svg {
   fill: var(--c-white);
 }
 

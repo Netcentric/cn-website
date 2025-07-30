@@ -115,35 +115,12 @@
 
 /* heading style */
 
-.columns.heading-white > div > div > :where(h1,h2,h3,h4,h5,h6):first-of-type {
+.columns.heading-white > div > div > :where(h1,h2,h3,h4,h5,h6) {
   color: var(--c-white);
 }
 
-.columns.heading-dark-blue > div > div > :where(h1,h2,h3,h4,h5,h6):first-of-type {
-    color: var(--c-dark-blue);
-}
-
-.columns.heading-dark-teal > div > div > :where(h1,h2,h3,h4,h5,h6):first-of-type {
-  color: var(--c-dark-teal);
-}
-
-.columns.heading-dark-plum > div > div > :where(h1,h2,h3,h4,h5,h6):first-of-type {
+.columns.heading-dark-plum > div > div > :where(h1,h2,h3,h4,h5,h6) {
     color: var(--c-dark-plum);
-}
-
-.columns.rainbow > div > div:nth-of-type(3n),
-.columns.rainbow-reverse > div > div:nth-of-type(3n + 1) {
-    background-color: var(--c-mid-blue);
-}
-
-.columns.rainbow > div > div:nth-child(3n + 1),
-.columns.rainbow-reverse > div > div:nth-of-type(3n) {
-    background-color: var(--c-mid-plum);
-}
-
-.columns.rainbow > div > div:nth-child(3n + 2),
-.columns.rainbow-reverse > div > div:nth-of-type(3n + 2) {
-    background-color: var(--c-dark-blue);
 }
 
 @media (min-width: 600px) {

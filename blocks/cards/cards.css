@@ -73,7 +73,7 @@
 .cards.side-by-side .cards-card-body h3,
 .cards.side-by-side .cards-card-body h4,
 .cards.side-by-side .cards-card-body h5 {
-    color: var(--c-white);
+    color: var(--c-dark-plum);
 }
 
 .cards.side-by-side .cards-card-body h3 {
@@ -82,7 +82,7 @@
 }
 
 .cards.teaser > ul > li .cards-card-body h3 {
-    color: white;
+    color: var(--c-dark-plum);
     font-size: 30px;
     margin-top: 10px;
     font-weight: 300;
@@ -165,7 +165,7 @@
 .cards.side-by-side .cards-card-body h3 a,
 .cards.side-by-side .cards-card-body h4 a,
 .cards.side-by-side .cards-card-body h5 a {
-    color: var(--c-white);
+    color: var(--c-dark-plum);
 }
 
 .cards.side-by-side .cards-card-body h3 a {
@@ -411,50 +411,7 @@
 }
 
 /* background colors */
-.cards-card-bg-dark-teal {
-    background-color: var(--c-dark-teal);
-  }
-  
-  .cards-card-bg-mid-teal {
-    background-color: var(--c-mid-teal);
-  }
-  
-  .cards-card-bg-light-teal {
-    background-color: var(--c-light-teal);
-  }
-  
-  .cards-card-bg-dark-blue {
-    background-color: var(--c-dark-blue);
-  }
-  
-  .cards-card-bg-light-blue {
-    background-color: var(--c-light-blue);
-  }
-  
-  .cards-card-bg-midnight-blue {
-    background-color: var(--c-midnight-blue);
-  }
-  
-  .cards-card-bg-dark-plum {
-    background-color: var(--c-dark-plum);
-  }
-  
-  .cards-card-bg-light-plum {
-    background-color: var(--c-light-plum);
-  }
-  
-  .cards-card-bg-mid-plum {
-    background-color: var(--c-mid-plum);
-  }
-  
-  .cards-card-bg-light-grey{
-    background-color: var(--c-light-gray);
-  }
-  
-  .cards-card-bg-mid-grey{
-    background-color: var(--c-mid-gray);
-  }
-  
-  .cards-card-bg-dark-grey{
-    background-color: var(--c-dark-gray);
+[class^="cards-card-bg-"] {
+    background-color: var(--c-white);
+    border: 1px solid var(--c-dark-plum);
   }

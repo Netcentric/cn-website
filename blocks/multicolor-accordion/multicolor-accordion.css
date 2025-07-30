@@ -5,14 +5,24 @@
 }
 
 .multicolor-accordion-wrap a.button.primary {
-  border: 1px solid var(--c-light-teal);
-  background: var(--c-light-teal);
+  border: 1px solid var(--c-dark-plum);
+  background: var(--c-white);
   color: var(--c-dark-plum);
 }
 
-.multicolor-accordion-wrap a.button.primary:hover {
-  background: transparent;
-  color: var(--c-light-teal);
+.multicolor-accordion-wrap a.button.primary svg {
+  fill: var(--c-dark-plum) !important;
+}
+
+.multicolor-accordion-wrap > li:nth-child(odd) a.button.primary:hover {
+    background: transparent;
+    color: var(--c-white);
+    border: 1px solid var(--c-white);
+}
+
+
+.multicolor-accordion-wrap > li:nth-child(odd) a.button.primary:hover svg {
+    fill: var(--c-white) !important;
 }
 
 .accordion-item {
@@ -35,12 +45,17 @@
     font-weight: 700;
 }
 
+.multicolor-accordion-wrap > li:nth-child(even) .accordion-trigger > div {
+    color: var(--c-dark-plum);
+}
+  
 .multicolor-accordion-wrap > li:nth-child(odd) {
   background: var(--c-dark-plum);
 }
 
 .multicolor-accordion-wrap > li:nth-child(even) {
-    background: var(--c-dark-blue);
+    border: 1px solid var(--c-dark-plum);
+    background: var(--c-white);
 }
 
 .accordion-trigger .btn {
@@ -51,20 +66,29 @@
     min-width: 56px;
     cursor: pointer;
     font-size: 15px;
-    border: 1px solid var(--c-light-teal);
+    border: 1px solid var(--c-white);
     transition: background-color 0.5s, color 0.5s;
     display: none;
 }
 
 .accordion-trigger .details-button {
-    background: var(--c-light-teal);
+    border: 1px solid var(--c-dark-plum);
+    background: var(--c-white);
     color: var(--c-dark-plum);
 }
 
 .accordion-trigger .details-button:hover,
 .accordion-trigger .details-button-open {
+    border: 1px solid var(--c-white);
     background: transparent;
-    color: var(--c-light-teal);
+    color: var(--c-white);
+}
+
+.multicolor-accordion-wrap > li:nth-child(even) .accordion-trigger .details-button:hover,
+.multicolor-accordion-wrap > li:nth-child(even) .accordion-trigger .details-button-open {
+  background: var(--c-dark-plum);
+  color: var(--c-white);
+  border: 1px solid var(--c-dark-plum);
 }
 
 .accordion-content {
@@ -73,6 +97,10 @@
     overflow: hidden;
     color: var(--c-white);
     padding: 0 16px;
+}
+
+.multicolor-accordion-wrap > li:nth-child(even) .accordion-content {
+  color: var(--c-dark-plum);
 }
 
 @media (min-width: 600px) {

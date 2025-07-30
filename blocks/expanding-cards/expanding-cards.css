@@ -36,23 +36,12 @@
 }
 
 .expanding-cards-item {
+    background-color: var(--c-dark-plum);
     position: relative;
     cursor: pointer;
     flex: 1 1 100%;
     transition: flex-basis 0.5s;
     padding: 10px 0 70px;
-}
-
-.expanding-cards-item:nth-child(1) {
-    background-color: var(--c-midnight-blue);
-}
-
-.expanding-cards-item:nth-child(2) {
-    background-color: var(--c-dark-plum);
-}
-
-.expanding-cards-item:nth-child(3) {
-    background-color: var(--c-dark-blue);
 }
 
 .expanding-cards-content {

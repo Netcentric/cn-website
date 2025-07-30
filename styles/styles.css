@@ -317,6 +317,23 @@ button:disabled:hover {
 }
 
 
+button:hover > .icon-chevron-right svg,
+button:focus > .icon-chevron-right svg,
+a.button:hover > .icon-chevron-right svg,
+a.button:focus > .icon-chevron-right svg {
+  fill: var(--c-dark-plum);
+}
+
+button.primary a.button:hover > .icon-chevron-right svg,
+button.primary a.button:focus > .icon-chevron-right svg {
+  fill: var(--c-white);
+}
+
+div:not(.hero-container) a.button.primary:hover > .icon-chevron-right svg, 
+div:not(.hero-container) a.button.primary:focus > .icon-chevron-right svg {
+  fill: var(--c-dark-plum);
+}
+
 main a.button > .icon-chevron-right,
 main a.button > .icon-chevron-right svg {
   width: 12px;
@@ -330,20 +347,6 @@ a.button.primary > .icon-chevron-right svg{
 
 a.button.secondary > .icon-chevron-right svg,
 div:not(.hero-container) a.button.primary > .icon-chevron-right svg{
-  fill: var(--c-white);
-}
-
-button:hover > .icon-chevron-right svg,
-button:focus > .icon-chevron-right svg,
-a.button:hover > .icon-chevron-right svg,
-a.button:focus > .icon-chevron-right svg,
-div:not(.hero-container) a.button.primary:hover > .icon-chevron-right svg, 
-div:not(.hero-container) a.button.primary:focus > .icon-chevron-right svg {
-  fill: var(--c-dark-plum);
-}
-
-button primary a.button:hover > .icon-chevron-right svg,
-button primary a.button:focus > .icon-chevron-right svg {
   fill: var(--c-white);
 }
 

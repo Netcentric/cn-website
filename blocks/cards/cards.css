@@ -220,7 +220,6 @@
     }
 
     .cards.side-by-side > ul > li > .cards-card-body {
-        border: 1px solid var(--c-dark-plum);
         width: 260px;
     }
 
@@ -325,14 +324,12 @@
 /* cards side-by-side */
 @media (min-width: 1000px) {
     .cards.side-by-side > ul > li > .cards-card-body {
-        border: 1px solid var(--c-dark-plum);
         width: 250px;
     }
 }
 
 @media (min-width: 1200px) {
     .cards.side-by-side > ul > li > .cards-card-body {
-        border: 1px solid var(--c-dark-plum);
         width: 300px;
     }
 
@@ -386,9 +383,3 @@
   background-color: var(--bg-text-light-plum);
   color: var(--c-dark-plum);
 }
-
-/* background colors */
-[class^="cards-card-bg-"] {
-    background-color: var(--c-white);
-    border: 1px solid var(--c-dark-plum);
-  }

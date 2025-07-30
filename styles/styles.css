@@ -324,7 +324,10 @@ main a.button > .icon-chevron-right svg {
   fill: var(--c-dark-plum);
 }
 
-a.button.primary > .icon-chevron-right svg,
+a.button.primary > .icon-chevron-right svg{
+  fill: var(--c-dark-plum);
+}
+
 a.button.secondary > .icon-chevron-right svg{
   fill: var(--c-white);
 }
@@ -334,6 +337,13 @@ button:focus > .icon-chevron-right svg,
 a.button:hover > .icon-chevron-right svg,
 a.button:focus > .icon-chevron-right svg {
   fill: var(--c-dark-plum);
+}
+
+button primary:hover > .icon-chevron-right svg,
+button primary:focus > .icon-chevron-right svg,
+a.button:hover > .icon-chevron-right svg,
+a.button:focus > .icon-chevron-right svg {
+  fill: var(--c-white);
 }
 
 span.icon {

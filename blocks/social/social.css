@@ -67,17 +67,17 @@
 }
 
 .social .social-card-linkedin {
-    --bg-color: var(--linked-in);
+    --bg-color: var(--c-dark-plum);
     --fg-color: var(--bg-text-social);
 }
 
 .social .social-card-facebook {
-    --bg-color: var(--facebook);
+    --bg-color: var(--c-dark-plum);
     --fg-color: var(--bg-text-social);
 }
 
 .social .social-card-twitter {
-    --bg-color: var(--twitter);
+    --bg-color: var(--c-dark-plum);
     --fg-color: var(--bg-text-social);
 }
 

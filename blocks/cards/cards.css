@@ -148,6 +148,10 @@
     padding-right: 40px;
 }
 
+.cards-card-body a {
+    color: var(--c-dark-plum);
+}
+
 .cards.side-by-side .cards-card-body h3 a {
     font-weight: 600;
 }

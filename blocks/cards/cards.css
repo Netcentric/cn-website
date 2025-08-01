@@ -152,15 +152,15 @@
     padding-right: 40px;
 }
 
-.cards.side-by-side .cards-card-body h3 a {
-    font-weight: 600;
-}
-
 .cards.side-by-side .cards-card-bg-dark-plum,
 .cards.side-by-side .cards-card-bg-dark-plum a {
     background-color: var(--c-dark-plum);
     color: var(--c-white);
     line-height: 1.4em;
+}
+
+.cards.side-by-side .cards-card-body h3 a {
+    font-weight: 600;
 }
 
 .cards.side-by-side .cards-card-body h5 a:hover,

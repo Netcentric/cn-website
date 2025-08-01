@@ -75,8 +75,8 @@
 .expanding-cards-nav-item button {
     width: 10px;
     height: 10px;
-    background-color: var(--c-mid-gray);
-    border: 2px solid var(--c-mid-gray);
+    background-color: var(--c-dark-plum);
+    border: 2px solid var(--c-dark-plum);
     border-radius: 50%;
     display: flex;
     padding: 0;
@@ -99,5 +99,5 @@
 
 .expanding-cards-nav-item-active button {
     background: transparent;
-    border-color: var(--c-black);
+    border-color: var(--c-dark-plum);
 }

@@ -27,15 +27,10 @@
 
 :root {
   /* Netcentric colors */
-  --c-dark-blue: #2f78c4;
   --c-dark-mid-plum: #3e40a0; /* for background footer only */
   --c-dark-plum: #2e308e;
-  --c-light-blue: #92bbe6;
   --c-light-plum: #85a0f9;
-  --c-mid-blue: #6aa2dc;
   --c-mid-plum: #7373d8;
-  --c-mid-darkblue: #2f78c4;
-  --c-midnight-blue: #000048; /* cognizant color */
   --c-red: #b81f2d;
   --c-yellow: #e9c71d;
   --c-white: #fff;
@@ -66,9 +61,6 @@
   /* background-colors-text */
   --bg-text-mid-plum: var(--c-white);
   --bg-text-light-plum: var(--c-white);
-  --bg-text-dark-blue: var(--c-white);
-  --bg-text-mid-blue: var(--c-white);
-  --bg-text-light-blue: var(--c-dark-plum);
   --bg-text-yellow: var(--c-white);
   --bg-text-red: var(--c-white);
   --bg-text-white: var(--c-dark-plum);
@@ -535,47 +527,6 @@ main .section.dark-plum button.primary:focus {
   opacity: 1;
   background-color: transparent;
   color: var(--c-white);
-}
-
-main .section.light-blue {
-  background-color: var(--c-light-blue);
-  color: var(--bg-text-light-blue);
-}
-
-main .section.light-blue h2,
-main .section.light-blue h3,
-main .section.light-blue h4,
-main .section.light-blue h5 {
-  color: var(--bg-text-light-blue);
-}
-
-main .section.mid-blue {
-  background-color: var(--c-mid-darkblue);
-  color: var(--bg-text-mid-blue);
-}
-
-main .section.mid-blue h2,
-main .section.mid-blue h3,
-main .section.mid-blue h4,
-main .section.mid-blue h5 {
-  color: var(--bg-text-mid-blue);
-}
-
-main .section.dark-blue {
-  background-color: var(--c-dark-blue);
-  color: var(--bg-text-dark-blue);
-}
-
-main .section.dark-blue h2,
-main .section.dark-blue h3,
-main .section.dark-blue h4,
-main .section.dark-blue h5 {
-  color: var(--bg-text-dark-blue);
-}
-
-main .section.dark-blue a,
-main .section.dark-blue button {
-  color: var(--bg-text-dark-blue);
 }
 
 /* section text color */

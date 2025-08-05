@@ -2,7 +2,6 @@ import { createOptimizedPicture } from '../../scripts/lib-franklin.js';
 
 const supportedBackgroundColors = [
   'dark-plum',
-  'mid-plum',
 ];
 
 function getImageWidth(block) {

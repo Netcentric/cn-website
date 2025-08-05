@@ -89,11 +89,11 @@
 }
 
 input:checked + .slider {
-  background-color: var(--c-mid-plum);
+  background-color: var(--c-dark-plum);
 }
 
 input:focus + .slider {
-  box-shadow: 0 0 1px var(--c-mid-plum);
+  box-shadow: 0 0 1px var(--c-dark-plum);
 }
 
 input:checked + .slider::before {

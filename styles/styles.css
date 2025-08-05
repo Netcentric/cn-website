@@ -27,9 +27,7 @@
 
 :root {
   /* Netcentric colors */
-  --c-dark-mid-plum: #3e40a0; /* for background footer only */
   --c-dark-plum: #2e308e;
-  --c-mid-plum: #7373d8;
   --c-red: #b81f2d;
   --c-yellow: #e9c71d;
   --c-white: #fff;
@@ -58,7 +56,6 @@
   /* theme colors */
 
   /* background-colors-text */
-  --bg-text-mid-plum: var(--c-white);
   --bg-text-yellow: var(--c-white);
   --bg-text-red: var(--c-white);
   --bg-text-white: var(--c-dark-plum);
@@ -465,18 +462,6 @@ main .section.center {
 }
 
 /* section highlights */
-
-main .section.mid-plum {
-  background-color: var(--c-mid-plum);
-  color: var(--bg-text-mid-plum);
-}
-
-main .section.mid-plum h2,
-main .section.mid-plum h3,
-main .section.mid-plum h4,
-main .section.mid-plum h5 {
-  color: var(--bg-text-mid-plum);
-}
 
 main .section.dark-plum {
   background-color: var(--c-dark-plum);

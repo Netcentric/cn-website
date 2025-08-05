@@ -65,35 +65,21 @@
   background-color: var(--c-dark-blue);
 }
 
-.columns.background-light-gray {
-  background-color: var(--c-light-gray);
-}
-
-.columns.background-dark-gray {
-  background-color: var(--c-dark-gray);
-}
-
 .columns.background-light-plum,
 .columns.background-dark-plum,
-.columns.background-dark-blue,
-.columns.background-light-gray,
-.columns.background-dark-gray {
+.columns.background-dark-blue {
   padding: 0 16px;
 }
 
 .columns.background-light-plum > div > div,
 .columns.background-dark-blue > div > div,
-.columns.background-dark-plum > div > div,
-.columns.background-light-gray > div > div,
-.columns.background-dark-gray > div > div {
+.columns.background-dark-plum > div > div {
   background-color: white;
 }
 
 .columns.background-light-plum > div > div > *,
 .columns.background-dark-blue > div > div > *,
-.columns.background-dark-plum > div > div > *,
-.columns.background-light-gray > div > div > *,
-.columns.background-dark-gray > div > div > * {
+.columns.background-dark-plum > div > div > * {
   margin: 16px 0;
 }
 

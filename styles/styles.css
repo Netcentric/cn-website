@@ -30,13 +30,10 @@
   --c-dark-blue: #2f78c4;
   --c-dark-mid-plum: #3e40a0; /* for background footer only */
   --c-dark-plum: #2e308e;
-  --c-dark-gray: #53565a;
   --c-light-blue: #92bbe6;
   --c-light-plum: #85a0f9;
-  --c-light-gray: #d0d0ce;
   --c-mid-blue: #6aa2dc;
   --c-mid-plum: #7373d8;
-  --c-mid-gray: #97999b;
   --c-mid-darkblue: #2f78c4;
   --c-midnight-blue: #000048; /* cognizant color */
   --c-red: #b81f2d;
@@ -72,8 +69,6 @@
   --bg-text-dark-blue: var(--c-white);
   --bg-text-mid-blue: var(--c-white);
   --bg-text-light-blue: var(--c-dark-plum);
-  --bg-text-dark-grey: var(--c-white);
-  --bg-text-light-grey: var(--c-dark-plum);
   --bg-text-yellow: var(--c-white);
   --bg-text-red: var(--c-white);
   --bg-text-white: var(--c-dark-plum);
@@ -581,39 +576,6 @@ main .section.dark-blue h5 {
 main .section.dark-blue a,
 main .section.dark-blue button {
   color: var(--bg-text-dark-blue);
-}
-
-main .section.light-grey {
-  background-color: var(--c-light-gray);
-  color: var(--bg-text-light-grey);
-}
-
-main .section.light-grey h2,
-main .section.light-grey h3,
-main .section.light-grey h4,
-main .section.light-grey h5 {
-  color: var(--bg-text-light-grey);
-}
-
-main .section.mid-grey {
-  background-color: var(--c-mid-gray);
-}
-
-main .section.dark-grey {
-  background-color: var(--c-dark-gray);
-  color: var(--bg-text-dark-grey);
-}
-
-main .section.dark-grey h2,
-main .section.dark-grey h3,
-main .section.dark-grey h4,
-main .section.dark-grey h5 {
-  color: var(--bg-text-dark-grey);
-}
-
-main .section.dark-grey a,
-main .section.dark-grey button {
-  color: var(--bg-text-dark-grey);
 }
 
 /* section text color */

@@ -7,9 +7,6 @@ const supportedBackgroundColors = [
   'dark-plum',
   'light-plum',
   'mid-plum',
-  'light-gray',
-  'mid-gray',
-  'dark-gray',
 ];
 
 function getImageWidth(block) {

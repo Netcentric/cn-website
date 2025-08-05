@@ -7,7 +7,7 @@
   font-weight: 400;
   font-size: var(--heading-font-size-xl);
   line-height: 46px;
-  color: var(--c-light-teal);
+  color: var(--c-white);
   margin-bottom: 25px;
 }
 
@@ -137,7 +137,7 @@
   text-align: center;
   padding: 20px;
   font-size: 30px;
-  color: var(--c-mid-plum);
+  color: var(--c-dark-plum);
   font-weight: 400;
 }
 
@@ -154,7 +154,7 @@
   right: 0;
   top: 0;
   border-radius: 50%;
-  border: 1px solid var(--c-black);
+  border: 1px solid var(--c-dark-plum);
   cursor: pointer;
 }
 
@@ -164,7 +164,7 @@
   position: absolute;
   width: 18px;
   height: 2px;
-  background: var(--c-black);
+  background: var(--c-dark-plum);
   transform: rotate(45deg);
   top: calc(50% - 1px);
   left: calc(50% - 9px);
@@ -190,7 +190,7 @@
   padding: 0 24px;
   height: 36px;
   line-height: 36px;
-  color: var(--c-black);
+  color: var(--c-dark-plum);
   cursor: pointer;
   border: none;
 }

@@ -27,7 +27,6 @@
 
 :root {
   /* Netcentric colors */
-  --c-black: #000;
   --c-dark-blue: #2f78c4;
   --c-dark-mid-plum: #3e40a0; /* for background footer only */
   --c-dark-plum: #2e308e;
@@ -65,7 +64,7 @@
   --c-error: var(--c-highlight-red);
 
   /* default */
-  --c-text-default: var(--c-black);
+  --c-text-default: var(--c-dark-plum);
   --c-primary: var(--c-dark-plum);
 
   /* theme colors */
@@ -85,7 +84,6 @@
   --bg-text-yellow: var(--c-white);
   --bg-text-red: var(--c-white);
   --bg-text-white: var(--c-dark-plum);
-  --bg-text-black: var(--c-white);
 
   /* colors with opacity */
   --c-white-50: rgb(255 255 255 / 50%);

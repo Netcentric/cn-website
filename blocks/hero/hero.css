@@ -135,7 +135,7 @@ body.blogpost main .hero img {
 }
 
 body.blogpost main .hero p {
-  color: var(--text-color);
+  color: var(--c-dark-plum);
 }
 
 @media (min-width: 900px) {

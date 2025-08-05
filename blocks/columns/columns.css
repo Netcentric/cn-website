@@ -55,23 +55,13 @@
 
 .columns.background-dark-plum {
   background-color: var(--c-dark-plum);
-}
-
-.columns.background-light-plum {
-  background-color: var(--c-light-plum);
-}
-
-.columns.background-light-plum,
-.columns.background-dark-plum {
   padding: 0 16px;
 }
 
-.columns.background-light-plum > div > div,
 .columns.background-dark-plum > div > div {
   background-color: white;
 }
 
-.columns.background-light-plum > div > div > *,
 .columns.background-dark-plum > div > div > * {
   margin: 16px 0;
 }

@@ -2,7 +2,6 @@ import { createOptimizedPicture } from '../../scripts/lib-franklin.js';
 
 const supportedBackgroundColors = [
   'dark-plum',
-  'light-plum',
   'mid-plum',
 ];
 

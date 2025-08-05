@@ -10,9 +10,9 @@
   color: var(--c-dark-plum);
 }
 
-.multicolor-accordion-wrap a.button.primary svg {
-  fill: var(--c-dark-plum) !important;
-}
+.multicolor-accordion-wrap a.button.primary.primary > .icon-chevron-right svg {
+    fill: var(--c-dark-plum);
+  }
 
 .multicolor-accordion-wrap > li:nth-child(odd) a.button.primary:hover {
     background: transparent;
@@ -20,9 +20,18 @@
     border: 1px solid var(--c-white);
 }
 
+.multicolor-accordion-wrap > li:nth-child(even) a.button.primary:hover {
+    background: var(--c-dark-plum);
+    color: var(--c-white);
+    border: 1px solid var(--c-dark-plum);
+  }
+  
+  .multicolor-accordion-wrap > li:nth-child(even) a.button.primary:hover > .icon-chevron-right svg {
+    fill: var(--c-white);
+  }
 
-.multicolor-accordion-wrap > li:nth-child(odd) a.button.primary:hover svg {
-    fill: var(--c-white) !important;
+.multicolor-accordion-wrap li:nth-child(odd) a.button.primary.primary:hover > .icon-chevron-right svg {
+    fill: var(--c-white);
 }
 
 .accordion-item {

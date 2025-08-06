@@ -59,7 +59,7 @@
 }
 
 .columns.background-dark-plum > div > div {
-  background-color: white;
+  background-color: var(--c-white);
 }
 
 .columns.background-dark-plum > div > div > * {

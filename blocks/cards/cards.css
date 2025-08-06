@@ -54,7 +54,7 @@
     padding-right: 40px;
     position: absolute;
     top: 5px;
-    color: white;
+    color: var(--c-white);
     width: 85%;
 }
 
@@ -80,7 +80,7 @@
 }
 
 .cards.side-by-side > ul > li a.button:any-link {
-  color: white;
+  color: var(--c-white);
 }
 
 .cards.side-by-side > ul > li a.button:any-link:hover {

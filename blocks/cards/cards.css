@@ -39,6 +39,7 @@
     flex-grow: 1;
 }
 
+.cards.icon-with-text .cards-card-body > h3,
 .cards.icon-with-text .cards-card-body > h4,
 .cards.icon-with-text .cards-card-body > p {
     color: var(--c-dark-plum);

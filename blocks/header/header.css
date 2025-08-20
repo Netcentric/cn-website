@@ -49,7 +49,7 @@ header nav .nav-brand p {
   margin: 0;
 }
 
-header nav .nav-brand .icon, header nav .nav-brand .icon svg {
+header nav .nav-brand img {
   width: 150px;
   height: 40px;
 }

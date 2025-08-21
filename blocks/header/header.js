@@ -154,7 +154,6 @@ export default async function decorate(block) {
 
     if (isCampaignTemplate) {
       block.append(nav);
-      decorateIcons(nav);
       return;
     }
 
@@ -216,7 +215,14 @@ export default async function decorate(block) {
 
     // Add icons to buttons
     addChevronToButtons(nav, '.nav-tools li:last-child a');
-    decorateIcons(nav);
+
+    // Decorate only non-logo nav icons to avoid converting Netcentric logo
+    const navSectionsEl = nav.querySelector('.nav-sections');
+    if (navSectionsEl) decorateIcons(navSectionsEl);
+    const navSearchEl = nav.querySelector('.nav-search');
+    if (navSearchEl) decorateIcons(navSearchEl);
+    const navToolsEl = nav.querySelector('.nav-tools');
+    if (navToolsEl) decorateIcons(navToolsEl);
 
     // Add search form
     const searchIcon = navSearch.querySelector('.icon');

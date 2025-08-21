@@ -152,6 +152,11 @@ export default async function decorate(block) {
       if (section) section.classList.add(`nav-${e}`);
     });
 
+    const navBrand = nav.querySelector('.nav-brand');
+    if (navBrand) {
+      navBrand.querySelectorAll('.icon-decorated').forEach((el) => el.classList.remove('icon-decorated'));
+    }
+
     if (isCampaignTemplate) {
       block.append(nav);
       return;

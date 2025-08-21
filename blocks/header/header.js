@@ -154,7 +154,7 @@ export default async function decorate(block) {
 
     const navBrand = nav.querySelector('.nav-brand');
     if (navBrand) {
-      navBrand.querySelectorAll('.icon-decorated').forEach((el) => el.classList.remove('icon-decorated'));
+      navBrand.querySelectorAll('p > a > span').forEach((el) => el.classList.remove('icon-decorated'));
     }
 
     if (isCampaignTemplate) {

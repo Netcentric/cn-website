@@ -142,7 +142,7 @@ const decorateIcon = (span, html, alt = '') => {
  * @param {Element} element
  */
 export async function decorateIcons(element = document) {
-  const icons = [...element.querySelectorAll('span.icon:not(.icon-decorated, .icon-decorating)')];
+  const icons = [...element.querySelectorAll('span.icon:not(.icon-decorated, .icon-decorating, .icon-netcentric-logo)')];
 
   const symbols = {};
   let title = '';

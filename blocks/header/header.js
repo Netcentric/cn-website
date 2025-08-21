@@ -152,13 +152,9 @@ export default async function decorate(block) {
       if (section) section.classList.add(`nav-${e}`);
     });
 
-    const navBrand = nav.querySelector('.nav-brand');
-    if (navBrand) {
-      navBrand.querySelectorAll('p > a > span').forEach((el) => el.classList.remove('icon-decorated'));
-    }
-
     if (isCampaignTemplate) {
       block.append(nav);
+      decorateIcons(nav);
       return;
     }
 
@@ -220,14 +216,7 @@ export default async function decorate(block) {
 
     // Add icons to buttons
     addChevronToButtons(nav, '.nav-tools li:last-child a');
-
-    // Decorate only non-logo nav icons to avoid converting Netcentric logo
-    const navSectionsEl = nav.querySelector('.nav-sections');
-    if (navSectionsEl) decorateIcons(navSectionsEl);
-    const navSearchEl = nav.querySelector('.nav-search');
-    if (navSearchEl) decorateIcons(navSearchEl);
-    const navToolsEl = nav.querySelector('.nav-tools');
-    if (navToolsEl) decorateIcons(navToolsEl);
+    decorateIcons(nav);
 
     // Add search form
     const searchIcon = navSearch.querySelector('.icon');

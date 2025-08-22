@@ -154,6 +154,7 @@ body.appear {
 
 header {
   height: var(--nav-height);
+  background-color: var(--c-dark-plum);
 }
 
 h1,
@@ -278,7 +279,7 @@ a.button.primary,
 button.primary {
   background-color: var(--c-dark-plum);
   border: thin solid var(--c-dark-plum);
-  color: var(--c-light-teal);
+  color: var(--c-white);
 }
 
 a.button.primary:hover,
@@ -293,8 +294,8 @@ button.primary:focus {
 
 a.button.secondary,
 button.secondary {
-  border: thin solid var(--c-dark-blue);
-  background-color: var(--c-dark-blue);
+  border: thin solid var(--c-dark-plum);
+  background-color: var(--c-dark-plum);
   color: var(--c-white);
 }
 
@@ -303,7 +304,7 @@ a.button.secondary:focus,
 button.secondary:hover,
 button.secondary:focus {
   background-color: transparent;
-  color: var(--c-dark-blue);
+  color: var(--c-dark-plum);
 }
 
 button:disabled,
@@ -315,11 +316,24 @@ button:disabled:hover {
   text-align: center;
 }
 
+
 main a.button > .icon-chevron-right,
 main a.button > .icon-chevron-right svg {
   width: 12px;
   height: 12px;
   fill: var(--c-dark-gray);
+}
+
+a.button.primary > .icon-chevron-right svg,
+a.button.secondary > .icon-chevron-right svg{
+  fill: var(--c-white);
+}
+
+button:hover > .icon-chevron-right svg,
+button:focus > .icon-chevron-right svg,
+a.button:hover > .icon-chevron-right svg,
+a.button:focus > .icon-chevron-right svg {
+  fill: var(--c-dark-plum);
 }
 
 span.icon {

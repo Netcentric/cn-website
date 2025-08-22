@@ -12,7 +12,7 @@ main .hero-container > div {
 main .hero-container {
   padding: 0;
   background-color: var(--c-dark-plum);
-  color: var(--c-light-teal);
+  color: var(--c-white);
 }
 
 main .hero {
@@ -50,16 +50,32 @@ main .hero p {
 }
 
 body:not(.blogpost) main .hero a:any-link {
-  background: var(--c-light-teal);
+  background: var(--c-white);
   color: var(--c-dark-plum);
   font-size: var(--body-font-size-s);
   text-transform: uppercase;
 }
 
 body:not(.blogpost) main .hero a:any-link:hover {
-  border: 1px solid var(--c-light-teal);
   background: var(--c-dark-plum);
-  color: var(--c-light-teal);
+  color: var(--c-white);
+  border: 1px solid var(--c-white);
+}
+
+body:not(.blogpost) main .hero a.button.primary svg {
+  fill: var(--c-dark-plum);
+}
+
+body:not(.blogpost) main .hero a.button.secondary svg {
+  fill: var(--c-white);
+}
+
+body:not(.blogpost) main .hero a.button.primary:hover svg {
+  fill: var(--c-white);
+}
+
+body:not(.blogpost) main .hero a.button.secondary:hover svg {
+  fill: var(--c-dark-plum);
 }
 
 main .hero img {
@@ -89,14 +105,14 @@ main .hero a.button > .icon-chevron-right {
 }
 
 main .hero .button-container a.button.secondary {
-  border: 1px solid var(--c-light-teal);
-  color: var(--c-light-teal);
+  border: 1px solid var(--c-white);
+  color: var(--c-white);
   background: var(--c-dark-plum);
 }
 
 main .hero .button-container a.button.secondary:hover {
-  color: #77bad7;
-  border-color: #77bad7;
+  color: var(--c-dark-plum);
+  background: var(--c-white);
 }
 
 body.blogpost main .hero-container {
@@ -119,7 +135,7 @@ body.blogpost main .hero img {
 }
 
 body.blogpost main .hero p {
-  color: var(--text-color);
+  color: var(--c-dark-plum);
 }
 
 @media (min-width: 900px) {

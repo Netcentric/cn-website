@@ -19,7 +19,7 @@ main .form textarea {
 main .form input:hover,
 main .form textarea:hover,
 main .form select:hover {
-  border-color: #d1c4e9;
+  border-color: var(--c-white);
 }
 
 main .form label {
@@ -70,7 +70,7 @@ main
   height: 20px;
   background: url('/icons/checkbox-checked.svg') center center no-repeat;
   background-size: 60%;
-  background-color: #2e308e;
+  background-color: var(--c-dark-plum);
   border-radius: 3px;
   content: ' ';
   margin: 8px 7px 0 2px;
@@ -88,7 +88,7 @@ main .form .button {
   cursor: pointer;
   background: var(--c-dark-plum);
   border-color: var(--c-dark-plum);
-  color: white;
+  color: var(--c-white);
   border-radius: 16px;
   font-weight: 300;
   text-transform: uppercase;

@@ -41,14 +41,14 @@
   z-index: 1;
   border: none;
   border-radius: 5px;
-  background-color: var(--c-dark-gray);
+  background-color: var(--c-dark-plum);
   opacity: 0.3;
   transition: opacity 0.2s ease;
 }
 
 .slider-button:hover,
 .slider-button:focus {
-  background-color: var(--c-dark-gray);
+  background-color: var(--c-dark-plum);
   opacity: 0.8;
 }
 

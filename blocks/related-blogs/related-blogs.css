@@ -39,14 +39,14 @@ body.blogpost .related-blogs-container .teaser p.tags {
 }
 
 body.blogpost .related-blogs-container a.button.secondary {
-  border: 1px solid var(--c-light-teal);
-  color: var(--c-light-teal);
+  border: 1px solid var(--c-white);
+  color: var(--c-white);
   background: var(--c-dark-plum);
 }
 
 body.blogpost .related-blogs-container a.button.secondary:hover {
-  color: #77bad7;
-  border-color: #77bad7;
+  color: var(--c-white);
+  border-color: var(--c-white);
 }
 
 @media (min-width: 900px) {

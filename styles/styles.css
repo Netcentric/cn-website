@@ -27,22 +27,7 @@
 
 :root {
   /* Netcentric colors */
-  --c-black: #000;
-  --c-dark-blue: #2f78c4;
-  --c-dark-mid-plum: #3e40a0; /* for background footer only */
   --c-dark-plum: #2e308e;
-  --c-dark-gray: #53565a;
-  --c-dark-teal: #06c7cc;
-  --c-light-teal: #97f5f7;
-  --c-light-blue: #92bbe6;
-  --c-light-plum: #85a0f9;
-  --c-light-gray: #d0d0ce;
-  --c-mid-blue: #6aa2dc;
-  --c-mid-plum: #7373d8;
-  --c-mid-gray: #97999b;
-  --c-mid-darkblue: #2f78c4;
-  --c-midnight-blue: #000048; /* cognizant color */
-  --c-mid-teal: #26efe9;
   --c-red: #b81f2d;
   --c-yellow: #e9c71d;
   --c-white: #fff;
@@ -65,27 +50,15 @@
   --c-error: var(--c-highlight-red);
 
   /* default */
-  --c-text-default: var(--c-black);
+  --c-text-default: var(--c-dark-plum);
   --c-primary: var(--c-dark-plum);
 
   /* theme colors */
 
   /* background-colors-text */
-  --bg-text-dark-plum: var(--c-light-teal);
-  --bg-text-mid-plum: var(--c-white);
-  --bg-text-light-plum: var(--c-white);
-  --bg-text-dark-blue: var(--c-white);
-  --bg-text-mid-blue: var(--c-white);
-  --bg-text-light-blue: var(--c-dark-plum);
-  --bg-text-dark-grey: var(--c-white);
-  --bg-text-light-grey: var(--c-dark-plum);
-  --bg-text-dark-teal: var(--c-dark-plum);
-  --bg-text-mid-teal: var(--c-dark-plum);
-  --bg-text-light-teal: var(--c-dark-plum);
   --bg-text-yellow: var(--c-white);
   --bg-text-red: var(--c-white);
   --bg-text-white: var(--c-dark-plum);
-  --bg-text-black: var(--c-white);
 
   /* colors with opacity */
   --c-white-50: rgb(255 255 255 / 50%);
@@ -100,8 +73,7 @@
   --background-color: var(--c-white);
   --overlay-background-color: #eee;
   --highlight-background-color: #ccc;
-  --text-color: var(--c-dark-gray);
-  --input-color: var(--c-black);
+  --input-color: var(--c-dark-plum);
   --heading-color: var(--c-dark-plum);
 
   /* fonts */
@@ -140,7 +112,7 @@ body {
   margin: 0;
   font-family: var(--body-font-family);
   line-height: 1.5;
-  color: var(--text-color);
+  color: var(--c-dark-plum);
   background-color: var(--background-color);
   display: none;
   -webkit-font-smoothing: antialiased;
@@ -154,6 +126,7 @@ body.appear {
 
 header {
   height: var(--nav-height);
+  background-color: var(--c-dark-plum);
 }
 
 h1,
@@ -243,7 +216,7 @@ button {
   font-size: var(--button-font-size-default);
   line-height: 1;
   cursor: pointer;
-  color: var(--c-dark-gray);
+  color: var(--c-dark-plum);
   background-color: transparent;
   margin: 0;
   white-space: nowrap;
@@ -264,7 +237,7 @@ button.secondary {
   line-height: 36px;
   height: 3em;
   border-radius: 36px;
-  border: thin solid var(--c-black);
+  border: thin solid var(--c-dark-plum);
 }
 
 a.button:hover,
@@ -278,7 +251,7 @@ a.button.primary,
 button.primary {
   background-color: var(--c-dark-plum);
   border: thin solid var(--c-dark-plum);
-  color: var(--c-light-teal);
+  color: var(--c-white);
 }
 
 a.button.primary:hover,
@@ -293,8 +266,8 @@ button.primary:focus {
 
 a.button.secondary,
 button.secondary {
-  border: thin solid var(--c-dark-blue);
-  background-color: var(--c-dark-blue);
+  border: thin solid var(--c-dark-plum);
+  background-color: var(--c-dark-plum);
   color: var(--c-white);
 }
 
@@ -303,7 +276,7 @@ a.button.secondary:focus,
 button.secondary:hover,
 button.secondary:focus {
   background-color: transparent;
-  color: var(--c-dark-blue);
+  color: var(--c-dark-plum);
 }
 
 button:disabled,
@@ -315,12 +288,50 @@ button:disabled:hover {
   text-align: center;
 }
 
+
+/* stylelint-disable no-descending-specificity */
+button:hover > .icon-chevron-right svg,
+button:focus > .icon-chevron-right svg,
+a.button:hover > .icon-chevron-right svg,
+a.button:focus > .icon-chevron-right svg {
+  fill: var(--c-dark-plum);
+}
+
+button.primary a.button:hover > .icon-chevron-right svg,
+button.primary a.button:focus > .icon-chevron-right svg {
+  fill: var(--c-white);
+}
+
+div:not(.hero-container) a.button.primary:hover > .icon-chevron-right svg, 
+div:not(.hero-container) a.button.primary:focus > .icon-chevron-right svg {
+  fill: var(--c-dark-plum);
+}
+
 main a.button > .icon-chevron-right,
 main a.button > .icon-chevron-right svg {
   width: 12px;
   height: 12px;
-  fill: var(--c-dark-gray);
+  fill: var(--c-dark-plum);
 }
+
+a.button.primary > .icon-chevron-right svg {
+  fill: var(--c-dark-plum);
+}
+
+a.button.secondary > .icon-chevron-right svg,
+div:not(.hero-container) a.button.primary > .icon-chevron-right svg {
+  fill: var(--c-white);
+}
+
+a.button.secondary:hover > .icon-chevron-right svg {
+  fill: var(--c-dark-plum);
+}
+
+main .section.dark-plum button.primary svg,
+main .section.dark-plum a.button.primary svg {
+  fill: var(--c-dark-plum);
+}
+/* stylelint-enable no-descending-specificity */
 
 span.icon {
   display: inline-block;
@@ -451,52 +462,34 @@ main .section.center {
 }
 
 /* section highlights */
-main .section.light-plum {
-  background-color: var(--c-light-plum);
-  color: var(--bg-text-light-plum);
-}
-
-main .section.light-plum h2,
-main .section.light-plum h3,
-main .section.light-plum h4,
-main .section.light-plum h5 {
-  color: var(--bg-text-light-plum);
-}
-
-main .section.mid-plum {
-  background-color: var(--c-mid-plum);
-  color: var(--bg-text-mid-plum);
-}
-
-main .section.mid-plum h2,
-main .section.mid-plum h3,
-main .section.mid-plum h4,
-main .section.mid-plum h5 {
-  color: var(--bg-text-mid-plum);
-}
 
 main .section.dark-plum {
   background-color: var(--c-dark-plum);
-  color: var(--bg-text-dark-plum);
+  color: var(--c-white);
 }
 
 main .section.dark-plum h2,
 main .section.dark-plum h3,
 main .section.dark-plum h4,
 main .section.dark-plum h5 {
-  color: var(--bg-text-dark-plum);
+  color: var(--c-white);
 }
 
 main .section.dark-plum a,
 main .section.dark-plum button {
-  color: var(--bg-text-dark-plum);
+  color: var(--c-white);
 }
 
 main .section.dark-plum a.button.primary,
 main .section.dark-plum button.primary {
-  background-color: var(--c-light-teal);
-  border: thin solid var(--c-light-teal);
+  background-color: var(--c-white);
+  border: thin solid var(--c-white);
   color: var(--c-dark-plum);
+}
+
+main .section.dark-plum a.button.primary:hover svg,
+main .section.dark-plum a.button.primary:focus svg {
+  fill: var(--c-white);
 }
 
 main .section.dark-plum a.button.primary:hover,
@@ -505,96 +498,7 @@ main .section.dark-plum button.primary:hover,
 main .section.dark-plum button.primary:focus {
   opacity: 1;
   background-color: transparent;
-  color: var(--c-light-teal);
-}
-
-main .section.light-blue {
-  background-color: var(--c-light-blue);
-  color: var(--bg-text-light-blue);
-}
-
-main .section.light-blue h2,
-main .section.light-blue h3,
-main .section.light-blue h4,
-main .section.light-blue h5 {
-  color: var(--bg-text-light-blue);
-}
-
-main .section.mid-blue {
-  background-color: var(--c-mid-darkblue);
-  color: var(--bg-text-mid-blue);
-}
-
-main .section.mid-blue h2,
-main .section.mid-blue h3,
-main .section.mid-blue h4,
-main .section.mid-blue h5 {
-  color: var(--bg-text-mid-blue);
-}
-
-main .section.dark-blue {
-  background-color: var(--c-dark-blue);
-  color: var(--bg-text-dark-blue);
-}
-
-main .section.dark-blue h2,
-main .section.dark-blue h3,
-main .section.dark-blue h4,
-main .section.dark-blue h5 {
-  color: var(--bg-text-dark-blue);
-}
-
-main .section.dark-blue a,
-main .section.dark-blue button {
-  color: var(--bg-text-dark-blue);
-}
-
-main .section.light-grey {
-  background-color: var(--c-light-gray);
-  color: var(--bg-text-light-grey);
-}
-
-main .section.light-grey h2,
-main .section.light-grey h3,
-main .section.light-grey h4,
-main .section.light-grey h5 {
-  color: var(--bg-text-light-grey);
-}
-
-main .section.mid-grey {
-  background-color: var(--c-mid-gray);
-}
-
-main .section.dark-grey {
-  background-color: var(--c-dark-gray);
-  color: var(--bg-text-dark-grey);
-}
-
-main .section.dark-grey h2,
-main .section.dark-grey h3,
-main .section.dark-grey h4,
-main .section.dark-grey h5 {
-  color: var(--bg-text-dark-grey);
-}
-
-main .section.dark-grey a,
-main .section.dark-grey button {
-  color: var(--bg-text-dark-grey);
-}
-
-main .section.light-teal {
-  background-color: var(--c-light-teal);
-  color: var(--bg-text-light-teal);
-}
-
-main .section.mid-teal {
-  background-color: var(--c-mid-teal);
-  color: var(--bg-text-mid-teal);
-}
-
-main .section.dark-teal {
-  background-color: var(--c-dark-teal);
-  color: var(--bg-text-dark-teal);
+  color: var(--c-white);
 }
 
 /* section text color */
@@ -640,7 +544,7 @@ main .section.text-white {
 .scroll-indicator-bar {
   width: 0;
   height: 6px;
-  background-color: var(--c-dark-teal);
+  background-color: var(--c-dark-plum);
   position: absolute;
   left: 0;
 }

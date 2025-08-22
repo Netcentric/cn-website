@@ -18,7 +18,7 @@ export default function decorate(block) {
       a = li;
     }
 
-    if (icon.className.includes('twitter')) li.className = 'social-card-twitter';
+    if (icon.className.includes('instagram')) li.className = 'social-card-instagram';
     else if (icon.className.includes('facebook')) li.className = 'social-card-facebook';
     else if (icon.className.includes('linkedin')) li.className = 'social-card-linkedin';
 

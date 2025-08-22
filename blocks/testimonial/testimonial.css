@@ -26,7 +26,7 @@
 
 .testimonial ul .authorprofile-container {
   padding-bottom: 35px;
-  color: var(--text-color);
+  color: var(--c-dark-plum);
   display: grid;
   grid-template: 'photo name' 1fr 'photo title' 1fr / 85px auto;
   column-gap: 25px;

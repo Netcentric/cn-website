@@ -20,10 +20,6 @@
   background-color: var(--c-red);
 }
 
-.gdpr-encrypt form .form-submission-result .form-submission-success {
-  background-color: var(--c-light-gray);
-}
-
 /* GDPR confirmation */
 .gdpr-confirmation form .confirm-label {
   font-size: var(--body-font-size-m);

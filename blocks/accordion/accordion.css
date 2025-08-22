@@ -14,10 +14,6 @@
     font-size: 36px;
 }
 
-.dark-blue .accordion-trigger {
-    color: var(--c-dark-blue);
-}
-
 .dark-plum .accordion-trigger {
     color: var(--c-dark-plum);
 }

@@ -26,11 +26,11 @@ main .form .mktoForm .mktoRangeField {
   font-size: 16px;
   font-weight: 400;
   line-height: 1.5;
-  color: #404040;
+  color: var(--c-dark-plum);
   -webkit-font-smoothing: antialiased;
 }
 main .form .mktoForm a {
-  color: #2e308e;
+  color: var(--c-dark-plum);
 }
 .mktoForm,
 main .form .mktoForm * {
@@ -99,15 +99,15 @@ main .form .mktoForm .mktoCheckboxList label:focus::before,
 main .form .mktoForm .mktoCheckboxList label:hover::before,
 main .form .mktoForm .mktoRadioList label:focus::before,
 main .form .mktoForm .mktoRadioList label:hover::before {
-  border-color: #d1c4e9;
+  border-color: var(--c-dark-plum);
 }
 main .form .mktoForm .mktoRadioList label::before {
   border-radius: 50%;
 }
 main .form .mktoForm .mktoCheckboxList input:checked + label::before,
 main .form .mktoForm .mktoRadioList input:checked + label::before {
-  background-color: #2e308e;
-  border-color: #2e308e;
+  background-color: var(--c-dark-plum);
+  border-color: var(--c-dark-plum);
 }
 main .form .mktoForm .mktoCheckboxList input:checked + label::before {
   background-image: url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="-6527.959 872.109 12.577 12.688"%3E%3Cpath fill="none" stroke="%23fff" stroke-width="2px" d="M-6527.166,877.783l3.155,4.117,7.828-10.433" transform="translate%280 1.243%29"/%3E%3C/svg%3E%0A');
@@ -117,19 +117,19 @@ main .form .mktoForm .mktoCheckboxList input:checked + label::before {
 }
 main .form .mktoForm .mktoField {
   padding: 10px 16px;
-  color: #404040;
+  color: var(--c-dark-plum);
   background: 0 0;
   border: 1px solid rgba(0, 0, 0, 0.1);
   border-radius: 3px;
 }
 .mktoForm[data-form-id='172'] .mktoField,
 .mktoForm[data-form-id='173'] .mktoField {
-  background: #f6f7fc;
-  border: 1px solid #f6f7fc;
+  background: var(--c-white);
+  border: 1px solid var(--c-white);
 }
 main .form .mktoForm .mktoField:focus,
 main .form .mktoForm .mktoField:hover {
-  border-color: #d1c4e9;
+  border-color: var(--c-dark-plum);
   outline: 0;
 }
 main .form .mktoForm textarea.mktoField {
@@ -152,8 +152,8 @@ main .form .mktoForm .mktoField:-webkit-autofill,
 main .form .mktoForm .mktoField:-webkit-autofill:active,
 main .form .mktoForm .mktoField:-webkit-autofill:focus,
 main .form .mktoForm .mktoField:-webkit-autofill:hover {
-  -webkit-box-shadow: 0 0 0 30px #fff inset;
-  box-shadow: 0 0 0 30px #fff inset;
+  -webkit-box-shadow: 0 0 0 30px var(--c-dark-plum) inset;
+  box-shadow: 0 0 0 30px var(--c-dark-plum) inset;
 }
 main .form .mktoForm .mktoButtonRow {
   text-align: center;
@@ -169,20 +169,20 @@ main .form .mktoForm .mktoButton {
   margin-top: 30px;
   font-size: 12px;
   font-weight: 700;
-  color: #fff;
+  color: var(--c-white);
   text-align: center;
   text-decoration: none;
   text-transform: uppercase;
   padding: 8px 35px;
   vertical-align: middle;
   cursor: pointer;
-  background-color: #2e308e;
-  border: 1px solid #2e308e;
+  background-color: var(--c-dark-plum);
+  border: 1px solid var(--c-dark-plum);
   border-radius: 30px;
 }
 main .form .mktoForm .mktoButton:focus,
 main .form .mktoForm .mktoButton:hover {
-  color: #2e308e;
+  color: var(--c-dark-plum);
   background-color: transparent;
   outline: 0;
 }
@@ -210,7 +210,7 @@ main .form .mktoForm .mktoErrorMsg {
   min-width: 150px;
   max-width: 300px;
   padding: 10px;
-  color: #fff;
+  color: var(--c-white);
   background-color: #db204c;
   border-radius: 3px;
 }
@@ -241,13 +241,13 @@ main .form .mktoForm legend {
   font-weight: 400;
   line-height: 1.2;
   text-align: left;
-  color: #2e308e;
+  color: var(--c-dark-plum);
 }
 main .form .mktoForm .mktoButtonMultiStepPrev {
   position: relative;
   padding-left: 20px;
   margin-bottom: 8px;
-  color: #2e308e;
+  color: var(--c-dark-plum);
   background: 0 0;
   border: 0;
   cursor: pointer;
@@ -260,7 +260,7 @@ main .form .mktoForm .mktoButtonMultiStepPrev::before {
   left: 2px;
   width: 8px;
   height: 2px;
-  background-color: #2e308e;
+  background-color: var(--c-dark-plum);
   transform: translateY(-100%) rotate(-45deg);
   transform-origin: left center;
   content: '';

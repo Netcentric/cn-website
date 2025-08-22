@@ -1,18 +1,7 @@
 import { createOptimizedPicture } from '../../scripts/lib-franklin.js';
 
 const supportedBackgroundColors = [
-  'dark-teal',
-  'mid-teal',
-  'light-teal',
-  'dark-blue',
-  'light-blue',
-  'midnight-blue',
   'dark-plum',
-  'light-plum',
-  'mid-plum',
-  'light-gray',
-  'mid-gray',
-  'dark-gray',
 ];
 
 function getImageWidth(block) {

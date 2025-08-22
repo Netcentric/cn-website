@@ -50,12 +50,8 @@
 }
 
 .flip-cards-hover a {
-    color: var(--c-black);
+    color: var(--c-dark-plum);
     text-decoration: underline;
-}
-
-.flip-cards-hover a:hover {
-    color: var(--c-dark-teal);
 }
 
 .flip-cards-hover ul {

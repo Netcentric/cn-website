@@ -1,3 +1,15 @@
+.cards-card-body a {
+    color: var(--c-dark-plum);
+}
+
+/* .cards-card-image */
+.cards-card-image + .cards-card-body h3,
+.cards-card-image + .cards-card-body h2,
+.cards-card-image + .cards-card-body p,
+.cards-card-image + .cards-card-body a {
+    color: var(--c-white);
+}
+
 .cards > ul {
     list-style: none;
     margin: 0;
@@ -27,13 +39,23 @@
     flex-grow: 1;
 }
 
+.cards.icon-with-text .cards-card-body > h3,
+.cards.icon-with-text .cards-card-body > h4,
+.cards.icon-with-text .cards-card-body > p {
+    color: var(--c-dark-plum);
+}
+
+.cards.teaser .cards-card-body {
+    background-color: var(--c-dark-plum);
+}
+
 /* cards side-by-side */
 .cards.side-by-side > ul > li > .cards-card-body {
     padding-left: 20px;
     padding-right: 40px;
     position: absolute;
     top: 5px;
-    color: white;
+    color: var(--c-white);
     width: 85%;
 }
 
@@ -41,7 +63,6 @@
     padding: 5px 15px;
 }
 
-/* cards side-by-side */
 .cards.side-by-side > ul > li img {
     height: 380px;
     filter: brightness(45%);
@@ -60,20 +81,12 @@
 }
 
 .cards.side-by-side > ul > li a.button:any-link {
-  color: white;
+  color: var(--c-white);
 }
 
 .cards.side-by-side > ul > li a.button:any-link:hover {
   text-decoration: underline;
   background: none;
-}
-
-/* cards side-by-side */
-.cards.side-by-side .cards-card-body h2,
-.cards.side-by-side .cards-card-body h3,
-.cards.side-by-side .cards-card-body h4,
-.cards.side-by-side .cards-card-body h5 {
-    color: var(--c-white);
 }
 
 .cards.side-by-side .cards-card-body h3 {
@@ -82,15 +95,15 @@
 }
 
 .cards.teaser > ul > li .cards-card-body h3 {
-    color: white;
+    color: var(--c-white);
     font-size: 30px;
     margin-top: 10px;
     font-weight: 300;
 }
 
 .cards.teaser > ul > li .cards-card-body p em {
+    color: var(--c-white);
     font-size: 15px;
-    color: white;
     font-style: normal;
 }
 
@@ -98,28 +111,8 @@
     line-height: 1.5em;
 }
 
-.cards.teaser.background > ul > li > div:first-child {
-    background-color: rgb(46 48 142);
-}
-
-.cards.teaser.background > ul > li > div:nth-last-child(2) {
-    background-color: rgb(133 160 249);
-}
-
-.cards.teaser.background > ul > li > div:last-child {
-    background-color: rgb(47 120 196);
-}
-
-.cards.teaser.icons > ul > li > div:first-child {
-    background-color: #2e308e;
-}
-
-.cards.teaser.icons > ul > li > div:nth-last-child(2) {
-    background-color: #92bbe6;
-}
-
-.cards.teaser.icons > ul > li > div:last-child {
-    background-color: #6aa2dc;
+.cards.teaser.background > ul > li > div {
+    background-color: var(--c-dark-plum);
 }
 
 .cards.teaser.icons > ul > li .cards-card-body p:last-child {
@@ -136,7 +129,6 @@
     margin-top: 0;
 }
 
-/* cards side-by-side */
 .cards.side-by-side > ul > li {
     margin: 0;
     padding: 0;
@@ -161,11 +153,11 @@
     padding-right: 40px;
 }
 
-.cards.side-by-side .cards-card-body h2 a,
-.cards.side-by-side .cards-card-body h3 a,
-.cards.side-by-side .cards-card-body h4 a,
-.cards.side-by-side .cards-card-body h5 a {
+.cards.side-by-side .cards-card-bg-dark-plum,
+.cards.side-by-side .cards-card-bg-dark-plum a {
+    background-color: var(--c-dark-plum);
     color: var(--c-white);
+    line-height: 1.4em;
 }
 
 .cards.side-by-side .cards-card-body h3 a {
@@ -372,7 +364,6 @@
 }
 
 /* .icon-with-text */
-
 .cards.icon-with-text .cards-card-image {
     line-height: 0;
     width: 40px;
@@ -389,72 +380,9 @@
     font-size: 18px;
 }
 
-.cards.icon-with-text .cards-card-body > h4 {
-    color: var(--c-dark-plum);
-}
-
 /* section highlights */
 
-.section.light-plum .cards > ul > li {
-    background-color: var(--bg-text-light-plum);
-    color: var(--c-dark-plum);
-}
-
-.section.light-blue .cards > ul > li {
-    background-color: var(--bg-text-light-plum);
-    color: var(--c-dark-blue);
-}
-
 .section.dark-plum .cards > ul > li {
-  background-color: var(--bg-text-light-plum);
+  background-color: var(--c-white);
   color: var(--c-dark-plum);
 }
-
-/* background colors */
-.cards-card-bg-dark-teal {
-    background-color: var(--c-dark-teal);
-  }
-  
-  .cards-card-bg-mid-teal {
-    background-color: var(--c-mid-teal);
-  }
-  
-  .cards-card-bg-light-teal {
-    background-color: var(--c-light-teal);
-  }
-  
-  .cards-card-bg-dark-blue {
-    background-color: var(--c-dark-blue);
-  }
-  
-  .cards-card-bg-light-blue {
-    background-color: var(--c-light-blue);
-  }
-  
-  .cards-card-bg-midnight-blue {
-    background-color: var(--c-midnight-blue);
-  }
-  
-  .cards-card-bg-dark-plum {
-    background-color: var(--c-dark-plum);
-  }
-  
-  .cards-card-bg-light-plum {
-    background-color: var(--c-light-plum);
-  }
-  
-  .cards-card-bg-mid-plum {
-    background-color: var(--c-mid-plum);
-  }
-  
-  .cards-card-bg-light-grey{
-    background-color: var(--c-light-gray);
-  }
-  
-  .cards-card-bg-mid-grey{
-    background-color: var(--c-mid-gray);
-  }
-  
-  .cards-card-bg-dark-grey{
-    background-color: var(--c-dark-gray);
-  }

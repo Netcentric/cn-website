@@ -55,45 +55,14 @@
 
 .columns.background-dark-plum {
   background-color: var(--c-dark-plum);
-}
-
-.columns.background-light-plum {
-  background-color: var(--c-light-plum);
-}
-
-.columns.background-dark-blue {
-  background-color: var(--c-dark-blue);
-}
-
-.columns.background-light-gray {
-  background-color: var(--c-light-gray);
-}
-
-.columns.background-dark-gray {
-  background-color: var(--c-dark-gray);
-}
-
-.columns.background-light-plum,
-.columns.background-dark-plum,
-.columns.background-dark-blue,
-.columns.background-light-gray,
-.columns.background-dark-gray {
   padding: 0 16px;
 }
 
-.columns.background-light-plum > div > div,
-.columns.background-dark-blue > div > div,
-.columns.background-dark-plum > div > div,
-.columns.background-light-gray > div > div,
-.columns.background-dark-gray > div > div {
-  background-color: white;
+.columns.background-dark-plum > div > div {
+  background-color: var(--c-white);
 }
 
-.columns.background-light-plum > div > div > *,
-.columns.background-dark-blue > div > div > *,
-.columns.background-dark-plum > div > div > *,
-.columns.background-light-gray > div > div > *,
-.columns.background-dark-gray > div > div > * {
+.columns.background-dark-plum > div > div > * {
   margin: 16px 0;
 }
 
@@ -115,35 +84,12 @@
 
 /* heading style */
 
-.columns.heading-white > div > div > :where(h1,h2,h3,h4,h5,h6):first-of-type {
+.columns.heading-white > div > div > :where(h1,h2,h3,h4,h5,h6) {
   color: var(--c-white);
 }
 
-.columns.heading-dark-blue > div > div > :where(h1,h2,h3,h4,h5,h6):first-of-type {
-    color: var(--c-dark-blue);
-}
-
-.columns.heading-dark-teal > div > div > :where(h1,h2,h3,h4,h5,h6):first-of-type {
-  color: var(--c-dark-teal);
-}
-
-.columns.heading-dark-plum > div > div > :where(h1,h2,h3,h4,h5,h6):first-of-type {
+.columns.heading-dark-plum > div > div > :where(h1,h2,h3,h4,h5,h6) {
     color: var(--c-dark-plum);
-}
-
-.columns.rainbow > div > div:nth-of-type(3n),
-.columns.rainbow-reverse > div > div:nth-of-type(3n + 1) {
-    background-color: var(--c-mid-blue);
-}
-
-.columns.rainbow > div > div:nth-child(3n + 1),
-.columns.rainbow-reverse > div > div:nth-of-type(3n) {
-    background-color: var(--c-mid-plum);
-}
-
-.columns.rainbow > div > div:nth-child(3n + 2),
-.columns.rainbow-reverse > div > div:nth-of-type(3n + 2) {
-    background-color: var(--c-dark-blue);
 }
 
 @media (min-width: 600px) {

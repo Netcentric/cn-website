@@ -26,7 +26,7 @@
 }
 
 .blogpost .icons {
-  color: var(--c-black);
+  color: var(--c-dark-plum);
   font-size: 48px;
   vertical-align: middle;
   display: inline-block;
@@ -112,7 +112,7 @@ ul.authorprofile-socialnetworks {
 }
 
 .blogpost .blogfooter-topics-link {
-  color: var(--c-black);
+  color: var(--c-dark-plum);
 }
 
 .blogpost .line-base {

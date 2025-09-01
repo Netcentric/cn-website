@@ -17,7 +17,7 @@
 }
 
 .chapter-cards-item:hover * {
-    background: var(--c-light-teal);
+    background: var(--c-white);
     color: var(--c-dark-plum);
     transition: 0.3s ease-in-out;
 }
@@ -30,7 +30,7 @@
 }
 
 .chapter-cards-title {
-   background: var(--c-mid-teal);
+   background: var(--c-white);
    color: var(--c-dark-plum);
    font-size: 18px;
    font-weight: 600;

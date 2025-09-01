@@ -116,7 +116,7 @@
     cursor: pointer;
     background: var(--c-dark-plum);
     border-color: var(--c-dark-plum);
-    color: white;
+    color: var(--c-white);
     border-radius: 16px;
     font-weight: 300;
     text-transform: uppercase;

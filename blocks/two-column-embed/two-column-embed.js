@@ -33,6 +33,7 @@ export default function decorate(block) {
   const cols = [...block.firstElementChild.children];
 
   if (cols.length !== 2) {
+    // eslint-disable-next-line no-console
     console.warn('two-column-embed block requires exactly 2 columns');
     return;
   }

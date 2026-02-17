@@ -44,6 +44,16 @@
     margin-top: 0;
 }
 
+/* layout */
+/* stylelint-disable-next-line no-descending-specificity */
+.columns.center-aligned > div {
+    align-items: center;
+}
+
+.columns.center-aligned > div > div {
+    flex-grow: auto;
+}
+
 /* 3 columns */
 .columns.columns-3-cols {
     --column-fb-left: 33%;

@@ -309,6 +309,7 @@ async function autoBlockEmbeddedLinks(main, urlParam = 'embedded') {
 async function buildAutoBlocks(main) {
   try {
     buildHeroBlock(main);
+    autoBlockEmbeddedLinks(main);
     const template = toClassName(getMetadata('template'));
     const templates = TEMPLATE_LIST;
     if (templates.includes(template)) {
@@ -345,7 +346,6 @@ export async function decorateMain(main) {
   preDecorateMarketoForm(main);
   await buildAutoBlocks(main);
   decorateSections(main);
-  await autoBlockEmbeddedLinks(main);
   decorateBlocks(main);
   preDecorateEmbed(main);
 }

@@ -15,6 +15,8 @@ import {
   getMetadata,
   loadCSS,
   toCamelCase,
+  decorateBlock,
+  loadBlock,
 } from './lib-franklin.js';
 import TEMPLATE_LIST from '../templates/config.js';
 
@@ -263,6 +265,44 @@ function preDecorateMarketoForm(main) {
 }
 
 /**
+ * Automatically converts links with a specific URL parameter to embed blocks
+ * @param {Element} main The main element
+ */
+async function autoBlockEmbeddedLinks(main, urlParam = 'embedded') {
+  const anchors = [...main.getElementsByTagName('a')].filter((a) => {
+    try {
+      const url = new URL(a.href);
+      return url.searchParams.has(urlParam) && (a.textContent.trim() === a.href || a.textContent.trim().includes('http'));
+    } catch (e) {
+      return false;
+    }
+  });
+
+  // Process each anchor and wait for all to complete
+  await Promise.all(anchors.map(async (a) => {
+    // Early return: already inside an embed block
+    if (findParent(a, (parent) => parent.classList.contains('embed'))) {
+      return;
+    }
+
+    // Create embed block
+    const embedBlock = buildBlock('embed', { elems: [a.cloneNode(true)] });
+
+    // Replace the paragraph containing the link with the embed block
+    const paragraph = a.parentElement;
+    if (paragraph && paragraph.tagName === 'P' && paragraph.childNodes.length === 1) {
+      paragraph.replaceWith(embedBlock);
+    } else {
+      a.replaceWith(embedBlock);
+    }
+
+    // Decorate and load the block (full initialization)
+    decorateBlock(embedBlock);
+    await loadBlock(embedBlock);
+  }));
+}
+
+/**
  * Builds all synthetic blocks in a container element.
  * @param {Element} main The container element
  */
@@ -305,6 +345,7 @@ export async function decorateMain(main) {
   preDecorateMarketoForm(main);
   await buildAutoBlocks(main);
   decorateSections(main);
+  await autoBlockEmbeddedLinks(main);
   decorateBlocks(main);
   preDecorateEmbed(main);
 }

@@ -12,8 +12,9 @@ const calculatePaddingFromRatio = (ratio) => {
 };
 
 const getDefaultEmbed = (url, paddingBottom = '40.75%') => `<div style="left: 0; width: 100%; height: 0; position: relative; padding-bottom: ${paddingBottom}">
-      <iframe src="${url.href}" style="border: 0; top: 0; left: 0; width: 100%; height: 100%; position: absolute; overflow: visible;" allowfullscreen=""
-        scrolling="yes" allow="encrypted-media" title="Content from ${url.hostname}" loading="lazy">
+      <iframe src="${url.href}" style="border: 0; top: 0; left: 0; width: 100%; height: 100%; position: absolute; overflow: visible;"
+        sandbox="allow-scripts allow-forms allow-same-origin"
+        allowfullscreen="" scrolling="yes" allow="encrypted-media" title="Content from ${url.hostname}" loading="lazy">
       </iframe>
     </div>`;
 

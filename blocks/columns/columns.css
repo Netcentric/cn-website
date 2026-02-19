@@ -25,6 +25,10 @@
     flex-direction: column-reverse;
 }
 
+.columns.center-aligned > div {
+    align-items: center;
+}
+
 .columns.rainbow > div > div,
 .columns.rainbow-reverse > div > div {
     margin: 0;
@@ -42,12 +46,6 @@
 
 .columns > div > div > *:first-child {
     margin-top: 0;
-}
-
-/* layout */
-/* stylelint-disable-next-line no-descending-specificity */
-.columns.center-aligned > div {
-    align-items: center;
 }
 
 .columns.center-aligned > div > div {
